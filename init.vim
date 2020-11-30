@@ -10,7 +10,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 EOF
 
-lua require('init')
+lua require('init').init()
 
 "禁止vim换行后自动添加的注释符号     
 augroup Format-Options     
