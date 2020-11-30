@@ -1,15 +1,3 @@
-lua << EOF
-local execute = vim.api.nvim_command
-local fn = vim.fn
-
-local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
-
-if fn.empty(fn.glob(install_path)) > 0 then
-	execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
-	execute 'packadd packer.nvim'
-end
-EOF
-
 lua require('init').init()
 
 "禁止vim换行后自动添加的注释符号     
@@ -23,11 +11,4 @@ augroup Format-Options
 	"autocmd BufEnter * match WhitespaceEOL /\s\+$/
 augroup END
 
-" let g:lightline = {
-"       \ 'colorscheme': 'wombat',
-"       \ 'component': {
-"       \   'filename': '%F%m%r%h%w'
-"       \ },
-"       \ }
-
-execute 'source' fnamemodify(expand('<sfile>'), ':h').'/coc.vim'
+execute 'source' fnamemodify(expand('<sfile>'), ':h').'/plugin/coc.vim'
