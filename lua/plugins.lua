@@ -105,4 +105,7 @@ return require('packer').startup(function()
     config = function()
         vim.o.hidden = true
     end}
+
+    -- Git messager
+    use {'rhysd/git-messenger.vim', opt = true, cmd = 'GitMessenger'}
 end)

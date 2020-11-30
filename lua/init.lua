@@ -1,5 +1,6 @@
 local options = require('options')
 local plugins = require('plugins')
+local keybindings = require('keybindings')
 
 local core = {}
 
@@ -14,6 +15,7 @@ end
 function core.init()
     check_packer()
     options.load_options()
+    keybindings.setup()
 end
 
 return core
