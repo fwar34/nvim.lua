@@ -23,3 +23,11 @@ augroup Format-Options
 	"autocmd BufEnter * match WhitespaceEOL /\s\+$/
 augroup END
 
+" let g:lightline = {
+"       \ 'colorscheme': 'wombat',
+"       \ 'component': {
+"       \   'filename': '%F%m%r%h%w'
+"       \ },
+"       \ }
+
+execute 'source' fnamemodify(expand('<sfile>'), ':h').'/coc.vim'

@@ -6,96 +6,103 @@ vim.cmd [[packadd packer.nvim]]
 -- vim._update_package_paths()
 
 return require('packer').startup(function()
-        -- Packer can manage itself as an optional plugin
-        use {'wbthomason/packer.nvim', opt = true}
+    -- Packer can manage itself as an optional plugin
+    use {'wbthomason/packer.nvim', opt = true}
 
-        -- Simple plugins can be specified as strings
-        use '9mm/vim-closer'
+    -- Simple plugins can be specified as strings
+    use '9mm/vim-closer'
 
-        -- Lazy loading:
-        -- Load on specific commands
-        use {'tpope/vim-dispatch', opt = true, cmd = {'Dispatch', 'Make', 'Focus', 'Start'}}
+    -- Lazy loading:
+    -- Load on specific commands
+    use {'tpope/vim-dispatch', opt = true, cmd = {'Dispatch', 'Make', 'Focus', 'Start'}}
 
-        -- Load on an autocommand event
-        use {'andymass/vim-matchup', event = 'VimEnter *'}
+    -- Load on an autocommand event
+    use {'andymass/vim-matchup', opt = true, event = 'VimEnter *',
+    config = function()
+        vim.cmd [[ let g:matchup_matchparen_offscreen = {'method': 'popup'} ]]
+    end}
 
-        -- Load on a combination of conditions: specific filetypes or commands
-        -- Also run code after load (see the "config" key)
-        -- use {
-        --     'w0rp/ale',
-        --     ft = {'sh', 'zsh', 'bash', 'c', 'cpp', 'cmake', 'html', 'markdown', 'racket', 'vim', 'tex'},
-        --     cmd = 'ALEEnable',
-        --     config = 'vim.cmd[[ALEEnable]]'
-        -- }
+    -- Load on a combination of conditions: specific filetypes or commands
+    -- Also run code after load (see the "config" key)
+    -- use {
+    --     'w0rp/ale',
+    --     ft = {'sh', 'zsh', 'bash', 'c', 'cpp', 'cmake', 'html', 'markdown', 'racket', 'vim', 'tex'},
+    --     cmd = 'ALEEnable',
+    --     config = 'vim.cmd[[ALEEnable]]'
+    -- }
 
-        -- Plugins can have dependencies on other plugins
-        use {
-                'haorenW1025/completion-nvim',
-                opt = true,
-                requires = {{'hrsh7th/vim-vsnip', opt = true}, {'hrsh7th/vim-vsnip-integ', opt = true}}
-        }
+    -- Plugins can have dependencies on other plugins
+    -- use {
+    --     'haorenW1025/completion-nvim',
+    --     opt = true,
+    --     requires = {{'hrsh7th/vim-vsnip', opt = true}, {'hrsh7th/vim-vsnip-integ', opt = true}}
+    -- }
 
-        -- Local plugins can be included
-        --use '~/projects/personal/hover.nvim'
+    -- Local plugins can be included
+    --use '~/projects/personal/hover.nvim'
 
-        -- Plugins can have post-install/update hooks
-        -- use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
+    -- Plugins can have post-install/update hooks
+    -- use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
 
-        -- You can specify multiple plugins in a single call
-        -- use {'tjdevries/colorbuddy.vim', {'nvim-treesitter/nvim-treesitter', opt = true}}
+    -- You can specify multiple plugins in a single call
+    -- use {'tjdevries/colorbuddy.vim', {'nvim-treesitter/nvim-treesitter', opt = true}}
 
-        -- You can alias plugin names
-        use {'dracula/vim', as = 'dracula'}
-        -----------------------------------------------------------------------------------------
+    -- You can alias plugin names
+    use {'dracula/vim', as = 'dracula'}
+    -----------------------------------------------------------------------------------------
 
-        -- Status line
-        -- use {'itchyny/lightline.vim', config = function() vim.g.lightline = [[ 'colorscheme': 'wombat', 'component': {        'filename': '%F%m%r%h%w'} ]] end}
-        -- use 'glepnir/spaceline.vim'
+    -- Status line
+    use {'itchyny/lightline.vim',
+    config = function() 
+        vim.cmd[[ let g:lightline = {'colorscheme': 'wombat', 'component': {'filename': '%F%m%r%h%w'}} ]] 
+    end}
+    -- use 'glepnir/spaceline.vim'
 
-        -- Interface
-        use {'liuchengxu/vim-which-key', opt = true, cmd = {'Whichkey', 'Whichkey!'}}
+    -- Interface
+    use {'liuchengxu/vim-which-key', opt = true, cmd = {'Whichkey'}}
 
-        -- Coding
-        use {'liuchengxu/vista.vim', opt = true, cmd = {'Vista', 'Vista!', 'Vista!!'}}
+    -- Coding
+    use {'liuchengxu/vista.vim', opt = true, cmd = {'Vista'}}
 
-        -- Find everythings
-        use {'liuchengxu/vim-clap', opt = true, cmd = {'Capl', 'Capl!!'}}
+    -- Find everythings
+    use {'liuchengxu/vim-clap', opt = true, cmd = {'Capl'}}
 
-        -- Grepping
-        use {'mhinz/vim-grepper', cmd = 'Grepper'}
+    -- Grepping
+    use {'mhinz/vim-grepper', opt = true, cmd = 'Grepper'}
 
-        -- File manager
-        use {'Shougo/defx.nvim', opt = true, cmd = {'Defx'}}
+    -- File manager
+    use {'Shougo/defx.nvim', opt = true, cmd = {'Defx'}}
 
-        -- Better Lua highlighting
-        use 'euclidianAce/BetterLua.vim'
+    -- Better Lua highlighting
+    use {'euclidianAce/BetterLua.vim', opt = true, ft = {'lua'}}
 
-        -- Registers
-        -- Peekaboo extends " and @ in normal mode and <CTRL-R> in insert mode so you can see the contents of the registers.
-        use 'junegunn/vim-peekaboo'
+    -- Registers
+    -- Peekaboo extends " and @ in normal mode and <CTRL-R> in insert mode so you can see the contents of the registers.
+    use 'junegunn/vim-peekaboo'
 
-        -- Marks
-        use 'kshenoy/vim-signature'
+    -- Marks
+    use 'kshenoy/vim-signature'
 
-        -- Buffer management
-        use {'mhinz/vim-sayonara', cmd = 'Sayonara'}
+    -- Buffer management
+    use {'mhinz/vim-sayonara', opt = true, cmd = 'Sayonara'}
 
-        -- Movement
-        use {'easymotion/vim-easymotion'}
+    -- Movement
+    use {'easymotion/vim-easymotion'}
 
-        -- Quickfix
+    -- Quickfix
 
-        -- Commenting
-        use 'tomtom/tcomment_vim'
+    -- Commenting
+    use 'tomtom/tcomment_vim'
 
-        -- Do stuff like :sudowrite
-        use 'lambdalisue/suda.vim' 
+    -- Do stuff like :sudowrite
+    use 'lambdalisue/suda.vim' 
 
-        -- Beautiful tabline
-        use {'mg979/vim-xtabline', opt = true }
+    -- Beautiful tabline
+    -- use {'mg979/vim-xtabline'}
 
-        -- Coc
-        use {'neoclide/coc.nvim', opt = true, config = function()
-                vim.o.hidden = true
-        end}
+    -- Coc
+    use {'neoclide/coc.nvim', 
+    config = function()
+        vim.o.hidden = true
+    end}
 end)
