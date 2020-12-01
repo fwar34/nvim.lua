@@ -59,7 +59,11 @@ return require('packer').startup(function()
     -- use 'glepnir/spaceline.vim'
 
     -- Interface
-    use {'liuchengxu/vim-which-key', opt = true, cmd = {'Whichkey'}}
+    -- use {'liuchengxu/vim-which-key', cmd = {'Whichkey'}}
+    use {'liuchengxu/vim-which-key', 
+    config = function()
+        vim.g.which_key_use_floating_win = 1
+    end}
 
     -- Coding
     use {'liuchengxu/vista.vim', opt = true, cmd = {'Vista'}}

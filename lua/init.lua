@@ -1,6 +1,6 @@
 local options = require('options')
 local plugins = require('plugins')
-local keybindings = require('keybindings')
+local key_mappings = require('key_mappings')
 
 local core = {}
 
@@ -15,7 +15,7 @@ end
 function core.init()
     check_packer()
     options.load_options()
-    keybindings.setup()
+    key_mappings.setup()
 end
 
 return core
