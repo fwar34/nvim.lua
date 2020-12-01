@@ -61,18 +61,17 @@ return require('packer').startup(function()
     -- use 'glepnir/spaceline.vim'
 
     -- Interface
-    -- use {'liuchengxu/vim-which-key', cmd = {'Whichkey'}}
-    use {'liuchengxu/vim-which-key', 
-        config = function()
-            vim.g.which_key_use_floating_win = 1
-        end
-    }
+    use {'liuchengxu/vim-which-key'}
 
     -- Coding
     use {'liuchengxu/vista.vim', opt = true, cmd = {'Vista'}}
 
     -- Find everythings
-    use {'liuchengxu/vim-clap', opt = true, cmd = {'Capl'}}
+    use {'liuchengxu/vim-clap', opt = true, cmd = {'Clap'}, 
+        config = function()
+            vim.g.clap_theme = 'material_design_dark'
+        end
+    }
 
     -- Grepping
     use {'mhinz/vim-grepper', opt = true, cmd = 'Grepper'}
@@ -107,7 +106,7 @@ return require('packer').startup(function()
     use {'neoclide/coc.nvim'}
 
     -- Git messager
-    use {'rhysd/git-messenger.vim', opt = true, cmd = 'GitMessenger'}
+    -- use {'rhysd/git-messenger.vim', opt = true, cmd = 'GitMessenger'}
 
     -- Themes
     use {'glepnir/oceanic-material', config = 'vim.cmd [[ colorscheme oceanic_material ]]'}
