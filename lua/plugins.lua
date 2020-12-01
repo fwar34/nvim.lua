@@ -18,9 +18,10 @@ return require('packer').startup(function()
 
     -- Load on an autocommand event
     use {'andymass/vim-matchup', opt = true, event = 'VimEnter *',
-    config = function()
-        vim.cmd [[ let g:matchup_matchparen_offscreen = {'method': 'popup'} ]]
-    end}
+        config = function()
+            vim.cmd [[ let g:matchup_matchparen_offscreen = {'method': 'popup'} ]]
+        end
+    }
 
     -- Load on a combination of conditions: specific filetypes or commands
     -- Also run code after load (see the "config" key)
@@ -53,17 +54,19 @@ return require('packer').startup(function()
 
     -- Status line
     use {'itchyny/lightline.vim',
-    config = function() 
-        vim.cmd[[ let g:lightline = {'colorscheme': 'wombat', 'component': {'filename': '%F%m%r%h%w'}} ]] 
-    end}
+        config = function() 
+            vim.cmd[[ let g:lightline = {'colorscheme': 'wombat', 'component': {'filename': '%F%m%r%h%w'}} ]] 
+        end
+    }
     -- use 'glepnir/spaceline.vim'
 
     -- Interface
     -- use {'liuchengxu/vim-which-key', cmd = {'Whichkey'}}
     use {'liuchengxu/vim-which-key', 
-    config = function()
-        vim.g.which_key_use_floating_win = 1
-    end}
+        config = function()
+            vim.g.which_key_use_floating_win = 1
+        end
+    }
 
     -- Coding
     use {'liuchengxu/vista.vim', opt = true, cmd = {'Vista'}}
@@ -88,15 +91,11 @@ return require('packer').startup(function()
     use 'kshenoy/vim-signature'
 
     -- Buffer management
-    use {'mhinz/vim-sayonara', opt = true, cmd = 'Sayonara'}
 
     -- Movement
     use {'easymotion/vim-easymotion'}
 
     -- Quickfix
-
-    -- Commenting
-    use 'tomtom/tcomment_vim'
 
     -- Do stuff like :sudowrite
     use 'lambdalisue/suda.vim' 
@@ -105,11 +104,11 @@ return require('packer').startup(function()
     -- use {'mg979/vim-xtabline'}
 
     -- Coc
-    use {'neoclide/coc.nvim', 
-    config = function()
-        vim.o.hidden = true
-    end}
+    use {'neoclide/coc.nvim'}
 
     -- Git messager
     use {'rhysd/git-messenger.vim', opt = true, cmd = 'GitMessenger'}
+
+    -- Themes
+    use {'glepnir/oceanic-material', config = 'vim.cmd [[ colorscheme oceanic_material ]]'}
 end)
