@@ -17,7 +17,8 @@ return require('packer').startup(function()
     use {'tpope/vim-dispatch', opt = true, cmd = {'Dispatch', 'Make', 'Focus', 'Start'}}
 
     -- Load on an autocommand event
-    use {'andymass/vim-matchup', opt = true, event = 'VimEnter *',
+    use {
+        'andymass/vim-matchup', opt = true, event = 'VimEnter *',
         config = function()
             vim.cmd [[ let g:matchup_matchparen_offscreen = {'method': 'popup'} ]]
         end
@@ -48,12 +49,11 @@ return require('packer').startup(function()
     -- You can specify multiple plugins in a single call
     use {'tjdevries/colorbuddy.vim', {'nvim-treesitter/nvim-treesitter', opt = true}}
 
-    -- You can alias plugin names
-    use {'dracula/vim', as = 'dracula'}
     -----------------------------------------------------------------------------------------
 
     -- Status line
-    use {'itchyny/lightline.vim',
+    use {
+        'itchyny/lightline.vim',
         config = function() 
             vim.cmd[[ let g:lightline = {'colorscheme': 'wombat', 'component': {'filename': '%F%m%r%h%w'}} ]] 
         end
@@ -67,11 +67,12 @@ return require('packer').startup(function()
     use {'liuchengxu/vista.vim', opt = true, cmd = {'Vista'}}
 
     -- Find everythings
-    use {'liuchengxu/vim-clap', opt = true, event = 'VimEnter *',
+    use {
+        'liuchengxu/vim-clap', opt = true, cmd = 'Clap', -- event = 'VimEnter *',
         config = function()
             vim.g.clap_theme = 'material_design_dark'
             vim.g.clap_current_selection_sign = { text = '->', 
-	    texthl = 'ClapCurrentSelectionSign', linehl = 'ClapCurrentSelection' }
+            texthl = 'ClapCurrentSelectionSign', linehl = 'ClapCurrentSelection' }
 
             -- `:Clap dotfiles` to open some dotfiles quickly.
             vim.g.clap_provider_dot = {
@@ -81,49 +82,64 @@ return require('packer').startup(function()
                     '~/.zshrc', 
                     '~/.config/nvim/cheatsheets.md',
                     '~/.tmux.conf'}, 
-                sink = 'e'
-            }
-        end
-    }
+                    sink = 'e'
+                }
+            end
+        }
 
-    -- Grepping
-    use {'mhinz/vim-grepper', opt = true, cmd = 'Grepper'}
+        -- Grepping
+        use {'mhinz/vim-grepper', opt = true, cmd = 'Grepper'}
 
-    -- File manager
-    use {'Shougo/defx.nvim', opt = true, cmd = {'Defx'}}
+        -- File manager
+        use {'Shougo/defx.nvim', opt = true, cmd = {'Defx'}}
 
-    -- Better Lua highlighting
-    use {'euclidianAce/BetterLua.vim', opt = true, ft = {'lua'}}
+        -- Better Lua highlighting
+        use {'euclidianAce/BetterLua.vim', opt = true, ft = {'lua'}}
 
-    -- Registers
-    -- Peekaboo extends " and @ in normal mode and <CTRL-R> in insert mode so you can see the contents of the registers.
-    use 'junegunn/vim-peekaboo'
+        -- Registers
+        -- Peekaboo extends " and @ in normal mode and <CTRL-R> in insert mode so you can see the contents of the registers.
+        use 'junegunn/vim-peekaboo'
 
-    -- Marks
-    use 'kshenoy/vim-signature'
+        -- Marks
+        use 'kshenoy/vim-signature'
 
-    -- Buffer management
+        -- Buffer management
 
-    -- Movement
-    use {'easymotion/vim-easymotion'}
+        -- Movement
+        use {'easymotion/vim-easymotion'}
 
-    -- Quickfix
+        -- Quickfix
 
-    -- Do stuff like :sudowrite
-    use 'lambdalisue/suda.vim' 
+        -- Do stuff like :sudowrite
+        use 'lambdalisue/suda.vim' 
 
-    -- Beautiful tabline
-    -- use {'mg979/vim-xtabline'}
+        -- Beautiful tabline
+        -- use {'mg979/vim-xtabline'}
 
-    -- Coc
-    use {'neoclide/coc.nvim'}
+        -- Coc
+        use {'neoclide/coc.nvim', tag = 'release'}
 
-    -- Git messager
-    use {'rhysd/git-messenger.vim', opt = true, cmd = 'GitMessenger'}
+        use {'vn-ki/coc-clap'}
 
-    -- Themes
-    use {'glepnir/oceanic-material', config = 'vim.cmd [[ colorscheme oceanic_material ]]'}
+        -- Git messager
+        use {'rhysd/git-messenger.vim', opt = true, cmd = 'GitMessenger'}
 
-    -- Statusline
-    use {'ojroques/vim-scrollstatus', }
-end)
+        -- Themes
+        use {
+            {'glepnir/oceanic-material', config = 'vim.cmd [[ colorscheme oceanic_material ]]'},
+            -- You can alias plugin names
+            {'dracula/vim', as = 'dracula'}
+        }
+
+        -- Status line
+        use {'ojroques/vim-scrollstatus', }
+
+        -- Coc-fzf
+        use {
+            'antoinemadec/coc-fzf',
+            requires = {
+                {'junegunn/fzf', run = './install --all'}, 
+                {'junegunn/fzf.vim'}, -- need for preview
+            },
+        }
+    end)

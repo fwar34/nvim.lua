@@ -3,7 +3,7 @@ local options = {}
 function options.load_options()
     vim.cmd('set autochdir')
     -- 可以在normal,visual模式使用鼠标
-    -- mouse = 'nv'
+    vim.cmd('set mouse=n')
     -- vim 自身命令行模式智能补全
     vim.cmd('set wildmenu')
     -- 高亮dos的特殊符号,如^M     
@@ -21,7 +21,8 @@ function options.load_options()
     -- 设置当文件被改动时自动载入
     vim.cmd('set autoread')
     vim.cmd('set completeopt=menu,menuone,noselect,noinsert,preview')
-    -- clipboard='unnamedplus'
+    -- 终端下可以和windows共享clipboard
+    -- vim.cmd('set clipboard=unnamedplus')
     vim.cmd('set nobackup')
     vim.cmd('set nowritebackup')
     vim.cmd('set autowrite')
