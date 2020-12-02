@@ -116,7 +116,8 @@ function key_mappings:start()
 
     -- coc
     self.coc = {
-        ['n|<leader>tt'] = {'<CMD>CocCommand explorer<CR>', true, true},
+        ['n|<leader>tl'] = {'<CMD>CocCommand explorer<CR>', true, true},
+        ['n|<leader>tt'] = {'<CMD>CocCommand explorer --position floating<CR>', true, true},
     }
 
     -- coc-fzf key mappings

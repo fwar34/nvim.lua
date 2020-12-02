@@ -1,6 +1,7 @@
 local options = require('options')
 local plugins = require('plugins')
 local key_mappings = require('key_mappings')
+local autocmd = require('autocmd')
 
 local core = {}
 
@@ -16,6 +17,7 @@ function core.init()
     check_packer()
     options.load_options()
     key_mappings.setup()
+    autocmd.setup()
 end
 
 return core

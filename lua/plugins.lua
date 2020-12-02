@@ -7,7 +7,7 @@ vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function()
     -- Packer can manage itself as an optional plugin
-    use {'wbthomason/packer.nvim', opt = true, config = 'vim.cmd [[ autocmd BufWritePost plugins.lua PackerCompile ]]'}
+    use { 'wbthomason/packer.nvim', opt = true, }
 
     -- Simple plugins can be specified as strings
     use '9mm/vim-closer'
@@ -114,7 +114,7 @@ return require('packer').startup(function()
         use 'lambdalisue/suda.vim' 
 
         -- Beautiful tabline
-        -- use {'mg979/vim-xtabline', }
+        use {'mg979/vim-xtabline', }
 
         -- Coc
         use {'neoclide/coc.nvim', branch = 'release'}
@@ -133,7 +133,14 @@ return require('packer').startup(function()
         }
 
         -- Status line
-        use {'ojroques/vim-scrollstatus', }
+        use {
+            'ojroques/vim-scrollstatus', 
+            config = function()
+                vim.g.scrollstatus_size = 12
+                vim.g.scrollstatus_symbol_track = '-'
+                vim.g.scrollstatus_symbol_bar = '#'
+            end
+        }
 
         -- Coc-fzf
         use {

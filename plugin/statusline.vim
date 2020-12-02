@@ -14,10 +14,17 @@ let g:lightline = {
             \ 'colorscheme': 'wombat', 
             \ 'active': 
             \    {'left': [ [ 'mode', 'paste' ], 
-            \               [ 'gitbranch', 'readonly', 'filename', 'modified', 'method' ] ]
-            \ },  
-            \ 'component': {'filename': '%F%m%r%h%w'}, 
+            \               [ 'gitbranch', 'readonly', 'filename', 'modified', 'method' ] ],
+            \     'right': [ [ 'lineinfo' ],
+            \                [ 'scorestatus', 'fileformat', 'fileencoding', 'filetype' ] ]
+            \    },  
             \ 'component_function': 
-            \    {'method': 'NearestMethodOrFunction', 
-            \     'gitbranch': 'FugitiveHead'},
+            \    {
+            \     'method': 'NearestMethodOrFunction', 
+            \     'gitbranch': 'FugitiveHead',
+            \     'scorestatus': 'ScrollStatus',
+            \    },
             \ }
+
+" let g:scrollstatus_symbol_track = '-'
+" let g:scrollstatus_symbol_bar = '#'
