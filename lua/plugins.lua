@@ -43,10 +43,10 @@ return require('packer').startup(function()
     --use '~/projects/personal/hover.nvim'
 
     -- Plugins can have post-install/update hooks
-    -- use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
+    use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
 
     -- You can specify multiple plugins in a single call
-    -- use {'tjdevries/colorbuddy.vim', {'nvim-treesitter/nvim-treesitter', opt = true}}
+    use {'tjdevries/colorbuddy.vim', {'nvim-treesitter/nvim-treesitter', opt = true}}
 
     -- You can alias plugin names
     use {'dracula/vim', as = 'dracula'}
@@ -67,9 +67,22 @@ return require('packer').startup(function()
     use {'liuchengxu/vista.vim', opt = true, cmd = {'Vista'}}
 
     -- Find everythings
-    use {'liuchengxu/vim-clap', opt = true, cmd = {'Clap'}, 
+    use {'liuchengxu/vim-clap', opt = true, event = 'VimEnter *',
         config = function()
             vim.g.clap_theme = 'material_design_dark'
+            vim.g.clap_current_selection_sign = { text = '->', 
+	    texthl = 'ClapCurrentSelectionSign', linehl = 'ClapCurrentSelection' }
+
+            -- `:Clap dotfiles` to open some dotfiles quickly.
+            vim.g.clap_provider_dot = {
+                source = {
+                    '~/.config/nvim/init.vim', 
+                    '~/.config/nvim/lua/init.lua', 
+                    '~/.zshrc', 
+                    '~/.config/nvim/cheatsheets.md',
+                    '~/.tmux.conf'}, 
+                sink = 'e'
+            }
         end
     }
 
@@ -106,8 +119,11 @@ return require('packer').startup(function()
     use {'neoclide/coc.nvim'}
 
     -- Git messager
-    -- use {'rhysd/git-messenger.vim', opt = true, cmd = 'GitMessenger'}
+    use {'rhysd/git-messenger.vim', opt = true, cmd = 'GitMessenger'}
 
     -- Themes
     use {'glepnir/oceanic-material', config = 'vim.cmd [[ colorscheme oceanic_material ]]'}
+
+    -- Statusline
+    use {'ojroques/vim-scrollstatus', }
 end)

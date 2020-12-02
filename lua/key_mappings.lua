@@ -53,7 +53,6 @@ function key_mappings:process_keys()
 end
 
 function key_mappings:start()
-    toggle_line_number()
     self.normal = {
         ['<leader>zz'] = {'<CMD>w<CR>', true, true},
         ['<leader>fd'] = {'<CMD>echo expand("%:p")<CR>', true, true},
@@ -61,8 +60,8 @@ function key_mappings:start()
         ['<leader>e'] = {'$', true, true},
         ['<leader>xx'] = {'<CMD>nohl<CR>', true, true},
         ['<Space><Space>'] = {':', true},
-        ['<leader>bb'] = {'<C-^>', true, true}
-        ['<localleader>lm'] = {'<CMD>lua require("futil").toggle_line_number()<CR>', true, true}
+        ['<leader>bb'] = {'<C-^>', true, true},
+        ['<localleader>lm'] = {'<CMD>lua require("futil").toggle_line_number()<CR>', true, true},
     }
 
     self.visual = {
