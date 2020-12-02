@@ -154,4 +154,10 @@ return require('packer').startup(function()
 
         -- Profiling
         use {'dstein64/vim-startuptime', cmd = 'StartupTime'}
+
+        -- Ranger
+        use {'kevinhwang91/rnvimr', cmd = 'RnvimrToggle'}
+
+        -- Undo
+        use {'mbbill/undotree', cmd = 'UndotreeToggle'}
     end)

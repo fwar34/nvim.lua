@@ -84,6 +84,16 @@ function key_mappings:process_keys()
         local keymap = create_keymap_for_plugin(k, v)
         keymap:process()
     end
+
+    for k, v in pairs(self.rnvimr) do
+        local keymap = create_keymap_for_plugin(k, v)
+        keymap:process()
+    end
+
+    for k, v in pairs(self.undotree) do
+        local keymap = create_keymap_for_plugin(k, v)
+        keymap:process()
+    end
 end
 
 function key_mappings:start()
@@ -95,7 +105,7 @@ function key_mappings:start()
         ['<leader>xx'] = {'<CMD>nohl<CR>', true, true},
         ['<leader><TAB>'] = {'<C-w><C-w>', true, true},
         ['<leader>do'] = {'<CMD>on<CR>', true, true},
-        -- ['<Space><Space>'] = {':', true},
+        ['<Space><Space>'] = {':', true},
         ['<leader>bb'] = {'<C-^>', true, true},
         ['<localleader>lm'] = {'<CMD>lua require("futil").toggle_line_number()<CR>', true, true},
         ['<localleader>qq'] = {'<CMD>q<CR>', true, true},
@@ -146,6 +156,16 @@ function key_mappings:start()
     -- Vista
     self.vista = {
         ['n|<leader>ii'] = {'<CMD>Vista<CR>', true, true},
+    }
+
+    -- rnvimr
+    self.rnvimr = {
+        ['n|<localleader>tt'] = {'<CMD>RnvimrToggle<CR>', true, true},
+    }
+
+    -- undotree
+    self.undotree = {
+        ['n|<localleader>ud'] = {'<CMD>UndotreeToggle<CR>', true, true},
     }
     self:process_keys()
 end
