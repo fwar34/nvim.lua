@@ -1,7 +1,7 @@
 -- key_mappings
 local global = require('global')
 
-local key_mappings = {normal = {}, visual = {}, insert = {}}
+local key_mappings = {normal = {}, visual = {}, insert = {}, }
 local key_map = {}
 
 function key_map:new()
@@ -26,11 +26,20 @@ end
 local function create_keymap(mode, key, value)
     local keymap = key_map:new()
     keymap.mode = mode
-    -- keymap.leader, keymap.lhs = key:match('([^|]*)|?(.*)')
     keymap.lhs = key
     keymap.rhs = value[1]
-    keymap.options.noremap = value[2] and value[2] or false
-    keymap.options.silent = value[3] and value[3] or false
+    keymap.options.noremap = value[2] and true or false
+    keymap.options.silent = value[3] and true or false
+
+    return keymap
+end
+
+local function create_keymap_for_plugin(key, value)
+    local keymap = key_map:new()
+    keymap.mode, keymap.lhs = key:match('([^|]*)|?(.*)')
+    keymap.rhs = value[1]
+    keymap.options.noremap = value[2] and true or false
+    keymap.options.silent = value[3] and true or false
 
     return keymap
 end
@@ -50,6 +59,26 @@ function key_mappings:process_keys()
         local keymap = create_keymap('v', k, v)
         keymap:process()
     end
+
+    for k, v in pairs(self.cocfzf) do
+        local keymap = create_keymap_for_plugin(k, v)
+        keymap:process()
+    end
+
+    for k, v in pairs(self.fzfvim) do
+        local keymap = create_keymap_for_plugin(k, v)
+        keymap:process()
+    end
+
+    for k, v in pairs(self.clap) do
+        local keymap = create_keymap_for_plugin(k, v)
+        keymap:process()
+    end
+
+    for k, v in pairs(self.vista) do
+        local keymap = create_keymap_for_plugin(k, v)
+        keymap:process()
+    end
 end
 
 function key_mappings:start()
@@ -59,9 +88,10 @@ function key_mappings:start()
         ['<leader>a'] = {'^', true, true},
         ['<leader>e'] = {'$', true, true},
         ['<leader>xx'] = {'<CMD>nohl<CR>', true, true},
-        ['<Space><Space>'] = {':', true},
+        -- ['<Space><Space>'] = {':', true},
         ['<leader>bb'] = {'<C-^>', true, true},
         ['<localleader>lm'] = {'<CMD>lua require("futil").toggle_line_number()<CR>', true, true},
+        ['<localleader>qq'] = {'<CMD>q<CR>', true, true},
     }
 
     self.visual = {
@@ -75,6 +105,34 @@ function key_mappings:start()
         ['<leader>O'] = {'<C-o>O', true, true},
         ['<leader>o'] = {'<C-o>o', true, true},
         ['<leader>zz'] = {'<Esc><CMD>w<CR>a', true, true},
+    }
+
+    -- coc-fzf key mappings
+    self.cocfzf = {
+        ['n|<localleader>fl'] = {':<C-u>CocFzfList<CR>', true, true},
+    }
+
+    -- fzf.vim key mappings
+    self.fzfvim = {
+        ['n|<leader>fa'] = {':Ag ', true},
+        ['n|<leader>fg'] = {':Rg ', true},
+        ['n|<leader>li'] = {':BLines  ', true},
+        ['n|<leader>bs'] = {'<CMD>Buffers<CR>', true, true},
+        ['n|<leader>gf'] = {'<CMD>GFiles<CR>', true, true},
+    }
+
+    -- Clap
+    self.clap = {
+        ['n|<leader>rm'] = {'<CMD>Clap history<CR>', true, true},
+        ['n|<localleader>fs'] = {'<CMD>Clap search_history<CR>', true, true},
+        ['n|<localleader>fd'] = {'<CMD>Clap git_diff_files<CR>', true, true},
+        ['n|<localleader>fh'] = {'<CMD>Clap help_tags<CR>', true, true},
+        ['n|<localleader>fa'] = {'<CMD>Clap grep<CR>', true, true},
+    }
+
+    -- Vista
+    self.vista = {
+        ['n|<leader>ii'] = {'<CMD>Vista<CR>', true, true},
     }
     self:process_keys()
 end

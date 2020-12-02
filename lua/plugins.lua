@@ -55,7 +55,7 @@ return require('packer').startup(function()
     use {
         'itchyny/lightline.vim',
         config = function() 
-            vim.cmd[[ let g:lightline = {'colorscheme': 'wombat', 'component': {'filename': '%F%m%r%h%w'}} ]] 
+            vim.cmd[[ let g:lightline = {'colorscheme': 'wombat', 'active': {'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]},  'component': {'filename': '%F%m%r%h%w'}, 'component_function': {'method': 'NearestMethodOrFunction', 'gitbranch': 'FugitiveHead'},} ]] 
         end
     }
     -- use 'glepnir/spaceline.vim'
@@ -64,23 +64,28 @@ return require('packer').startup(function()
     use {'liuchengxu/vim-which-key'}
 
     -- Coding
-    use {'liuchengxu/vista.vim', opt = true, cmd = {'Vista'}}
+    use {'liuchengxu/vista.vim', }
 
     -- Find everythings
     use {
-        'liuchengxu/vim-clap', opt = true, cmd = 'Clap', -- event = 'VimEnter *',
+        'liuchengxu/vim-clap', opt = true, event = 'VimEnter *', -- cmd = 'Clap',
         config = function()
             vim.g.clap_theme = 'material_design_dark'
-            vim.g.clap_current_selection_sign = { text = '->', 
+            vim.g.clap_current_selection_sign = { text = '=>', 
             texthl = 'ClapCurrentSelectionSign', linehl = 'ClapCurrentSelection' }
 
             -- `:Clap dotfiles` to open some dotfiles quickly.
             vim.g.clap_provider_dot = {
                 source = {
-                    '~/.config/nvim/init.vim', 
                     '~/.config/nvim/lua/init.lua', 
-                    '~/.zshrc', 
+                    '~/.config/nvim/lua/plugins.lua', 
+                    '~/.config/nvim/lua/key_mappings.lua', 
+                    '~/.config/nvim/lua/autocmd.lua', 
+                    '~/.config/nvim/init.vim',
+                    '~/.config/nvim/plugin/coc.vim',
+                    '~/.config/nvim/plugin/which-vim-key.vim',
                     '~/.config/nvim/cheatsheets.md',
+                    '~/.zshrc', 
                     '~/.tmux.conf'}, 
                     sink = 'e'
                 }
@@ -117,12 +122,13 @@ return require('packer').startup(function()
         -- use {'mg979/vim-xtabline'}
 
         -- Coc
-        use {'neoclide/coc.nvim', tag = 'release'}
+        use {'neoclide/coc.nvim', branch = 'release'}
 
         use {'vn-ki/coc-clap'}
 
-        -- Git messager
+        -- Git
         use {'rhysd/git-messenger.vim', opt = true, cmd = 'GitMessenger'}
+        use {'tpope/vim-fugitive'}
 
         -- Themes
         use {
@@ -137,6 +143,7 @@ return require('packer').startup(function()
         -- Coc-fzf
         use {
             'antoinemadec/coc-fzf',
+            branch = 'release',
             requires = {
                 {'junegunn/fzf', run = './install --all'}, 
                 {'junegunn/fzf.vim'}, -- need for preview
