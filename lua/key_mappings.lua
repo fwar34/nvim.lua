@@ -79,6 +79,11 @@ function key_mappings:process_keys()
         local keymap = create_keymap_for_plugin(k, v)
         keymap:process()
     end
+
+    for k, v in pairs(self.coc) do
+        local keymap = create_keymap_for_plugin(k, v)
+        keymap:process()
+    end
 end
 
 function key_mappings:start()
@@ -88,6 +93,8 @@ function key_mappings:start()
         ['<leader>a'] = {'^', true, true},
         ['<leader>e'] = {'$', true, true},
         ['<leader>xx'] = {'<CMD>nohl<CR>', true, true},
+        ['<leader><TAB>'] = {'<C-w><C-w>', true, true},
+        ['<leader>do'] = {'<CMD>on<CR>', true, true},
         -- ['<Space><Space>'] = {':', true},
         ['<leader>bb'] = {'<C-^>', true, true},
         ['<localleader>lm'] = {'<CMD>lua require("futil").toggle_line_number()<CR>', true, true},
@@ -105,6 +112,11 @@ function key_mappings:start()
         ['<leader>O'] = {'<C-o>O', true, true},
         ['<leader>o'] = {'<C-o>o', true, true},
         ['<leader>zz'] = {'<Esc><CMD>w<CR>a', true, true},
+    }
+
+    -- coc
+    self.coc = {
+        ['n|<leader>tt'] = {'<CMD>CocCommand explorer<CR>', true, true},
     }
 
     -- coc-fzf key mappings

@@ -7,7 +7,7 @@ vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function()
     -- Packer can manage itself as an optional plugin
-    use {'wbthomason/packer.nvim', opt = true}
+    use {'wbthomason/packer.nvim', opt = true, config = 'vim.cmd [[ autocmd BufWritePost plugins.lua PackerCompile ]]'}
 
     -- Simple plugins can be specified as strings
     use '9mm/vim-closer'
@@ -52,19 +52,14 @@ return require('packer').startup(function()
     -----------------------------------------------------------------------------------------
 
     -- Status line
-    use {
-        'itchyny/lightline.vim',
-        config = function() 
-            vim.cmd[[ let g:lightline = {'colorscheme': 'wombat', 'active': {'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]},  'component': {'filename': '%F%m%r%h%w'}, 'component_function': {'method': 'NearestMethodOrFunction', 'gitbranch': 'FugitiveHead'},} ]] 
-        end
-    }
+    use {'itchyny/lightline.vim',}
     -- use 'glepnir/spaceline.vim'
 
     -- Interface
     use {'liuchengxu/vim-which-key'}
 
     -- Coding
-    use {'liuchengxu/vista.vim', }
+    use {'liuchengxu/vista.vim',}
 
     -- Find everythings
     use {
@@ -119,7 +114,7 @@ return require('packer').startup(function()
         use 'lambdalisue/suda.vim' 
 
         -- Beautiful tabline
-        -- use {'mg979/vim-xtabline'}
+        -- use {'mg979/vim-xtabline', }
 
         -- Coc
         use {'neoclide/coc.nvim', branch = 'release'}
@@ -149,4 +144,7 @@ return require('packer').startup(function()
                 {'junegunn/fzf.vim'}, -- need for preview
             },
         }
+
+        -- Profiling
+        use {'dstein64/vim-startuptime', cmd = 'StartupTime'}
     end)
