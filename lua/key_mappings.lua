@@ -137,16 +137,25 @@ function key_mappings:start()
 
     -- fzf.vim key mappings
     self.fzfvim = {
-        ['n|<leader>fa'] = {':Ag ', true},
-        ['n|<leader>fg'] = {':Rg ', true},
-        ['n|<leader>li'] = {':BLines  ', true},
+        ['n|<leader>fa'] = {'<CMD>Ag<CR>', true},
+        ['n|<leader>fg'] = {'<CMD>Rg<CR>', true},
+        ['n|<leader>rm'] = {'<CMD>History<CR>', true},
+        ['n|<leader>ch'] = {'<CMD>History:<CR>', true},
+        ['n|<leader>sh'] = {'<CMD>History/<CR>', true},
+        ['n|<leader>li'] = {'<CMD>BLines<CR>', true},
         ['n|<leader>bs'] = {'<CMD>Buffers<CR>', true, true},
         ['n|<leader>gf'] = {'<CMD>GFiles<CR>', true, true},
+        ['n|<leader>ma'] = {'<CMD>Marks<CR>', true, true},
+        ['n|<leader>cc'] = {'<CMD>Commands<CR>', true, true},
+        ['n|<leader>mp'] = {'<CMD>Maps<CR>', true, true},
+        ['n|<leader>ht'] = {'<CMD>Helptags<CR>', true, true},
+        ['n|<leader>tg'] = {'<CMD>Tags<CR>', true, true},
+        ['n|<leader>bt'] = {'<CMD>BTags<CR>', true, true},
     }
 
     -- Clap
     self.clap = {
-        ['n|<leader>rm'] = {'<CMD>Clap history<CR>', true, true},
+        ['n|<localleader>rm'] = {'<CMD>Clap history<CR>', true, true},
         ['n|<localleader>fs'] = {'<CMD>Clap search_history<CR>', true, true},
         ['n|<localleader>fd'] = {'<CMD>Clap git_diff_files<CR>', true, true},
         ['n|<localleader>fh'] = {'<CMD>Clap help_tags<CR>', true, true},

@@ -10,7 +10,7 @@ return require('packer').startup(function()
     use { 'wbthomason/packer.nvim', opt = true, }
 
     -- Simple plugins can be specified as strings
-    use '9mm/vim-closer'
+    -- use '9mm/vim-closer'
 
     -- Lazy loading:
     -- Load on specific commands
@@ -160,4 +160,13 @@ return require('packer').startup(function()
 
         -- Undo
         use {'mbbill/undotree', cmd = 'UndotreeToggle'}
+
+        -- vim-multiple-cursors
+        use {
+            'terryma/vim-multiple-cursors', 
+            config = function()
+                -- If set to 0, insert mappings won't be supported in Insert mode anymore.
+                vim.g.multi_cursor_support_imap = 0
+            end
+        }
     end)
