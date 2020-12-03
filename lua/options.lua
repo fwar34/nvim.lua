@@ -3,8 +3,8 @@ local options = {}
 function options.load_options()
     vim.cmd('set autochdir')
     -- 可以在normal,visual模式使用鼠标
-    vim.cmd('set mouse=n')
-    vim.cmd('set cursorline')
+    -- vim.cmd('set mouse=n')
+    -- vim.cmd('set cursorline')
     -- vim 自身命令行模式智能补全
     vim.cmd('set wildmenu')
     -- 高亮dos的特殊符号,如^M     
@@ -17,7 +17,7 @@ function options.load_options()
     vim.cmd('set termguicolors')
     vim.cmd('set shortmess=atcI')
     -- 输入的命令显示出来，看的清楚些
-    vim.cmd('set showcmd')
+    -- vim.cmd('set showcmd')
     -- fileencodings='utf-8,ucs-bom,cp936'
     -- 设置当文件被改动时自动载入
     vim.cmd('set autoread')

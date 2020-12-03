@@ -114,12 +114,57 @@ return require('packer').startup(function()
         use 'lambdalisue/suda.vim' 
 
         -- Beautiful tabline
-        use {'mg979/vim-xtabline', }
+        use {
+            'mg979/vim-xtabline',
+            config = function() 
+                -- vim.cmd [[ let g:xtabline_settings.tab_number_in_left_corner = 0 ]]
+                -- vim.cmd [[ let g:xtabline_settings.tab_number_in_buffers_mode = 0 ]]
+                -- vim.cmd [[ silent! nmap <F6> <Plug>(XT-Select-Buffer) ]]
+            end
+        }
+
+        -- use {'kyazdani42/nvim-web-devicons'}
+        -- use {
+        --     'akinsho/nvim-bufferline.lua', event = 'VimEnter *',
+        --     config = function()
+        --         require ("bufferline").setup {
+        --             options = {
+        --                 -- view = "multiwindow" | "default",
+        --                 view = "multiwindow",
+        --                 -- numbers = "none" | "ordinal" | "buffer_id",
+        --                 numbers = "none",
+        --                 -- number_style = "superscript" | "",
+        --                 number_style = "superscript",
+        --                 mappings = true,
+        --                 buffer_close_icon= '',
+        --                 modified_icon = '●',
+        --                 close_icon = '',
+        --                 left_trunc_marker = '',
+        --                 right_trunc_marker = '',
+        --                 max_name_length = 18,
+        --                 max_prefix_length = 15, -- prefix used when a buffer is deduplicated
+        --                 tab_size = 18,
+        --                 show_buffer_close_icons = false,
+        --                 persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
+        --                 -- can also be a table containing 2 custom separators
+        --                 -- [focused and unfocused]. eg: { '|', '|' }
+        --                 enforce_regular_tabs = false,
+        --                 -- separator_style = "slant" | "thick" | "thin" | { 'any', 'any' },
+        --                 separator_style =  "thick",
+        --                 always_show_bufferline = true,
+        --                 -- sort_by = 'extension' | 'relative_directory' | 'directory' | function(buffer_a, buffer_b)
+        --                 --     -- add custom logic
+        --                 --     return buffer_a.modified > buffer_b.modified
+        --                 -- end
+        --             }
+        --         }
+        --     end
+        -- }
 
         -- Coc
-        use {'neoclide/coc.nvim', branch = 'release'}
+        use {'neoclide/coc.nvim', branch = 'release', after = 'vim-xtabline'}
 
-        use {'vn-ki/coc-clap'}
+        use {'vn-ki/coc-clap', after = 'coc.nvim'}
 
         -- Git
         use {'rhysd/git-messenger.vim', opt = true, cmd = 'GitMessenger'}
@@ -145,6 +190,7 @@ return require('packer').startup(function()
         -- Coc-fzf
         use {
             'antoinemadec/coc-fzf',
+            after = 'coc.nvim',
             branch = 'release',
             requires = {
                 {'junegunn/fzf', run = './install --all'}, 
@@ -169,4 +215,16 @@ return require('packer').startup(function()
                 vim.g.multi_cursor_support_imap = 0
             end
         }
+
+        -- Icons
+        use {'ryanoasis/vim-devicons', }
+
+        -- Surround
+        use {'tpope/vim-surround', event = 'VimEnter *'}
+
+        -- 新的操作员: s:
+        -- 您可以执行 s<操作>来使用用默认的寄存器 (或提供的显式寄存器) 
+        -- 的内容替换运动提供的文本对象。例如，您可以执行 skw 
+        -- 将光标下的当前单词替换为当前yank，或执行 skp 替换段落，依此类推
+        use {'svermeulen/vim-subversive', event = 'VimEnter *'}
     end)

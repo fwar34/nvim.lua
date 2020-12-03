@@ -2,6 +2,7 @@
     "explorer.quitOnOpen": true,
   "explorer.keyMappings.global": {
     "i": false,
+    "<bs>": false,
 
     "*": "toggleSelection",
     "<tab>": "actionMenu",
