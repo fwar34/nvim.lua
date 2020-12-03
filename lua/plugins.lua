@@ -56,7 +56,7 @@ return require('packer').startup(function()
     -- use 'glepnir/spaceline.vim'
 
     -- Interface
-    use {'liuchengxu/vim-which-key'}
+    -- use {'liuchengxu/vim-which-key'}
 
     -- Coding
     use {'liuchengxu/vista.vim',}

@@ -1,7 +1,7 @@
-// coc-settings.json
 {
+    "explorer.quitOnOpen": true,
   "explorer.keyMappings.global": {
-    "i": false, // cancel default mapkey
+    "i": false,
 
     "*": "toggleSelection",
     "<tab>": "actionMenu",
