@@ -103,7 +103,7 @@ return require('packer').startup(function()
     -----------------------------------------------------------------------------------------
 
     -- Status line
-    use {'itchyny/lightline.vim', event = 'Vimenter *'}
+    use {'itchyny/lightline.vim'}
     -- use 'glepnir/spaceline.vim'
 
     -- Interface
@@ -226,4 +226,13 @@ return require('packer').startup(function()
 
     -- Surround
     use {'tpope/vim-surround', event = 'VimEnter *'}
+
+    -- Highlight for stl
+    use {
+        'octol/vim-cpp-enhanced-highlight.git', ft = {'cpp', 'c'},
+        config = function()
+            vim.g.cpp_class_scope_highlight = 1
+            vim.g.cpp_class_decl_highlight = 1
+        end
+    }
 end)
