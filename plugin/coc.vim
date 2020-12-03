@@ -166,3 +166,15 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 " endfunction
 
 let g:coc_snippet_next = '<tab>'
+
+" Reference from https://github.com/theniceboy/nvim.git
+" inoremap <silent><expr> <TAB>                                                    
+"             \ pumvisible() ? "\<C-n>" :                                                 
+"             \ <SID>check_back_space() ? "\<TAB>" :                                       
+"             \ coc#refresh()                                                               
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"                          
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+" function! s:check_back_space() abort            
+"     let col = col('.') - 1                       
+"     return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction 

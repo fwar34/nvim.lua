@@ -12,11 +12,12 @@ autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 let g:lightline = {
             \ 'colorscheme': 'wombat', 
+            \ 'component': {'charvaluehex': '0x%B'},
             \ 'active': 
             \    {'left': [ [ 'mode', 'paste' ], 
             \               [ 'gitbranch', 'readonly', 'filename', 'modified', 'method' ] ],
             \     'right': [ [ 'lineinfo' ],
-            \                [ 'scorestatus', 'fileformat', 'fileencoding', 'filetype' ] ]
+            \                [ 'scorestatus', 'fileformat', 'fileencoding', 'filetype' , 'charvaluehex' ] ]
             \    },  
             \ 'component_function': 
             \    {

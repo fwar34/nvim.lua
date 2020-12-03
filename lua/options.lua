@@ -3,7 +3,7 @@ local options = {}
 function options.load_options()
     vim.cmd('set autochdir')
     -- 可以在normal,visual模式使用鼠标
-    -- vim.cmd('set mouse=n')
+    vim.cmd('set mouse=n')
     -- vim.cmd('set cursorline')
     -- vim 自身命令行模式智能补全
     vim.cmd('set wildmenu')
@@ -14,6 +14,7 @@ function options.load_options()
     vim.cmd('set pastetoggle=<F9>')
     -- 禁止光标闪烁
     vim.cmd('set gcr=a:block-blinkon0')
+    vim.cmd('set hidden')
     vim.cmd('set termguicolors')
     vim.cmd('set shortmess=atcI')
     -- 输入的命令显示出来，看的清楚些

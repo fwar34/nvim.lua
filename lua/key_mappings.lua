@@ -176,6 +176,7 @@ function key_mappings:start()
     self.undotree = {
         ['n|<localleader>ud'] = {'<CMD>UndotreeToggle<CR>', true, true},
     }
+
     self:process_keys()
 end
 

@@ -9,6 +9,57 @@ return require('packer').startup(function()
     -- Packer can manage itself as an optional plugin
     use { 'wbthomason/packer.nvim', opt = true, }
 
+    -- Beautiful tabline
+    -- use {
+    --     'mg979/vim-xtabline',
+    --     config = function() 
+    --         -- vim.cmd [[ let g:xtabline_settings.enable_mappings = 0 ]]
+    --         -- vim.cmd [[ let g:xtabline_settings.tab_number_in_left_corner = 0 ]]
+    --         -- vim.cmd [[ let g:xtabline_settings.tab_number_in_buffers_mode = 0 ]]
+    --         -- vim.cmd [[ silent! nmap <F6> <Plug>(XT-Select-Buffer) ]]
+    --     end
+    -- }
+
+    -- use {'ap/vim-buftabline', event = 'VimEnter *'}
+
+    use {
+        'akinsho/nvim-bufferline.lua', event = 'VimEnter *',
+        requires = {'kyazdani42/nvim-web-devicons'},
+        config = function()
+            require ("bufferline").setup {
+                options = {
+                    -- view = "multiwindow" | "default",
+                    view = "default",
+                    -- numbers = "none" | "ordinal" | "buffer_id",
+                    numbers = "ordinal",
+                    -- number_style = "superscript" | "",
+                    number_style = "",
+                    mappings = true,
+                    buffer_close_icon= '',
+                    modified_icon = '●',
+                    close_icon = '',
+                    left_trunc_marker = '',
+                    right_trunc_marker = '',
+                    max_name_length = 18,
+                    max_prefix_length = 15, -- prefix used when a buffer is deduplicated
+                    tab_size = 18,
+                    show_buffer_close_icons = false,
+                    persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
+                    -- can also be a table containing 2 custom separators
+                    -- [focused and unfocused]. eg: { '|', '|' }
+                    enforce_regular_tabs = false,
+                    -- separator_style = "slant" | "thick" | "thin" | { 'any', 'any' },
+                    separator_style =  'thick',
+                    always_show_bufferline = true,
+                    -- sort_by = 'extension' | 'relative_directory' | 'directory' | function(buffer_a, buffer_b)
+                    --     -- add custom logic
+                    --     return buffer_a.modified > buffer_b.modified
+                    -- end
+                }
+            }
+        end
+    }
+
     -- Simple plugins can be specified as strings
     -- use '9mm/vim-closer'
 
@@ -63,7 +114,7 @@ return require('packer').startup(function()
 
     -- Find everythings
     use {
-        'liuchengxu/vim-clap', opt = true, event = 'VimEnter *', -- cmd = 'Clap',
+        'liuchengxu/vim-clap', opt = true, event = 'VimEnter *',
         config = function()
             vim.g.clap_theme = 'material_design_dark'
             vim.g.clap_current_selection_sign = { text = '=>', 
@@ -81,150 +132,104 @@ return require('packer').startup(function()
                     '~/.config/nvim/plugin/which-vim-key.vim',
                     '~/.config/nvim/cheatsheets.md',
                     '~/.zshrc', 
-                    '~/.tmux.conf'}, 
-                    sink = 'e'
-                }
-            end
-        }
+                    '~/.tmux.conf'
+                }, 
+                sink = 'e'
+            }
+        end
+    }
 
-        -- Grepping
-        use {'mhinz/vim-grepper', opt = true, cmd = 'Grepper'}
+    -- Grepping
+    use {'mhinz/vim-grepper', opt = true, cmd = 'Grepper'}
 
-        -- File manager
-        use {'Shougo/defx.nvim', opt = true, cmd = {'Defx'}}
+    -- File manager
+    use {'Shougo/defx.nvim', opt = true, cmd = {'Defx'}}
 
-        -- Better Lua highlighting
-        use {'euclidianAce/BetterLua.vim', opt = true, ft = {'lua'}}
+    -- Better Lua highlighting
+    use {'euclidianAce/BetterLua.vim', opt = true, ft = {'lua'}}
 
-        -- Registers
-        -- Peekaboo extends " and @ in normal mode and <CTRL-R> in insert mode so you can see the contents of the registers.
-        use 'junegunn/vim-peekaboo'
+    -- Registers
+    -- Peekaboo extends " and @ in normal mode and <CTRL-R> in insert mode so you can see the contents of the registers.
+    use 'junegunn/vim-peekaboo'
 
-        -- Marks
-        use 'kshenoy/vim-signature'
+    -- Marks
+    use 'kshenoy/vim-signature'
 
-        -- Buffer management
+    -- Buffer management
 
-        -- Movement
-        use {'easymotion/vim-easymotion'}
+    -- Movement
+    use {'easymotion/vim-easymotion'}
 
-        -- Quickfix
+    -- Quickfix
 
-        -- Do stuff like :sudowrite
-        use 'lambdalisue/suda.vim' 
+    -- Do stuff like :sudowrite
+    use 'lambdalisue/suda.vim' 
 
-        -- Beautiful tabline
-        use {
-            'mg979/vim-xtabline',
-            config = function() 
-                -- vim.cmd [[ let g:xtabline_settings.tab_number_in_left_corner = 0 ]]
-                -- vim.cmd [[ let g:xtabline_settings.tab_number_in_buffers_mode = 0 ]]
-                -- vim.cmd [[ silent! nmap <F6> <Plug>(XT-Select-Buffer) ]]
-            end
-        }
+    -- Coc
+    use {'neoclide/coc.nvim', branch = 'release'}
 
-        -- use {'kyazdani42/nvim-web-devicons'}
-        -- use {
-        --     'akinsho/nvim-bufferline.lua', event = 'VimEnter *',
-        --     config = function()
-        --         require ("bufferline").setup {
-        --             options = {
-        --                 -- view = "multiwindow" | "default",
-        --                 view = "multiwindow",
-        --                 -- numbers = "none" | "ordinal" | "buffer_id",
-        --                 numbers = "none",
-        --                 -- number_style = "superscript" | "",
-        --                 number_style = "superscript",
-        --                 mappings = true,
-        --                 buffer_close_icon= '',
-        --                 modified_icon = '●',
-        --                 close_icon = '',
-        --                 left_trunc_marker = '',
-        --                 right_trunc_marker = '',
-        --                 max_name_length = 18,
-        --                 max_prefix_length = 15, -- prefix used when a buffer is deduplicated
-        --                 tab_size = 18,
-        --                 show_buffer_close_icons = false,
-        --                 persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
-        --                 -- can also be a table containing 2 custom separators
-        --                 -- [focused and unfocused]. eg: { '|', '|' }
-        --                 enforce_regular_tabs = false,
-        --                 -- separator_style = "slant" | "thick" | "thin" | { 'any', 'any' },
-        --                 separator_style =  "thick",
-        --                 always_show_bufferline = true,
-        --                 -- sort_by = 'extension' | 'relative_directory' | 'directory' | function(buffer_a, buffer_b)
-        --                 --     -- add custom logic
-        --                 --     return buffer_a.modified > buffer_b.modified
-        --                 -- end
-        --             }
-        --         }
-        --     end
-        -- }
+    use {'vn-ki/coc-clap', after = 'coc.nvim'}
 
-        -- Coc
-        use {'neoclide/coc.nvim', branch = 'release', after = 'vim-xtabline'}
+    -- Git
+    use {'rhysd/git-messenger.vim', opt = true, cmd = 'GitMessenger'}
+    use {'tpope/vim-fugitive'}
+    use {'airblade/vim-gitgutter', event = 'VimEnter *'}
 
-        use {'vn-ki/coc-clap', after = 'coc.nvim'}
+    -- Themes
+    use {
+        {'glepnir/oceanic-material', config = 'vim.cmd [[ colorscheme oceanic_material ]]'},
+        -- You can alias plugin names
+        {'dracula/vim', as = 'dracula'}
+    }
 
-        -- Git
-        use {'rhysd/git-messenger.vim', opt = true, cmd = 'GitMessenger'}
-        use {'tpope/vim-fugitive'}
+    -- Status line
+    use {
+        'ojroques/vim-scrollstatus', 
+        config = function()
+            vim.g.scrollstatus_size = 12
+            vim.g.scrollstatus_symbol_track = '-'
+            vim.g.scrollstatus_symbol_bar = '#'
+        end
+    }
 
-        -- Themes
-        use {
-            {'glepnir/oceanic-material', config = 'vim.cmd [[ colorscheme oceanic_material ]]'},
-            -- You can alias plugin names
-            {'dracula/vim', as = 'dracula'}
-        }
+    -- Coc-fzf
+    use {
+        'antoinemadec/coc-fzf',
+        after = 'coc.nvim',
+        branch = 'release',
+        requires = {
+            {'junegunn/fzf', run = './install --all'}, 
+            {'junegunn/fzf.vim'}, -- need for preview
+        },
+    }
 
-        -- Status line
-        use {
-            'ojroques/vim-scrollstatus', 
-            config = function()
-                vim.g.scrollstatus_size = 12
-                vim.g.scrollstatus_symbol_track = '-'
-                vim.g.scrollstatus_symbol_bar = '#'
-            end
-        }
+    -- Profiling
+    use {'dstein64/vim-startuptime', cmd = 'StartupTime'}
 
-        -- Coc-fzf
-        use {
-            'antoinemadec/coc-fzf',
-            after = 'coc.nvim',
-            branch = 'release',
-            requires = {
-                {'junegunn/fzf', run = './install --all'}, 
-                {'junegunn/fzf.vim'}, -- need for preview
-            },
-        }
+    -- Ranger
+    use {'kevinhwang91/rnvimr', cmd = 'RnvimrToggle'}
 
-        -- Profiling
-        use {'dstein64/vim-startuptime', cmd = 'StartupTime'}
+    -- Undo
+    use {'mbbill/undotree', cmd = 'UndotreeToggle'}
 
-        -- Ranger
-        use {'kevinhwang91/rnvimr', cmd = 'RnvimrToggle'}
+    -- vim-multiple-cursors
+    use {
+        'terryma/vim-multiple-cursors', 
+        config = function()
+            -- If set to 0, insert mappings won't be supported in Insert mode anymore.
+            vim.g.multi_cursor_support_imap = 0
+        end
+    }
 
-        -- Undo
-        use {'mbbill/undotree', cmd = 'UndotreeToggle'}
+    -- Icons
+    use {'ryanoasis/vim-devicons', }
 
-        -- vim-multiple-cursors
-        use {
-            'terryma/vim-multiple-cursors', 
-            config = function()
-                -- If set to 0, insert mappings won't be supported in Insert mode anymore.
-                vim.g.multi_cursor_support_imap = 0
-            end
-        }
+    -- Surround
+    use {'tpope/vim-surround', event = 'VimEnter *'}
 
-        -- Icons
-        use {'ryanoasis/vim-devicons', }
-
-        -- Surround
-        use {'tpope/vim-surround', event = 'VimEnter *'}
-
-        -- 新的操作员: s:
-        -- 您可以执行 s<操作>来使用用默认的寄存器 (或提供的显式寄存器) 
-        -- 的内容替换运动提供的文本对象。例如，您可以执行 skw 
-        -- 将光标下的当前单词替换为当前yank，或执行 skp 替换段落，依此类推
-        use {'svermeulen/vim-subversive', event = 'VimEnter *'}
-    end)
+    -- 新的操作员: s:
+    -- 您可以执行 s<操作>来使用用默认的寄存器 (或提供的显式寄存器) 
+    -- 的内容替换运动提供的文本对象。例如，您可以执行 skw 
+    -- 将光标下的当前单词替换为当前yank，或执行 skp 替换段落，依此类推
+    use {'svermeulen/vim-subversive', event = 'VimEnter *'}
+end)
