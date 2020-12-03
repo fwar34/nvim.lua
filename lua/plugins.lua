@@ -103,7 +103,7 @@ return require('packer').startup(function()
     -----------------------------------------------------------------------------------------
 
     -- Status line
-    use {'itchyny/lightline.vim',}
+    use {'itchyny/lightline.vim', event = 'Vimenter *'}
     -- use 'glepnir/spaceline.vim'
 
     -- Interface
@@ -226,10 +226,4 @@ return require('packer').startup(function()
 
     -- Surround
     use {'tpope/vim-surround', event = 'VimEnter *'}
-
-    -- 新的操作员: s:
-    -- 您可以执行 s<操作>来使用用默认的寄存器 (或提供的显式寄存器) 
-    -- 的内容替换运动提供的文本对象。例如，您可以执行 skw 
-    -- 将光标下的当前单词替换为当前yank，或执行 skp 替换段落，依此类推
-    use {'svermeulen/vim-subversive', event = 'VimEnter *'}
 end)

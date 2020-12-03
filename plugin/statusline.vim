@@ -10,20 +10,28 @@ set statusline+=%{NearestMethodOrFunction()}
 " you can add the following line to your vimrc
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
+" gitgutter
+function! GitStatus()
+    let [a,m,r] = GitGutterGetHunkSummary()
+    return printf('+%d ~%d -%d', a, m, r)
+endfunction
+set statusline+=%{GitStatus()}
+
 let g:lightline = {
             \ 'colorscheme': 'wombat', 
             \ 'component': {'charvaluehex': '0x%B'},
             \ 'active': 
             \    {'left': [ [ 'mode', 'paste' ], 
-            \               [ 'gitbranch', 'readonly', 'filename', 'modified', 'method' ] ],
+            \               [ 'gitbranch', 'gitstatus', 'readonly', 'filename', 'modified', 'method' ] ],
             \     'right': [ [ 'lineinfo' ],
-            \                [ 'scorestatus', 'fileformat', 'fileencoding', 'filetype' , 'charvaluehex' ] ]
+            \                [  'charvaluehex', 'scorestatus', 'fileformat', 'fileencoding', 'filetype' ] ]
             \    },  
             \ 'component_function': 
             \    {
             \     'method': 'NearestMethodOrFunction', 
             \     'gitbranch': 'FugitiveHead',
             \     'scorestatus': 'ScrollStatus',
+            \     'gitstatus': 'GitStatus',
             \    },
             \ }
 
