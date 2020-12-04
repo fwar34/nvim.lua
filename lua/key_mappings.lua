@@ -109,6 +109,16 @@ function key_mappings:process_keys()
         local keymap = create_keymap_for_plugin(k, v)
         keymap:process()
     end
+
+    for k, v in pairs(self.nnn_vim) do
+        local keymap = create_keymap_for_plugin(k, v)
+        keymap:process()
+    end
+
+    for k, v in pairs(self.floaterm) do
+        local keymap = create_keymap_for_plugin(k, v)
+        keymap:process()
+    end
 end
 
 function key_mappings:start()
@@ -213,10 +223,20 @@ function key_mappings:start()
         ['n|<leader>gp'] = {'<CMD>Git push<CR>', true, true},
     }
 
-    -- vim-better-whitespace 
+    -- vim-better-whitespace
     self.vim_better_whitespace = {
         ['n|]w'] = {'<CMD>NextTrailingWhitespace<CR>', true, true},
         ['n|[w'] = {'<CMD>PrevTrailingWhitespace<CR>', true, true},
+    }
+
+    -- nnn.vim
+    self.nnn_vim = {
+        ['n|<leader>nn'] = {'<CMD>NnnPicker<CR>', true, true},
+    }
+
+    -- floaterm
+    self.floaterm = {
+        ['n|<leader>lf'] = {'<CMD>FloatermNew lf<CR>', true, true},
     }
 
     self:process_keys()

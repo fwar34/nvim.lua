@@ -144,6 +144,30 @@ return require('packer').startup(function()
 
     -- File manager
     use {'Shougo/defx.nvim', opt = true, cmd = {'Defx'}}
+    use {'kevinhwang91/rnvimr', cmd = 'RnvimrToggle'} -- Ranger
+    use { -- nnn
+        'mcchrish/nnn.vim', cmd = {'NnnPicker', 'Np'},
+        config = function()
+            -- Disable default mappings
+            vim.cmd [[ let g:nnn#set_default_mappings = 0 ]]
+            -- Floating window (neovim latest and vim with patch 8.2.191)
+            -- vim.g['nnn#layout'] = { window = { width = 0.9, height = 0.6, highlight = 'Debug'}}
+            vim.cmd [[ let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } } ]]
+        end
+    }
+
+    -- Terminal
+    use {
+        'voldikss/vim-floaterm', event = 'VimEnter *',
+        setup = function()
+            -- Type Number. The transparency of the floating terminal. Only works in neovim.
+            vim.g.floaterm_winblend = 8
+            -- vim.g.floaterm_keymap_new = '<F7>'
+            -- vim.g.floaterm_keymap_prev = '<F8>'
+            -- vim.g.floaterm_keymap_next = '<F9>'
+            vim.g.floaterm_keymap_toggle = '<leader>ft'
+        end
+    }
 
     -- Better Lua highlighting
     use {'euclidianAce/BetterLua.vim', opt = true, ft = {'lua'}}
@@ -213,8 +237,6 @@ return require('packer').startup(function()
     -- Profiling
     use {'dstein64/vim-startuptime', cmd = 'StartupTime'}
 
-    -- Ranger
-    use {'kevinhwang91/rnvimr', cmd = 'RnvimrToggle'}
 
     -- Undo
     -- use {'mbbill/undotree', cmd = 'UndotreeToggle'}
