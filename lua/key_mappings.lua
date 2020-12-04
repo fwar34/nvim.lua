@@ -104,6 +104,11 @@ function key_mappings:process_keys()
         local keymap = create_keymap_for_plugin(k, v)
         keymap:process()
     end
+
+    for k, v in pairs(self.vim_better_whitespace) do
+        local keymap = create_keymap_for_plugin(k, v)
+        keymap:process()
+    end
 end
 
 function key_mappings:start()
@@ -206,6 +211,12 @@ function key_mappings:start()
         ['n|<leader>gd'] = {'<CMD>Git diff<CR>', true, true},
         ['n|<leader>gs'] = {'<CMD>Gvdiffsplit<CR>', true, true},
         ['n|<leader>gp'] = {'<CMD>Git push<CR>', true, true},
+    }
+
+    -- vim-better-whitespace 
+    self.vim_better_whitespace = {
+        ['n|]w'] = {'<CMD>NextTrailingWhitespace<CR>', true, true},
+        ['n|[w'] = {'<CMD>PrevTrailingWhitespace<CR>', true, true},
     }
 
     self:process_keys()

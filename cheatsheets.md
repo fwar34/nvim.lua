@@ -5,3 +5,6 @@
 4. floating terminal plugin
 5. defx plugin use??
 6. write functions for gitgutter
+
+** VIM cheatsheets
+1. <C-a> 数字自增 <C-x> 数字自减

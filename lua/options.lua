@@ -7,7 +7,7 @@ function options.load_options()
     -- vim.cmd('set cursorline')
     -- vim 自身命令行模式智能补全
     vim.cmd('set wildmenu')
-    -- 高亮dos的特殊符号,如^M     
+    -- 高亮dos的特殊符号,如^M
     vim.cmd('set fileformats=unix,dos,mac')
     vim.cmd('set wildignorecase')
     vim.cmd('set wildignore=*.so,*.swp,*.zip,*.exe,.git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**')

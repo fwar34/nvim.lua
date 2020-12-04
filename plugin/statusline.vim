@@ -14,21 +14,21 @@ function! GitStatus()
     if a || m || r
         return printf('+%d ~%d -%d', a, m, r)
     endif
-    return '' 
+    return ''
 endfunction
 
 let g:lightline = {
-            \ 'colorscheme': 'wombat', 
+            \ 'colorscheme': 'wombat',
             \ 'component': {'charvaluehex': '0x%B'},
-            \ 'active': 
-            \    {'left': [ [ 'mode', 'paste' ], 
+            \ 'active':
+            \    {'left': [ [ 'mode', 'paste' ],
             \               [ 'gitbranch', 'gitstatus', 'readonly', 'filename', 'modified', 'method' ] ],
             \     'right': [ [ 'lineinfo' ],
             \                [  'charvaluehex', 'scorestatus', 'fileformat', 'fileencoding', 'filetype' ] ]
-            \    },  
-            \ 'component_function': 
+            \    },
+            \ 'component_function':
             \    {
-            \     'method': 'NearestMethodOrFunction', 
+            \     'method': 'NearestMethodOrFunction',
             \     'gitbranch': 'FugitiveStatusline',
             \     'scorestatus': 'ScrollStatus',
             \     'gitstatus': 'GitStatus',

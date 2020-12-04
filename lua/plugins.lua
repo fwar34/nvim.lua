@@ -12,7 +12,7 @@ return require('packer').startup(function()
     -- Beautiful tabline
     -- use {
     --     'mg979/vim-xtabline',
-    --     config = function() 
+    --     config = function()
     --         -- vim.cmd [[ let g:xtabline_settings.enable_mappings = 0 ]]
     --         -- vim.cmd [[ let g:xtabline_settings.tab_number_in_left_corner = 0 ]]
     --         -- vim.cmd [[ let g:xtabline_settings.tab_number_in_buffers_mode = 0 ]]
@@ -117,23 +117,23 @@ return require('packer').startup(function()
         'liuchengxu/vim-clap', opt = true, event = 'VimEnter *',
         config = function()
             vim.g.clap_theme = 'material_design_dark'
-            vim.g.clap_current_selection_sign = { text = '=>', 
+            vim.g.clap_current_selection_sign = { text = '=>',
             texthl = 'ClapCurrentSelectionSign', linehl = 'ClapCurrentSelection' }
 
             -- `:Clap dotfiles` to open some dotfiles quickly.
             vim.g.clap_provider_dot = {
                 source = {
-                    '~/.config/nvim/lua/init.lua', 
-                    '~/.config/nvim/lua/plugins.lua', 
-                    '~/.config/nvim/lua/key_mappings.lua', 
-                    '~/.config/nvim/lua/autocmd.lua', 
+                    '~/.config/nvim/lua/init.lua',
+                    '~/.config/nvim/lua/plugins.lua',
+                    '~/.config/nvim/lua/key_mappings.lua',
+                    '~/.config/nvim/lua/autocmd.lua',
                     '~/.config/nvim/init.vim',
                     '~/.config/nvim/plugin/coc.vim',
                     '~/.config/nvim/plugin/which-vim-key.vim',
                     '~/.config/nvim/cheatsheets.md',
-                    '~/.zshrc', 
+                    '~/.zshrc',
                     '~/.tmux.conf'
-                }, 
+                },
                 sink = 'e'
             }
         end
@@ -163,7 +163,7 @@ return require('packer').startup(function()
     -- Quickfix
 
     -- Do stuff like :sudowrite
-    use 'lambdalisue/suda.vim' 
+    use 'lambdalisue/suda.vim'
 
     -- Coc
     use {'neoclide/coc.nvim', branch = 'release'}
@@ -180,12 +180,12 @@ return require('packer').startup(function()
         {'glepnir/oceanic-material', config = 'vim.cmd [[ colorscheme oceanic_material ]]'},
         -- You can alias plugin names
         {'dracula/vim', as = 'dracula'},
-        {'fwar34/vim-color-wombat256.git', as = 'wombat256'}
+        -- {'fwar34/vim-color-wombat256.git', as = 'wombat256'}
     }
 
     -- Status line
     use {
-        'ojroques/vim-scrollstatus', 
+        'ojroques/vim-scrollstatus',
         config = function()
             vim.g.scrollstatus_size = 12
             vim.g.scrollstatus_symbol_track = '-'
@@ -199,7 +199,7 @@ return require('packer').startup(function()
         after = 'coc.nvim',
         branch = 'release',
         requires = {
-            {'junegunn/fzf', run = './install --all'}, 
+            {'junegunn/fzf', run = './install --all'},
             {'junegunn/fzf.vim'}, -- need for preview
         },
     }
@@ -215,7 +215,7 @@ return require('packer').startup(function()
 
     -- vim-multiple-cursors
     use {
-        'terryma/vim-multiple-cursors', 
+        'terryma/vim-multiple-cursors',
         config = function()
             -- If set to 0, insert mappings won't be supported in Insert mode anymore.
             vim.g.multi_cursor_support_imap = 0
@@ -237,5 +237,17 @@ return require('packer').startup(function()
         end
     }
 
+    -- Undo
     use {'sjl/gundo.vim', cmd = 'GundoToggle', config = 'vim.g.gundo_prefer_python3 = 1'}
+
+    -- Highlight whitespace and fix
+    -- use {'bronson/vim-trailing-whitespace', event = 'VimEnter *'}
+    use {
+        'ntpeters/vim-better-whitespace',
+        config = function()
+            vim.g.better_whitespace_operator = '<leader>ss'
+            vim.g.better_whitespace_filetypes_blacklist = {'gitcommit', 'unite', 'qf', 'help', 'markdown', 'packer'}
+            vim.cmd [[ let g:show_spaces_that_precede_tabs=1 ]]
+        end
+    }
 end)
