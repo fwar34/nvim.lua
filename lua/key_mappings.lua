@@ -130,6 +130,8 @@ function key_mappings:start()
         ['<leader>xx'] = {'<CMD>nohl<CR>', true, true},
         ['<leader><TAB>'] = {'<C-w><C-w>', true, true},
         ['<leader>do'] = {'<CMD>on<CR>', true, true},
+        ['<leader>dm'] = {'<CMD>delmarks!<CR>', true, true},
+        ['<leader>db'] = {'<CMD>bdel<CR>', true, true},
         ['<Space><Space>'] = {':', true},
         ['<leader>bb'] = {'<C-^>', true, true},
         ['<localleader>lm'] = {'<CMD>lua require("futil").toggle_line_number()<CR>', true, true},
@@ -176,13 +178,14 @@ function key_mappings:start()
         ['n|<leader>ma'] = {'<CMD>Marks<CR>', true, true},
         ['n|<leader>cc'] = {'<CMD>Commands<CR>', true, true},
         ['n|<leader>mp'] = {'<CMD>Maps<CR>', true, true},
-        ['n|<leader>ht'] = {'<CMD>Helptags<CR>', true, true},
+        ['n|<leader>hl'] = {'<CMD>Helptags<CR>', true, true},
         ['n|<leader>tg'] = {'<CMD>Tags<CR>', true, true},
         ['n|<leader>bt'] = {'<CMD>BTags<CR>', true, true},
     }
 
     -- Clap
     self.clap = {
+        ['n|<leader>cl'] = {'<CMD>Clap<CR>', true, true},
         ['n|<localleader>rm'] = {'<CMD>Clap history<CR>', true, true},
         ['n|<localleader>fs'] = {'<CMD>Clap search_history<CR>', true, true},
         ['n|<localleader>fd'] = {'<CMD>Clap git_diff_files<CR>', true, true},

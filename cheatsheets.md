@@ -5,6 +5,13 @@
 4. floating terminal plugin
 5. defx plugin use??
 6. write functions for gitgutter
+7. vista settings
+8. depx settings
+9. snippet settings
+10. markdown plugin
+11. coc.nvim for python plugin
+11. coc.nvim for go plugin
+11. coc.nvim for rust plugin
 
 ** VIM cheatsheets
 1. <C-a> 数字自增 <C-x> 数字自减

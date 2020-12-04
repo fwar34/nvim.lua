@@ -107,7 +107,7 @@ return require('packer').startup(function()
     -- use 'glepnir/spaceline.vim'
 
     -- Interface
-    -- use {'liuchengxu/vim-which-key'}
+    use {'liuchengxu/vim-which-key', }
 
     -- Coding
     use {'liuchengxu/vista.vim',}
@@ -117,7 +117,7 @@ return require('packer').startup(function()
         'liuchengxu/vim-clap', opt = true, event = 'VimEnter *',
         config = function()
             vim.g.clap_theme = 'material_design_dark'
-            vim.g.clap_current_selection_sign = { text = '=>',
+            vim.g.clap_current_selection_sign = { text = '->',
             texthl = 'ClapCurrentSelectionSign', linehl = 'ClapCurrentSelection' }
 
             -- `:Clap dotfiles` to open some dotfiles quickly.

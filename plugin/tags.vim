@@ -53,15 +53,15 @@ let g:gutentags_define_advanced_commands = 1
 "let g:gutentags_trace = 1
 
 let g:gutentags_plus_nomap = 1
-noremap <silent> <Leader>gs :GscopeFind s <C-R><C-W><cr>
-noremap <silent> <Leader>gg :GscopeFind g <C-R><C-W><cr>
-noremap <silent> <Leader>gc :GscopeFind c <C-R><C-W><cr>
-noremap <silent> <Leader>gt :GscopeFind t <C-R><C-W><cr>
-noremap <silent> <Leader>ge :GscopeFind e <C-R><C-W><cr>
-noremap <silent> <Leader>gf :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
-noremap <silent> <Leader>gi :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
-noremap <silent> <Leader>gd :GscopeFind d <C-R><C-W><cr>
-noremap <silent> <Leader>ga :GscopeFind a <C-R><C-W><cr>
+noremap <silent> <Leader>hs :GscopeFind s <C-R><C-W><cr>
+noremap <silent> <Leader>hg :GscopeFind g <C-R><C-W><cr>
+noremap <silent> <Leader>hc :GscopeFind c <C-R><C-W><cr>
+noremap <silent> <Leader>ht :GscopeFind t <C-R><C-W><cr>
+noremap <silent> <Leader>he :GscopeFind e <C-R><C-W><cr>
+noremap <silent> <Leader>hf :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
+noremap <silent> <Leader>hi :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
+noremap <silent> <Leader>hd :GscopeFind d <C-R><C-W><cr>
+noremap <silent> <Leader>ha :GscopeFind a <C-R><C-W><cr>
 
 "gutentags.txt
 augroup MyGutentagsStatusLineRefresher
