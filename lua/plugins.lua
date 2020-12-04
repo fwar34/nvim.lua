@@ -172,14 +172,15 @@ return require('packer').startup(function()
 
     -- Git
     use {'rhysd/git-messenger.vim', opt = true, cmd = 'GitMessenger'}
-    use {'tpope/vim-fugitive'}
+    use {'tpope/vim-fugitive', cmd = {'Git', 'G'}}
     use {'airblade/vim-gitgutter', event = 'VimEnter *'}
 
     -- Themes
     use {
         {'glepnir/oceanic-material', config = 'vim.cmd [[ colorscheme oceanic_material ]]'},
         -- You can alias plugin names
-        {'dracula/vim', as = 'dracula'}
+        {'dracula/vim', as = 'dracula'},
+        {'fwar34/vim-color-wombat256.git', as = 'wombat256'}
     }
 
     -- Status line
@@ -210,7 +211,7 @@ return require('packer').startup(function()
     use {'kevinhwang91/rnvimr', cmd = 'RnvimrToggle'}
 
     -- Undo
-    use {'mbbill/undotree', cmd = 'UndotreeToggle'}
+    -- use {'mbbill/undotree', cmd = 'UndotreeToggle'}
 
     -- vim-multiple-cursors
     use {
@@ -229,10 +230,12 @@ return require('packer').startup(function()
 
     -- Highlight for stl
     use {
-        'octol/vim-cpp-enhanced-highlight.git', ft = {'cpp', 'c'},
+        'octol/vim-cpp-enhanced-highlight.git', event = 'VimEnter *',
         config = function()
             vim.g.cpp_class_scope_highlight = 1
             vim.g.cpp_class_decl_highlight = 1
         end
     }
+
+    use {'sjl/gundo.vim', cmd = 'GundoToggle', config = 'vim.g.gundo_prefer_python3 = 1'}
 end)

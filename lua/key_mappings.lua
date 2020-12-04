@@ -94,6 +94,16 @@ function key_mappings:process_keys()
         local keymap = create_keymap_for_plugin(k, v)
         keymap:process()
     end
+
+    for k, v in pairs(self.coc_translator) do
+        local keymap = create_keymap_for_plugin(k, v)
+        keymap:process()
+    end
+
+    for k, v in pairs(self.vim_fugitive) do
+        local keymap = create_keymap_for_plugin(k, v)
+        keymap:process()
+    end
 end
 
 function key_mappings:start()
@@ -109,10 +119,12 @@ function key_mappings:start()
         ['<leader>bb'] = {'<C-^>', true, true},
         ['<localleader>lm'] = {'<CMD>lua require("futil").toggle_line_number()<CR>', true, true},
         ['<localleader>qq'] = {'<CMD>q<CR>', true, true},
+        ['Y'] = {'y$', true, true},
     }
 
     self.visual = {
         ['<leader>g'] = {'<Esc>', true, true},
+        ['<C-g>'] = {'<Esc>', true, true},
     }
 
     self.insert = {
@@ -174,7 +186,25 @@ function key_mappings:start()
 
     -- undotree
     self.undotree = {
-        ['n|<localleader>ud'] = {'<CMD>UndotreeToggle<CR>', true, true},
+        ['n|<localleader>ud'] = {'<CMD>GundoToggle<CR>', true, true},
+    }
+
+    -- coc.translator
+    self.coc_translator = {
+        -- " NOTE: do NOT use `nore` mappings
+        ['n|<leader>tu'] = {'<Plug>(coc-translator-p)', false, true},
+        ['v|<leader>tu'] = {'<Plug>(coc-translator-pv)', false, true},
+        ['n|<leader>te'] = {'<Plug>(coc-translator-e)', false, true},
+        ['v|<leader>te'] = {'<Plug>(coc-translator-ev)', false, true},
+        ['n|<leader>tr'] = {'<Plug>(coc-translator-r)', false, true},
+        ['v|<leader>tr'] = {'<Plug>(coc-translator-rv)', false, true},
+    }
+
+    -- vim-fugitive
+    self.vim_fugitive = {
+        ['n|<leader>gt'] = {'<CMD>Git<CR>', true, true},
+        ['n|<leader>gd'] = {'<CMD>Git diff<CR>', true, true},
+        ['n|<leader>gs'] = {'<CMD>Gdiffsplit<CR>', true, true},
     }
 
     self:process_keys()

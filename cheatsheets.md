@@ -4,3 +4,4 @@
 3. markdown plugin
 4. floating terminal plugin
 5. defx plugin use??
+6. write functions for gitgutter

@@ -31,10 +31,12 @@ let g:lightline = {
             \ 'component_function': 
             \    {
             \     'method': 'NearestMethodOrFunction', 
-            \     'gitbranch': 'FugitiveHead',
+            \     'gitbranch': 'FugitiveStatusline',
             \     'scorestatus': 'ScrollStatus',
             \     'gitstatus': 'GitStatus',
             \    },
             \ }
+
+" FugitiveStatusline FugitiveHead
 
 let g:lightline.component_visible_condition = {'gitstatus': '&gitstatus||!&gitstatus'}
