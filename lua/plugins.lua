@@ -274,8 +274,8 @@ return require('packer').startup(function()
         'ntpeters/vim-better-whitespace',
         config = function()
             vim.g.better_whitespace_operator = '<leader>ss'
-            vim.g.better_whitespace_filetypes_blacklist = {'gitcommit', 'unite', 'qf', 'help', 'markdown', 'packer'}
-            vim.cmd [[ let g:show_spaces_that_precede_tabs=1 ]]
+            vim.g.better_whitespace_filetypes_blacklist = {'gitcommit', 'unite', 'qf', 'help', 'markdown', 'packer',}
+            vim.cmd [[ let g:show_spaces_that_precede_tabs = 1 ]]
         end
     }
 
@@ -290,4 +290,12 @@ return require('packer').startup(function()
             -- autocmd FileType apache setlocal commentstring=#\ %s
         end
     }
+
+    -- Tags
+    -- use {'jsfaint/gen_tags.vim', event = 'VimEnter *',}
+    use {
+        'ludovicchabant/vim-gutentags', event = 'VimEnter *',
+        config = function()
+        end
+        }
 end)
