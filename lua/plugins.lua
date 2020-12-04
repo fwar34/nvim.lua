@@ -177,14 +177,6 @@ return require('packer').startup(function()
 	use {
         'mhinz/vim-signify',
         config = function()
-            -- let g:signify_vcs_list = ['git', 'svn']
-            -- let g:signify_difftool = 'diff'
-            -- let g:signify_sign_add               = '+'
-            -- let g:signify_sign_delete            = '-'
-            -- let g:signify_sign_delete_first_line = '^'
-            -- let g:signify_sign_change            = '~'
-            -- let g:signify_sign_changedelete      = g:signify_sign_change
-            -- nnoremap <Leader>di :SignifyDiff<CR>
         end
     }
 

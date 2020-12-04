@@ -9,17 +9,13 @@ endfunction
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " gitgutter
-" function! GitStatus()
-" "    if !exist(*GitGutterGetHunkSummary)
-" "        return ''
-" "    endif
-" "
-" "    let [a,m,r] = GitGutterGetHunkSummary()
-" "    if a || m || r
-" "        return printf('+%d ~%d -%d', a, m, r)
-" "    endif
-" "    return ''
-" endfunction
+function! GitStatus()
+    let [a,m,r] = GitGutterGetHunkSummary()
+    if a || m || r
+        return printf('+%d ~%d -%d', a, m, r)
+    endif
+    return ''
+endfunction
 
 let g:lightline = {
             \ 'colorscheme': 'wombat',
@@ -35,7 +31,7 @@ let g:lightline = {
             \     'method': 'NearestMethodOrFunction',
             \     'gitbranch': 'FugitiveStatusline',
             \     'scorestatus': 'ScrollStatus',
-            \     'gitstatus': 'GitStatus',
+            \     'gitstatus': 'sy#repo#get_stats_decorated',
             \    },
             \ }
 
