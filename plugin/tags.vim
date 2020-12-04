@@ -4,19 +4,19 @@ let g:gutentags_ctags_tagfile = '.tags'
 let g:gutentags_exclude_project_root = [expand('~/.vim')]
 
 "有pygments的话对gtags添加其他语言的支持
-if executable('pygmentize')
-    "let $GTAGSLABEL = 'native-pygments'
-    let $GTAGSLABEL = 'pygments'
-    "let $GTAGSLABEL = 'native'
-    if has('win32')
-        let $GTAGSCONF = expand('~/global/share/gtags/gtags.conf')
-    else
-        let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
-    endif
-endif
+"if executable('pygmentize')
+"    "let $GTAGSLABEL = 'native-pygments'
+"    let $GTAGSLABEL = 'pygments'
+"    "let $GTAGSLABEL = 'native'
+"    if has('win32')
+"        let $GTAGSCONF = expand('~/global/share/gtags/gtags.conf')
+"    else
+"        let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
+"    endif
+"endif
 
 "not gutentags for vim
-let g:gutentags_exclude_filetypes = ['vim', 'go']
+"let g:gutentags_exclude_filetypes = ['vim', 'go']
 
 let g:gutentags_modules = []
 if executable('ctags')
@@ -41,7 +41,7 @@ let g:gutentags_auto_add_gtags_cscope = 0
 " 错误排查：gutentags: gutentags: gtags-cscope job failed, returned: 1
 "这是因为 gutentags 调用 gtags 时，gtags 返回了错误值 1，具体是什么情况，
 "需要进一步打开日志，查看 gtags 的错误输出：
-"let g:gutentags_define_advanced_commands = 1
+let g:gutentags_define_advanced_commands = 1
 "先在 vimrc 中添加上面这一句话，允许 gutentags 打开一些高级命令和选项。
 "然后打开你出错的源文件，运行 “:GutentagsToggleTrace”命令打开日志，
 "然后保存一下当前文件，触发 gtags 数据库更新，接下来你应该能看到一些讨厌的日志输出，
