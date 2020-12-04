@@ -173,7 +173,20 @@ return require('packer').startup(function()
     -- Git
     use {'rhysd/git-messenger.vim', opt = true, cmd = 'GitMessenger'}
     use {'tpope/vim-fugitive', event = 'VimEnter *',}
-    use {'airblade/vim-gitgutter', }
+    -- use {'airblade/vim-gitgutter', }
+	use {
+        'mhinz/vim-signify',
+        config = function()
+            -- let g:signify_vcs_list = ['git', 'svn']
+            -- let g:signify_difftool = 'diff'
+            -- let g:signify_sign_add               = '+'
+            -- let g:signify_sign_delete            = '-'
+            -- let g:signify_sign_delete_first_line = '^'
+            -- let g:signify_sign_change            = '~'
+            -- let g:signify_sign_changedelete      = g:signify_sign_change
+            -- nnoremap <Leader>di :SignifyDiff<CR>
+        end
+    }
 
     -- Themes
     use {
@@ -181,6 +194,7 @@ return require('packer').startup(function()
         -- You can alias plugin names
         {'dracula/vim', as = 'dracula'},
         -- {'fwar34/vim-color-wombat256.git', as = 'wombat256'}
+        {'flazz/vim-colorschemes'}, -- one stop shop for vim colorschemes.
     }
 
     -- Status line
@@ -248,6 +262,18 @@ return require('packer').startup(function()
             vim.g.better_whitespace_operator = '<leader>ss'
             vim.g.better_whitespace_filetypes_blacklist = {'gitcommit', 'unite', 'qf', 'help', 'markdown', 'packer'}
             vim.cmd [[ let g:show_spaces_that_precede_tabs=1 ]]
+        end
+    }
+
+    -- use {'Yggdroot/LeaderF', event = 'VimEnter *',}
+
+    -- Comment
+    use {
+        'tpope/vim-commentary', event = 'VimEnter *',
+        config = function ()
+            -- My favorite file type isn't supported!
+            -- Relax! You just have to adjust 'commentstring':
+            -- autocmd FileType apache setlocal commentstring=#\ %s
         end
     }
 end)
