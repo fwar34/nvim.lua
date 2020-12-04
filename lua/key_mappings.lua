@@ -236,7 +236,7 @@ function key_mappings:start()
 
     -- floaterm
     self.floaterm = {
-        ['n|<leader>lf'] = {'<CMD>FloatermNew lf<CR>', true, true},
+        ['n|<leader>ff'] = {'<CMD>FloatermNew lf<CR>', true, true},
     }
 
     self:process_keys()
