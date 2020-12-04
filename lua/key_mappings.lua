@@ -135,6 +135,7 @@ function key_mappings:start()
         ['<localleader>lm'] = {'<CMD>lua require("futil").toggle_line_number()<CR>', true, true},
         ['<localleader>qq'] = {'<CMD>q<CR>', true, true},
         ['Y'] = {'y$', true, true},
+        ['<F12>'] = {'<CMD>lua require("futil").toggle_mouse()<CR>', true, true},
     }
 
     self.visual = {

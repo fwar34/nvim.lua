@@ -3,7 +3,7 @@ local options = {}
 function options.load_options()
     vim.cmd('set autochdir')
     -- 可以在normal,visual模式使用鼠标
-    vim.cmd('set mouse=n')
+    vim.cmd('set mouse=')
     -- vim.cmd('set cursorline')
     -- vim 自身命令行模式智能补全
     vim.cmd('set wildmenu')
