@@ -172,8 +172,8 @@ return require('packer').startup(function()
 
     -- Git
     use {'rhysd/git-messenger.vim', opt = true, cmd = 'GitMessenger'}
-    use {'tpope/vim-fugitive', cmd = {'Git', 'G'}}
-    use {'airblade/vim-gitgutter', event = 'VimEnter *'}
+    use {'tpope/vim-fugitive', event = 'VimEnter *',}
+    use {'airblade/vim-gitgutter', }
 
     -- Themes
     use {

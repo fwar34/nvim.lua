@@ -204,7 +204,8 @@ function key_mappings:start()
     self.vim_fugitive = {
         ['n|<leader>gt'] = {'<CMD>Git<CR>', true, true},
         ['n|<leader>gd'] = {'<CMD>Git diff<CR>', true, true},
-        ['n|<leader>gs'] = {'<CMD>Gdiffsplit<CR>', true, true},
+        ['n|<leader>gs'] = {'<CMD>Gvdiffsplit<CR>', true, true},
+        ['n|<leader>gp'] = {'<CMD>Git push<CR>', true, true},
     }
 
     self:process_keys()

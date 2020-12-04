@@ -2,8 +2,6 @@ function! NearestMethodOrFunction() abort
   return get(b:, 'vista_nearest_method_or_function', '')
 endfunction
 
-set statusline+=%{NearestMethodOrFunction()}
-
 " By default vista.vim never run if you don't call it explicitly.
 "
 " If you want to show the nearest function in your statusline automatically,
@@ -11,13 +9,13 @@ set statusline+=%{NearestMethodOrFunction()}
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " gitgutter
-" function! GitStatus()
-"     let [a,m,r] = GitGutterGetHunkSummary()
-"     if (a || m || r)
-"     return printf('+%d ~%d -%d', a, m, r)
-" else
-"     return nil
-" endfunction
+function! GitStatus()
+    let [a,m,r] = GitGutterGetHunkSummary()
+    if a || m || r
+        return printf('+%d ~%d -%d', a, m, r)
+    endif
+    return '' 
+endfunction
 
 let g:lightline = {
             \ 'colorscheme': 'wombat', 
@@ -37,6 +35,4 @@ let g:lightline = {
             \    },
             \ }
 
-" FugitiveStatusline FugitiveHead
-
-let g:lightline.component_visible_condition = {'gitstatus': '&gitstatus||!&gitstatus'}
+"FugitiveStatusline FugitiveHead
