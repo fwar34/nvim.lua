@@ -400,7 +400,7 @@ return require('packer').startup(function()
     }
 
     use {
-        'luochen1990/rainbow', event = 'VimEnter *',
-        -- config = 'vim.g.rainbow_active = 1',
+        'luochen1990/rainbow',
+        config = 'vim.g.rainbow_active = 1',
     }
 end)
