@@ -76,7 +76,6 @@ augroup END
 " This plugin solves a series of user experience problems in vim's preview window and
 " provide a handy way to preview tags, files and function signatures.
 "--------------------------------------------------------------------------
-" Plug 'skywind3000/vim-preview'
 noremap <silent> <C-h> :PreviewScroll -1<cr>
 noremap <silent> <C-l> :PreviewScroll +1<cr>
 inoremap <C-h> <c-\><c-o>:PreviewScroll -1<cr>
