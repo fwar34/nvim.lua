@@ -9,7 +9,7 @@ local function auto_themes()
 end
 
 local function map_q_to_quit()
-    vim.cmd [[ autocmd! FileType help :map <buffer> q <CMD>q<CR> ]]
+    vim.cmd [[ autocmd! FileType help,qf :map <buffer> q <CMD>q<CR> ]]
 end
 
 local function help_mouse()

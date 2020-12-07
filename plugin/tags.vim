@@ -78,11 +78,11 @@ augroup END
 " This plugin solves a series of user experience problems in vim's preview window and
 " provide a handy way to preview tags, files and function signatures.
 "--------------------------------------------------------------------------
-noremap <silent> <C-h> :PreviewScroll -1<cr>
-noremap <silent> <C-l> :PreviewScroll +1<cr>
-inoremap <C-h> <c-\><c-o>:PreviewScroll -1<cr>
-inoremap <C-l> <c-\><c-o>:PreviewScroll +1<cr>
-autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
-autocmd FileType qf nnoremap <silent><buffer> q :PreviewClose<cr>
-noremap <F4> :PreviewSignature!<cr>
-inoremap <F4> <c-\><c-o>:PreviewSignature!<cr>
+" noremap <silent> <C-h> :PreviewScroll -1<cr>
+" noremap <silent> <C-l> :PreviewScroll +1<cr>
+" inoremap <C-h> <c-\><c-o>:PreviewScroll -1<cr>
+" inoremap <C-l> <c-\><c-o>:PreviewScroll +1<cr>
+" autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+" autocmd FileType qf nnoremap <silent><buffer> q :PreviewClose<cr>
+" noremap <F4> :PreviewSignature!<cr>
+" inoremap <F4> <c-\><c-o>:PreviewSignature!<cr>
