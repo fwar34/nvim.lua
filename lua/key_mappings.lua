@@ -124,6 +124,16 @@ function key_mappings:process_keys()
         local keymap = create_keymap_for_plugin(k, v)
         keymap:process()
     end
+
+    for k, v in pairs(self.vim_youdao_translater) do
+        local keymap = create_keymap_for_plugin(k, v)
+        keymap:process()
+    end
+
+    for k, v in pairs(self.tagbar) do
+        local keymap = create_keymap_for_plugin(k, v)
+        keymap:process()
+    end
 end
 
 function key_mappings:start()
@@ -254,6 +264,18 @@ function key_mappings:start()
     -- vim-signify
     self.vim_signify = {
         ['n|<leader>df'] = {'<CMD>SignifyHunkDiff<CR>', true, true},
+    }
+
+    -- vim-youdao-translater
+    self.vim_youdao_translater = {
+        ['v|<C-y>'] = {'<CMD>Ydv<CR>'},
+        ['n|<C-y>'] = {'<CMD>Ydc<CR>'},
+        ['|<leader>yd'] = {':<C-u>Yde<CR>'},
+    }
+
+    -- tagbar
+    self.tagbar = {
+        ['n|<leader>tb'] = {'<CMD>TagbarToggle<CR>'},
     }
 
     self:process_keys()

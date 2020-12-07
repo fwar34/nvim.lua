@@ -110,7 +110,8 @@ return require('packer').startup(function()
     use {'liuchengxu/vim-which-key', }
 
     -- Coding
-    use {'liuchengxu/vista.vim',}
+    use {'liuchengxu/vista.vim', event = 'VimEnter *'}
+    use {'majutsushi/tagbar', cmd = 'TagbarToggle'}
 
     -- Find everythings
     use {
@@ -355,5 +356,51 @@ return require('packer').startup(function()
             -- 告诉 asyncrun 运行时自动打开高度为 6 的 quickfix 窗口，不然你看不到任何输出
             vim.g.asyncrun_open = 6
         end
+    }
+    
+    -- " 前面编译运行时需要频繁的操作 quickfix 窗口，ale查错时也需要快速再错误间跳转（location list），
+    -- " 就连文件比较也会用到快速跳转到上/下一个差异处，unimpaired 插件帮你定义了一系列方括号开头的快捷键，
+    -- " 被称为官方 Vim 中丢失的快捷键。
+    use {
+        'tpope/vim-unimpaired', event = 'VimEnter *',
+    }
+
+    -- switch file betten .cpp and .h
+    use {
+        'derekwyatt/vim-fswitch', ft = {'cpp', 'c'},
+    }
+
+    use {
+        'skywind3000/awesome-cheatsheets', event = 'VimEnter *',
+    }
+
+    use {
+        'ianva/vim-youdao-translater', event = 'VimEnter *',
+    }
+
+    -- Highlight yank
+    use {
+        'machakann/vim-highlightedyank', event = 'VimEnter *',
+    }
+
+    -- Create user text objects
+    -- use {
+    --     'kana/vim-textobj-user'
+    -- }
+
+    -- 调颜色插件
+    -- Provides command :XtermColorTable, as well as variants for different splits
+    -- Xterm numbers on the left, equivalent RGB values on the right
+    -- Press # to yank current color (shortcut for yiw)
+    -- Press t to toggle RGB text visibility
+    -- Press f to set RGB text to current color
+    -- Buffer behavior similar to Scratch.vim
+    use {
+        'guns/xterm-color-table.vim', cmd = 'XtermColorTable'
+    }
+
+    use {
+        'luochen1990/rainbow', event = 'VimEnter *',
+        -- config = 'vim.g.rainbow_active = 1',
     }
 end)
