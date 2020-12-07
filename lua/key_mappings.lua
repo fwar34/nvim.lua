@@ -153,7 +153,7 @@ function key_mappings:start()
         ['<localleader>qq'] = {'<CMD>q<CR>', true, true},
         ['Y'] = {'y$', true, true},
         ['<F12>'] = {'<CMD>lua require("futil").toggle_mouse()<CR>', true, true},
-        ['ia'] = {'mgA;<Esc>`gmg', true, true},
+        ['<leader>ia'] = {'mgA;<Esc>`gmg', true, true},
         ['<leader>yy'] = {"mgy'a`g", true, true},
         ['<leader>dd'] = {"d'a", true, true},
     }
