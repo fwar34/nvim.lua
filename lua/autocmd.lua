@@ -13,7 +13,11 @@ local function auto_themes()
 end
 
 local function map_q_to_quit()
-    vim.cmd [[ autocmd! FileType help,qf,netrw,gitcommit :map <buffer> q <CMD>q<CR> ]]
+    vim.cmd [[ autocmd! FileType help,qf,netrw :map <buffer> q <CMD>q<CR> ]]
+end
+
+local function map_wq_to_quit()
+    vim.cmd [[ autocmd! FileType gitcommit :map <buffer> q <CMD>wq<CR> ]]
 end
 
 local function help_mouse()
@@ -39,6 +43,7 @@ function autocmd.setup()
     goto_last_position()
     cmd_for_packer()
     map_q_to_quit()
+    map_wq_to_quit()
     help_mouse()
     disable_auto_comment()
     -- auto_themes()
