@@ -4,8 +4,10 @@ local futil = {mouse_help = '', mouse_g = ''}
 function futil.toggle_line_number()
     if vim.wo.number then
         vim.cmd('set nonumber')
+        vim.cmd('set norelativenumber')
     else
         vim.cmd('set number')
+        vim.cmd('set relativenumber')
         global.dump(vim.bo.filetype)
     end
 end
