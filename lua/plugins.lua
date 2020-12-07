@@ -229,7 +229,7 @@ return require('packer').startup(function()
         after = 'coc.nvim',
         branch = 'release',
         requires = {
-            {'junegunn/fzf', run = './install --all'},
+            {'junegunn/fzf', run = './install --all', lock = true},
             {'junegunn/fzf.vim'}, -- need for preview
         },
     }
@@ -330,5 +330,11 @@ return require('packer').startup(function()
     -- adds various text objects to give you more targets to operate on.
     use {
         'wellle/targets.vim', event = 'VimEnter *',
+    }
+
+    use {
+        'dstein64/vim-win', event = 'VimEnter *',
+        config = function()
+        end
     }
 end)
