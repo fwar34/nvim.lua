@@ -52,7 +52,9 @@ let g:gutentags_define_advanced_commands = 1
 "输出trace信息
 "let g:gutentags_trace = 1
 
+" You can disable the default keymaps by:
 let g:gutentags_plus_nomap = 1
+" and define your new maps:
 noremap <silent> <Leader>hs :GscopeFind s <C-R><C-W><cr>
 noremap <silent> <Leader>hg :GscopeFind g <C-R><C-W><cr>
 noremap <silent> <Leader>hc :GscopeFind c <C-R><C-W><cr>

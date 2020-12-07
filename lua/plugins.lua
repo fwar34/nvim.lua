@@ -169,6 +169,14 @@ return require('packer').startup(function()
         end
     }
 
+    use {
+        'skywind3000/vim-terminal-help', event = 'VimEnter *',
+        config = function()
+            vim.g.terminal_height = 20
+            vim.g.terminal_list = 0 -- set to 0 to hide terminal buffer in the buffer list.
+        end
+    }
+
     -- Better Lua highlighting
     use {'euclidianAce/BetterLua.vim', opt = true, ft = {'lua'}}
 
@@ -299,7 +307,7 @@ return require('packer').startup(function()
         end},
 
         {'skywind3000/gutentags_plus', event = 'VimEnter *'},
-        {'skywind3000/vim-preview', event = 'VimEnter *'}
+        -- {'skywind3000/vim-preview', event = 'VimEnter *'}
     }
 
     use {
@@ -335,6 +343,16 @@ return require('packer').startup(function()
     use {
         'dstein64/vim-win', event = 'VimEnter *',
         config = function()
+        end
+    }
+
+    -- Async task
+    use {
+        'skywind3000/asynctasks.vim', after = 'asyncrun.vim',
+        requires = {'skywind3000/asyncrun.vim', event = 'VimEnter *'},
+        config = function()
+            -- 告诉 asyncrun 运行时自动打开高度为 6 的 quickfix 窗口，不然你看不到任何输出
+            vim.g.asyncrun_open = 6
         end
     }
 end)
