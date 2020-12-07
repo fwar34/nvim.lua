@@ -282,6 +282,7 @@ return require('packer').startup(function()
         'ntpeters/vim-better-whitespace',
         config = function()
             vim.g.better_whitespace_operator = '<leader>ss'
+            vim.g.better_whitespace_enabled = 0
             vim.g.better_whitespace_filetypes_blacklist = {'gitcommit', 'unite', 'qf', 'help', 'markdown', 'packer',}
             vim.cmd [[ let g:show_spaces_that_precede_tabs = 1 ]]
         end

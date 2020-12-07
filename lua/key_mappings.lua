@@ -119,6 +119,11 @@ function key_mappings:process_keys()
         local keymap = create_keymap_for_plugin(k, v)
         keymap:process()
     end
+
+    for k, v in pairs(self.vim_signify) do
+        local keymap = create_keymap_for_plugin(k, v)
+        keymap:process()
+    end
 end
 
 function key_mappings:start()
@@ -138,6 +143,9 @@ function key_mappings:start()
         ['<localleader>qq'] = {'<CMD>q<CR>', true, true},
         ['Y'] = {'y$', true, true},
         ['<F12>'] = {'<CMD>lua require("futil").toggle_mouse()<CR>', true, true},
+        ['ia'] = {'mgA;<Esc>`gmg', true, true},
+        ['<leader>yy'] = {"mgy'a`g", true, true},
+        ['<leader>dd'] = {"d'a", true, true},
     }
 
     self.visual = {
@@ -241,6 +249,11 @@ function key_mappings:start()
     -- floaterm
     self.floaterm = {
         ['n|<leader>ff'] = {'<CMD>FloatermNew lf<CR>', true, true},
+    }
+
+    -- vim-signify
+    self.vim_signify = {
+        ['n|<leader>df'] = {'<CMD>SignifyHunkDiff<CR>', true, true},
     }
 
     self:process_keys()
