@@ -52,6 +52,15 @@ let g:gutentags_define_advanced_commands = 1
 "输出trace信息
 "let g:gutentags_trace = 1
 
+" 0 or s: Find this symbol
+" 1 or g: Find this definition
+" 2 or d: Find functions called by this function
+" 3 or c: Find functions calling this function
+" 4 or t: Find this text string
+" 6 or e: Find this egrep pattern
+" 7 or f: Find this file
+" 8 or i: Find files #including this file
+" 9 or a: Find places where this symbol is assigned a value
 " You can disable the default keymaps by:
 let g:gutentags_plus_nomap = 1
 " and define your new maps:
