@@ -186,6 +186,7 @@ function key_mappings:start()
     -- fzf.vim key mappings
     self.fzfvim = {
         ['n|<leader>fa'] = {'<CMD>Ag<CR>', true},
+        ['n|<leader>fw'] = {':Ag <C-R>=expand("<cword>")<CR><CR>', true, true},
         ['n|<leader>fg'] = {'<CMD>Rg<CR>', true},
         ['n|<leader>rm'] = {'<CMD>History<CR>', true},
         ['n|<leader>ch'] = {'<CMD>History:<CR>', true},
