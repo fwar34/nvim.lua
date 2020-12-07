@@ -13,6 +13,7 @@ let g:coc_global_extensions = [
 			\ 'coc-tasks',
 			\ 'coc-todolist',
 			\ 'coc-translator',
+			\ 'coc-marketplace',
 			\ 'coc-vimlsp',
 			\ 'coc-yaml',
 			\ 'coc-yank']

@@ -297,5 +297,35 @@ return require('packer').startup(function()
         'ludovicchabant/vim-gutentags', event = 'VimEnter *',
         config = function()
         end
-        }
+    }
+
+    use {
+        'plasticboy/vim-markdown', after = 'tabular', ft = 'markdownd',
+        requires = {'godlygeek/tabular'},
+    }
+
+    -- This vim bundle adds advanced syntax highlighting for GNU as (AT&T).
+    use {
+        'Shirk/vim-gas', ft = 'asm',
+    }
+
+    -- Improved Lua 5.3 syntax and indentation support for Vim.
+    use {'tbastos/vim-lua', ft = 'lua'}
+
+    use {
+        'vim-python/python-syntax', ft = 'python',
+        config = function()
+            vim.g.python_highlight_all = 1
+        end
+    }
+
+    -- A Vim text editor plugin to swap delimited items.
+    use {
+        'machakann/vim-swap', event = 'VimEnter *',
+    }
+
+    -- adds various text objects to give you more targets to operate on.
+    use {
+        'wellle/targets.vim', event = 'VimEnter *',
+    }
 end)
