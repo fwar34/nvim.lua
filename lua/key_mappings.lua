@@ -156,6 +156,7 @@ function key_mappings:start()
         ['<leader>ia'] = {'mgA;<Esc>`gmg', true, true},
         ['<leader>yy'] = {"mgy'a`g", true, true},
         ['<leader>dd'] = {"d'a", true, true},
+        ['<leader>qf'] = {'<CMD>copen<CR>', true, true},
     }
 
     self.visual = {
