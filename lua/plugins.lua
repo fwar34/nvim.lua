@@ -68,12 +68,12 @@ return require('packer').startup(function()
     use {'tpope/vim-dispatch', opt = true, cmd = {'Dispatch', 'Make', 'Focus', 'Start'}}
 
     -- Load on an autocommand event
-    use {
-        'andymass/vim-matchup', opt = true, event = 'VimEnter *',
-        config = function()
-            vim.cmd [[ let g:matchup_matchparen_offscreen = {'method': 'popup'} ]]
-        end
-    }
+    -- use {
+    --     'andymass/vim-matchup', opt = true, event = 'VimEnter *',
+    --     config = function()
+    --         vim.cmd [[ let g:matchup_matchparen_offscreen = {'method': 'popup'} ]]
+    --     end
+    -- }
 
     -- Load on a combination of conditions: specific filetypes or commands
     -- Also run code after load (see the "config" key)
