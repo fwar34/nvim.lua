@@ -145,7 +145,28 @@ return require('packer').startup(function()
 
     -- File manager
     use {'Shougo/defx.nvim', opt = true, cmd = {'Defx'}}
-    use {'kevinhwang91/rnvimr', cmd = 'RnvimrToggle'} -- Ranger
+    use {
+        'kevinhwang91/rnvimr', cmd = 'RnvimrToggle',
+        config = function()
+            -- Make Ranger replace Netrw and be the file explorer
+            vim.g.rnvimr_enable_ex = 1
+            -- Make Ranger to be hidden after picking a file
+            vim.g.rnvimr_enable_picker = 1
+            -- Make Neovim wipe the buffers corresponding to the files deleted by Ranger
+            vim.g.rnvimr_enable_bw = 1
+            -- Link CursorLine into RnvimrNormal highlight in the Floating window
+            vim.cmd [[ highlight link RnvimrNormal CursorLine ]]
+
+            -- Map Rnvimr action
+            vim.g.rnvimr_action = {
+                 [ '<C-t>' ] = 'NvimEdit tabedit',
+                 [ '<C-x>' ] = 'NvimEdit split',
+                 [ '<C-v>' ] = 'NvimEdit vsplit',
+                 [ 'gw' ] = 'JumpNvimCwd',
+                 [ 'yw' ] = 'EmitRangerCwd'
+                 }
+        end
+    } -- Ranger
     use { -- nnn
         'mcchrish/nnn.vim', cmd = {'NnnPicker', 'Np'},
         config = function()
