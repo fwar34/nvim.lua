@@ -275,6 +275,7 @@ function key_mappings:start()
     -- vim-signify
     self.vim_signify = {
         ['n|<leader>df'] = {'<CMD>SignifyHunkDiff<CR>', true, true},
+        ['n|<leader>du'] = {'<CMD>SignifyHunkUndo<CR>', true, true},
     }
 
     -- vim-youdao-translater
