@@ -25,6 +25,10 @@ local function help_mouse()
     vim.cmd [[ autocmd! BufLeave *.txt lua require('futil'):restore_mouse() ]]
 end
 
+local function golang_autocmd()
+    vim.cmd [[ autocmd! FileType go :imap <buffer> ; :=]]
+end
+
 local function disable_auto_comment()
     -- "禁止vim换行后自动添加的注释符号
     vim.cmd [[ augroup Format-Options ]]
@@ -46,6 +50,7 @@ function autocmd.setup()
     map_wq_to_quit()
     help_mouse()
     disable_auto_comment()
+    golang_autocmd()
     -- auto_themes()
 end
 
