@@ -35,11 +35,11 @@ return require('packer').startup(function()
                     -- number_style = "superscript" | "",
                     number_style = "",
                     mappings = true,
-                    buffer_close_icon= '',
+                    buffer_close_icon= '',
                     modified_icon = '●',
-                    close_icon = '',
-                    left_trunc_marker = '',
-                    right_trunc_marker = '',
+                    close_icon = '',
+                    left_trunc_marker = '@',
+                    right_trunc_marker = '$',
                     max_name_length = 18,
                     max_prefix_length = 15, -- prefix used when a buffer is deduplicated
                     tab_size = 18,
@@ -239,7 +239,12 @@ return require('packer').startup(function()
         branch = 'release',
         requires = {
             {'junegunn/fzf', run = './install --all', lock = true},
-            {'junegunn/fzf.vim'}, -- need for preview
+            {
+                'junegunn/fzf.vim', event = 'VimEnter *',
+                config = function()
+                    vim.g.fzf_preview_window = { 'up:50%', 'ctrl-/' }
+                end
+            }, -- need for preview
         },
     }
 

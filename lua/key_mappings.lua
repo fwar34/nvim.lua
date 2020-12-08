@@ -1,7 +1,7 @@
 -- key_mappings
 local global = require('global')
 
-local key_mappings = {normal = {}, visual = {}, insert = {}, }
+local key_mappings = {normal = {}, visual = {}, insert = {}, terminal = {},}
 local key_map = {}
 
 function key_map:new()
@@ -55,8 +55,13 @@ function key_mappings:process_keys()
         keymap:process()
     end
 
-    for k, v in pairs(self.normal) do
+    for k, v in pairs(self.visual) do
         local keymap = create_keymap('v', k, v)
+        keymap:process()
+    end
+
+    for k, v in pairs(self.terminal) do
+        local keymap = create_keymap('t', k, v)
         keymap:process()
     end
 
@@ -173,6 +178,10 @@ function key_mappings:start()
         ['<leader>zz'] = {'<Esc><CMD>w<CR>a', true, true},
     }
 
+    self.terminal = {
+        ['<F12>'] = {'<CMD>lua require("futil").toggle_mouse()<CR>', true, true},
+    }
+
     -- coc
     self.coc = {
         ['n|<leader>tl'] = {'<CMD>CocCommand explorer<CR>', true, true},
@@ -231,12 +240,12 @@ function key_mappings:start()
     -- coc.translator
     self.coc_translator = {
         -- " NOTE: do NOT use `nore` mappings
-        ['n|<leader>tu'] = {'<Plug>(coc-translator-p)', false, true},
-        ['v|<leader>tu'] = {'<Plug>(coc-translator-pv)', false, true},
-        ['n|<leader>te'] = {'<Plug>(coc-translator-e)', false, true},
-        ['v|<leader>te'] = {'<Plug>(coc-translator-ev)', false, true},
-        ['n|<leader>tr'] = {'<Plug>(coc-translator-r)', false, true},
-        ['v|<leader>tr'] = {'<Plug>(coc-translator-rv)', false, true},
+        ['n|<leader>tu'] = {'<Plug>(coc-translator-p)',},
+        ['v|<leader>tu'] = {'<Plug>(coc-translator-pv)',},
+        ['n|<leader>te'] = {'<Plug>(coc-translator-e)',},
+        ['v|<leader>te'] = {'<Plug>(coc-translator-ev)',},
+        ['n|<leader>tr'] = {'<Plug>(coc-translator-r)',},
+        ['v|<leader>tr'] = {'<Plug>(coc-translator-rv)',},
     }
 
     -- vim-fugitive
