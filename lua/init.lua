@@ -1,5 +1,4 @@
 local options = require('options')
-local plugins = require('plugins')
 local key_mappings = require('key_mappings')
 local autocmd = require('autocmd')
 local terminal = require('terminal')
