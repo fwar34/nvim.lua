@@ -26,7 +26,7 @@ local function help_mouse()
 end
 
 local function golang_autocmd()
-    vim.cmd [[ autocmd! FileType go :imap <buffer> ; :=]]
+    vim.cmd [[ autocmd! FileType go :imap <buffer> ; <Space>:=<Space>]]
 end
 
 local function disable_auto_comment()
