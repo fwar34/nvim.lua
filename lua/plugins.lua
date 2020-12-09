@@ -121,6 +121,7 @@ return require('packer').startup(function()
             vim.g.clap_current_selection_sign = { text = '->',
             texthl = 'ClapCurrentSelectionSign', linehl = 'ClapCurrentSelection' }
 
+            local cheatsheets_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/awesome-cheatsheets/README.md'
             -- `:Clap dotfiles` to open some dotfiles quickly.
             vim.g.clap_provider_dot = {
                 source = {
@@ -133,7 +134,8 @@ return require('packer').startup(function()
                     '~/.config/nvim/plugin/which-vim-key.vim',
                     '~/.config/nvim/cheatsheets.md',
                     '~/.zshrc',
-                    '~/.tmux.conf'
+                    '~/.tmux.conf',
+                    cheatsheets_path,
                 },
                 sink = 'e'
             }
@@ -157,13 +159,15 @@ return require('packer').startup(function()
             -- Link CursorLine into RnvimrNormal highlight in the Floating window
             vim.cmd [[ highlight link RnvimrNormal CursorLine ]]
 
+            -- if vim.fn.empty(vim.fn.glob(cheatsheets_path)) > 0 then
+            -- end
             -- Map Rnvimr action
             vim.g.rnvimr_action = {
                  [ '<C-t>' ] = 'NvimEdit tabedit',
                  [ '<C-x>' ] = 'NvimEdit split',
                  [ '<C-v>' ] = 'NvimEdit vsplit',
                  [ 'gw' ] = 'JumpNvimCwd',
-                 [ 'yw' ] = 'EmitRangerCwd'
+                 [ 'yw' ] = 'EmitRangerCwd',
                  }
         end
     } -- Ranger

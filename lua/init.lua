@@ -2,6 +2,7 @@ local options = require('options')
 local plugins = require('plugins')
 local key_mappings = require('key_mappings')
 local autocmd = require('autocmd')
+local terminal = require('terminal')
 
 local core = {}
 
@@ -18,6 +19,7 @@ function core.init()
     options.load_options()
     key_mappings.setup()
     autocmd.setup()
+    terminal.setup()
 end
 
 return core

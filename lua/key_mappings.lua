@@ -220,6 +220,7 @@ function key_mappings:start()
         ['n|<localleader>fd'] = {'<CMD>Clap git_diff_files<CR>', true, true},
         ['n|<localleader>fh'] = {'<CMD>Clap help_tags<CR>', true, true},
         ['n|<localleader>fa'] = {'<CMD>Clap grep<CR>', true, true},
+        ['n|<localleader>do'] = {'<CMD>Clap dot<CR>', true, true},
     }
 
     -- Vista
