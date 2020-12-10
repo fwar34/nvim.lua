@@ -65,7 +65,7 @@ return require('packer').startup(function()
 
     -- Lazy loading:
     -- Load on specific commands
-    use {'tpope/vim-dispatch', opt = true, cmd = {'Dispatch', 'Make', 'Focus', 'Start'}}
+    -- use {'tpope/vim-dispatch', opt = true, cmd = {'Dispatch', 'Make', 'Focus', 'Start'}}
 
     -- Load on an autocommand event
     -- use {
@@ -432,5 +432,25 @@ return require('packer').startup(function()
     use {
         'luochen1990/rainbow',
         config = 'vim.g.rainbow_active = 1',
+    }
+
+    -- Clojure
+    use {
+        {'guns/vim-sexp'},
+        {'tpope/vim-sexp-mappings-for-regular-people'},
+        {'Olical/conjure', tag = 'v4.9.0'},
+        {'tpope/vim-dispatch'},
+        -- Jack in to Boot, Clj & Leiningen from Vim. Inspired by the feature in CIDER.el.
+        {'clojure-vim/vim-jack-in'},
+        -- Vim highlighting for Fennel, heavily modified from vim-clojure-static.
+        {'bakpakin/fennel.vim'},
+        -- Aniseed bridges the gap between Fennel (a Lisp that compiles to Lua) 
+        -- and Neovim. Allowing you to easily write plugins or configuration in 
+        -- a Clojure-like Lisp with great runtime performance.
+        {'Olical/aniseed', tag = 'v3.11.0'}
+    }
+
+    use {
+        'jiangmiao/auto-pairs'
     }
 end)

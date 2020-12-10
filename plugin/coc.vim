@@ -5,7 +5,6 @@ let g:coc_global_extensions = [
 			\ 'coc-gitignore',
 			\ 'coc-json',
 			\ 'coc-explorer',
-			\ 'coc-pairs',
 			\ 'coc-lua',
 			\ 'coc-go',
 			\ 'coc-lists',

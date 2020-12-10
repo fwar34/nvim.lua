@@ -13,6 +13,9 @@
 12. coc.nvim for go plugin
 13. coc.nvim for rust plugin
 14. how to use every plugin
+15. auto-pairs how to use
+16. nvim-lspconfig how to use
+17. 
 
 ** VIM cheatsheets
 1. <C-a> 数字自增 <C-x> 数字自减
