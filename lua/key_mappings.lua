@@ -133,7 +133,7 @@ function key_mappings:start()
 
     -- rnvimr
     self.rnvimr = {
-        ['n|<localleader>tt'] = {'<CMD>RnvimrToggle<CR>', true, true},
+        ['n|<localleader>rn'] = {'<CMD>RnvimrToggle<CR>', true, true},
     }
 
     -- undotree
