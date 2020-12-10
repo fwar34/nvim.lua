@@ -1,7 +1,7 @@
 -- key_mappings
 local global = require('global')
 
-local key_mappings = {normal = {}, visual = {}, insert = {}, terminal = {},}
+local key_mappings = {}
 local key_map = {}
 
 function key_map:new()
@@ -23,18 +23,7 @@ function key_map:process()
     vim.api.nvim_set_keymap(self.mode, self.lhs, self.rhs, self.options)
 end
 
-local function create_keymap(mode, key, value)
-    local keymap = key_map:new()
-    keymap.mode = mode
-    keymap.lhs = key
-    keymap.rhs = value[1]
-    keymap.options.noremap = value[2] and true or false
-    keymap.options.silent = value[3] and true or false
-
-    return keymap
-end
-
-local function create_keymap_for_plugin(key, value)
+local function create_keymap(key, value)
     local keymap = key_map:new()
     keymap.mode, keymap.lhs = key:match('([^|]*)|?(.*)')
     keymap.rhs = value[1]
@@ -45,141 +34,55 @@ local function create_keymap_for_plugin(key, value)
 end
 
 function key_mappings:process_keys()
-    for k, v in pairs(self.normal) do
-        local keymap = create_keymap('n', k, v)
-        keymap:process()
-    end
-
-    for k, v in pairs(self.insert) do
-        local keymap = create_keymap('i', k, v)
-        keymap:process()
-    end
-
-    for k, v in pairs(self.visual) do
-        local keymap = create_keymap('v', k, v)
-        keymap:process()
-    end
-
-    for k, v in pairs(self.terminal) do
-        local keymap = create_keymap('t', k, v)
-        keymap:process()
-    end
-
-    for k, v in pairs(self.cocfzf) do
-        local keymap = create_keymap_for_plugin(k, v)
-        keymap:process()
-    end
-
-    for k, v in pairs(self.fzfvim) do
-        local keymap = create_keymap_for_plugin(k, v)
-        keymap:process()
-    end
-
-    for k, v in pairs(self.clap) do
-        local keymap = create_keymap_for_plugin(k, v)
-        keymap:process()
-    end
-
-    for k, v in pairs(self.vista) do
-        local keymap = create_keymap_for_plugin(k, v)
-        keymap:process()
-    end
-
-    for k, v in pairs(self.coc) do
-        local keymap = create_keymap_for_plugin(k, v)
-        keymap:process()
-    end
-
-    for k, v in pairs(self.rnvimr) do
-        local keymap = create_keymap_for_plugin(k, v)
-        keymap:process()
-    end
-
-    for k, v in pairs(self.undotree) do
-        local keymap = create_keymap_for_plugin(k, v)
-        keymap:process()
-    end
-
-    for k, v in pairs(self.coc_translator) do
-        local keymap = create_keymap_for_plugin(k, v)
-        keymap:process()
-    end
-
-    for k, v in pairs(self.vim_fugitive) do
-        local keymap = create_keymap_for_plugin(k, v)
-        keymap:process()
-    end
-
-    for k, v in pairs(self.vim_better_whitespace) do
-        local keymap = create_keymap_for_plugin(k, v)
-        keymap:process()
-    end
-
-    for k, v in pairs(self.nnn_vim) do
-        local keymap = create_keymap_for_plugin(k, v)
-        keymap:process()
-    end
-
-    for k, v in pairs(self.floaterm) do
-        local keymap = create_keymap_for_plugin(k, v)
-        keymap:process()
-    end
-
-    for k, v in pairs(self.vim_signify) do
-        local keymap = create_keymap_for_plugin(k, v)
-        keymap:process()
-    end
-
-    for k, v in pairs(self.vim_youdao_translater) do
-        local keymap = create_keymap_for_plugin(k, v)
-        keymap:process()
-    end
-
-    for k, v in pairs(self.tagbar) do
-        local keymap = create_keymap_for_plugin(k, v)
-        keymap:process()
+    for _, v in pairs(self) do
+        if (type(v) == 'table') then
+            for ki, vi in pairs(v) do
+                local keymap = create_keymap(ki, vi)
+                keymap:process()
+            end
+        end
     end
 end
 
 function key_mappings:start()
     self.normal = {
-        ['<leader>zz'] = {'<CMD>w<CR>', true, true},
-        ['<leader>fd'] = {'<CMD>echo expand("%:p")<CR>', true, true},
-        ['<leader>a'] = {'^', true, true},
-        ['<leader>e'] = {'$', true, true},
-        ['<leader>xx'] = {'<CMD>nohl<CR>', true, true},
-        ['<leader><TAB>'] = {'<C-w><C-w>', true, true},
-        ['<leader>do'] = {'<CMD>on<CR>', true, true},
-        ['<leader>dm'] = {'<CMD>delmarks!<CR>', true, true},
-        ['<leader>db'] = {'<CMD>bdel<CR>', true, true},
-        ['<Space><Space>'] = {':', true},
-        ['<leader>bb'] = {'<C-^>', true, true},
-        ['<localleader>lm'] = {'<CMD>lua require("futil").toggle_line_number()<CR>', true, true},
-        ['<localleader>qq'] = {'<CMD>q<CR>', true, true},
-        ['Y'] = {'y$', true, true},
-        ['<F12>'] = {'<CMD>lua require("futil").toggle_mouse()<CR>', true, true},
-        ['<leader>ia'] = {'mgA;<Esc>`gmg', true, true},
-        ['<leader>yy'] = {"mgy'a`g", true, true},
-        ['<leader>dd'] = {"d'a", true, true},
-        ['<leader>qf'] = {'<CMD>copen<CR>', true, true},
+        ['n|<leader>zz'] = {'<CMD>w<CR>', true, true},
+        ['n|<leader>fd'] = {'<CMD>echo expand("%:p")<CR>', true, true},
+        ['n|<leader>a'] = {'^', true, true},
+        ['n|<leader>e'] = {'$', true, true},
+        ['n|<leader>xx'] = {'<CMD>nohl<CR>', true, true},
+        ['n|<leader><TAB>'] = {'<C-w><C-w>', true, true},
+        ['n|<leader>do'] = {'<CMD>on<CR>', true, true},
+        ['n|<leader>dm'] = {'<CMD>delmarks!<CR>', true, true},
+        ['n|<leader>db'] = {'<CMD>bdel<CR>', true, true},
+        ['n|<Space><Space>'] = {':', true},
+        ['n|<leader>bb'] = {'<C-^>', true, true},
+        ['n|<localleader>lm'] = {'<CMD>lua require("futil").toggle_line_number()<CR>', true, true},
+        ['n|<localleader>qq'] = {'<CMD>q<CR>', true, true},
+        ['n|Y'] = {'y$', true, true},
+        ['n|<F12>'] = {'<CMD>lua require("futil").toggle_mouse()<CR>', true, true},
+        ['n|<leader>ia'] = {'mgA;<Esc>`gmg', true, true},
+        ['n|<leader>yy'] = {"mgy'a`g", true, true},
+        ['n|<leader>dd'] = {"d'a", true, true},
+        ['n|<leader>qf'] = {'<CMD>copen<CR>', true, true},
     }
 
     self.visual = {
-        ['<leader>g'] = {'<Esc>', true, true},
-        ['<C-g>'] = {'<Esc>', true, true},
+        ['v|<leader>g'] = {'<Esc>', true, true},
+        ['v|<C-g>'] = {'<Esc>', true, true},
     }
 
     self.insert = {
-        ['<leader>g'] = {'<C-c>', true, true},
-        ['<leader>a'] = {'<Esc>I', true, true},
-        ['<leader>e'] = {'<End>', true, true},
-        ['<leader>O'] = {'<C-o>O', true, true},
-        ['<leader>o'] = {'<C-o>o', true, true},
-        ['<leader>zz'] = {'<Esc><CMD>w<CR>a', true, true},
+        ['i|<leader>g'] = {'<C-c>', true, true},
+        ['i|<leader>a'] = {'<Esc>I', true, true},
+        ['i|<leader>e'] = {'<End>', true, true},
+        ['i|<leader>O'] = {'<C-o>O', true, true},
+        ['i|<leader>o'] = {'<C-o>o', true, true},
+        ['i|<leader>zz'] = {'<Esc><CMD>w<CR>a', true, true},
     }
 
     self.terminal = {
-        ['<F12>'] = {'<CMD>lua require("futil").toggle_mouse()<CR>', true, true},
+        ['t|<F12>'] = {'<CMD>lua require("futil").toggle_mouse()<CR>', true, true},
     }
 
     -- coc
@@ -303,7 +206,6 @@ end
 
 function key_mappings.setup()
     set_leader()
-    -- vim.cmd [[ nnoremap <silent> <leader> :WhichKey ';'<CR> ]]
     key_mappings:start()
 end
 
