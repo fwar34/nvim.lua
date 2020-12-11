@@ -12,7 +12,7 @@ function terminal.setup()
     -- terminal mouse autocmd
     vim.cmd [[ augroup terminal_mouse ]]
     vim.cmd [[   autocmd! ]]
-    vim.cmd [[   autocmd BufEnter * lua require('terminal'):set_mouse_for_terminal() ]]
+    -- vim.cmd [[   autocmd BufEnter * lua require('terminal'):set_mouse_for_terminal() ]]
     vim.cmd [[   autocmd BufLeave * lua require('terminal'):restore_mouse_from_terminal() ]]
     vim.cmd [[ augroup END ]]
 end
