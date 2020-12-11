@@ -12,4 +12,3 @@
 (fn print-sep []
   "doc print-sep"
   (print "xx"))
-(doc print-sep)

@@ -61,3 +61,58 @@ num
 (let [one 1 two 2
       tbl {: one : two}]
   tbl)
+
+(let [data [1 2 3]
+      [fst snd thrd] data]
+  (print fst snd thrd))
+
+(let [pos {:x 221 :y 35}
+      {:x x-pos :y y-pos} pos]
+  (print x-pos y-pos))
+
+(let [pos {:x 23 :y 42}
+      {: x : y} pos]
+  (print x y))
+
+(let [f (fn [] ["abc" "def" {:x "xyz" :y "abc"}])
+      [a d {:x x : y}] (f)]
+  (print a d)
+  (print x y))
+
+(let [(f msg) (io.open "file" "rb")]
+  (if f
+    (do (print (f.read f "*all"))
+      (f.close f))
+    (print (.. "Could not open file: " msg))))
+
+(fn use-file [filename]
+  (if false
+    (print filename)
+    (values nil (.. "Invalid filename: " filename))))
+
+(let [(f msg) (use-file "test")]
+  (print f msg))
+
+(let [(ok? val-or-msg) (pcall use-file "xxxx")]
+  (if ok?
+    (print "Got value" val-or-msg)
+    (print "Could not get value: " val-or-msg)))
+
+(fn print-each [...]
+  (each [i v (ipairs [...])]
+    (print (.. "Arg " i " is " v))))
+(print-each "a" "b" 1 2)
+
+(each [line (io.lines "/home/feng/.config/nvim/.gitignore")]
+  (print line))
+
+(print (unpack [1 3 5]))
+
+(fn my-print [prefix ...]
+  (io.write prefix)
+  (io.write (.. (select "#" ...) " arg given: "))
+  (print ...))
+(my-print ":D " :d :e :f)
+
+(print _VERSION)
+(print _G)
