@@ -448,6 +448,7 @@ return require('packer').startup(function()
         -- and Neovim. Allowing you to easily write plugins or configuration in 
         -- a Clojure-like Lisp with great runtime performance.
         {'Olical/aniseed', tag = 'v3.11.0'},
+        {'Olical/nvim-local-fennel', tag = 'v2.4.0'}
     }
 
     use {
