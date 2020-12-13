@@ -1,6 +1,9 @@
 {
+    "Lua.workspace.preloadFileSize": 200,
     "lua.useSumnekoLs": true,
+
     "explorer.quitOnOpen": true,
+
     "translator.toLang": {
         "type": "string",
         "default": "zh",
