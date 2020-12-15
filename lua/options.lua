@@ -21,7 +21,9 @@ function options.load_options()
     vim.cmd('set shortmess=atcI')
     -- 输入的命令显示出来，看的清楚些
     -- vim.cmd('set showcmd')
-    -- fileencodings='utf-8,ucs-bom,cp936'
+    vim.cmd('set encoding=utf-8')
+    vim.cmd('set fileencodings=utf-8,chinese,latin-1')
+    vim.cmd('set fileencoding=utf-8')
     -- 设置当文件被改动时自动载入
     vim.cmd('set autoread')
     vim.cmd('set completeopt=menu,menuone,noselect,noinsert,preview')
