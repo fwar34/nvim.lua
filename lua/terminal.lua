@@ -5,7 +5,7 @@ function terminal.setup()
     -- floaterm mouse autocmd
     vim.cmd [[ augroup floaterm_mouse ]]
     vim.cmd [[   autocmd! ]]
-    vim.cmd [[   autocmd FileType floaterm lua require('terminal'):set_mouse_for_floaterm() ]]
+    -- vim.cmd [[   autocmd FileType floaterm lua require('terminal'):set_mouse_for_floaterm() ]]
     vim.cmd [[   autocmd BufLeave * lua require('terminal'):restore_mouse_from_floaterm() ]]
     vim.cmd [[ augroup END ]]
 
