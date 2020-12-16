@@ -125,7 +125,7 @@ return require('packer').startup(function()
             -- `:Clap dotfiles` to open some dotfiles quickly.
             vim.g.clap_provider_dot = {
                 source = {
-                    '~/.config/nvim/lua/init.lua',
+                    '~/.config/nvim/lua/start.lua',
                     '~/.config/nvim/lua/plugins.lua',
                     '~/.config/nvim/lua/key_mappings.lua',
                     '~/.config/nvim/lua/autocmd.lua',
