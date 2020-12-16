@@ -448,7 +448,26 @@ return require('packer').startup(function()
         -- and Neovim. Allowing you to easily write plugins or configuration in 
         -- a Clojure-like Lisp with great runtime performance.
         {'Olical/aniseed', tag = 'v3.11.0'},
-        {'Olical/nvim-local-fennel', tag = 'v2.4.0'}
+        {'Olical/nvim-local-fennel', tag = 'v2.4.0'},
+        -- Interactive Repls Over Neovim
+        -- Iron is both a plugin and a library to allow users to deal with repls.
+        {
+            'hkupty/iron.nvim', 
+            -- config = function()
+            --     local iron = require('iron')
+            --     iron.core.add_repl_definitions {
+            --         python = {mycustom = {command = {"python3"}}},
+            --         clojure = {lein_connect = {command = {"lein", "repl", ":connect"}}},
+            --     }
+
+            --     iron.core.set_config {
+            --         preferred = {
+            --             python = "ipython",
+            --             clojure = "lein",
+            --         }
+            --     }
+            -- end
+        },
     }
 
     use {
