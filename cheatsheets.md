@@ -17,6 +17,7 @@
 16. nvim-lspconfig how to use
 17. awesome window manager
 18. Fennel lang to lua
+19. use homeshick to manager dotfiles
 
 ** VIM cheatsheets
 1. <C-a> 数字自增 <C-x> 数字自减
