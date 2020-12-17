@@ -445,7 +445,7 @@ return require('packer').startup(function()
     use {
         {'guns/vim-sexp', ft = {'fennel', 'clojure'}},
         {'tpope/vim-sexp-mappings-for-regular-people', ft = {'fennel', 'clojure'}},
-        -- {'Olical/conjure', tag = 'v4.9.0', opt = true},
+        -- {'Olical/conjure', tag = 'v4.9.0',},
         {'Olical/conjure', tag = 'v4.9.0', ft = {'fennel', 'clojure'}, config = function ()
             vim.cmd('let g:conjure#mapping#prefix = ","')
         end},

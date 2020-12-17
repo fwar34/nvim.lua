@@ -43,12 +43,12 @@ local function disable_auto_comment()
     vim.cmd [[ augroup END ]]
 end
 
-local function load_lisp_plugins()
-    vim.cmd [[ augroup Load_lisp ]]
-    vim.cmd [[ autocmd! ]]
-    vim.cmd [[ autocmd FileType fennel,clojure packadd conjure ]]
-    vim.cmd [[ augroup END ]]
-end
+-- local function load_lisp_plugins()
+--     vim.cmd [[ augroup Load_lisp ]]
+--     vim.cmd [[ autocmd! ]]
+--     vim.cmd [[ autocmd FileType fennel,clojure packadd conjure ]]
+--     vim.cmd [[ augroup END ]]
+-- end
 
 function autocmd.setup()
     goto_last_position()
@@ -59,7 +59,7 @@ function autocmd.setup()
     disable_auto_comment()
     golang_autocmd()
     -- auto_themes()
-    load_lisp_plugins()
+    -- load_lisp_plugins()
 end
 
 return autocmd
