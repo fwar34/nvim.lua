@@ -436,19 +436,19 @@ return require('packer').startup(function()
 
     -- Clojure
     use {
-        {'guns/vim-sexp'},
-        {'tpope/vim-sexp-mappings-for-regular-people'},
-        {'Olical/conjure', tag = 'v4.9.0'},
-        {'tpope/vim-dispatch'},
+        {'guns/vim-sexp', ft = {'fennel', 'clojure'}},
+        {'tpope/vim-sexp-mappings-for-regular-people', ft = {'fennel', 'clojure'}},
+        {'Olical/conjure', tag = 'v4.9.0', ft = {'fennel', 'clojure'}},
+        {'tpope/vim-dispatch', event = 'VimEnter *'},
         -- Jack in to Boot, Clj & Leiningen from Vim. Inspired by the feature in CIDER.el.
-        {'clojure-vim/vim-jack-in'},
+        {'clojure-vim/vim-jack-in', cmd = 'Clj'},
         -- Vim highlighting for Fennel, heavily modified from vim-clojure-static.
-        {'bakpakin/fennel.vim'},
+        {'bakpakin/fennel.vim', ft = {'fennel',}},
         -- Aniseed bridges the gap between Fennel (a Lisp that compiles to Lua) 
         -- and Neovim. Allowing you to easily write plugins or configuration in 
         -- a Clojure-like Lisp with great runtime performance.
-        {'Olical/aniseed', tag = 'v3.11.0'},
-        {'Olical/nvim-local-fennel', tag = 'v2.4.0'},
+        -- {'Olical/aniseed', tag = 'v3.11.0'},
+        -- {'Olical/nvim-local-fennel', tag = 'v2.4.0'},
         -- Interactive Repls Over Neovim
         -- Iron is both a plugin and a library to allow users to deal with repls.
         {
@@ -471,6 +471,6 @@ return require('packer').startup(function()
     }
 
     use {
-        'jiangmiao/auto-pairs'
+        'jiangmiao/auto-pairs', event = 'InsertEnter *',
     }
 end)
