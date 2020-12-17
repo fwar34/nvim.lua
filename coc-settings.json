@@ -1,4 +1,6 @@
 {
+    "diagnostic.enableHighlightLineNumber": false,
+
     "Lua.workspace.preloadFileSize": 200,
     "lua.useSumnekoLs": true,
 

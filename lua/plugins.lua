@@ -434,16 +434,23 @@ return require('packer').startup(function()
         config = 'vim.g.rainbow_active = 1',
     }
 
+    use {
+        'norcalli/nvim-colorizer.lua', event = 'VimEnter *',
+        config = function ()
+            require('colorizer').setup()
+        end
+    }
+
     -- Clojure
     use {
         {'guns/vim-sexp', ft = {'fennel', 'clojure'}},
         {'tpope/vim-sexp-mappings-for-regular-people', ft = {'fennel', 'clojure'}},
-        {'Olical/conjure', tag = 'v4.9.0', ft = {'fennel', 'clojure'}},
+        {'Olical/conjure', tag = 'v4.9.0', opt = true},
         {'tpope/vim-dispatch', event = 'VimEnter *'},
         -- Jack in to Boot, Clj & Leiningen from Vim. Inspired by the feature in CIDER.el.
         {'clojure-vim/vim-jack-in', cmd = 'Clj'},
         -- Vim highlighting for Fennel, heavily modified from vim-clojure-static.
-        {'bakpakin/fennel.vim', ft = {'fennel',}},
+        {'bakpakin/fennel.vim', event = 'VimEnter *'},
         -- Aniseed bridges the gap between Fennel (a Lisp that compiles to Lua) 
         -- and Neovim. Allowing you to easily write plugins or configuration in 
         -- a Clojure-like Lisp with great runtime performance.
@@ -471,6 +478,6 @@ return require('packer').startup(function()
     }
 
     use {
-        'jiangmiao/auto-pairs', event = 'InsertEnter *',
+        'jiangmiao/auto-pairs', event = 'VimEnter *',
     }
 end)
