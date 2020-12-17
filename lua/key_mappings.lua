@@ -65,6 +65,7 @@ function key_mappings:start()
         ['n|<leader>yy'] = {"mgy'a`g", true, true},
         ['n|<leader>dd'] = {"d'a", true, true},
         ['n|<leader>qf'] = {'<CMD>copen<CR>', true, true},
+        ['n|<leader>mf'] = {'<CMD>lua require("futil").make_fennel()<CR>', true, true},
     }
 
     self.visual = {
