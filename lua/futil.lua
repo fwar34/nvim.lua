@@ -42,4 +42,9 @@ function futil.make_fennel()
     vim.cmd('tcd ' .. cur_pwd)
 end
 
+function futil.search_word()
+    vim.cmd('normal vey')
+    vim.cmd('Ag ' .. vim.fn.getreg('0'))
+end
+
 return futil
