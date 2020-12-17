@@ -1,7 +1,9 @@
-(print 33333333)
+(var M {})
 
-(fn test [name]
-  "Test function"
-  (print (.. "Hello " name)))
+(fn M.search_word []
+  "my search word"
+  (vim.cmd "normal vey")
+  (vim.cmd (.. "Ag " (vim.fn.getreg "0")))
+  )
 
-(test "feng")
+return M
