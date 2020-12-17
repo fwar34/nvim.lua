@@ -5,3 +5,5 @@
 **/GRTAGS
 **/GTAGS
 **/.nrepl-port
+**/mylib.lua
+**/utils.lua
