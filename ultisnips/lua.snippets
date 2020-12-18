@@ -27,3 +27,18 @@ snippet local "my local function" b
 local function ${1}()
 end
 endsnippet
+
+snippet for "for 1,xx do" b
+for i = 1, ${1:uplimit} do
+end
+endsnippet
+
+snippet for "for k, v in pairs" b
+for k, v in pairs(${1}) do
+end
+endsnippet
+
+snippet fori "for k, v in ipairs" b
+for k, v in ipairs(${1}) do
+end
+endsnippet

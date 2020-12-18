@@ -81,8 +81,8 @@ function key_mappings:start()
         ['i|<leader>O'] = {'<C-o>O', true, true},
         ['i|<leader>o'] = {'<C-o>o', true, true},
         ['i|<leader>zz'] = {'<Esc><CMD>w<CR>a', true, true},
-        ['i|<C-j>'] = {'<Right>', true, true},
-        ['i|<C-k>'] = {'<Left>', true, true},
+        ['i|<C-j>'] = {'<Left>', true, true},
+        ['i|<C-k>'] = {'<Right>', true, true},
     }
 
     self.terminal = {

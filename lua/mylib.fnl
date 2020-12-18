@@ -1,12 +1,10 @@
-(var M {})
-
-(fn M.search_word []
+(fn search-word []
   "my search word"
   (vim.cmd "normal vey")
   (vim.cmd (.. "Ag " (vim.fn.getreg "0"))))
   
-(fn M.coc_status []
+(fn coc-status []
   "print coc status message"
   (print (or (~= (vim.fn.coc#status) "") "no coc status message")))
 
-M
+{:search_word search-word :coc_status coc-status}
