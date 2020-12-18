@@ -97,10 +97,38 @@ return require('packer').startup(function()
     -- Plugins can have post-install/update hooks
     use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
 
-    -- You can specify multiple plugins in a single call
-    use {'tjdevries/colorbuddy.vim', {'nvim-treesitter/nvim-treesitter', opt = true}}
-
     -----------------------------------------------------------------------------------------
+    -- A colorscheme helper for Neovim.
+    use {'tjdevries/colorbuddy.nvim'}
+    -- Color scheme
+    use {'tjdevries/gruvbuddy.nvim',}
+    use {'Th3Whit3Wolf/onebuddy',  config = function ()
+        -- require('colorbuddy').colorscheme('onebuddy')
+    end}
+
+    -- Themes
+    use {
+        {'glepnir/oceanic-material', config = function ()
+            vim.cmd [[ colorscheme oceanic_material ]]
+        end},
+        -- You can alias plugin names
+        {'dracula/vim', as = 'dracula'},
+        -- {'fwar34/vim-color-wombat256.git', as = 'wombat256'}
+        {'flazz/vim-colorschemes'}, -- one stop shop for vim colorschemes.
+    }
+
+    use {'nvim-treesitter/nvim-treesitter', config = function ()
+        require('nvim-treesitter.configs').setup {
+            ensure_installed = { 
+                'bash', 'c', 'cpp', 'lua', 'css', 'fennel', 'html', 'javascript', 'json', 'julia', 
+                'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure', 'fennel'
+            },     -- one of "all", "language", or a list of languages
+            highlight = {
+                enable = true,              -- false will disable the whole extension
+                -- disable = { "c", "rust" },  -- list of language that will be disabled
+            },
+        }
+    end}
 
     -- Status line
     use {'itchyny/lightline.vim'}
@@ -236,15 +264,6 @@ return require('packer').startup(function()
         'mhinz/vim-signify',
         config = function()
         end
-    }
-
-    -- Themes
-    use {
-        {'glepnir/oceanic-material', config = 'vim.cmd [[ colorscheme oceanic_material ]]'},
-        -- You can alias plugin names
-        {'dracula/vim', as = 'dracula'},
-        -- {'fwar34/vim-color-wombat256.git', as = 'wombat256'}
-        {'flazz/vim-colorschemes'}, -- one stop shop for vim colorschemes.
     }
 
     -- Status line
