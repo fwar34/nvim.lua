@@ -1,7 +1,5 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
-local vim = vim
-
 -- Only required if you have packer in your `opt` pack
 vim.cmd [[packadd packer.nvim]]
 -- Only if your version of Neovim doesn't have https://github.com/neovim/neovim/pull/12632 merged
@@ -289,15 +287,15 @@ return require('packer').startup(function()
     use {'dstein64/vim-startuptime', cmd = 'StartupTime'}
 
     -- Snippets
-    use {'honza/vim-snippets', requires = {
-        {'SirVer/ultisnips', config = function()
-        -- " Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
-        -- " - https://github.com/Valloric/YouCompleteMe
-        -- " - https://github.com/nvim-lua/completion-nvim
-        -- let g:UltiSnipsExpandTrigger="<tab>"
-        -- let g:UltiSnipsJumpForwardTrigger="<c-b>"
-        -- let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-    end},}}
+    -- use {'honza/vim-snippets', requires = {
+    --     {'SirVer/ultisnips', config = function()
+    --     -- " Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
+    --     -- " - https://github.com/Valloric/YouCompleteMe
+    --     -- " - https://github.com/nvim-lua/completion-nvim
+    --     -- let g:UltiSnipsExpandTrigger="<tab>"
+    --     -- let g:UltiSnipsJumpForwardTrigger="<c-b>"
+    --     -- let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+    -- end},}}
 
     -- Undo
     -- use {'mbbill/undotree', cmd = 'UndotreeToggle'}
