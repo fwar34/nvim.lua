@@ -424,9 +424,7 @@ return require('packer').startup(function()
         'skywind3000/awesome-cheatsheets', event = 'VimEnter *',
     }
 
-    use {
-        'ianva/vim-youdao-translater', event = 'VimEnter *',
-    }
+    -- use { 'ianva/vim-youdao-translater', event = 'VimEnter *', }
 
     -- Highlight yank
     use {
