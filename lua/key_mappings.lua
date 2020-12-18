@@ -66,6 +66,7 @@ function key_mappings:start()
         ['n|<leader>dd'] = {"d'a", true, true},
         ['n|<leader>qf'] = {'<CMD>copen<CR>', true, true},
         ['n|<leader>mf'] = {'<CMD>lua require("futil").make_fennel()<CR>', true, true},
+        ['n|<leader>cs'] = {'<CMD>lua require("mylib").coc_status()<CR>', true, true},
     }
 
     self.visual = {

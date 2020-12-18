@@ -21,7 +21,7 @@ let g:lightline = {
             \ 'colorscheme': 'wombat',
             \ 'component': {'charvaluehex': '0x%B'},
             \ 'active':
-            \    {'left': [ [ 'mode', 'paste', 'cocstatus'],
+            \    {'left': [ [ 'mode', 'paste' ],
             \               [ 'gitbranch', 'gitstatus', 'readonly', 'filename', 'modified', 'method' ] ],
             \     'right': [ [ 'lineinfo' ],
             \                [  'charvaluehex', 'scorestatus', 'fileformat', 'fileencoding', 'filetype' ] ]
@@ -32,7 +32,6 @@ let g:lightline = {
             \     'gitbranch': 'FugitiveStatusline',
             \     'scorestatus': 'ScrollStatus',
             \     'gitstatus': 'sy#repo#get_stats_decorated',
-            \     'cocstatus': 'coc#status',
             \    },
             \ }
 

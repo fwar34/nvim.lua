@@ -1,5 +1,6 @@
 local global = require('global')
 local futil = {mouse_help = '', mouse_g = ''}
+local vim = vim
 
 function futil.toggle_line_number()
     if vim.wo.number then
@@ -45,6 +46,10 @@ end
 function futil.search_word()
     vim.cmd('normal vey')
     vim.cmd('Ag ' .. vim.fn.getreg('0'))
+end
+
+function futil.coc_status()
+    print(vim.fn['coc#status']())
 end
 
 return futil
