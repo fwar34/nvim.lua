@@ -103,7 +103,8 @@ function key_mappings:start()
         ['n|<localleader>lo'] = {':<C-u>CocFzfList location<CR>', true, true},
         ['n|<localleader>ol'] = {':<C-u>CocFzfList outline<CR>', true, true},
         ['n|<localleader>sy'] = {':<C-u>CocFzfList symbols<CR>', true, true},
-        ['n|<localleader>re'] = {':<C-u>CocFzfList CocFzfListResume<CR>', true, true},
+        -- ['n|<localleader>re'] = {':<C-u>CocFzfListResume<CR>', true, true},
+        ['n|<localleader>re'] = {':<C-u>CocListResume<CR>', true, true},
     }
 
     -- fzf.vim key mappings
@@ -170,6 +171,7 @@ function key_mappings:start()
         ['n|<leader>gd'] = {'<CMD>Git diff<CR>', true, true},
         ['n|<leader>gs'] = {'<CMD>Gvdiffsplit<CR>', true, true},
         ['n|<leader>gp'] = {'<CMD>Git push<CR>', true, true},
+        ['n|<leader>gl'] = {'<CMD>Git pull<CR>', true, true},
     }
 
     -- vim-better-whitespace

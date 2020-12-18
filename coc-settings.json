@@ -53,7 +53,16 @@
     "snippets.userSnippetsDirectory": "$HOME/.config/nvim/ultisnips/",
     //}}} 
 
-    //{{{coc-translator
+    //{{{coc-list
+	"list.insertMappings": {
+		"<C-g>": "do:exit",
+        // paste yanked text to prompt
+        "<C-v>": "eval:@@"
+	},
+	"list.normalMappings": {
+		"q": "do:exit",
+		"<C-g>": "do:exit"
+	},
     //}}} 
 
 

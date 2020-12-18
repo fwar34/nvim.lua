@@ -7,6 +7,6 @@
   
 (fn M.coc_status []
   "print coc status message"
-  (print (vim.fn.coc#status)))
+  (print (or (~= (vim.fn.coc#status) "") "no coc status message")))
 
-return M
+M

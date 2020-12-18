@@ -424,7 +424,7 @@ return require('packer').startup(function()
         'skywind3000/awesome-cheatsheets', event = 'VimEnter *',
     }
 
-    -- use { 'ianva/vim-youdao-translater', event = 'VimEnter *', }
+    use { 'ianva/vim-youdao-translater', event = 'VimEnter *', }
 
     -- Highlight yank
     use {
@@ -489,7 +489,7 @@ return require('packer').startup(function()
         {'bhurlow/vim-parinfer', ft = {'fennel', 'clojure', 'lisp'}}
     }
 
-    use {'jiangmiao/auto-pairs', event = 'VimEnter *', config = function()
+    use {'jiangmiao/auto-pairs', config = function()
         vim.cmd [[ au FileType lisp,clojure,lisp let b:AutoPairs = {'```': '```', '`': '`', '"': '"', '[': ']', '(': ')', '{': '}', '"""': '"""'} ]]
     end}
 end)
