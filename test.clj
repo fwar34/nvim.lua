@@ -1,7 +1,7 @@
-(ns testclj.core)
+(ns testclj.core
     (defn foo [x]
-     (println x "Hello world!")
-     )
+     (println x "Hello world!")))
+     
 (foo "feng")
 
 (fn print-add [ a b c ]
