@@ -132,13 +132,14 @@ function key_mappings:start()
 
     -- Clap
     self.clap = {
-        ['n|<leader>cl'] = {'<CMD>Clap<CR>', true, true},
+        ['n|<localleader>cl'] = {'<CMD>Clap<CR>', true, true},
         ['n|<localleader>rm'] = {'<CMD>Clap history<CR>', true, true},
         ['n|<localleader>fs'] = {'<CMD>Clap search_history<CR>', true, true},
         ['n|<localleader>fd'] = {'<CMD>Clap git_diff_files<CR>', true, true},
         ['n|<localleader>fh'] = {'<CMD>Clap help_tags<CR>', true, true},
         ['n|<localleader>fa'] = {'<CMD>Clap grep<CR>', true, true},
         ['n|<localleader>do'] = {'<CMD>Clap dot<CR>', true, true},
+        ['n|<localleader>qf'] = {'<CMD>Clap quickfix<CR>', true, true},
     }
 
     -- Vista

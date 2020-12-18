@@ -1,3 +1,5 @@
+-- https://www.2n.pl/blog/how-to-write-neovim-plugins-in-lua
+-- https://github.com/rafcamlet/nvim-whid
 local api = vim.api
 local buf, win
 local position = 0
