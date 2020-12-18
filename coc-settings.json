@@ -54,36 +54,12 @@
     //}}} 
 
     //{{{coc-translator
-    "translator.toLang": {
-        "type": "string",
-        "default": "zh",
-        "description": "Target language"
-    },
-    "translator.engines": {
-        "type": "array",
-        "default": [
-            "bing",
-            "youdao",
-            "haici"
-        ]
-    },
-    "translator.enableHover": {
-        "type": "boolean",
-        "default": false,
-        "description": "Enable on hover translating"
-    },
-    "translator.maxsize": {
-        "type": "number",
-        "default": 5000,
-        "description": "Max history count"
-    },
-    "translator.window.maxWidth": {
-        "type": "number",
-        "default": 999
-    },
-    "translator.window.maxHeight": {
-        "type": "number",
-        "default": 999
-    }
+    //}}} 
+
+
+    //{{{coc-conjure
+    "coc.source.conjure.filetypes": [
+        "clojure", "lisp", "fennel"
+    ]
     //}}} 
 }
