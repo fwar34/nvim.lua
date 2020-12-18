@@ -445,7 +445,10 @@ return require('packer').startup(function()
     use {
         {'guns/vim-sexp', ft = {'fennel', 'clojure'}},
         {'tpope/vim-sexp-mappings-for-regular-people', ft = {'fennel', 'clojure'}},
-        {'Olical/conjure', tag = 'v4.9.0', opt = true},
+        -- {'Olical/conjure', tag = 'v4.9.0',},
+        {'Olical/conjure', tag = 'v4.9.0', ft = {'fennel', 'clojure'}, config = function ()
+            vim.cmd('let g:conjure#mapping#prefix = ","')
+        end},
         {'tpope/vim-dispatch', event = 'VimEnter *'},
         -- Jack in to Boot, Clj & Leiningen from Vim. Inspired by the feature in CIDER.el.
         {'clojure-vim/vim-jack-in', cmd = 'Clj'},
@@ -458,26 +461,8 @@ return require('packer').startup(function()
         -- {'Olical/nvim-local-fennel', tag = 'v2.4.0'},
         -- Interactive Repls Over Neovim
         -- Iron is both a plugin and a library to allow users to deal with repls.
-        {
-            'hkupty/iron.nvim', 
-            -- config = function()
-            --     local iron = require('iron')
-            --     iron.core.add_repl_definitions {
-            --         python = {mycustom = {command = {"python3"}}},
-            --         clojure = {lein_connect = {command = {"lein", "repl", ":connect"}}},
-            --     }
-
-            --     iron.core.set_config {
-            --         preferred = {
-            --             python = "ipython",
-            --             clojure = "lein",
-            --         }
-            --     }
-            -- end
-        },
+        {'hkupty/iron.nvim',},
     }
 
-    use {
-        'jiangmiao/auto-pairs', event = 'VimEnter *',
-    }
+    use {'jiangmiao/auto-pairs', event = 'VimEnter *',}
 end)
