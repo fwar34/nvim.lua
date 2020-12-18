@@ -1,6 +1,11 @@
 {
     "diagnostic.enableHighlightLineNumber": false,
 
+    "suggest.noselect": true,
+    "suggest.enablePreselect": false,
+    "suggest.autoTrigger": "always",
+    "suggest.triggerAfterInsertEnter": true,
+
     "Lua.workspace.preloadFileSize": 200,
     "lua.useSumnekoLs": true,
 

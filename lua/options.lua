@@ -82,7 +82,7 @@ function options.load_options()
     -- 统一缩进为4
     vim.cmd('set softtabstop=4')
     vim.cmd('set shiftwidth=4')
-    vim.cmd('set cmdheight=2')
+    -- vim.cmd('set cmdheight=2')
 
     vim.cmd('set updatetime=300')
 end

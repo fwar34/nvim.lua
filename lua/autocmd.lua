@@ -1,4 +1,5 @@
 local autocmd = {}
+local vim = vim
 
 local function goto_last_position()
     vim.cmd [[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]
