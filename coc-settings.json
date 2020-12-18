@@ -4,6 +4,7 @@
     //}}}
 
     //{{{suggest
+    "suggest.numberSelect": true,
     "suggest.noselect": true,
     "suggest.enablePreselect": false,
     "suggest.autoTrigger": "always",
