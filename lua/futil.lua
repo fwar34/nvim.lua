@@ -37,7 +37,7 @@ function futil.toggle_mouse()
 end
 
 function futil.make_fennel()
-    local cur_pwd = vim.fn.getcwd() 
+    local cur_pwd = vim.fn.getcwd()
     vim.cmd('tcd ~/.config/nvim/lua/')
     vim.fn.execute('!make', '')
     vim.cmd('tcd ' .. cur_pwd)
