@@ -1,8 +1,9 @@
 {
-    // diagnostic
+    //{{{diagnostic
     "diagnostic.enableHighlightLineNumber": false,
+    //}}}
 
-    // suggest
+    //{{{suggest
     "suggest.noselect": true,
     "suggest.enablePreselect": false,
     "suggest.autoTrigger": "always",
@@ -34,21 +35,25 @@
         "value": "\uf89f",
         "variable": "\ue71b"
     },
+    //}}}
 
-    // lua setttings
+    //{{{lua setttings
     "Lua.workspace.preloadFileSize": 200,
     "lua.useSumnekoLs": true,
+    //}}} 
 
-    // coc-explorer
+    //{{{coc-explorer
     "explorer.quitOnOpen": true,
+    //}}} 
 
-    // coc-snippets
+    //{{{coc-snippets
     "snippets.ultisnips.directories": [
         "$HOME/.config/nvim/Ultisnips/"
     ],
     "snippets.userSnippetsDirectory": "$HOME/.config/nvim/Ultisnips/",
+    //}}} 
 
-    // coc-translator
+    //{{{coc-translator
     "translator.toLang": {
         "type": "string",
         "default": "zh",
@@ -80,4 +85,5 @@
         "type": "number",
         "default": 999
     }
+    //}}} 
 }
