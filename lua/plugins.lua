@@ -1,5 +1,7 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
+local vim = vim
+
 -- Only required if you have packer in your `opt` pack
 vim.cmd [[packadd packer.nvim]]
 -- Only if your version of Neovim doesn't have https://github.com/neovim/neovim/pull/12632 merged
@@ -286,6 +288,8 @@ return require('packer').startup(function()
     -- Profiling
     use {'dstein64/vim-startuptime', cmd = 'StartupTime'}
 
+    -- Snippets
+    use {'honza/vim-snippets', after = 'coc.nvim'}
 
     -- Undo
     -- use {'mbbill/undotree', cmd = 'UndotreeToggle'}

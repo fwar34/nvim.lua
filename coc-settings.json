@@ -38,6 +38,11 @@
 
     "explorer.quitOnOpen": true,
 
+    "snippets.ultisnips.directories": [
+        "$HOME/.config/nvim/Ultisnips/",
+        "$HOME/.local/share/nvim/site/pack/packer/opt/vim-snippets/UltiSnips/"
+    ],
+
     "translator.toLang": {
         "type": "string",
         "default": "zh",
