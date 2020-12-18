@@ -471,6 +471,15 @@ return require('packer').startup(function()
         config = 'vim.g.rainbow_active = 1',
     }
 
+    use {'p00f/nvim-ts-rainbow', config = function ()
+        require('nvim-treesitter.configs').setup {
+            rainbow = {
+                enable = true,
+                disable = {'bash'} -- please disable bash until I figure #1 out
+            }
+        }
+    end}
+
     use {
         'norcalli/nvim-colorizer.lua', event = 'VimEnter *',
         config = function ()

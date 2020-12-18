@@ -9,10 +9,6 @@ local function cmd_for_packer()
     vim.cmd [[ autocmd! BufWritePost plugins.lua PackerCompile ]]
 end
 
-local function auto_themes()
-    vim.cmd [[ autocmd! FileType c,cpp colorscheme wombat256 ]]
-end
-
 local function map_q_to_quit()
     vim.cmd [[ autocmd! FileType help,qf,netrw,startuptime :map <buffer> q <CMD>q<CR> ]]
 end
@@ -44,13 +40,6 @@ local function disable_auto_comment()
     vim.cmd [[ augroup END ]]
 end
 
--- local function load_lisp_plugins()
---     vim.cmd [[ augroup Load_lisp ]]
---     vim.cmd [[ autocmd! ]]
---     vim.cmd [[ autocmd FileType fennel,clojure packadd conjure ]]
---     vim.cmd [[ augroup END ]]
--- end
-
 function autocmd.setup()
     goto_last_position()
     cmd_for_packer()
@@ -59,8 +48,6 @@ function autocmd.setup()
     help_mouse()
     disable_auto_comment()
     golang_autocmd()
-    -- auto_themes()
-    -- load_lisp_plugins()
 end
 
 return autocmd
