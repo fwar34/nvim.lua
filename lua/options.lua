@@ -1,4 +1,5 @@
 local options = {}
+local vim = vim
 
 function options.load_options()
     vim.cmd('set autochdir')
@@ -68,7 +69,7 @@ function options.load_options()
     -- 通过使用: commands命令，告诉我们文件的哪一行被改变过
     vim.cmd('set report=0')
     -- 光标移动到buffer的顶部和底部时保持3行距离
-    vim.cmd('set scrolloff=3')
+    vim.cmd('set scrolloff=1')
     vim.cmd('set sidescrolloff=5')
     -- 设置环境保存项
     vim.cmd('set sessionoptions=blank,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize,unix,slash')

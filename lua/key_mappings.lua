@@ -95,6 +95,14 @@ function key_mappings:start()
     -- coc-fzf key mappings
     self.cocfzf = {
         ['n|<localleader>fl'] = {':<C-u>CocFzfList<CR>', true, true},
+        ['n|<localleader>da'] = {':<C-u>CocFzfList diagnostics<CR>', true, true},
+        ['n|<localleader>db'] = {':<C-u>CocFzfList diagnostics --current-buf<CR>', true, true},
+        ['n|<localleader>cc'] = {':<C-u>CocFzfList commands<CR>', true, true},
+        ['n|<localleader>ex'] = {':<C-u>CocFzfList extensions<CR>', true, true},
+        ['n|<localleader>lo'] = {':<C-u>CocFzfList location<CR>', true, true},
+        ['n|<localleader>ol'] = {':<C-u>CocFzfList outline<CR>', true, true},
+        ['n|<localleader>sy'] = {':<C-u>CocFzfList symbols<CR>', true, true},
+        ['n|<localleader>re'] = {':<C-u>CocFzfList CocFzfListResume<CR>', true, true},
     }
 
     -- fzf.vim key mappings

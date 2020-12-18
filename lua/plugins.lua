@@ -260,8 +260,18 @@ return require('packer').startup(function()
     -- Coc-fzf
     use {
         'antoinemadec/coc-fzf',
-        after = 'coc.nvim',
+        -- after = 'coc.nvim',
+        cmd = {'CocFzfList', 'CocFzfListResume'},
         branch = 'release',
+        config = function()
+            -- Q: How to get the FZF floating window?
+            -- A: You can look at FZF Vim integration:
+            vim.cmd [[ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  } ]]
+            -- Q: CocFzf looks different from my other Fzf commands. How to make it the same?
+            -- A: By default, CocFzf tries to mimic CocList. Here is how to change this:
+            vim.cmd [[ let g:coc_fzf_preview = '' ]]
+            vim.cmd [[ let g:coc_fzf_opts = [] ]]
+        end,
         requires = {
             {'junegunn/fzf', run = './install --all', lock = true},
             {
@@ -388,9 +398,9 @@ return require('packer').startup(function()
         end
     }
     
-    -- " 前面编译运行时需要频繁的操作 quickfix 窗口，ale查错时也需要快速再错误间跳转（location list），
-    -- " 就连文件比较也会用到快速跳转到上/下一个差异处，unimpaired 插件帮你定义了一系列方括号开头的快捷键，
-    -- " 被称为官方 Vim 中丢失的快捷键。
+    -- 前面编译运行时需要频繁的操作 quickfix 窗口，ale查错时也需要快速再错误间跳转（location list），
+    -- 就连文件比较也会用到快速跳转到上/下一个差异处，unimpaired 插件帮你定义了一系列方括号开头的快捷键，
+    -- 被称为官方 Vim 中丢失的快捷键。
     use {
         'tpope/vim-unimpaired', event = 'VimEnter *',
     }
@@ -443,8 +453,8 @@ return require('packer').startup(function()
 
     -- Clojure
     use {
-        {'guns/vim-sexp', ft = {'fennel', 'clojure'}},
-        {'tpope/vim-sexp-mappings-for-regular-people', ft = {'fennel', 'clojure'}},
+        {'guns/vim-sexp', ft = {'fennel', 'clojure', 'lisp'}},
+        {'tpope/vim-sexp-mappings-for-regular-people', ft = {'fennel', 'clojure', 'lisp'}},
         -- {'Olical/conjure', tag = 'v4.9.0',},
         {'Olical/conjure', tag = 'v4.9.0', ft = {'fennel', 'clojure'}, config = function ()
             vim.cmd('let g:conjure#mapping#prefix = ","')
@@ -462,7 +472,16 @@ return require('packer').startup(function()
         -- Interactive Repls Over Neovim
         -- Iron is both a plugin and a library to allow users to deal with repls.
         {'hkupty/iron.nvim',},
+        -- This is a vim plugin for using parinfer to indent your clojure and lisp code.
+        -- Parinfer is trigger on all TextChanged events within vim. In addition, you may use the following mapped commands:
+        -- <Tab> - indents s-expression
+        -- <Tab-S> - dedents s-expression
+        -- dd - deletes line and balances parenthesis
+        -- p - puts line and balances parenthesis
+        {'bhurlow/vim-parinfer', ft = {'fennel', 'clojure', 'lisp'}}
     }
 
-    use {'jiangmiao/auto-pairs', event = 'VimEnter *',}
+    use {'jiangmiao/auto-pairs', event = 'VimEnter *', config = function()
+        vim.cmd [[ au FileType lisp,clojure,lisp let b:AutoPairs = {'```': '```', '`': '`', '"': '"', '[': ']', '(': ')', '{': '}', '"""': '"""'} ]]
+    end}
 end)
