@@ -86,6 +86,9 @@ function options.load_options()
     -- vim.cmd('set cmdheight=2')
 
     vim.cmd('set updatetime=300')
+
+    vim.cmd('set ignorecase')
+    vim.cmd('set smartcase')
 end
 
 return options
