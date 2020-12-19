@@ -515,7 +515,7 @@ return require('packer').startup(function()
         -- <Tab-S> - dedents s-expression
         -- dd - deletes line and balances parenthesis
         -- p - puts line and balances parenthesis
-        {'bhurlow/vim-parinfer', ft = {'fennel', 'clojure', 'lisp'}}
+        -- {'bhurlow/vim-parinfer', ft = {'fennel', 'clojure', 'lisp'}}
     }
 
     use {'jiangmiao/auto-pairs', config = function()
