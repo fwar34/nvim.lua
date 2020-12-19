@@ -117,18 +117,27 @@ return require('packer').startup(function()
         {'flazz/vim-colorschemes'}, -- one stop shop for vim colorschemes.
     }
 
-    use {'nvim-treesitter/nvim-treesitter', config = function ()
-        require('nvim-treesitter.configs').setup {
-            ensure_installed = { 
-                'bash', 'c', 'cpp', 'lua', 'css', 'fennel', 'html', 'javascript', 'json', 'julia', 
-                'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure', 'fennel'
-            },     -- one of "all", "language", or a list of languages
-            highlight = {
-                enable = true,              -- false will disable the whole extension
-                -- disable = { "c", "rust" },  -- list of language that will be disabled
-            },
-        }
-    end}
+    -- use {'nvim-treesitter/nvim-treesitter', config = function ()
+    --     require('nvim-treesitter.configs').setup {
+    --         ensure_installed = { 
+    --             'bash', 'c', 'cpp', 'lua', 'css', 'fennel', 'html', 'javascript', 'json', 'julia', 
+    --             'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure', 'fennel'
+    --         },     -- one of "all", "language", or a list of languages
+    --         highlight = {
+    --             enable = true,              -- false will disable the whole extension
+    --             -- disable = { "c", "rust" },  -- list of language that will be disabled
+    --         },
+    --     }
+    -- end}
+
+    -- use {'p00f/nvim-ts-rainbow', config = function ()
+    --     require('nvim-treesitter.configs').setup {
+    --         rainbow = {
+    --             enable = true,
+    --             disable = {'bash'} -- please disable bash until I figure #1 out
+    --         }
+    --     }
+    -- end}
 
     -- Status line
     use {'itchyny/lightline.vim'}
@@ -471,14 +480,6 @@ return require('packer').startup(function()
         config = 'vim.g.rainbow_active = 1',
     }
 
-    use {'p00f/nvim-ts-rainbow', config = function ()
-        require('nvim-treesitter.configs').setup {
-            rainbow = {
-                enable = true,
-                disable = {'bash'} -- please disable bash until I figure #1 out
-            }
-        }
-    end}
 
     use {
         'norcalli/nvim-colorizer.lua', event = 'VimEnter *',
