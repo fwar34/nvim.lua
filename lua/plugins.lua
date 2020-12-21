@@ -260,11 +260,6 @@ return require('packer').startup(function()
     -- Do stuff like :sudowrite
     use 'lambdalisue/suda.vim'
 
-    -- Coc
-    use {'neoclide/coc.nvim', branch = 'release'}
-
-    use {'vn-ki/coc-clap', after = 'coc.nvim'}
-
     -- Git
     use {'rhysd/git-messenger.vim', opt = true, cmd = 'GitMessenger'}
     use {'tpope/vim-fugitive', event = 'VimEnter *',}
@@ -285,30 +280,14 @@ return require('packer').startup(function()
         end
     }
 
-    -- Coc-fzf
     use {
-        'antoinemadec/coc-fzf',
-        -- after = 'coc.nvim',
-        cmd = {'CocFzfList', 'CocFzfListResume'},
-        branch = 'release',
-        config = function()
-            -- Q: How to get the FZF floating window?
-            -- A: You can look at FZF Vim integration:
-            vim.cmd [[ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  } ]]
-            -- Q: CocFzf looks different from my other Fzf commands. How to make it the same?
-            -- A: By default, CocFzf tries to mimic CocList. Here is how to change this:
-            vim.cmd [[ let g:coc_fzf_preview = '' ]]
-            vim.cmd [[ let g:coc_fzf_opts = [] ]]
-        end,
-        requires = {
-            {'junegunn/fzf', run = './install --all', lock = true},
-            {
-                'junegunn/fzf.vim', event = 'VimEnter *',
-                config = function()
-                    vim.g.fzf_preview_window = { 'up:50%', 'ctrl-/' }
-                end
-            }, -- need for preview
-        },
+        {'junegunn/fzf', run = './install --all', lock = true},
+        {
+            'junegunn/fzf.vim', event = 'VimEnter *',
+            config = function()
+                vim.g.fzf_preview_window = { 'up:50%', 'ctrl-/' }
+            end
+        }, -- need for preview
     }
 
     -- Profiling
