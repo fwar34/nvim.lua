@@ -12,4 +12,4 @@ let &cpo = s:save_cpo
 unlet s:save_cpo
 
 let g:loaded_whid = 1
-echo "load whid"
+" echo "load whid"
