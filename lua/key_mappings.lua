@@ -127,7 +127,7 @@ function key_mappings:start()
         ['n|<leader>mp'] = {'<CMD>Maps<CR>', true, true},
         ['n|<leader>hl'] = {'<CMD>Helptags<CR>', true, true},
         ['n|<leader>tg'] = {'<CMD>Tags<CR>', true, true},
-        ['n|<leader>bt'] = {'<CMD>BTags<CR>', true, true},
+        ['n|<leader>ii'] = {'<CMD>BTags<CR>', true, true},
     }
 
     -- Clap
@@ -144,12 +144,12 @@ function key_mappings:start()
 
     -- Vista
     self.vista = {
-        ['n|<leader>ii'] = {'<CMD>Vista<CR>', true, true},
+        ['n|<leader>bt'] = {'<CMD>Vista<CR>', true, true},
     }
 
     -- rnvimr
     self.rnvimr = {
-        ['n|<localleader>rn'] = {'<CMD>RnvimrToggle<CR>', true, true},
+        ['n|<leader>ff'] = {'<CMD>RnvimrToggle<CR>', true, true},
     }
 
     -- undotree
@@ -189,9 +189,9 @@ function key_mappings:start()
     }
 
     -- floaterm
-    self.floaterm = {
-        ['n|<leader>ff'] = {'<CMD>FloatermNew lf<CR>', true, true},
-    }
+    -- self.floaterm = {
+    --     ['n|<leader>ff'] = {'<CMD>FloatermNew lf<CR>', true, true},
+    -- }
 
     -- vim-signify
     self.vim_signify = {
