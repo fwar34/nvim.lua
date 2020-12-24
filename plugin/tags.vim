@@ -2,6 +2,7 @@ let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
 let g:gutentags_cache_dir = expand('~/.cache/tags')
 let g:gutentags_ctags_tagfile = '.tags'
 let g:gutentags_exclude_project_root = [expand('~/.vim')]
+let g:gutentags_ctags_exclude = ['debian/*.*', '*.am', '*.sh', 'makefile', 'Makefile']
 
 "有pygments的话对gtags添加其他语言的支持
 "if executable('pygmentize')

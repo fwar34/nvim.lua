@@ -13,7 +13,7 @@ function options.load_options()
     -- 高亮dos的特殊符号,如^M
     vim.cmd('set fileformats=unix,dos,mac')
     vim.cmd('set wildignorecase')
-    vim.cmd('set wildignore=*.so,*.swp,*.zip,*.exe,.git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**')
+    vim.cmd('set wildignore=*.so,*.swp,*.zip,*.exe,.git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**,**/debian/**')
     vim.cmd('set pastetoggle=<F9>')
     -- 禁止光标闪烁
     vim.cmd('set gcr=a:block-blinkon0')

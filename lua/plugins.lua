@@ -382,12 +382,8 @@ return require('packer').startup(function()
     -- Tags
     -- use {'jsfaint/gen_tags.vim', event = 'VimEnter *',}
     use {
-        {'ludovicchabant/vim-gutentags', event = 'VimEnter *',
-        config = function()
-        end},
-
+        {'ludovicchabant/vim-gutentags', event = 'VimEnter *'},
         {'skywind3000/gutentags_plus', event = 'VimEnter *'},
-        -- {'skywind3000/vim-preview', event = 'VimEnter *'}
     }
 
     use {
