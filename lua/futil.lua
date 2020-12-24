@@ -52,4 +52,27 @@ function futil.coc_status()
     print(vim.fn['coc#status']())
 end
 
+-- reference from help : restore-position
+function futil.display_function()
+    -- get mark s info
+    mark_s = vim.fn.getpos("'s")
+    mark_t = vim.fn.getpos("'t")
+    -- get cursor info
+    cur_pos = vim.fn.getcurpos()
+    if not mark_s[2] == cur_pos[2] then
+        global.dump(mark_s[2], cur_pos[2])
+        vim.fn.setpos("'s")
+    end
+    vim.cmd('normal H')
+    -- get cursor info
+    cur_pos = vim.fn.getcurpos()
+    if not mark_t[2] == cur_pos[2] then
+        global.dump(mark_t[2], cur_pos[2])
+        vim.fn.setpos("'t")
+    end
+    vim.cmd('normal `s[[k')
+    -- print(vim.fn.getline('.'))
+    vim.cmd("normal 'tzt`s")
+end
+
 return futil

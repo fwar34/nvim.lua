@@ -61,12 +61,20 @@ function key_mappings:start()
         ['n|<localleader>qq'] = {'<CMD>q<CR>', true, true},
         ['n|Y'] = {'y$', true, true},
         ['n|<F12>'] = {'<CMD>lua require("futil").toggle_mouse()<CR>', true, true},
-        ['n|<leader>ia'] = {'mgA;<Esc>`gmg', true, true},
-        ['n|<leader>yy'] = {"mgy'a`g", true, true},
+        ['n|<leader>ia'] = {'m`A;<Esc>``', true, true},
+        ['n|<leader>yy'] = {"m`y'a``", true, true},
         ['n|<leader>dd'] = {"d'a", true, true},
         ['n|<leader>qf'] = {'<CMD>copen<CR>', true, true},
         ['n|<leader>mf'] = {'<CMD>lua require("futil").make_fennel()<CR>', true, true},
         ['n|<leader>cs'] = {'<CMD>lua require("mylib").coc_status()<CR>', true, true},
+        ['n|<leader>fn'] = {'<CMD>lua require("futil").display_function()<CR>', true, true},
+        -- help motion.txt
+        -- If your '{' or '}' are not in the first column, and you would like to use "[["
+        -- and "]]" anyway, try these mappings: >
+        -- ['n|[['] = {'?{<CR>w99[{'},
+        -- ['n|]['] = {'/}<CR>b99]}'},
+        -- ['n|]]'] = {'j0[[%/{<CR>'},
+        -- ['n|[]'] = {'k$][%?}<CR>'},
     }
 
     self.visual = {
