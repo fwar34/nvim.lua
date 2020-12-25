@@ -500,4 +500,19 @@ return require('packer').startup(function()
     use {'jiangmiao/auto-pairs', config = function()
         vim.cmd [[ au FileType lisp,clojure,lisp let b:AutoPairs = {'```': '```', '`': '`', '"': '"', '[': ']', '(': ')', '{': '}', '"""': '"""'} ]]
     end}
+
+    use {'nvim-lua/completion-nvim', config = function()
+        -- " Use completion-nvim in evnry buffer
+        vim.cmd [[ autocmd BufEnter * lua require('completion').on_attach() ]]
+        vim.g.completion_enable_snippet = 'UltiSnips'
+        require('completion_settings')
+    end,
+    requires = {{'steelsojka/completion-buffers', config = function()
+        completion_chain_complete_list = {
+            { complete_items = { 'lsp' } },
+            { complete_items = { 'buffers' } },
+            { mode = { '<c-p>' } },
+            { mode = { '<c-n>' } }
+        }
+    end}}}
 end)
