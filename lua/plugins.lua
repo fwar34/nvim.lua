@@ -248,7 +248,9 @@ return require('packer').startup(function()
     use 'junegunn/vim-peekaboo'
 
     -- Marks
-    use 'kshenoy/vim-signature'
+    use {'kshenoy/vim-signature', config = function ()
+        vim.g.SignatureIncludeMarks = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVW'
+    end}
 
     -- Buffer management
 

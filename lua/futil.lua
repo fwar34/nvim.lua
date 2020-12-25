@@ -55,24 +55,22 @@ end
 -- reference from help : restore-position
 function futil.display_function()
     -- get mark s info
-    mark_s = vim.fn.getpos("'s")
-    mark_t = vim.fn.getpos("'t")
+    mark_s = vim.fn.getpos("'X")
+    mark_t = vim.fn.getpos("'Y")
     -- get cursor info
     cur_pos = vim.fn.getcurpos()
-    if not mark_s[2] == cur_pos[2] then
-        global.dump(mark_s[2], cur_pos[2])
-        vim.fn.setpos("'s")
+    if mark_s[2] ~= cur_pos[2] then
+        vim.fn.setpos("'X", cur_pos)
     end
     vim.cmd('normal H')
     -- get cursor info
     cur_pos = vim.fn.getcurpos()
-    if not mark_t[2] == cur_pos[2] then
-        global.dump(mark_t[2], cur_pos[2])
-        vim.fn.setpos("'t")
+    if mark_t[2] ~= cur_pos[2] then
+        vim.fn.setpos("'Y", cur_pos)
     end
-    vim.cmd('normal `s[[k')
-    -- print(vim.fn.getline('.'))
-    vim.cmd("normal 'tzt`s")
+    vim.cmd('normal `X[[k')
+    print(vim.fn.getline('.'))
+    vim.cmd("normal 'Yzt`X")
 end
 
 return futil
