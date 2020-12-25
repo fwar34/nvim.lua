@@ -117,27 +117,27 @@ return require('packer').startup(function()
         {'flazz/vim-colorschemes'}, -- one stop shop for vim colorschemes.
     }
 
-    -- use {'nvim-treesitter/nvim-treesitter', config = function ()
-    --     require('nvim-treesitter.configs').setup {
-    --         ensure_installed = { 
-    --             'bash', 'c', 'cpp', 'lua', 'css', 'fennel', 'html', 'javascript', 'json', 'julia', 
-    --             'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure', 'fennel'
-    --         },     -- one of "all", "language", or a list of languages
-    --         highlight = {
-    --             enable = true,              -- false will disable the whole extension
-    --             -- disable = { "c", "rust" },  -- list of language that will be disabled
-    --         },
-    --     }
-    -- end}
+    use {'nvim-treesitter/nvim-treesitter', config = function ()
+        require('nvim-treesitter.configs').setup {
+            ensure_installed = { 
+                'bash', 'c', 'cpp', 'lua', 'css', 'fennel', 'html', 'javascript', 'json', 'julia', 
+                'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure', 'fennel'
+            },     -- one of "all", "language", or a list of languages
+            highlight = {
+                enable = true,              -- false will disable the whole extension
+                -- disable = { "c", "rust" },  -- list of language that will be disabled
+            },
+        }
+    end}
 
-    -- use {'p00f/nvim-ts-rainbow', config = function ()
-    --     require('nvim-treesitter.configs').setup {
-    --         rainbow = {
-    --             enable = true,
-    --             disable = {'bash'} -- please disable bash until I figure #1 out
-    --         }
-    --     }
-    -- end}
+    use {'p00f/nvim-ts-rainbow', config = function ()
+        require('nvim-treesitter.configs').setup {
+            rainbow = {
+                enable = true,
+                disable = {'bash'} -- please disable bash until I figure #1 out
+            }
+        }
+    end}
 
     -- Status line
     use {'itchyny/lightline.vim'}
@@ -454,10 +454,10 @@ return require('packer').startup(function()
         'guns/xterm-color-table.vim', cmd = 'XtermColorTable'
     }
 
-    use {
-        'luochen1990/rainbow',
-        config = 'vim.g.rainbow_active = 1',
-    }
+    -- use {
+    --     'luochen1990/rainbow',
+    --     config = 'vim.g.rainbow_active = 1',
+    -- }
 
 
     use {
@@ -501,18 +501,32 @@ return require('packer').startup(function()
         vim.cmd [[ au FileType lisp,clojure,lisp let b:AutoPairs = {'```': '```', '`': '`', '"': '"', '[': ']', '(': ')', '{': '}', '"""': '"""'} ]]
     end}
 
-    use {'nvim-lua/completion-nvim', config = function()
-        -- " Use completion-nvim in evnry buffer
-        vim.cmd [[ autocmd BufEnter * lua require('completion').on_attach() ]]
-        vim.g.completion_enable_snippet = 'UltiSnips'
-        require('completion_settings')
-    end,
-    requires = {{'steelsojka/completion-buffers', config = function()
-        completion_chain_complete_list = {
-            { complete_items = { 'lsp' } },
-            { complete_items = { 'buffers' } },
-            { mode = { '<c-p>' } },
-            { mode = { '<c-n>' } }
+    use {
+        'nvim-lua/completion-nvim', config = function()
+            -- " Use completion-nvim in evnry buffer
+            vim.cmd [[ augroup lsp_aucmds ]]
+            vim.cmd [[ au BufEnter * lua require('completion').on_attach() ]]
+            vim.cmd [[ augroup END ]]
+
+            vim.g.completion_enable_snippet = 'UltiSnips'
+            vim.g.completion_matching_smart_case = 1
+            require('completion_settings')
+            vim.g.completion_chain_complete_list = {
+                { complete_items = { 'lsp' } },
+                { complete_items = { 'buffers' } },
+                { complete_items = { 'snippet' } },
+                { complete_items = { 'tabnine' } },
+                { complete_items = { 'tags' } },
+                { mode = { '<c-p>' } },
+                { mode = { '<c-n>' } }
+            }
+        end,
+        requires = {
+            {'steelsojka/completion-buffers', config = function()
+            end},
+
+            {'aca/completion-tabnine', run = './install.sh'},
+            {'kristijanhusak/completion-tags'},
         }
-    end}}}
+    }
 end)
