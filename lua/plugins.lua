@@ -130,14 +130,14 @@ return require('packer').startup(function()
         }
     end}
 
-    -- use {'p00f/nvim-ts-rainbow', config = function ()
-    --     require('nvim-treesitter.configs').setup {
-    --         rainbow = {
-    --             enable = true,
-    --             disable = {'bash'} -- please disable bash until I figure #1 out
-    --         }
-    --     }
-    -- end}
+    use {'p00f/nvim-ts-rainbow', config = function ()
+        require('nvim-treesitter.configs').setup {
+            rainbow = {
+                enable = true,
+                disable = {'bash', 'cpp'} -- please disable bash until I figure #1 out
+            }
+        }
+    end}
 
     -- Status line
     use {'itchyny/lightline.vim'}
@@ -473,10 +473,10 @@ return require('packer').startup(function()
         'guns/xterm-color-table.vim', cmd = 'XtermColorTable'
     }
 
-    use {
-        'luochen1990/rainbow',
-        config = 'vim.g.rainbow_active = 1',
-    }
+    -- use {
+    --     'luochen1990/rainbow',
+    --     config = 'vim.g.rainbow_active = 1',
+    -- }
 
 
     use {
