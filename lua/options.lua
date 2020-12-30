@@ -6,7 +6,7 @@ function options.load_options()
     -- 可以在normal,visual模式使用鼠标
     vim.cmd('set mouse=')
     -- 相对行号
-    vim.cmd('set relativenumber')
+    -- vim.cmd('set relativenumber')
     -- vim.cmd('set cursorline')
     -- vim 自身命令行模式智能补全
     vim.cmd('set wildmenu')

@@ -2,7 +2,7 @@ let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
 let g:gutentags_cache_dir = expand('~/.cache/tags')
 let g:gutentags_ctags_tagfile = '.tags'
 let g:gutentags_exclude_project_root = [expand('~/.vim')]
-let g:gutentags_ctags_exclude = ['debian/*.*', '*.am', '*.sh', 'makefile', 'Makefile']
+let g:gutentags_ctags_exclude = ['*/debian/*', '*.am', '*.sh', 'makefile', 'Makefile', '*.html']
 
 "有pygments的话对gtags添加其他语言的支持
 "if executable('pygmentize')
@@ -29,7 +29,7 @@ endif
 
 " 如果使用 universal ctags 需要增加下面两行
 " Universal Ctags support Wildcard in options.
-let g:gutentags_ctags_extra_args = ['--fields=*', '--extras=*', '--all-kinds=*']
+let g:gutentags_ctags_extra_args = ['--fields=*', '--extras=*', '--kinds-all=*']
 let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
 
 

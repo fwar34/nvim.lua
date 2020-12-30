@@ -22,43 +22,43 @@ return require('packer').startup(function()
 
     -- use {'ap/vim-buftabline', event = 'VimEnter *'}
 
-    use {
-        'akinsho/nvim-bufferline.lua', event = 'VimEnter *',
-        requires = {'kyazdani42/nvim-web-devicons'},
-        config = function()
-            require ("bufferline").setup {
-                options = {
-                    -- view = "multiwindow" | "default",
-                    view = "default",
-                    -- numbers = "none" | "ordinal" | "buffer_id",
-                    numbers = "ordinal",
-                    -- number_style = "superscript" | "",
-                    number_style = "",
-                    mappings = true,
-                    buffer_close_icon= '',
-                    modified_icon = '●',
-                    close_icon = '',
-                    left_trunc_marker = '@',
-                    right_trunc_marker = '$',
-                    max_name_length = 18,
-                    max_prefix_length = 15, -- prefix used when a buffer is deduplicated
-                    tab_size = 18,
-                    show_buffer_close_icons = false,
-                    persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
-                    -- can also be a table containing 2 custom separators
-                    -- [focused and unfocused]. eg: { '|', '|' }
-                    enforce_regular_tabs = false,
-                    -- separator_style = "slant" | "thick" | "thin" | { 'any', 'any' },
-                    separator_style =  'thick',
-                    always_show_bufferline = true,
-                    -- sort_by = 'extension' | 'relative_directory' | 'directory' | function(buffer_a, buffer_b)
-                    --     -- add custom logic
-                    --     return buffer_a.modified > buffer_b.modified
-                    -- end
-                }
-            }
-        end
-    }
+    -- use {
+    --     'akinsho/nvim-bufferline.lua', event = 'VimEnter *',
+    --     requires = {'kyazdani42/nvim-web-devicons'},
+    --     config = function()
+    --         require ("bufferline").setup {
+    --             options = {
+    --                 -- view = "multiwindow" | "default",
+    --                 view = "default",
+    --                 -- numbers = "none" | "ordinal" | "buffer_id",
+    --                 numbers = "ordinal",
+    --                 -- number_style = "superscript" | "",
+    --                 number_style = "",
+    --                 mappings = true,
+    --                 buffer_close_icon= '',
+    --                 modified_icon = '●',
+    --                 close_icon = '',
+    --                 left_trunc_marker = '@',
+    --                 right_trunc_marker = '$',
+    --                 max_name_length = 18,
+    --                 max_prefix_length = 15, -- prefix used when a buffer is deduplicated
+    --                 tab_size = 18,
+    --                 show_buffer_close_icons = false,
+    --                 persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
+    --                 -- can also be a table containing 2 custom separators
+    --                 -- [focused and unfocused]. eg: { '|', '|' }
+    --                 enforce_regular_tabs = false,
+    --                 -- separator_style = "slant" | "thick" | "thin" | { 'any', 'any' },
+    --                 separator_style =  'thick',
+    --                 always_show_bufferline = true,
+    --                 -- sort_by = 'extension' | 'relative_directory' | 'directory' | function(buffer_a, buffer_b)
+    --                 --     -- add custom logic
+    --                 --     return buffer_a.modified > buffer_b.modified
+    --                 -- end
+    --             }
+    --         }
+    --     end
+    -- }
 
     -- Simple plugins can be specified as strings
     -- use '9mm/vim-closer'
