@@ -496,7 +496,7 @@ return require('packer').startup(function()
         end},
         {'tpope/vim-dispatch', event = 'VimEnter *'},
         -- Jack in to Boot, Clj & Leiningen from Vim. Inspired by the feature in CIDER.el.
-        {'clojure-vim/vim-jack-in', cmd = 'Clj'},
+        {'clojure-vim/vim-jack-in', cmd = {'Clj', 'Lein', 'Boot'}},
         -- Vim highlighting for Fennel, heavily modified from vim-clojure-static.
         {'bakpakin/fennel.vim', event = 'VimEnter *'},
         -- Aniseed bridges the gap between Fennel (a Lisp that compiles to Lua) 
