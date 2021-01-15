@@ -84,13 +84,13 @@ function key_mappings:start()
 
     self.insert = {
         ['i|<leader>g'] = {'<C-c>', true, true},
-        ['i|<leader>a'] = {'<Esc>I', true, true},
-        ['i|<leader>e'] = {'<End>', true, true},
         ['i|<leader>O'] = {'<C-o>O', true, true},
         ['i|<leader>o'] = {'<C-o>o', true, true},
         ['i|<leader>zz'] = {'<Esc><CMD>w<CR>a', true, true},
         ['i|<C-j>'] = {'<Left>', true, true},
         ['i|<C-k>'] = {'<Right>', true, true},
+        ['i|<C-a>'] = {'<Esc>I', true, true},
+        ['i|<C-e>'] = {'<End>', true, true},
     }
 
     self.terminal = {
