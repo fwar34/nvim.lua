@@ -493,6 +493,8 @@ return require('packer').startup(function()
         -- {'Olical/conjure', tag = 'v4.9.0',},
         {'Olical/conjure', tag = 'v4.9.0', ft = {'fennel', 'clojure'}, config = function ()
             vim.cmd('let g:conjure#mapping#prefix = ","')
+            vim.cmd('let g:conjure#log#hud#width = 0.8')
+            vim.cmd('let g:conjure#log#hud#height = 0.5')
         end},
         {'tpope/vim-dispatch', event = 'VimEnter *'},
         -- Jack in to Boot, Clj & Leiningen from Vim. Inspired by the feature in CIDER.el.
