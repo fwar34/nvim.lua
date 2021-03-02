@@ -4,7 +4,6 @@ let g:coc_global_extensions = [
 			\ 'coc-flutter-tools',
 			\ 'coc-gitignore',
 			\ 'coc-json',
-			\ 'coc-explorer',
 			\ 'coc-lua',
 			\ 'coc-go',
             \ 'coc-conjure',
@@ -17,8 +16,7 @@ let g:coc_global_extensions = [
 			\ 'coc-translator',
 			\ 'coc-marketplace',
 			\ 'coc-vimlsp',
-			\ 'coc-yaml',
-			\ 'coc-yank']
+			\ 'coc-yaml']
 
 
 " Always show the signcolumn, otherwise it would shift the text each time
