@@ -143,9 +143,6 @@ return require('packer').startup(function()
     use {'itchyny/lightline.vim'}
     -- use 'glepnir/spaceline.vim'
 
-    -- Interface
-    use {'liuchengxu/vim-which-key', }
-
     -- Coding
     use {'liuchengxu/vista.vim', event = 'VimEnter *'}
     use {'majutsushi/tagbar', cmd = 'TagbarToggle'}
@@ -178,6 +175,8 @@ return require('packer').startup(function()
             }
         end
     }
+
+    use { 'liuchengxu/vim-which-key', opt = true, cmd = {'WhichKey', 'WhichKey!'}}
 
     -- Grepping
     use {'mhinz/vim-grepper', opt = true, cmd = 'Grepper'}
