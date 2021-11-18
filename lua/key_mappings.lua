@@ -46,28 +46,29 @@ end
 
 function key_mappings:start()
     self.normal = {
-        ['n|<leader>zz'] = {'<CMD>w<CR>', true, true},
-        ['n|<leader>fd'] = {'<CMD>echo expand("%:p")<CR>', true, true},
-        ['n|<leader>a'] = {'^', true, true},
-        ['n|<leader>e'] = {'$', true, true},
-        ['n|<leader>xx'] = {'<CMD>nohl<CR>', true, true},
-        ['n|<leader><TAB>'] = {'<C-w><C-w>', true, true},
-        ['n|<leader>do'] = {'<CMD>on<CR>', true, true},
-        ['n|<leader>dm'] = {'<CMD>delmarks!<CR>', true, true},
-        ['n|<leader>db'] = {'<CMD>bdel<CR>', true, true},
+        ['n|<Leader>zz'] = {'<CMD>w<CR>', true, true},
+        ['n|<Leader>fd'] = {'<CMD>echo expand("%:p")<CR>', true, true},
+        ['n|<Leader>a'] = {'^', true, true},
+        ['n|<Leader>e'] = {'$', true, true},
+        ['n|<Leader>xx'] = {'<CMD>nohl<CR>', true, true},
+        ['n|<Leader><TAB>'] = {'<C-w><C-w>', true, true},
+        ['n|<Leader>do'] = {'<CMD>on<CR>', true, true},
+        ['n|<Leader>dm'] = {'<CMD>delmarks!<CR>', true, true},
+        ['n|<Leader>db'] = {'<CMD>bdel<CR>', true, true},
         ['n|<Space><Space>'] = {':', true},
-        ['n|<leader>bb'] = {'<C-^>', true, true},
-        ['n|<leader>lm'] = {'<CMD>lua require("futil").toggle_line_number()<CR>', true, true},
-        ['n|<localleader>qq'] = {'<CMD>q<CR>', true, true},
+        ['n|<Leader>bb'] = {'<C-^>', true, true},
+        ['n|<Leader>lm'] = {'<CMD>lua require("futil").toggle_line_number()<CR>', true, true},
+        ['n|<LocalLeader>qq'] = {'<CMD>q<CR>', true, true},
         ['n|Y'] = {'y$', true, true},
         ['n|<F12>'] = {'<CMD>lua require("futil").toggle_mouse()<CR>', true, true},
-        ['n|<leader>ia'] = {'m`A;<Esc>``', true, true},
-        ['n|<leader>yy'] = {"m`y'a``", true, true},
-        ['n|<leader>dd'] = {"d'a", true, true},
-        ['n|<leader>qf'] = {'<CMD>copen<CR>', true, true},
-        ['n|<leader>mf'] = {'<CMD>lua require("futil").make_fennel()<CR>', true, true},
-        -- ['n|<leader>cs'] = {'<CMD>lua require("mylib").coc_status()<CR>', true, true},
-        ['n|<leader>fn'] = {'<CMD>lua require("futil").display_function()<CR>', true, true},
+        ['n|<Leader>ia'] = {'m`A;<Esc>``', true, true},
+        ['n|<Leader>yy'] = {"m`y'a``", true, true},
+        ['n|<Leader>dd'] = {"d'a", true, true},
+        ['n|<Leader>qf'] = {'<CMD>copen<CR>', true, true},
+        ['n|<Leader>mf'] = {'<CMD>lua require("futil").make_fennel()<CR>', true, true},
+        -- ['n|<Leader>cs'] = {'<CMD>lua require("mylib").coc_status()<CR>', true, true},
+        ['n|<Leader>fn'] = {'<CMD>lua require("futil").display_function()<CR>', true, true},
+        ['n|<C-g>'] = {'<Esc>', true, true},
         -- help motion.txt
         -- If your '{' or '}' are not in the first column, and you would like to use "[["
         -- and "]]" anyway, try these mappings: >
@@ -78,19 +79,20 @@ function key_mappings:start()
     }
 
     self.visual = {
-        ['v|<leader>g'] = {'<Esc>', true, true},
+        ['v|<Leader>g'] = {'<Esc>', true, true},
         ['v|<C-g>'] = {'<Esc>', true, true},
     }
 
     self.insert = {
-        ['i|<leader>g'] = {'<C-c>', true, true},
-        ['i|<leader>O'] = {'<C-o>O', true, true},
-        ['i|<leader>o'] = {'<C-o>o', true, true},
-        ['i|<leader>zz'] = {'<Esc><CMD>w<CR>a', true, true},
+        ['i|<Leader>g'] = {'<C-c>', true, true},
+        ['i|<Leader>O'] = {'<C-o>O', true, true},
+        ['i|<Leader>o'] = {'<C-o>o', true, true},
+        ['i|<Leader>zz'] = {'<Esc><CMD>w<CR>a', true, true},
         ['i|<C-j>'] = {'<Left>', true, true},
         ['i|<C-k>'] = {'<Right>', true, true},
         ['i|<C-a>'] = {'<Esc>I', true, true},
         ['i|<C-e>'] = {'<End>', true, true},
+        ['i|<C-g>'] = {'<Esc>', true, true},
     }
 
     self.terminal = {
@@ -99,90 +101,90 @@ function key_mappings:start()
 
     -- coc
     -- self.coc = {
-    --     ['n|<leader>tl'] = {'<CMD>CocCommand explorer<CR>', true, true},
-    --     ['n|<leader>tt'] = {'<CMD>CocCommand explorer --position floating<CR>', true, true},
+    --     ['n|<Leader>tl'] = {'<CMD>CocCommand explorer<CR>', true, true},
+    --     ['n|<Leader>tt'] = {'<CMD>CocCommand explorer --position floating<CR>', true, true},
     -- }
 
     -- coc-fzf key mappings
     -- self.cocfzf = {
-    --     ['n|<localleader>fl'] = {':<C-u>CocFzfList<CR>', true, true},
-    --     ['n|<localleader>da'] = {':<C-u>CocFzfList diagnostics<CR>', true, true},
-    --     ['n|<localleader>db'] = {':<C-u>CocFzfList diagnostics --current-buf<CR>', true, true},
-    --     ['n|<localleader>cc'] = {':<C-u>CocFzfList commands<CR>', true, true},
-    --     ['n|<localleader>ex'] = {':<C-u>CocFzfList extensions<CR>', true, true},
-    --     ['n|<localleader>co'] = {':<C-u>CocFzfList location<CR>', true, true},
-    --     ['n|<localleader>ol'] = {':<C-u>CocFzfList outline<CR>', true, true},
-    --     ['n|<localleader>sy'] = {':<C-u>CocFzfList symbols<CR>', true, true},
-    --     -- ['n|<localleader>re'] = {':<C-u>CocFzfListResume<CR>', true, true},
-    --     ['n|<localleader>re'] = {':<C-u>CocListResume<CR>', true, true},
+    --     ['n|<LocalLeader>fl'] = {':<C-u>CocFzfList<CR>', true, true},
+    --     ['n|<LocalLeader>da'] = {':<C-u>CocFzfList diagnostics<CR>', true, true},
+    --     ['n|<LocalLeader>db'] = {':<C-u>CocFzfList diagnostics --current-buf<CR>', true, true},
+    --     ['n|<LocalLeader>cc'] = {':<C-u>CocFzfList commands<CR>', true, true},
+    --     ['n|<LocalLeader>ex'] = {':<C-u>CocFzfList extensions<CR>', true, true},
+    --     ['n|<LocalLeader>co'] = {':<C-u>CocFzfList location<CR>', true, true},
+    --     ['n|<LocalLeader>ol'] = {':<C-u>CocFzfList outline<CR>', true, true},
+    --     ['n|<LocalLeader>sy'] = {':<C-u>CocFzfList symbols<CR>', true, true},
+    --     -- ['n|<LocalLeader>re'] = {':<C-u>CocFzfListResume<CR>', true, true},
+    --     ['n|<LocalLeader>re'] = {':<C-u>CocListResume<CR>', true, true},
     -- }
 
     -- fzf.vim key mappings
     self.fzfvim = {
-        ['n|<leader>fa'] = {'<CMD>Ag<CR>', true},
-        ['n|<leader>fw'] = {':Ag <C-R>=expand("<cword>")<CR><CR>', true, true},
-        ['n|<leader>fs'] = {'<CMD>lua require("mylib")["search_word"]()<CR>', true, true},
-        -- ['n|<leader>fs'] = {'<CMD>lua require("futil").search_word()<CR>', true, true},
-        ['n|<leader>fg'] = {'<CMD>Rg<CR>', true},
-        ['n|<leader>rm'] = {'<CMD>History<CR>', true},
-        ['n|<leader>ch'] = {'<CMD>History:<CR>', true},
-        ['n|<leader>sh'] = {'<CMD>History/<CR>', true},
-        ['n|<leader>li'] = {'<CMD>BLines<CR>', true},
-        ['n|<leader>bs'] = {'<CMD>Buffers<CR>', true, true},
-        ['n|<leader>gf'] = {'<CMD>GFiles<CR>', true, true},
-        ['n|<leader>ma'] = {'<CMD>Marks<CR>', true, true},
-        ['n|<leader>cc'] = {'<CMD>Commands<CR>', true, true},
-        ['n|<leader>mp'] = {'<CMD>Maps<CR>', true, true},
-        ['n|<leader>hl'] = {'<CMD>Helptags<CR>', true, true},
-        ['n|<leader>tg'] = {'<CMD>Tags<CR>', true, true},
-        ['n|<leader>ii'] = {'<CMD>BTags<CR>', true, true},
+        ['n|<Leader>fa'] = {'<CMD>Ag<CR>', true},
+        ['n|<Leader>fw'] = {':Ag <C-R>=expand("<cword>")<CR><CR>', true, true},
+        ['n|<Leader>fs'] = {'<CMD>lua require("mylib")["search_word"]()<CR>', true, true},
+        -- ['n|<Leader>fs'] = {'<CMD>lua require("futil").search_word()<CR>', true, true},
+        ['n|<Leader>fg'] = {'<CMD>Rg<CR>', true},
+        ['n|<Leader>rm'] = {'<CMD>History<CR>', true},
+        ['n|<Leader>ch'] = {'<CMD>History:<CR>', true},
+        ['n|<Leader>sh'] = {'<CMD>History/<CR>', true},
+        ['n|<Leader>li'] = {'<CMD>BLines<CR>', true},
+        ['n|<Leader>bs'] = {'<CMD>Buffers<CR>', true, true},
+        ['n|<Leader>gf'] = {'<CMD>GFiles<CR>', true, true},
+        ['n|<Leader>ma'] = {'<CMD>Marks<CR>', true, true},
+        ['n|<Leader>cc'] = {'<CMD>Commands<CR>', true, true},
+        ['n|<Leader>mp'] = {'<CMD>Maps<CR>', true, true},
+        ['n|<Leader>hl'] = {'<CMD>Helptags<CR>', true, true},
+        ['n|<Leader>tg'] = {'<CMD>Tags<CR>', true, true},
+        ['n|<Leader>ii'] = {'<CMD>BTags<CR>', true, true},
     }
 
     -- Clap
     self.clap = {
-        ['n|<localleader>cl'] = {'<CMD>Clap<CR>', true, true},
-        ['n|<localleader>rm'] = {'<CMD>Clap history<CR>', true, true},
-        ['n|<localleader>fs'] = {'<CMD>Clap search_history<CR>', true, true},
-        ['n|<localleader>fd'] = {'<CMD>Clap git_diff_files<CR>', true, true},
-        ['n|<localleader>fh'] = {'<CMD>Clap help_tags<CR>', true, true},
-        ['n|<localleader>fa'] = {'<CMD>Clap grep<CR>', true, true},
-        ['n|<localleader>do'] = {'<CMD>Clap dot<CR>', true, true},
-        ['n|<localleader>qf'] = {'<CMD>Clap quickfix<CR>', true, true},
+        ['n|<LocalLeader>cl'] = {'<CMD>Clap<CR>', true, true},
+        ['n|<LocalLeader>rm'] = {'<CMD>Clap history<CR>', true, true},
+        ['n|<LocalLeader>fs'] = {'<CMD>Clap search_history<CR>', true, true},
+        ['n|<LocalLeader>fd'] = {'<CMD>Clap git_diff_files<CR>', true, true},
+        ['n|<LocalLeader>fh'] = {'<CMD>Clap help_tags<CR>', true, true},
+        ['n|<LocalLeader>fa'] = {'<CMD>Clap grep<CR>', true, true},
+        ['n|<LocalLeader>do'] = {'<CMD>Clap dot<CR>', true, true},
+        ['n|<LocalLeader>qf'] = {'<CMD>Clap quickfix<CR>', true, true},
     }
 
     -- Vista
     self.vista = {
-        ['n|<leader>bt'] = {'<CMD>Vista<CR>', true, true},
+        ['n|<Leader>bt'] = {'<CMD>Vista<CR>', true, true},
     }
 
     -- rnvimr
     self.rnvimr = {
-        ['n|<leader>ff'] = {'<CMD>RnvimrToggle<CR>', true, true},
+        ['n|<Leader>ff'] = {'<CMD>RnvimrToggle<CR>', true, true},
     }
 
     -- undotree
     self.undotree = {
-        ['n|<localleader>ud'] = {'<CMD>GundoToggle<CR>', true, true},
+        ['n|<LocalLeader>ud'] = {'<CMD>GundoToggle<CR>', true, true},
     }
 
     -- coc.translator
     -- self.coc_translator = {
     --     -- " NOTE: do NOT use `nore` mappings
-    --     ['n|<leader>tu'] = {'<Plug>(coc-translator-p)',},
-    --     ['v|<leader>tu'] = {'<Plug>(coc-translator-pv)',},
-    --     ['n|<leader>te'] = {'<Plug>(coc-translator-e)',},
-    --     ['v|<leader>te'] = {'<Plug>(coc-translator-ev)',},
-    --     ['n|<leader>tr'] = {'<Plug>(coc-translator-r)',},
-    --     ['v|<leader>tr'] = {'<Plug>(coc-translator-rv)',},
+    --     ['n|<Leader>tu'] = {'<Plug>(coc-translator-p)',},
+    --     ['v|<Leader>tu'] = {'<Plug>(coc-translator-pv)',},
+    --     ['n|<Leader>te'] = {'<Plug>(coc-translator-e)',},
+    --     ['v|<Leader>te'] = {'<Plug>(coc-translator-ev)',},
+    --     ['n|<Leader>tr'] = {'<Plug>(coc-translator-r)',},
+    --     ['v|<Leader>tr'] = {'<Plug>(coc-translator-rv)',},
     -- }
 
     -- vim-fugitive
     self.vim_fugitive = {
-        ['n|<leader>gt'] = {'<CMD>Git<CR>', true, true},
-        ['n|<leader>gd'] = {'<CMD>Git diff<CR>', true, true},
-        ['n|<leader>gs'] = {'<CMD>Gvdiffsplit<CR>', true, true},
-        ['n|<leader>gp'] = {'<CMD>Git push<CR>', true, true},
-        ['n|<leader>gl'] = {'<CMD>Git pull<CR>', true, true},
+        ['n|<Leader>gt'] = {'<CMD>Git<CR>', true, true},
+        ['n|<Leader>gd'] = {'<CMD>Git diff<CR>', true, true},
+        ['n|<Leader>gs'] = {'<CMD>Gvdiffsplit<CR>', true, true},
+        ['n|<Leader>gp'] = {'<CMD>Git push<CR>', true, true},
+        ['n|<Leader>gl'] = {'<CMD>Git pull<CR>', true, true},
     }
 
     -- vim-better-whitespace
@@ -193,30 +195,30 @@ function key_mappings:start()
 
     -- nnn.vim
     self.nnn_vim = {
-        ['n|<leader>nn'] = {'<CMD>NnnPicker<CR>', true, true},
+        ['n|<Leader>nn'] = {'<CMD>NnnPicker<CR>', true, true},
     }
 
     -- floaterm
     -- self.floaterm = {
-    --     ['n|<leader>ff'] = {'<CMD>FloatermNew lf<CR>', true, true},
+    --     ['n|<Leader>ff'] = {'<CMD>FloatermNew lf<CR>', true, true},
     -- }
 
     -- vim-signify
     self.vim_signify = {
-        ['n|<leader>df'] = {'<CMD>SignifyHunkDiff<CR>', true, true},
-        ['n|<leader>du'] = {'<CMD>SignifyHunkUndo<CR>', true, true},
+        ['n|<Leader>df'] = {'<CMD>SignifyHunkDiff<CR>', true, true},
+        ['n|<Leader>du'] = {'<CMD>SignifyHunkUndo<CR>', true, true},
     }
 
     -- vim-youdao-translater
     self.vim_youdao_translater = {
         ['v|<C-y>'] = {'<CMD>Ydv<CR>'},
         ['n|<C-y>'] = {'<CMD>Ydc<CR>'},
-        ['|<leader>yd'] = {':<C-u>Yde<CR>'},
+        ['|<Leader>yd'] = {':<C-u>Yde<CR>'},
     }
 
     -- tagbar
     self.tagbar = {
-        ['n|<leader>tb'] = {'<CMD>TagbarToggle<CR>'},
+        ['n|<Leader>tb'] = {'<CMD>TagbarToggle<CR>'},
     }
 
     self:process_keys()

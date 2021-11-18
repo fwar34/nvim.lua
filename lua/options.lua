@@ -30,7 +30,7 @@ function options.load_options()
     vim.cmd('set autoread')
     vim.cmd('set completeopt=menu,menuone,noselect,noinsert,preview')
     -- 终端下可以和windows共享clipboard
-    -- vim.cmd('set clipboard=unnamedplus')
+    vim.cmd('set clipboard=unnamedplus')
     vim.cmd('set nobackup')
     vim.cmd('set nowritebackup')
     vim.cmd('set autowrite')
