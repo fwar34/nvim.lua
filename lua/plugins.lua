@@ -301,16 +301,18 @@ return require('packer').startup(function()
     --         vim.cmd [[ let g:coc_fzf_preview = '' ]]
     --         vim.cmd [[ let g:coc_fzf_opts = [] ]]
     --     end,
-    --     requires = {
-    --         {'junegunn/fzf', run = './install --all', lock = true},
-    --         {
-    --             'junegunn/fzf.vim', event = 'VimEnter *',
-    --             config = function()
-    --                 vim.g.fzf_preview_window = { 'up:50%', 'ctrl-/' }
-    --             end
-    --         }, -- need for preview
-    --     },
     -- }
+
+
+    requires = {
+        {'junegunn/fzf', run = './install --all', lock = true},
+        {
+            'junegunn/fzf.vim', event = 'VimEnter *',
+            config = function()
+                vim.g.fzf_preview_window = { 'up:50%', 'ctrl-/' }
+            end
+        }, -- need for preview
+    }
 
     -- Profiling
     use {'dstein64/vim-startuptime', cmd = 'StartupTime'}
