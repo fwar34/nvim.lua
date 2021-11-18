@@ -66,7 +66,7 @@ function key_mappings:start()
         ['n|<leader>dd'] = {"d'a", true, true},
         ['n|<leader>qf'] = {'<CMD>copen<CR>', true, true},
         ['n|<leader>mf'] = {'<CMD>lua require("futil").make_fennel()<CR>', true, true},
-        ['n|<leader>cs'] = {'<CMD>lua require("mylib").coc_status()<CR>', true, true},
+        -- ['n|<leader>cs'] = {'<CMD>lua require("mylib").coc_status()<CR>', true, true},
         ['n|<leader>fn'] = {'<CMD>lua require("futil").display_function()<CR>', true, true},
         -- help motion.txt
         -- If your '{' or '}' are not in the first column, and you would like to use "[["
@@ -104,18 +104,18 @@ function key_mappings:start()
     -- }
 
     -- coc-fzf key mappings
-    self.cocfzf = {
-        ['n|<localleader>fl'] = {':<C-u>CocFzfList<CR>', true, true},
-        ['n|<localleader>da'] = {':<C-u>CocFzfList diagnostics<CR>', true, true},
-        ['n|<localleader>db'] = {':<C-u>CocFzfList diagnostics --current-buf<CR>', true, true},
-        ['n|<localleader>cc'] = {':<C-u>CocFzfList commands<CR>', true, true},
-        ['n|<localleader>ex'] = {':<C-u>CocFzfList extensions<CR>', true, true},
-        ['n|<localleader>co'] = {':<C-u>CocFzfList location<CR>', true, true},
-        ['n|<localleader>ol'] = {':<C-u>CocFzfList outline<CR>', true, true},
-        ['n|<localleader>sy'] = {':<C-u>CocFzfList symbols<CR>', true, true},
-        -- ['n|<localleader>re'] = {':<C-u>CocFzfListResume<CR>', true, true},
-        ['n|<localleader>re'] = {':<C-u>CocListResume<CR>', true, true},
-    }
+    -- self.cocfzf = {
+    --     ['n|<localleader>fl'] = {':<C-u>CocFzfList<CR>', true, true},
+    --     ['n|<localleader>da'] = {':<C-u>CocFzfList diagnostics<CR>', true, true},
+    --     ['n|<localleader>db'] = {':<C-u>CocFzfList diagnostics --current-buf<CR>', true, true},
+    --     ['n|<localleader>cc'] = {':<C-u>CocFzfList commands<CR>', true, true},
+    --     ['n|<localleader>ex'] = {':<C-u>CocFzfList extensions<CR>', true, true},
+    --     ['n|<localleader>co'] = {':<C-u>CocFzfList location<CR>', true, true},
+    --     ['n|<localleader>ol'] = {':<C-u>CocFzfList outline<CR>', true, true},
+    --     ['n|<localleader>sy'] = {':<C-u>CocFzfList symbols<CR>', true, true},
+    --     -- ['n|<localleader>re'] = {':<C-u>CocFzfListResume<CR>', true, true},
+    --     ['n|<localleader>re'] = {':<C-u>CocListResume<CR>', true, true},
+    -- }
 
     -- fzf.vim key mappings
     self.fzfvim = {
@@ -166,15 +166,15 @@ function key_mappings:start()
     }
 
     -- coc.translator
-    self.coc_translator = {
-        -- " NOTE: do NOT use `nore` mappings
-        ['n|<leader>tu'] = {'<Plug>(coc-translator-p)',},
-        ['v|<leader>tu'] = {'<Plug>(coc-translator-pv)',},
-        ['n|<leader>te'] = {'<Plug>(coc-translator-e)',},
-        ['v|<leader>te'] = {'<Plug>(coc-translator-ev)',},
-        ['n|<leader>tr'] = {'<Plug>(coc-translator-r)',},
-        ['v|<leader>tr'] = {'<Plug>(coc-translator-rv)',},
-    }
+    -- self.coc_translator = {
+    --     -- " NOTE: do NOT use `nore` mappings
+    --     ['n|<leader>tu'] = {'<Plug>(coc-translator-p)',},
+    --     ['v|<leader>tu'] = {'<Plug>(coc-translator-pv)',},
+    --     ['n|<leader>te'] = {'<Plug>(coc-translator-e)',},
+    --     ['v|<leader>te'] = {'<Plug>(coc-translator-ev)',},
+    --     ['n|<leader>tr'] = {'<Plug>(coc-translator-r)',},
+    --     ['v|<leader>tr'] = {'<Plug>(coc-translator-rv)',},
+    -- }
 
     -- vim-fugitive
     self.vim_fugitive = {
