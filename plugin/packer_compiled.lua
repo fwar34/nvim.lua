@@ -76,15 +76,6 @@ _G.packer_plugins = {
     path = "/home/feng/.local/share/nvim/site/pack/packer/opt/BetterLua.vim",
     url = "https://github.com/euclidianAce/BetterLua.vim"
   },
-  LeaderF = {
-    commands = { "Leaderf" },
-    config = { "\27LJ\1\2£\1\0\0\2\0\b\0\0174\0\0\0007\0\1\0%\1\3\0:\1\2\0004\0\0\0007\0\1\0'\1\1\0:\1\4\0004\0\0\0007\0\5\0%\1\6\0>\0\2\0014\0\0\0007\0\5\0%\1\a\0>\0\2\1G\0\1\0\22 unmap <Leader>b \22 unmap <Leader>f \bcmd\22Lf_PreviewInPopup\npopup\22Lf_WindowPosition\6g\bvim\0" },
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/home/feng/.local/share/nvim/site/pack/packer/opt/LeaderF",
-    url = "https://github.com/Yggdroot/LeaderF"
-  },
   ["asyncrun.vim"] = {
     loaded = true,
     path = "/home/feng/.local/share/nvim/site/pack/packer/start/asyncrun.vim",
@@ -273,7 +264,7 @@ _G.packer_plugins = {
     url = "https://github.com/ntpeters/vim-better-whitespace"
   },
   ["vim-clap"] = {
-    config = { '\27LJ\1\2ã\4\0\0\4\0\16\0\0254\0\0\0007\0\1\0003\1\3\0:\1\2\0004\0\0\0007\0\1\0003\1\6\0003\2\5\0:\2\a\1:\1\4\0004\0\0\0007\0\b\0007\0\t\0%\1\n\0>\0\2\2%\1\v\0$\0\1\0004\1\0\0007\1\1\0013\2\14\0003\3\r\0;\0\n\3:\3\15\2:\2\f\1G\0\1\0\vsource\1\0\1\tsink\6e\1\n\0\0!~/.config/nvim/lua/start.lua#~/.config/nvim/lua/plugins.lua(~/.config/nvim/lua/key_mappings.lua#~/.config/nvim/lua/autocmd.lua\28~/.config/nvim/init.vim,~/.config/nvim/plugin/which-vim-key.vim"~/.config/nvim/cheatsheets.md\r~/.zshrc\17~/.tmux.conf\22clap_provider_dot8/site/pack/packer/opt/awesome-cheatsheets/README.md\tdata\fstdpath\afn\14ClapInput\1\0\0\1\0\2\fctermfg\bred\nguifg\bred\15clap_theme\1\0\3\vtexthl\29ClapCurrentSelectionSign\ttext\a->\vlinehl\25ClapCurrentSelection clap_current_selection_sign\6g\bvim\0' },
+    config = { '\27LJ\1\2”\5\0\0\4\0\18\0\0294\0\0\0007\0\1\0003\1\3\0:\1\2\0004\0\0\0007\0\1\0003\1\5\0:\1\4\0004\0\0\0007\0\1\0003\1\b\0003\2\a\0:\2\t\1:\1\6\0004\0\0\0007\0\n\0007\0\v\0%\1\f\0>\0\2\2%\1\r\0$\0\1\0004\1\0\0007\1\1\0013\2\16\0003\3\15\0;\0\n\3:\3\17\2:\2\14\1G\0\1\0\vsource\1\0\1\tsink\6e\1\n\0\0!~/.config/nvim/lua/start.lua#~/.config/nvim/lua/plugins.lua(~/.config/nvim/lua/key_mappings.lua#~/.config/nvim/lua/autocmd.lua\28~/.config/nvim/init.vim,~/.config/nvim/plugin/which-vim-key.vim"~/.config/nvim/cheatsheets.md\r~/.zshrc\17~/.tmux.conf\22clap_provider_dot8/site/pack/packer/opt/awesome-cheatsheets/README.md\tdata\fstdpath\afn\14ClapInput\1\0\0\1\0\2\fctermfg\bred\nguifg\bred\15clap_theme\1\3\0\0\3\0\3\0\29clap_provider_grep_blink\1\0\3\vtexthl\29ClapCurrentSelectionSign\ttext\a->\vlinehl\25ClapCurrentSelection clap_current_selection_sign\6g\bvim\0' },
     loaded = false,
     needs_bufread = true,
     only_cond = false,
@@ -544,16 +535,15 @@ time([[Config for vim-signature]], false)
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file MarkdownPreview lua require("packer.load")({'markdown-preview.nvim'}, { cmd = "MarkdownPreview", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
-pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Boot lua require("packer.load")({'vim-jack-in'}, { cmd = "Boot", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file StartupTime lua require("packer.load")({'vim-startuptime'}, { cmd = "StartupTime", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file RnvimrToggle lua require("packer.load")({'rnvimr'}, { cmd = "RnvimrToggle", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file XtermColorTable lua require("packer.load")({'xterm-color-table.vim'}, { cmd = "XtermColorTable", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Defx lua require("packer.load")({'defx.nvim'}, { cmd = "Defx", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
-pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Leaderf lua require("packer.load")({'LeaderF'}, { cmd = "Leaderf", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Clj lua require("packer.load")({'vim-jack-in'}, { cmd = "Clj", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Lein lua require("packer.load")({'vim-jack-in'}, { cmd = "Lein", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file GitMessenger lua require("packer.load")({'git-messenger.vim'}, { cmd = "GitMessenger", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file GundoToggle lua require("packer.load")({'gundo.vim'}, { cmd = "GundoToggle", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
-pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file StartupTime lua require("packer.load")({'vim-startuptime'}, { cmd = "StartupTime", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Boot lua require("packer.load")({'vim-jack-in'}, { cmd = "Boot", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 time([[Defining lazy-load commands]], false)
 
 vim.cmd [[augroup packer_load_aucmds]]
@@ -572,7 +562,7 @@ vim.cmd [[au FileType markdownd ++once lua require("packer.load")({'vim-markdown
 time([[Defining lazy-load filetype autocommands]], false)
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au VimEnter * ++once lua require("packer.load")({'vim-clap', 'vim-floaterm', 'gutentags_plus', 'fennel.vim', 'vim-fugitive', 'vim-surround', 'vim-cpp-enhanced-highlight', 'vim-unimpaired', 'vim-terminal-help', 'vim-highlightedyank', 'vim-commentary', 'vim-swap', 'vim-gutentags', 'nvim-colorizer.lua', 'vim-win', 'vista.vim', 'targets.vim', 'vim-dispatch', 'awesome-cheatsheets', 'vim-youdao-translater'}, { event = "VimEnter *" }, _G.packer_plugins)]]
+vim.cmd [[au VimEnter * ++once lua require("packer.load")({'vim-clap', 'vim-floaterm', 'gutentags_plus', 'vim-fugitive', 'vim-surround', 'vim-dispatch', 'vim-cpp-enhanced-highlight', 'targets.vim', 'vim-unimpaired', 'vim-terminal-help', 'vim-highlightedyank', 'vim-commentary', 'vim-swap', 'vim-gutentags', 'nvim-colorizer.lua', 'vim-win', 'vista.vim', 'fennel.vim', 'awesome-cheatsheets', 'vim-youdao-translater'}, { event = "VimEnter *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]

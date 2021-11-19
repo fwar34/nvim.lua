@@ -10,11 +10,11 @@ local function cmd_for_packer()
 end
 
 local function map_q_to_quit()
-    vim.cmd [[ autocmd! FileType help,qf,netrw,startuptime :map <buffer> q <CMD>q<CR> ]]
+    vim.cmd [[ autocmd! FileType help,qf,netrw,startuptime :nnoremap <buffer> q <CMD>q<CR> ]]
 end
 
 local function map_wq_to_quit()
-    vim.cmd [[ autocmd! FileType gitcommit :map <buffer> q <CMD>wq<CR> ]]
+    vim.cmd [[ autocmd! FileType gitcommit :nnoremap <buffer> q <CMD>wq<CR> ]]
 end
 
 local function help_mouse()
@@ -23,7 +23,7 @@ local function help_mouse()
 end
 
 local function golang_autocmd()
-    vim.cmd [[ autocmd! FileType go :imap <buffer> ; <Space>:=<Space>]]
+    vim.cmd [[ autocmd! FileType go :inoremap <buffer> ; <Space>:=<Space>]]
 end
 
 local function disable_auto_comment()

@@ -68,7 +68,7 @@ function key_mappings:start()
         ['n|<Leader>mf'] = {'<CMD>lua require("futil").make_fennel()<CR>', true, true},
         -- ['n|<Leader>cs'] = {'<CMD>lua require("mylib").coc_status()<CR>', true, true},
         ['n|<Leader>fn'] = {'<CMD>lua require("futil").display_function()<CR>', true, true},
-        ['n|<C-g>'] = {'<Esc>', true, true},
+        ['n|<C-g>'] = {'<C-c>', true, true},
         -- help motion.txt
         -- If your '{' or '}' are not in the first column, and you would like to use "[["
         -- and "]]" anyway, try these mappings: >
@@ -79,8 +79,8 @@ function key_mappings:start()
     }
 
     self.visual = {
-        ['v|<Leader>g'] = {'<Esc>', true, true},
-        ['v|<C-g>'] = {'<Esc>', true, true},
+        ['v|<Leader>g'] = {'<C-c>', true, true},
+        ['v|<C-g>'] = {'<C-c>', true, true},
     }
 
     self.insert = {
@@ -92,13 +92,18 @@ function key_mappings:start()
         ['i|<C-f>'] = {'<Right>', true, true},
         ['i|<C-a>'] = {'<Esc>I', true, true},
         ['i|<C-e>'] = {'<End>', true, true},
-        ['i|<C-g>'] = {'<Esc>', true, true},
+        ['i|<C-g>'] = {'<C-c>', true, true},
         ['i|<C-j>'] = {'<Down>', true, true},
         ['i|<C-k>'] = {'<Up>', true, true},
+        ['i|<C-d>'] = {'<Del>', ture, true},
     }
 
     self.terminal = {
         ['t|<F12>'] = {'<CMD>lua require("futil").toggle_mouse()<CR>', true, true},
+    }
+
+    self.command = {
+        ['c|<C-g>'] = {'<C-c>', true, true},
     }
 
     -- coc
@@ -143,28 +148,28 @@ function key_mappings:start()
     -- }
 
     -- Leaderf key mappings
-    self.Leaderf = {
-        ['n|<Leader>ff'] = {'<CMD>Leaderf file<CR>', true},
-        ['n|<Leader>fa'] = {'<CMD>Leaderf rg<CR>', true},
-        ['n|<Leader>fw'] = {':Leaderf rg <C-R>=expand("<cword>")<CR><CR>', true, true},
-        ['n|<Leader>fs'] = {'<CMD>lua require("mylib")["search_word"]()<CR>', true, true},
-        -- ['n|<Leader>fs'] = {'<CMD>lua require("futil").search_word()<CR>', true, true},
-        ['n|<Leader>rm'] = {'<CMD>Leaderf mru<CR>', true},
-        ['n|<Leader>ch'] = {'<CMD>Leaderf cmdHistory<CR>', true},
-        ['n|<Leader>sh'] = {'<CMD>Leaderf searchHistory<CR>', true},
-        ['n|<Leader>li'] = {'<CMD>Leaderf line<CR>', true},
-        ['n|<Leader>bs'] = {'<CMD>Leaderf buffer<CR>', true, true},
-        -- ['n|<Leader>gf'] = {'<CMD>GFiles<CR>', true, true},
-        -- ['n|<Leader>ma'] = {'<CMD>Marks<CR>', true, true},
-        ['n|<Leader>cc'] = {'<CMD>Leaderf command<CR>', true, true},
-        -- ['n|<Leader>mp'] = {'<CMD>Maps<CR>', true, true},
-        ['n|<Leader>hp'] = {'<CMD>Leaderf help<CR>', true, true},
-        ['n|<Leader>tg'] = {'<CMD>Leaderf tag<CR>', true, true},
-        ['n|<Leader>bg'] = {'<CMD>Leaderf bufTag<CR>', true, true},
-        ['n|<Leader>ii'] = {'<CMD>Leaderf function<CR>', true, true},
-        ['n|<Leader>qf'] = {'<CMD>Leaderf quickfix<CR>', true, true},
-        ['n|<Leader>ll'] = {'<CMD>Leaderf loclist<CR>', true, true},
-    }
+    -- self.Leaderf = {
+    --     ['n|<Leader>ff'] = {'<CMD>Leaderf file<CR>', true},
+    --     ['n|<Leader>fa'] = {'<CMD>Leaderf rg<CR>', true},
+    --     ['n|<Leader>fw'] = {':Leaderf rg <C-R>=expand("<cword>")<CR><CR>', true, true},
+    --     ['n|<Leader>fs'] = {'<CMD>lua require("mylib")["search_word"]()<CR>', true, true},
+    --     -- ['n|<Leader>fs'] = {'<CMD>lua require("futil").search_word()<CR>', true, true},
+    --     ['n|<Leader>rm'] = {'<CMD>Leaderf mru<CR>', true},
+    --     ['n|<Leader>ch'] = {'<CMD>Leaderf cmdHistory<CR>', true},
+    --     ['n|<Leader>sh'] = {'<CMD>Leaderf searchHistory<CR>', true},
+    --     ['n|<Leader>li'] = {'<CMD>Leaderf line<CR>', true},
+    --     ['n|<Leader>bs'] = {'<CMD>Leaderf buffer<CR>', true, true},
+    --     -- ['n|<Leader>gf'] = {'<CMD>GFiles<CR>', true, true},
+    --     -- ['n|<Leader>ma'] = {'<CMD>Marks<CR>', true, true},
+    --     ['n|<Leader>cc'] = {'<CMD>Leaderf command<CR>', true, true},
+    --     -- ['n|<Leader>mp'] = {'<CMD>Maps<CR>', true, true},
+    --     ['n|<Leader>hp'] = {'<CMD>Leaderf help<CR>', true, true},
+    --     ['n|<Leader>tg'] = {'<CMD>Leaderf tag<CR>', true, true},
+    --     ['n|<Leader>bg'] = {'<CMD>Leaderf bufTag<CR>', true, true},
+    --     ['n|<Leader>ii'] = {'<CMD>Leaderf function<CR>', true, true},
+    --     ['n|<Leader>qf'] = {'<CMD>Leaderf quickfix<CR>', true, true},
+    --     ['n|<Leader>ll'] = {'<CMD>Leaderf loclist<CR>', true, true},
+    -- }
 
     -- Clap
     self.clap = {
@@ -199,6 +204,8 @@ function key_mappings:start()
         ['n|<LocalLeader>qf'] = {'<CMD>Clap quickfix<CR>', true, true},
         ['n|<LocalLeader>ll'] = {'<CMD>Clap loclist<CR>', true, true},
     }
+
+    self.Commentary = { ['n|<Leader>ci'] = {'<CMD>Commentary<CR>', true, true} }
 
     -- Vista
     self.vista = {

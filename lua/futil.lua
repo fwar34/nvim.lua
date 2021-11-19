@@ -73,4 +73,11 @@ function futil.display_function()
     vim.cmd("normal 'Yzt`X")
 end
 
+function futil.unmap(maps)
+    for _, v in ipair(maps) do
+        vim.cmd [[ unmap .. v ]]
+        print("yyyyy")
+    end
+end
+
 return futil

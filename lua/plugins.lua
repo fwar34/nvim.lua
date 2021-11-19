@@ -1,5 +1,6 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
+local global = require("global")
 -- Only required if you have packer in your `opt` pack
 vim.cmd [[packadd packer.nvim]]
 -- Only if your version of Neovim doesn't have https://github.com/neovim/neovim/pull/12632 merged
@@ -155,6 +156,7 @@ return require('packer').startup(function()
             vim.g.clap_current_selection_sign = { 
 		    text = '->', texthl = 'ClapCurrentSelectionSign', linehl = 'ClapCurrentSelection' 
 	    }
+            vim.g.clap_provider_grep_blink = {0, 0}
 
             -- Change the CamelCase of related highlight group name to under_score_case.
             -- let g:clap_theme = { 'search_text': {'guifg': 'red', 'ctermfg': 'red'} }
@@ -379,17 +381,21 @@ return require('packer').startup(function()
         end
     }
 
-    use {
-        -- 'Yggdroot/LeaderF', event = 'VimEnter *', 
-        -- 'Yggdroot/LeaderF', cmd = 'Leaderf',
-        'Yggdroot/LeaderF',
-        config = function()
-            vim.g.Lf_WindowPosition = 'popup'
-            vim.g.Lf_PreviewInPopup = 1
-            vim.cmd [[ unmap <Leader>f ]]
-            vim.cmd [[ unmap <Leader>b ]]
-        end
-    }
+    -- use {
+    --     -- 'Yggdroot/LeaderF', event = 'VimEnter *', 
+    --     -- 'Yggdroot/LeaderF', cmd = 'Leaderf',
+    --     'Yggdroot/LeaderF',
+    --     config = function()
+    --         vim.g.Lf_WindowPosition = 'popup'
+    --         vim.g.Lf_PreviewInPopup = 1
+
+    --         -- vim.cmd [[ unmap <Leader>f ]]
+    --         -- vim.cmd [[ unmap <Leader>b ]]
+    --         -- vim.defer_fn(function()
+    --         --     print("xxxxx")
+    --         -- end, 1000)
+    --     end
+    -- }
 
     -- Comment
     use {
