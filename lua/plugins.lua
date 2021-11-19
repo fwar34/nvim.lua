@@ -307,15 +307,16 @@ return require('packer').startup(function()
     --     end,
     -- }
 
-    use {
-        'junegunn/fzf.vim', event = 'VimEnter *',
-        config = function()
-            vim.g.fzf_preview_window = { 'up:50%', 'ctrl-/' }
-        end,
-        requires = {
-            {'junegunn/fzf', run = './install --all', lock = true},
-        }
-    }
+    use {'junegunn/fzf', run = './install --all', lock = true}
+    -- use {
+    --     'junegunn/fzf.vim', event = 'VimEnter *',
+    --     config = function()
+    --         vim.g.fzf_preview_window = { 'up:50%', 'ctrl-/' }
+    --     end,
+    --     requires = {
+    --         {'junegunn/fzf', run = './install --all', lock = true},
+    --     }
+    -- }
 
     -- Profiling
     use {'dstein64/vim-startuptime', cmd = 'StartupTime'}
