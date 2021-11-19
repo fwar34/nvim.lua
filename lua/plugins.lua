@@ -154,9 +154,8 @@ return require('packer').startup(function()
         config = function()
             -- vim.g.clap_theme = 'material_design_dark'
             vim.g.clap_current_selection_sign = { 
-		    text = '->', texthl = 'ClapCurrentSelectionSign', linehl = 'ClapCurrentSelection' 
-	    }
-            vim.g.clap_provider_grep_blink = {0, 0}
+                text = '->', texthl = 'ClapCurrentSelectionSign', linehl = 'ClapCurrentSelection' 
+            }
 
             -- Change the CamelCase of related highlight group name to under_score_case.
             -- let g:clap_theme = { 'search_text': {'guifg': 'red', 'ctermfg': 'red'} }
