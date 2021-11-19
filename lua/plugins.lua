@@ -145,7 +145,7 @@ return require('packer').startup(function()
 
     -- Coding
     use {'liuchengxu/vista.vim', event = 'VimEnter *'}
-    use {'majutsushi/tagbar', cmd = 'TagbarToggle'}
+    -- use {'majutsushi/tagbar', cmd = 'TagbarToggle'}
 
     -- Find everythings
     use {
@@ -183,7 +183,7 @@ return require('packer').startup(function()
     }
 
     -- Grepping
-    use {'mhinz/vim-grepper', opt = true, cmd = 'Grepper'}
+    -- use {'mhinz/vim-grepper', opt = true, cmd = 'Grepper'}
 
     -- File manager
     use {'Shougo/defx.nvim', opt = true, cmd = {'Defx'}}
@@ -211,16 +211,16 @@ return require('packer').startup(function()
                  }
         end
     } -- Ranger
-    use { -- nnn
-        'mcchrish/nnn.vim', cmd = {'NnnPicker', 'Np'},
-        config = function()
-            -- Disable default mappings
-            vim.cmd [[ let g:nnn#set_default_mappings = 0 ]]
-            -- Floating window (neovim latest and vim with patch 8.2.191)
-            -- vim.g['nnn#layout'] = { window = { width = 0.9, height = 0.6, highlight = 'Debug'}}
-            vim.cmd [[ let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } } ]]
-        end
-    }
+    -- use { -- nnn
+    --     'mcchrish/nnn.vim', cmd = {'NnnPicker', 'Np'},
+    --     config = function()
+    --         -- Disable default mappings
+    --         vim.cmd [[ let g:nnn#set_default_mappings = 0 ]]
+    --         -- Floating window (neovim latest and vim with patch 8.2.191)
+    --         -- vim.g['nnn#layout'] = { window = { width = 0.9, height = 0.6, highlight = 'Debug'}}
+    --         vim.cmd [[ let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } } ]]
+    --     end
+    -- }
 
     -- Terminal
     use {
@@ -307,15 +307,14 @@ return require('packer').startup(function()
     --     end,
     -- }
 
-
-    requires = {
-        {'junegunn/fzf', run = './install --all', lock = true},
-        {
-            'junegunn/fzf.vim', event = 'VimEnter *',
-            config = function()
-                vim.g.fzf_preview_window = { 'up:50%', 'ctrl-/' }
-            end
-        }, -- need for preview
+    use {
+        'junegunn/fzf.vim', event = 'VimEnter *',
+        config = function()
+            vim.g.fzf_preview_window = { 'up:50%', 'ctrl-/' }
+        end,
+        requires = {
+            {'junegunn/fzf', run = './install --all', lock = true},
+        }
     }
 
     -- Profiling
