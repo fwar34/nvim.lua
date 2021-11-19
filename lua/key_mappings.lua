@@ -88,11 +88,13 @@ function key_mappings:start()
         ['i|<Leader>O'] = {'<C-o>O', true, true},
         ['i|<Leader>o'] = {'<C-o>o', true, true},
         ['i|<Leader>zz'] = {'<Esc><CMD>w<CR>a', true, true},
-        ['i|<C-j>'] = {'<Left>', true, true},
-        ['i|<C-k>'] = {'<Right>', true, true},
+        ['i|<C-b>'] = {'<Left>', true, true},
+        ['i|<C-f>'] = {'<Right>', true, true},
         ['i|<C-a>'] = {'<Esc>I', true, true},
         ['i|<C-e>'] = {'<End>', true, true},
         ['i|<C-g>'] = {'<Esc>', true, true},
+        ['i|<C-j>'] = {'<Down>', true, true},
+        ['i|<C-k>'] = {'<Up>', true, true},
     }
 
     self.terminal = {
@@ -176,26 +178,26 @@ function key_mappings:start()
         ['n|<LocalLeader>qf'] = {'<CMD>Clap quickfix<CR>', true, true},
 
 
-        ['n|<Leader>ff'] = {'<CMD>Leaderf file<CR>', true},
-        ['n|<Leader>fa'] = {'<CMD>Leaderf rg<CR>', true},
-        ['n|<Leader>fw'] = {':Leaderf rg <C-R>=expand("<cword>")<CR><CR>', true, true},
-        ['n|<Leader>fs'] = {'<CMD>lua require("mylib")["search_word"]()<CR>', true, true},
-        -- ['n|<Leader>fs'] = {'<CMD>lua require("futil").search_word()<CR>', true, true},
-        ['n|<Leader>rm'] = {'<CMD>Leaderf mru<CR>', true},
-        ['n|<Leader>ch'] = {'<CMD>Leaderf cmdHistory<CR>', true},
-        ['n|<Leader>sh'] = {'<CMD>Leaderf searchHistory<CR>', true},
-        ['n|<Leader>li'] = {'<CMD>Leaderf line<CR>', true},
-        ['n|<Leader>bs'] = {'<CMD>Leaderf buffer<CR>', true, true},
-        -- ['n|<Leader>gf'] = {'<CMD>GFiles<CR>', true, true},
-        -- ['n|<Leader>ma'] = {'<CMD>Marks<CR>', true, true},
-        ['n|<Leader>cc'] = {'<CMD>Leaderf command<CR>', true, true},
-        -- ['n|<Leader>mp'] = {'<CMD>Maps<CR>', true, true},
-        ['n|<Leader>hp'] = {'<CMD>Leaderf help<CR>', true, true},
-        ['n|<Leader>tg'] = {'<CMD>Leaderf tag<CR>', true, true},
-        ['n|<Leader>bg'] = {'<CMD>Leaderf bufTag<CR>', true, true},
-        ['n|<Leader>ii'] = {'<CMD>Leaderf function<CR>', true, true},
-        ['n|<Leader>qf'] = {'<CMD>Leaderf quickfix<CR>', true, true},
-        ['n|<Leader>ll'] = {'<CMD>Leaderf loclist<CR>', true, true},
+        ['n|<LocalLeader>ff'] = {'<CMD>Clap files<CR>', true},
+        ['n|<LocalLeader>fa'] = {'<CMD>Clap rg<CR>', true},
+        ['n|<LocalLeader>fw'] = {':Clap rg <C-R>=expand("<cword>")<CR><CR>', true, true},
+        ['n|<LocalLeader>fs'] = {'<CMD>lua require("mylib")["search_word"]()<CR>', true, true},
+        -- ['n|<LocalLeader>fs'] = {'<CMD>lua require("futil").search_word()<CR>', true, true},
+        ['n|<LocalLeader>rm'] = {'<CMD>Clap mru<CR>', true},
+        ['n|<LocalLeader>ch'] = {'<CMD>Clap cmdHistory<CR>', true},
+        ['n|<LocalLeader>sh'] = {'<CMD>Clap searchHistory<CR>', true},
+        ['n|<LocalLeader>li'] = {'<CMD>Clap line<CR>', true},
+        ['n|<LocalLeader>bs'] = {'<CMD>Clap buffer<CR>', true, true},
+        -- ['n|<LocalLeader>gf'] = {'<CMD>GFiles<CR>', true, true},
+        -- ['n|<LocalLeader>ma'] = {'<CMD>Marks<CR>', true, true},
+        ['n|<LocalLeader>cc'] = {'<CMD>Clap command<CR>', true, true},
+        -- ['n|<LocalLeader>mp'] = {'<CMD>Maps<CR>', true, true},
+        ['n|<LocalLeader>hp'] = {'<CMD>Clap help<CR>', true, true},
+        ['n|<LocalLeader>tg'] = {'<CMD>Clap tag<CR>', true, true},
+        ['n|<LocalLeader>bg'] = {'<CMD>Clap bufTag<CR>', true, true},
+        ['n|<LocalLeader>ii'] = {'<CMD>Clap function<CR>', true, true},
+        ['n|<LocalLeader>qf'] = {'<CMD>Clap quickfix<CR>', true, true},
+        ['n|<LocalLeader>ll'] = {'<CMD>Clap loclist<CR>', true, true},
     }
 
     -- Vista
@@ -251,8 +253,8 @@ function key_mappings:start()
 
     -- vim-signify
     self.vim_signify = {
-        ['n|<Leader>df'] = {'<CMD>SignifyHunkDiff<CR>', true, true},
-        ['n|<Leader>du'] = {'<CMD>SignifyHunkUndo<CR>', true, true},
+        ['n|<LocalLeader>du'] = {'<CMD>SignifyHunkDiff<CR>', true, true},
+        ['n|<LocalLeader>dr'] = {'<CMD>SignifyHunkUndo<CR>', true, true},
     }
 
     -- vim-youdao-translater

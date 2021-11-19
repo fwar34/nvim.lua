@@ -44,8 +44,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/home/feng/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/home/feng/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/home/feng/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/home/feng/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/home/feng/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
+local package_path_str = "/home/feng/.cache/nvim/packer_hererocks/2.0.5/share/lua/5.1/?.lua;/home/feng/.cache/nvim/packer_hererocks/2.0.5/share/lua/5.1/?/init.lua;/home/feng/.cache/nvim/packer_hererocks/2.0.5/lib/luarocks/rocks-5.1/?.lua;/home/feng/.cache/nvim/packer_hererocks/2.0.5/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/feng/.cache/nvim/packer_hererocks/2.0.5/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -77,7 +77,8 @@ _G.packer_plugins = {
     url = "https://github.com/euclidianAce/BetterLua.vim"
   },
   LeaderF = {
-    config = { "\27LJ\2\2Ñ\1\0\0\2\0\t\0\0176\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0)\1\1\0=\1\4\0006\0\0\0009\0\5\0'\1\6\0B\0\2\0016\0\0\0009\0\1\0'\1\b\0=\1\a\0K\0\1\0\n<C-V>\17Lf_ShortcutFClet g:Lf_CommandMap = {'<C-P>': ['<Up>'], '<C-N>': ['<Down>']}\bcmd\22Lf_PreviewInPopup\npopup\22Lf_WindowPosition\6g\bvim\0" },
+    commands = { "Leaderf" },
+    config = { "\27LJ\1\2£\1\0\0\2\0\b\0\0174\0\0\0007\0\1\0%\1\3\0:\1\2\0004\0\0\0007\0\1\0'\1\1\0:\1\4\0004\0\0\0007\0\5\0%\1\6\0>\0\2\0014\0\0\0007\0\5\0%\1\a\0>\0\2\1G\0\1\0\22 unmap <Leader>b \22 unmap <Leader>f \bcmd\22Lf_PreviewInPopup\npopup\22Lf_WindowPosition\6g\bvim\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -90,14 +91,14 @@ _G.packer_plugins = {
     url = "https://github.com/skywind3000/asyncrun.vim"
   },
   ["asynctasks.vim"] = {
-    config = { "\27LJ\2\2/\0\0\2\0\3\0\0056\0\0\0009\0\1\0)\1\6\0=\1\2\0K\0\1\0\18asyncrun_open\6g\bvim\0" },
+    config = { "\27LJ\1\2/\0\0\2\0\3\0\0054\0\0\0007\0\1\0'\1\6\0:\1\2\0G\0\1\0\18asyncrun_open\6g\bvim\0" },
     loaded = true,
     needs_bufread = false,
     path = "/home/feng/.local/share/nvim/site/pack/packer/opt/asynctasks.vim",
     url = "https://github.com/skywind3000/asynctasks.vim"
   },
   ["auto-pairs"] = {
-    config = { "\27LJ\2\2¥\1\0\0\2\0\3\0\0056\0\0\0009\0\1\0'\1\2\0B\0\2\1K\0\1\0…\1 au FileType lisp,clojure,lisp let b:AutoPairs = {'```': '```', '`': '`', '\"': '\"', '[': ']', '(': ')', '{': '}', '\"\"\"': '\"\"\"'} \bcmd\bvim\0" },
+    config = { "\27LJ\1\2¥\1\0\0\2\0\3\0\0054\0\0\0007\0\1\0%\1\2\0>\0\2\1G\0\1\0…\1 au FileType lisp,clojure,lisp let b:AutoPairs = {'```': '```', '`': '`', '\"': '\"', '[': ']', '(': ')', '{': '}', '\"\"\"': '\"\"\"'} \bcmd\bvim\0" },
     loaded = true,
     path = "/home/feng/.local/share/nvim/site/pack/packer/start/auto-pairs",
     url = "https://github.com/jiangmiao/auto-pairs"
@@ -115,7 +116,7 @@ _G.packer_plugins = {
     url = "https://github.com/tjdevries/colorbuddy.nvim"
   },
   conjure = {
-    config = { "\27LJ\2\2«\1\0\0\2\0\5\0\r6\0\0\0009\0\1\0'\1\2\0B\0\2\0016\0\0\0009\0\1\0'\1\3\0B\0\2\0016\0\0\0009\0\1\0'\1\4\0B\0\2\1K\0\1\0'let g:conjure#log#hud#height = 0.5&let g:conjure#log#hud#width = 0.8'let g:conjure#mapping#prefix = \",\"\bcmd\bvim\0" },
+    config = { "\27LJ\1\2«\1\0\0\2\0\5\0\r4\0\0\0007\0\1\0%\1\2\0>\0\2\0014\0\0\0007\0\1\0%\1\3\0>\0\2\0014\0\0\0007\0\1\0%\1\4\0>\0\2\1G\0\1\0'let g:conjure#log#hud#height = 0.5&let g:conjure#log#hud#width = 0.8'let g:conjure#mapping#prefix = \",\"\bcmd\bvim\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -195,7 +196,7 @@ _G.packer_plugins = {
     url = "https://github.com/iamcco/markdown-preview.nvim"
   },
   ["nvim-colorizer.lua"] = {
-    config = { "\27LJ\2\0027\0\0\2\0\3\0\0066\0\0\0'\1\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14colorizer\frequire\0" },
+    config = { "\27LJ\1\0027\0\0\2\0\3\0\0064\0\0\0%\1\1\0>\0\2\0027\0\2\0>\0\1\1G\0\1\0\nsetup\14colorizer\frequire\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -208,13 +209,13 @@ _G.packer_plugins = {
     url = "https://github.com/AckslD/nvim-whichkey-setup.lua"
   },
   ["oceanic-material"] = {
-    config = { "\27LJ\2\2B\0\0\2\0\3\0\0056\0\0\0009\0\1\0'\1\2\0B\0\2\1K\0\1\0# colorscheme oceanic_material \bcmd\bvim\0" },
+    config = { "\27LJ\1\2B\0\0\2\0\3\0\0054\0\0\0007\0\1\0%\1\2\0>\0\2\1G\0\1\0# colorscheme oceanic_material \bcmd\bvim\0" },
     loaded = true,
     path = "/home/feng/.local/share/nvim/site/pack/packer/start/oceanic-material",
     url = "https://github.com/glepnir/oceanic-material"
   },
   onebuddy = {
-    config = { "\27LJ\2\2\v\0\0\1\0\0\0\1K\0\1\0\0" },
+    config = { "\27LJ\1\2\v\0\0\1\0\0\0\1G\0\1\0\0" },
     loaded = true,
     path = "/home/feng/.local/share/nvim/site/pack/packer/start/onebuddy",
     url = "https://github.com/Th3Whit3Wolf/onebuddy"
@@ -226,7 +227,7 @@ _G.packer_plugins = {
     url = "https://github.com/wbthomason/packer.nvim"
   },
   ["python-syntax"] = {
-    config = { "\27LJ\2\0026\0\0\2\0\3\0\0056\0\0\0009\0\1\0)\1\1\0=\1\2\0K\0\1\0\25python_highlight_all\6g\bvim\0" },
+    config = { "\27LJ\1\0026\0\0\2\0\3\0\0054\0\0\0007\0\1\0'\1\1\0:\1\2\0G\0\1\0\25python_highlight_all\6g\bvim\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -241,7 +242,7 @@ _G.packer_plugins = {
   },
   rnvimr = {
     commands = { "RnvimrToggle" },
-    config = { "\27LJ\2\2¸\2\0\0\2\0\t\0\0216\0\0\0009\0\1\0)\1\1\0=\1\2\0006\0\0\0009\0\1\0)\1\1\0=\1\3\0006\0\0\0009\0\1\0)\1\1\0=\1\4\0006\0\0\0009\0\5\0'\1\6\0B\0\2\0016\0\0\0009\0\1\0005\1\b\0=\1\a\0K\0\1\0\1\0\5\ayw\18EmitRangerCwd\agw\16JumpNvimCwd\n<C-v>\20NvimEdit vsplit\n<C-t>\21NvimEdit tabedit\n<C-x>\19NvimEdit split\18rnvimr_action- highlight link RnvimrNormal CursorLine \bcmd\21rnvimr_enable_bw\25rnvimr_enable_picker\21rnvimr_enable_ex\6g\bvim\0" },
+    config = { "\27LJ\1\2¸\2\0\0\2\0\t\0\0214\0\0\0007\0\1\0'\1\1\0:\1\2\0004\0\0\0007\0\1\0'\1\1\0:\1\3\0004\0\0\0007\0\1\0'\1\1\0:\1\4\0004\0\0\0007\0\5\0%\1\6\0>\0\2\0014\0\0\0007\0\1\0003\1\b\0:\1\a\0G\0\1\0\1\0\5\ayw\18EmitRangerCwd\agw\16JumpNvimCwd\n<C-v>\20NvimEdit vsplit\n<C-t>\21NvimEdit tabedit\n<C-x>\19NvimEdit split\18rnvimr_action- highlight link RnvimrNormal CursorLine \bcmd\21rnvimr_enable_bw\25rnvimr_enable_picker\21rnvimr_enable_ex\6g\bvim\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -266,13 +267,13 @@ _G.packer_plugins = {
     url = "https://github.com/wellle/targets.vim"
   },
   ["vim-better-whitespace"] = {
-    config = { "\27LJ\2\2‘\2\0\0\2\0\t\0\0176\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0)\1\0\0=\1\4\0006\0\0\0009\0\1\0005\1\6\0=\1\5\0006\0\0\0009\0\a\0'\1\b\0B\0\2\1K\0\1\0. let g:show_spaces_that_precede_tabs = 1 \bcmd\1\a\0\0\14gitcommit\nunite\aqf\thelp\rmarkdown\vpacker*better_whitespace_filetypes_blacklist\30better_whitespace_enabled\15<leader>ss\31better_whitespace_operator\6g\bvim\0" },
+    config = { "\27LJ\1\2‘\2\0\0\2\0\t\0\0174\0\0\0007\0\1\0%\1\3\0:\1\2\0004\0\0\0007\0\1\0'\1\0\0:\1\4\0004\0\0\0007\0\1\0003\1\6\0:\1\5\0004\0\0\0007\0\a\0%\1\b\0>\0\2\1G\0\1\0. let g:show_spaces_that_precede_tabs = 1 \bcmd\1\a\0\0\14gitcommit\nunite\aqf\thelp\rmarkdown\vpacker*better_whitespace_filetypes_blacklist\30better_whitespace_enabled\15<leader>ss\31better_whitespace_operator\6g\bvim\0" },
     loaded = true,
     path = "/home/feng/.local/share/nvim/site/pack/packer/start/vim-better-whitespace",
     url = "https://github.com/ntpeters/vim-better-whitespace"
   },
   ["vim-clap"] = {
-    config = { "\27LJ\2\2Ê\4\0\0\4\0\14\0\0236\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0005\1\5\0=\1\4\0006\0\0\0009\0\6\0009\0\a\0'\1\b\0B\0\2\2'\1\t\0&\0\1\0006\1\0\0009\1\1\0015\2\f\0005\3\v\0>\0\n\3=\3\r\2=\2\n\1K\0\1\0\vsource\1\0\1\tsink\6e\1\n\0\0!~/.config/nvim/lua/start.lua#~/.config/nvim/lua/plugins.lua(~/.config/nvim/lua/key_mappings.lua#~/.config/nvim/lua/autocmd.lua\28~/.config/nvim/init.vim,~/.config/nvim/plugin/which-vim-key.vim\"~/.config/nvim/cheatsheets.md\r~/.zshrc\17~/.tmux.conf\22clap_provider_dot8/site/pack/packer/opt/awesome-cheatsheets/README.md\tdata\fstdpath\afn\1\0\3\vtexthl\29ClapCurrentSelectionSign\ttext\a->\vlinehl\25ClapCurrentSelection clap_current_selection_sign\25material_design_dark\15clap_theme\6g\bvim\0" },
+    config = { '\27LJ\1\2ã\4\0\0\4\0\16\0\0254\0\0\0007\0\1\0003\1\3\0:\1\2\0004\0\0\0007\0\1\0003\1\6\0003\2\5\0:\2\a\1:\1\4\0004\0\0\0007\0\b\0007\0\t\0%\1\n\0>\0\2\2%\1\v\0$\0\1\0004\1\0\0007\1\1\0013\2\14\0003\3\r\0;\0\n\3:\3\15\2:\2\f\1G\0\1\0\vsource\1\0\1\tsink\6e\1\n\0\0!~/.config/nvim/lua/start.lua#~/.config/nvim/lua/plugins.lua(~/.config/nvim/lua/key_mappings.lua#~/.config/nvim/lua/autocmd.lua\28~/.config/nvim/init.vim,~/.config/nvim/plugin/which-vim-key.vim"~/.config/nvim/cheatsheets.md\r~/.zshrc\17~/.tmux.conf\22clap_provider_dot8/site/pack/packer/opt/awesome-cheatsheets/README.md\tdata\fstdpath\afn\14ClapInput\1\0\0\1\0\2\fctermfg\bred\nguifg\bred\15clap_theme\1\0\3\vtexthl\29ClapCurrentSelectionSign\ttext\a->\vlinehl\25ClapCurrentSelection clap_current_selection_sign\6g\bvim\0' },
     loaded = false,
     needs_bufread = true,
     only_cond = false,
@@ -285,7 +286,7 @@ _G.packer_plugins = {
     url = "https://github.com/flazz/vim-colorschemes"
   },
   ["vim-commentary"] = {
-    config = { "\27LJ\2\2\v\0\0\1\0\0\0\1K\0\1\0\0" },
+    config = { "\27LJ\1\2\v\0\0\1\0\0\0\1G\0\1\0\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -293,7 +294,7 @@ _G.packer_plugins = {
     url = "https://github.com/tpope/vim-commentary"
   },
   ["vim-cpp-enhanced-highlight"] = {
-    config = { "\27LJ\2\2d\0\0\2\0\4\0\t6\0\0\0009\0\1\0)\1\1\0=\1\2\0006\0\0\0009\0\1\0)\1\1\0=\1\3\0K\0\1\0\29cpp_class_decl_highlight\30cpp_class_scope_highlight\6g\bvim\0" },
+    config = { "\27LJ\1\2d\0\0\2\0\4\0\t4\0\0\0007\0\1\0'\1\1\0:\1\2\0004\0\0\0007\0\1\0'\1\1\0:\1\3\0G\0\1\0\29cpp_class_decl_highlight\30cpp_class_scope_highlight\6g\bvim\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -382,7 +383,7 @@ _G.packer_plugins = {
     url = "https://github.com/plasticboy/vim-markdown"
   },
   ["vim-multiple-cursors"] = {
-    config = { "\27LJ\2\2;\0\0\2\0\3\0\0056\0\0\0009\0\1\0)\1\0\0=\1\2\0K\0\1\0\30multi_cursor_support_imap\6g\bvim\0" },
+    config = { "\27LJ\1\2;\0\0\2\0\3\0\0054\0\0\0007\0\1\0'\1\0\0:\1\2\0G\0\1\0\30multi_cursor_support_imap\6g\bvim\0" },
     loaded = true,
     path = "/home/feng/.local/share/nvim/site/pack/packer/start/vim-multiple-cursors",
     url = "https://github.com/terryma/vim-multiple-cursors"
@@ -393,7 +394,7 @@ _G.packer_plugins = {
     url = "https://github.com/junegunn/vim-peekaboo"
   },
   ["vim-scrollstatus"] = {
-    config = { "\27LJ\2\2‰\1\0\0\2\0\a\0\r6\0\0\0009\0\1\0)\1\f\0=\1\2\0006\0\0\0009\0\1\0'\1\4\0=\1\3\0006\0\0\0009\0\1\0'\1\6\0=\1\5\0K\0\1\0\6#\28scrollstatus_symbol_bar\6-\30scrollstatus_symbol_track\22scrollstatus_size\6g\bvim\0" },
+    config = { "\27LJ\1\2‰\1\0\0\2\0\a\0\r4\0\0\0007\0\1\0'\1\f\0:\1\2\0004\0\0\0007\0\1\0%\1\4\0:\1\3\0004\0\0\0007\0\1\0%\1\6\0:\1\5\0G\0\1\0\6#\28scrollstatus_symbol_bar\6-\30scrollstatus_symbol_track\22scrollstatus_size\6g\bvim\0" },
     loaded = true,
     path = "/home/feng/.local/share/nvim/site/pack/packer/start/vim-scrollstatus",
     url = "https://github.com/ojroques/vim-scrollstatus"
@@ -413,13 +414,13 @@ _G.packer_plugins = {
     url = "https://github.com/tpope/vim-sexp-mappings-for-regular-people"
   },
   ["vim-signature"] = {
-    config = { "\27LJ\2\2i\0\0\2\0\4\0\0056\0\0\0009\0\1\0'\1\3\0=\1\2\0K\0\1\0006abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVW\26SignatureIncludeMarks\6g\bvim\0" },
+    config = { "\27LJ\1\2i\0\0\2\0\4\0\0054\0\0\0007\0\1\0%\1\3\0:\1\2\0G\0\1\0006abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVW\26SignatureIncludeMarks\6g\bvim\0" },
     loaded = true,
     path = "/home/feng/.local/share/nvim/site/pack/packer/start/vim-signature",
     url = "https://github.com/kshenoy/vim-signature"
   },
   ["vim-signify"] = {
-    config = { "\27LJ\2\2\v\0\0\1\0\0\0\1K\0\1\0\0" },
+    config = { "\27LJ\1\2\v\0\0\1\0\0\0\1G\0\1\0\0" },
     loaded = true,
     path = "/home/feng/.local/share/nvim/site/pack/packer/start/vim-signify",
     url = "https://github.com/mhinz/vim-signify"
@@ -447,7 +448,7 @@ _G.packer_plugins = {
     url = "https://github.com/machakann/vim-swap"
   },
   ["vim-terminal-help"] = {
-    config = { "\27LJ\2\2O\0\0\2\0\4\0\t6\0\0\0009\0\1\0)\1\20\0=\1\2\0006\0\0\0009\0\1\0)\1\0\0=\1\3\0K\0\1\0\18terminal_list\20terminal_height\6g\bvim\0" },
+    config = { "\27LJ\1\2O\0\0\2\0\4\0\t4\0\0\0007\0\1\0'\1\20\0:\1\2\0004\0\0\0007\0\1\0'\1\0\0:\1\3\0G\0\1\0\18terminal_list\20terminal_height\6g\bvim\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -467,7 +468,7 @@ _G.packer_plugins = {
     url = "https://github.com/liuchengxu/vim-which-key"
   },
   ["vim-win"] = {
-    config = { "\27LJ\2\2\v\0\0\1\0\0\0\1K\0\1\0\0" },
+    config = { "\27LJ\1\2\v\0\0\1\0\0\0\1G\0\1\0\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -501,35 +502,35 @@ _G.packer_plugins = {
 time([[Defining packer_plugins]], false)
 -- Setup for: vim-floaterm
 time([[Setup for vim-floaterm]], true)
-try_loadstring("\27LJ\2\2e\0\0\2\0\5\0\t6\0\0\0009\0\1\0)\1\b\0=\1\2\0006\0\0\0009\0\1\0'\1\4\0=\1\3\0K\0\1\0\15<leader>tm\27floaterm_keymap_toggle\22floaterm_winblend\6g\bvim\0", "setup", "vim-floaterm")
+try_loadstring("\27LJ\1\2e\0\0\2\0\5\0\t4\0\0\0007\0\1\0'\1\b\0:\1\2\0004\0\0\0007\0\1\0%\1\4\0:\1\3\0G\0\1\0\15<leader>tm\27floaterm_keymap_toggle\22floaterm_winblend\6g\bvim\0", "setup", "vim-floaterm")
 time([[Setup for vim-floaterm]], false)
 -- Config for: oceanic-material
 time([[Config for oceanic-material]], true)
-try_loadstring("\27LJ\2\2B\0\0\2\0\3\0\0056\0\0\0009\0\1\0'\1\2\0B\0\2\1K\0\1\0# colorscheme oceanic_material \bcmd\bvim\0", "config", "oceanic-material")
+try_loadstring("\27LJ\1\2B\0\0\2\0\3\0\0054\0\0\0007\0\1\0%\1\2\0>\0\2\1G\0\1\0# colorscheme oceanic_material \bcmd\bvim\0", "config", "oceanic-material")
 time([[Config for oceanic-material]], false)
 -- Config for: vim-better-whitespace
 time([[Config for vim-better-whitespace]], true)
-try_loadstring("\27LJ\2\2‘\2\0\0\2\0\t\0\0176\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0)\1\0\0=\1\4\0006\0\0\0009\0\1\0005\1\6\0=\1\5\0006\0\0\0009\0\a\0'\1\b\0B\0\2\1K\0\1\0. let g:show_spaces_that_precede_tabs = 1 \bcmd\1\a\0\0\14gitcommit\nunite\aqf\thelp\rmarkdown\vpacker*better_whitespace_filetypes_blacklist\30better_whitespace_enabled\15<leader>ss\31better_whitespace_operator\6g\bvim\0", "config", "vim-better-whitespace")
+try_loadstring("\27LJ\1\2‘\2\0\0\2\0\t\0\0174\0\0\0007\0\1\0%\1\3\0:\1\2\0004\0\0\0007\0\1\0'\1\0\0:\1\4\0004\0\0\0007\0\1\0003\1\6\0:\1\5\0004\0\0\0007\0\a\0%\1\b\0>\0\2\1G\0\1\0. let g:show_spaces_that_precede_tabs = 1 \bcmd\1\a\0\0\14gitcommit\nunite\aqf\thelp\rmarkdown\vpacker*better_whitespace_filetypes_blacklist\30better_whitespace_enabled\15<leader>ss\31better_whitespace_operator\6g\bvim\0", "config", "vim-better-whitespace")
 time([[Config for vim-better-whitespace]], false)
 -- Config for: onebuddy
 time([[Config for onebuddy]], true)
-try_loadstring("\27LJ\2\2\v\0\0\1\0\0\0\1K\0\1\0\0", "config", "onebuddy")
+try_loadstring("\27LJ\1\2\v\0\0\1\0\0\0\1G\0\1\0\0", "config", "onebuddy")
 time([[Config for onebuddy]], false)
 -- Config for: vim-multiple-cursors
 time([[Config for vim-multiple-cursors]], true)
-try_loadstring("\27LJ\2\2;\0\0\2\0\3\0\0056\0\0\0009\0\1\0)\1\0\0=\1\2\0K\0\1\0\30multi_cursor_support_imap\6g\bvim\0", "config", "vim-multiple-cursors")
+try_loadstring("\27LJ\1\2;\0\0\2\0\3\0\0054\0\0\0007\0\1\0'\1\0\0:\1\2\0G\0\1\0\30multi_cursor_support_imap\6g\bvim\0", "config", "vim-multiple-cursors")
 time([[Config for vim-multiple-cursors]], false)
 -- Config for: vim-signify
 time([[Config for vim-signify]], true)
-try_loadstring("\27LJ\2\2\v\0\0\1\0\0\0\1K\0\1\0\0", "config", "vim-signify")
+try_loadstring("\27LJ\1\2\v\0\0\1\0\0\0\1G\0\1\0\0", "config", "vim-signify")
 time([[Config for vim-signify]], false)
 -- Config for: vim-scrollstatus
 time([[Config for vim-scrollstatus]], true)
-try_loadstring("\27LJ\2\2‰\1\0\0\2\0\a\0\r6\0\0\0009\0\1\0)\1\f\0=\1\2\0006\0\0\0009\0\1\0'\1\4\0=\1\3\0006\0\0\0009\0\1\0'\1\6\0=\1\5\0K\0\1\0\6#\28scrollstatus_symbol_bar\6-\30scrollstatus_symbol_track\22scrollstatus_size\6g\bvim\0", "config", "vim-scrollstatus")
+try_loadstring("\27LJ\1\2‰\1\0\0\2\0\a\0\r4\0\0\0007\0\1\0'\1\f\0:\1\2\0004\0\0\0007\0\1\0%\1\4\0:\1\3\0004\0\0\0007\0\1\0%\1\6\0:\1\5\0G\0\1\0\6#\28scrollstatus_symbol_bar\6-\30scrollstatus_symbol_track\22scrollstatus_size\6g\bvim\0", "config", "vim-scrollstatus")
 time([[Config for vim-scrollstatus]], false)
 -- Config for: auto-pairs
 time([[Config for auto-pairs]], true)
-try_loadstring("\27LJ\2\2¥\1\0\0\2\0\3\0\0056\0\0\0009\0\1\0'\1\2\0B\0\2\1K\0\1\0…\1 au FileType lisp,clojure,lisp let b:AutoPairs = {'```': '```', '`': '`', '\"': '\"', '[': ']', '(': ')', '{': '}', '\"\"\"': '\"\"\"'} \bcmd\bvim\0", "config", "auto-pairs")
+try_loadstring("\27LJ\1\2¥\1\0\0\2\0\3\0\0054\0\0\0007\0\1\0%\1\2\0>\0\2\1G\0\1\0…\1 au FileType lisp,clojure,lisp let b:AutoPairs = {'```': '```', '`': '`', '\"': '\"', '[': ']', '(': ')', '{': '}', '\"\"\"': '\"\"\"'} \bcmd\bvim\0", "config", "auto-pairs")
 time([[Config for auto-pairs]], false)
 -- Config for: rainbow
 time([[Config for rainbow]], true)
@@ -537,21 +538,22 @@ vim.g.rainbow_active = 1
 time([[Config for rainbow]], false)
 -- Config for: vim-signature
 time([[Config for vim-signature]], true)
-try_loadstring("\27LJ\2\2i\0\0\2\0\4\0\0056\0\0\0009\0\1\0'\1\3\0=\1\2\0K\0\1\0006abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVW\26SignatureIncludeMarks\6g\bvim\0", "config", "vim-signature")
+try_loadstring("\27LJ\1\2i\0\0\2\0\4\0\0054\0\0\0007\0\1\0%\1\3\0:\1\2\0G\0\1\0006abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVW\26SignatureIncludeMarks\6g\bvim\0", "config", "vim-signature")
 time([[Config for vim-signature]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file MarkdownPreview lua require("packer.load")({'markdown-preview.nvim'}, { cmd = "MarkdownPreview", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
-pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file StartupTime lua require("packer.load")({'vim-startuptime'}, { cmd = "StartupTime", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Boot lua require("packer.load")({'vim-jack-in'}, { cmd = "Boot", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file RnvimrToggle lua require("packer.load")({'rnvimr'}, { cmd = "RnvimrToggle", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file XtermColorTable lua require("packer.load")({'xterm-color-table.vim'}, { cmd = "XtermColorTable", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Defx lua require("packer.load")({'defx.nvim'}, { cmd = "Defx", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Leaderf lua require("packer.load")({'LeaderF'}, { cmd = "Leaderf", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Clj lua require("packer.load")({'vim-jack-in'}, { cmd = "Clj", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Lein lua require("packer.load")({'vim-jack-in'}, { cmd = "Lein", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file GitMessenger lua require("packer.load")({'git-messenger.vim'}, { cmd = "GitMessenger", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file GundoToggle lua require("packer.load")({'gundo.vim'}, { cmd = "GundoToggle", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
-pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Boot lua require("packer.load")({'vim-jack-in'}, { cmd = "Boot", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file StartupTime lua require("packer.load")({'vim-startuptime'}, { cmd = "StartupTime", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 time([[Defining lazy-load commands]], false)
 
 vim.cmd [[augroup packer_load_aucmds]]
@@ -570,7 +572,7 @@ vim.cmd [[au FileType markdownd ++once lua require("packer.load")({'vim-markdown
 time([[Defining lazy-load filetype autocommands]], false)
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au VimEnter * ++once lua require("packer.load")({'vim-clap', 'vim-floaterm', 'gutentags_plus', 'fennel.vim', 'LeaderF', 'vim-fugitive', 'vim-surround', 'vim-cpp-enhanced-highlight', 'vim-unimpaired', 'vim-terminal-help', 'vim-highlightedyank', 'vim-commentary', 'vim-swap', 'vim-gutentags', 'nvim-colorizer.lua', 'vim-win', 'vista.vim', 'targets.vim', 'vim-dispatch', 'awesome-cheatsheets', 'vim-youdao-translater'}, { event = "VimEnter *" }, _G.packer_plugins)]]
+vim.cmd [[au VimEnter * ++once lua require("packer.load")({'vim-clap', 'vim-floaterm', 'gutentags_plus', 'fennel.vim', 'vim-fugitive', 'vim-surround', 'vim-cpp-enhanced-highlight', 'vim-unimpaired', 'vim-terminal-help', 'vim-highlightedyank', 'vim-commentary', 'vim-swap', 'vim-gutentags', 'nvim-colorizer.lua', 'vim-win', 'vista.vim', 'targets.vim', 'vim-dispatch', 'awesome-cheatsheets', 'vim-youdao-translater'}, { event = "VimEnter *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]

@@ -151,9 +151,14 @@ return require('packer').startup(function()
     use {
         'liuchengxu/vim-clap', opt = true, event = 'VimEnter *',
         config = function()
-            vim.g.clap_theme = 'material_design_dark'
-            vim.g.clap_current_selection_sign = { text = '->',
-            texthl = 'ClapCurrentSelectionSign', linehl = 'ClapCurrentSelection' }
+            -- vim.g.clap_theme = 'material_design_dark'
+            vim.g.clap_current_selection_sign = { 
+		    text = '->', texthl = 'ClapCurrentSelectionSign', linehl = 'ClapCurrentSelection' 
+	    }
+
+            -- Change the CamelCase of related highlight group name to under_score_case.
+            -- let g:clap_theme = { 'search_text': {'guifg': 'red', 'ctermfg': 'red'} }
+            vim.g.clap_theme = { ClapInput = {guifg = 'red', ctermfg = 'red'} }
 
             local cheatsheets_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/awesome-cheatsheets/README.md'
             -- `:Clap dotfiles` to open some dotfiles quickly.
@@ -375,10 +380,14 @@ return require('packer').startup(function()
     }
 
     use {
-        'Yggdroot/LeaderF', event = 'VimEnter *', 
+        -- 'Yggdroot/LeaderF', event = 'VimEnter *', 
+        -- 'Yggdroot/LeaderF', cmd = 'Leaderf',
+        'Yggdroot/LeaderF',
         config = function()
             vim.g.Lf_WindowPosition = 'popup'
             vim.g.Lf_PreviewInPopup = 1
+            vim.cmd [[ unmap <Leader>f ]]
+            vim.cmd [[ unmap <Leader>b ]]
         end
     }
 
