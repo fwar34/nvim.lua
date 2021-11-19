@@ -27,12 +27,12 @@ function futil:restore_mouse()
 end
 
 function futil.toggle_mouse()
-    if vim.o.mouse == 'n' then
+    if vim.o.mouse == 'a' then
         vim.o.mouse = ''
         print('set mouse=')
     else
-        vim.o.mouse = 'n'
-        print('set mouse = n')
+        vim.o.mouse = 'a'
+        print('set mouse = a')
     end
 end
 
