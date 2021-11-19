@@ -174,6 +174,28 @@ function key_mappings:start()
         ['n|<LocalLeader>fa'] = {'<CMD>Clap grep<CR>', true, true},
         ['n|<LocalLeader>do'] = {'<CMD>Clap dot<CR>', true, true},
         ['n|<LocalLeader>qf'] = {'<CMD>Clap quickfix<CR>', true, true},
+
+
+        ['n|<Leader>ff'] = {'<CMD>Leaderf file<CR>', true},
+        ['n|<Leader>fa'] = {'<CMD>Leaderf rg<CR>', true},
+        ['n|<Leader>fw'] = {':Leaderf rg <C-R>=expand("<cword>")<CR><CR>', true, true},
+        ['n|<Leader>fs'] = {'<CMD>lua require("mylib")["search_word"]()<CR>', true, true},
+        -- ['n|<Leader>fs'] = {'<CMD>lua require("futil").search_word()<CR>', true, true},
+        ['n|<Leader>rm'] = {'<CMD>Leaderf mru<CR>', true},
+        ['n|<Leader>ch'] = {'<CMD>Leaderf cmdHistory<CR>', true},
+        ['n|<Leader>sh'] = {'<CMD>Leaderf searchHistory<CR>', true},
+        ['n|<Leader>li'] = {'<CMD>Leaderf line<CR>', true},
+        ['n|<Leader>bs'] = {'<CMD>Leaderf buffer<CR>', true, true},
+        -- ['n|<Leader>gf'] = {'<CMD>GFiles<CR>', true, true},
+        -- ['n|<Leader>ma'] = {'<CMD>Marks<CR>', true, true},
+        ['n|<Leader>cc'] = {'<CMD>Leaderf command<CR>', true, true},
+        -- ['n|<Leader>mp'] = {'<CMD>Maps<CR>', true, true},
+        ['n|<Leader>hp'] = {'<CMD>Leaderf help<CR>', true, true},
+        ['n|<Leader>tg'] = {'<CMD>Leaderf tag<CR>', true, true},
+        ['n|<Leader>bg'] = {'<CMD>Leaderf bufTag<CR>', true, true},
+        ['n|<Leader>ii'] = {'<CMD>Leaderf function<CR>', true, true},
+        ['n|<Leader>qf'] = {'<CMD>Leaderf quickfix<CR>', true, true},
+        ['n|<Leader>ll'] = {'<CMD>Leaderf loclist<CR>', true, true},
     }
 
     -- Vista

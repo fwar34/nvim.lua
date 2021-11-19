@@ -77,6 +77,7 @@ _G.packer_plugins = {
     url = "https://github.com/euclidianAce/BetterLua.vim"
   },
   LeaderF = {
+    config = { "\27LJ\2\2Ñ\1\0\0\2\0\t\0\0176\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0)\1\1\0=\1\4\0006\0\0\0009\0\5\0'\1\6\0B\0\2\0016\0\0\0009\0\1\0'\1\b\0=\1\a\0K\0\1\0\n<C-V>\17Lf_ShortcutFClet g:Lf_CommandMap = {'<C-P>': ['<Up>'], '<C-N>': ['<Down>']}\bcmd\22Lf_PreviewInPopup\npopup\22Lf_WindowPosition\6g\bvim\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,

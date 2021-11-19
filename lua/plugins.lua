@@ -374,7 +374,13 @@ return require('packer').startup(function()
         end
     }
 
-    use {'Yggdroot/LeaderF', event = 'VimEnter *',}
+    use {
+        'Yggdroot/LeaderF', event = 'VimEnter *', 
+        config = function()
+            vim.g.Lf_WindowPosition = 'popup'
+            vim.g.Lf_PreviewInPopup = 1
+        end
+    }
 
     -- Comment
     use {

@@ -1,7 +1,7 @@
 (fn search-word []
   "my search word"
   (vim.cmd "normal vey")
-  (vim.cmd (.. "Ag " (vim.fn.getreg "0"))))
+  (vim.cmd (.. "Leaderf rg " (vim.fn.getreg "0"))))
   
 (fn coc-status []
   "print coc status message"
