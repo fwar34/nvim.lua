@@ -260,6 +260,8 @@ function key_mappings:start()
     self.vim_signify = {
         ['n|<LocalLeader>du'] = {'<CMD>SignifyHunkDiff<CR>', true, true},
         ['n|<LocalLeader>dr'] = {'<CMD>SignifyHunkUndo<CR>', true, true},
+        ['n|<LocalLeader>dn'] = {'<plug>(signify-next-hunk)', false, true},
+        ['n|<LocalLeader>dp'] = {'<plug>(signify-prev-hunk)', false, true},
     }
 
     -- vim-youdao-translater

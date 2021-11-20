@@ -182,11 +182,11 @@ return require('packer').startup(function()
         end
     }
 
-    -- use { 'liuchengxu/vim-which-key', opt = true, cmd = {'WhichKey', 'WhichKey!'}}
-    use {
-        'AckslD/nvim-whichkey-setup.lua',
-        requires = {'liuchengxu/vim-which-key'},
-    }
+    use { 'liuchengxu/vim-which-key', opt = true, cmd = {'WhichKey', 'WhichKey!'}}
+    -- use {
+    --     'AckslD/nvim-whichkey-setup.lua',
+    --     requires = {'liuchengxu/vim-which-key'},
+    -- }
 
     -- Grepping
     -- use {'mhinz/vim-grepper', opt = true, cmd = 'Grepper'}
