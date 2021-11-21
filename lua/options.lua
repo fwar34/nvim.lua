@@ -1,7 +1,7 @@
 local options = {}
 local vim = vim
 
-function options.load_options()
+function options.setup()
     vim.cmd('set autochdir')
     -- 可以在normal,visual模式使用鼠标
     vim.cmd('set mouse=')

@@ -10,7 +10,7 @@ else
     require('plugins')
 end
 
-require("options").load_options()
+require("options").setup()
 require("key_mappings").setup()
 require("autocmd").setup()
 require("terminal").setup()
