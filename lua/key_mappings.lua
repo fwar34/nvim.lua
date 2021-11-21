@@ -54,7 +54,7 @@ function key_mappings:start()
         ['n|<Leader><TAB>'] = {'<C-w><C-w>', true, true},
         ['n|<Leader>do'] = {'<CMD>on<CR>', true, true},
         ['n|<Leader>dm'] = {'<CMD>delmarks!<CR>', true, true},
-        ['n|<Leader>db'] = {'<CMD>bdel<CR>', true, true},
+        ['n|<Leader>kb'] = {'<CMD>bdel<CR>', true, true},
         ['n|<Space><Space>'] = {':', true},
         ['n|<Leader>bb'] = {'<C-^>', true, true},
         ['n|<Leader>lm'] = {'<CMD>lua require("futil").toggle_line_number()<CR>', true, true},
@@ -177,7 +177,7 @@ function key_mappings:start()
         ['n|<Leader>li'] = {'<CMD>Clap blines<CR>', true},
         ['n|<Leader>bs'] = {'<CMD>Clap buffer<CR>', true, true},
         ['n|<Leader>co'] = {'<CMD>Clap colors<CR>', true, true},
-        ['n|<Leader>cc'] = {'<CMD>Clap command<CR>', true, true},
+        ['n|<Leader>cm'] = {'<CMD>Clap command<CR>', true, true},
         ['n|<Leader>ch'] = {'<CMD>Clap command_history<CR>', true},
         ['n|<Leader>sh'] = {'<CMD>Clap search_history<CR>', true},
         ['n|<Leader>ff'] = {'<CMD>Clap files<CR>', true},
@@ -195,19 +195,19 @@ function key_mappings:start()
         ['n|<Leader>fa'] = {'<CMD>Clap grep<CR>', true, true},
         ['n|<Leader>fm'] = {'<CMD>Clap grep2<CR>', true},
         ['n|<Leader>ra'] = {'<CMD>Clap registers<CR>', true},
-        ['n|<Leader>bg'] = {'<CMD>Clap tags<CR>', true, true},
-        ['n|<Leader>pg'] = {'<CMD>Clap proj_tags<CR>', true, true},
+        ['n|<Leader>bt'] = {'<CMD>Clap tags<CR>', true, true},
+        ['n|<Leader>pt'] = {'<CMD>Clap proj_tags<CR>', true, true},
         ['n|<Leader>yk'] = {'<CMD>Clap yanks<CR>', true, true},
         ['n|<Leader>fl'] = {'<CMD>Clap filer<CR>', true, true},
         ['n|<Leader>pr'] = {'<CMD>Clap providers<CR>', true, true},
-        ['n|<Leader>do'] = {'<CMD>Clap dot<CR>', true, true},
+        ['n|<Leader>df'] = {'<CMD>Clap dot<CR>', true, true},
     }
 
     self.Commentary = { ['n|<Leader>ci'] = {'<CMD>Commentary<CR>', true, true} }
 
     -- Vista
     self.vista = {
-        ['n|<Leader>bt'] = {'<CMD>Vista<CR>', true, true},
+        ['n|<Leader>ii'] = {'<CMD>Vista<CR>', true, true},
     }
 
     -- rnvimr
@@ -272,9 +272,9 @@ function key_mappings:start()
     }
 
     -- tagbar
-    self.tagbar = {
-        ['n|<Leader>tb'] = {'<CMD>TagbarToggle<CR>'},
-    }
+    -- self.tagbar = {
+    --     ['n|<Leader>tb'] = {'<CMD>TagbarToggle<CR>'},
+    -- }
 
     self:process_keys()
 end

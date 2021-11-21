@@ -3,6 +3,7 @@ local key_mappings = require('key_mappings')
 local autocmd = require('autocmd')
 local terminal = require('terminal')
 local vim = vim
+local lsp_lua = require('lsp.lua')
 
 -- vim.fn.execute('!make')
 -- require('fennel_test')
@@ -25,6 +26,7 @@ function start.init()
     key_mappings.setup()
     autocmd.setup()
     terminal.setup()
+    lsp_lua.setup()
 end
 
 return start

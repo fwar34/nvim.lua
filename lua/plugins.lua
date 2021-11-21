@@ -1,6 +1,5 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
-local global = require("global")
 -- Only required if you have packer in your `opt` pack
 vim.cmd [[packadd packer.nvim]]
 -- Only if your version of Neovim doesn't have https://github.com/neovim/neovim/pull/12632 merged
@@ -139,6 +138,12 @@ return require('packer').startup(function()
     --         }
     --     }
     -- end}
+
+    -- Lsp
+    use {
+        'neovim/nvim-lspconfig',
+        'williamboman/nvim-lsp-installer',
+    }
 
     -- Status line
     use {'itchyny/lightline.vim'}
@@ -526,8 +531,8 @@ return require('packer').startup(function()
         {'clojure-vim/vim-jack-in', cmd = {'Clj', 'Lein', 'Boot'}},
         -- Vim highlighting for Fennel, heavily modified from vim-clojure-static.
         {'bakpakin/fennel.vim', event = 'VimEnter *'},
-        -- Aniseed bridges the gap between Fennel (a Lisp that compiles to Lua) 
-        -- and Neovim. Allowing you to easily write plugins or configuration in 
+        -- Aniseed bridges the gap between Fennel (a Lisp that compiles to Lua)
+        -- and Neovim. Allowing you to easily write plugins or configuration in
         -- a Clojure-like Lisp with great runtime performance.
         -- {'Olical/aniseed', tag = 'v3.11.0'},
         -- {'Olical/nvim-local-fennel', tag = 'v2.4.0'},
