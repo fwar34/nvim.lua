@@ -474,21 +474,22 @@ return require('packer').startup(function()
         end
     }
 
-    -- use {
-    --     -- 'Yggdroot/LeaderF', event = 'VimEnter *', 
-    --     -- 'Yggdroot/LeaderF', cmd = 'Leaderf',
-    --     'Yggdroot/LeaderF',
-    --     config = function()
-    --         vim.g.Lf_WindowPosition = 'popup'
-    --         vim.g.Lf_PreviewInPopup = 1
+    use {
+        -- 'Yggdroot/LeaderF', event = 'VimEnter *', 
+        -- 'Yggdroot/LeaderF', cmd = 'Leaderf',
+        'Yggdroot/LeaderF',
+        run = ':LeaderfInstallCExtension',
+        config = function()
+            vim.g.Lf_WindowPosition = 'popup'
+            vim.g.Lf_PreviewInPopup = 1
 
-    --         -- vim.cmd [[ unmap <Leader>f ]]
-    --         -- vim.cmd [[ unmap <Leader>b ]]
-    --         -- vim.defer_fn(function()
-    --         --     print("xxxxx")
-    --         -- end, 1000)
-    --     end
-    -- }
+            -- vim.cmd [[ unmap <Leader>f ]]
+            -- vim.cmd [[ unmap <Leader>b ]]
+            -- vim.defer_fn(function()
+            --     print("xxxxx")
+            -- end, 1000)
+        end
+    }
 
     -- Comment
     use {
