@@ -242,6 +242,8 @@ return require('packer').startup(function()
     -- Find everythings
     use {
         'liuchengxu/vim-clap', opt = true, event = 'VimEnter *',
+        -- run = ':Clap install-binary',
+        run = ':eval(clap#installer#force_download())', -- proxychinas4
         config = function()
             -- vim.g.clap_theme = 'material_design_dark'
             vim.g.clap_current_selection_sign = { 

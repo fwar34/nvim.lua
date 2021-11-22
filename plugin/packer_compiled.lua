@@ -154,7 +154,7 @@ _G.packer_plugins = {
   },
   ["fennel.vim"] = {
     loaded = false,
-    needs_bufread = false,
+    needs_bufread = true,
     only_cond = false,
     path = "/home/feng/.local/share/nvim/site/pack/packer/opt/fennel.vim",
     url = "https://github.com/bakpakin/fennel.vim"
@@ -302,7 +302,7 @@ _G.packer_plugins = {
   ["vim-clap"] = {
     config = { "\27LJ\2\2ã\4\0\0\4\0\16\0\0256\0\0\0009\0\1\0005\1\3\0=\1\2\0006\0\0\0009\0\1\0005\1\6\0005\2\5\0=\2\a\1=\1\4\0006\0\0\0009\0\b\0009\0\t\0'\1\n\0B\0\2\2'\1\v\0&\0\1\0006\1\0\0009\1\1\0015\2\14\0005\3\r\0>\0\n\3=\3\15\2=\2\f\1K\0\1\0\vsource\1\0\1\tsink\6e\1\n\0\0!~/.config/nvim/lua/start.lua#~/.config/nvim/lua/plugins.lua(~/.config/nvim/lua/key_mappings.lua#~/.config/nvim/lua/autocmd.lua\28~/.config/nvim/init.vim,~/.config/nvim/plugin/which-vim-key.vim\"~/.config/nvim/cheatsheets.md\r~/.zshrc\17~/.tmux.conf\22clap_provider_dot8/site/pack/packer/opt/awesome-cheatsheets/README.md\tdata\fstdpath\afn\14ClapInput\1\0\0\1\0\2\fctermfg\bred\nguifg\bred\15clap_theme\1\0\3\vtexthl\29ClapCurrentSelectionSign\ttext\a->\vlinehl\25ClapCurrentSelection clap_current_selection_sign\6g\bvim\0" },
     loaded = false,
-    needs_bufread = false,
+    needs_bufread = true,
     only_cond = false,
     path = "/home/feng/.local/share/nvim/site/pack/packer/opt/vim-clap",
     url = "https://github.com/liuchengxu/vim-clap"
@@ -361,7 +361,7 @@ _G.packer_plugins = {
   },
   ["vim-fugitive"] = {
     loaded = false,
-    needs_bufread = false,
+    needs_bufread = true,
     only_cond = false,
     path = "/home/feng/.local/share/nvim/site/pack/packer/opt/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
@@ -404,7 +404,7 @@ _G.packer_plugins = {
   },
   ["vim-markdown"] = {
     loaded = false,
-    needs_bufread = false,
+    needs_bufread = true,
     only_cond = false,
     path = "/home/feng/.local/share/nvim/site/pack/packer/opt/vim-markdown",
     url = "https://github.com/plasticboy/vim-markdown"
@@ -492,7 +492,7 @@ _G.packer_plugins = {
   ["vim-which-key"] = {
     commands = { "WhichKey", "WhichKey!" },
     loaded = false,
-    needs_bufread = false,
+    needs_bufread = true,
     only_cond = false,
     path = "/home/feng/.local/share/nvim/site/pack/packer/opt/vim-which-key",
     url = "https://github.com/liuchengxu/vim-which-key"
@@ -609,6 +609,11 @@ time([[Defining lazy-load filetype autocommands]], false)
 time([[Defining lazy-load event autocommands]], true)
 vim.cmd [[au VimEnter * ++once lua require("packer.load")({'vim-clap', 'vim-floaterm', 'vim-cpp-enhanced-highlight', 'targets.vim', 'gutentags_plus', 'fennel.vim', 'vim-dispatch', 'vim-terminal-help', 'vista.vim', 'vim-win', 'nvim-colorizer.lua', 'vim-fugitive', 'awesome-cheatsheets', 'vim-youdao-translater', 'vim-surround', 'vim-gutentags', 'vim-unimpaired', 'vim-highlightedyank', 'vim-swap', 'vim-commentary'}, { event = "VimEnter *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
+vim.cmd("augroup END")
+vim.cmd [[augroup filetypedetect]]
+time([[Sourcing ftdetect script at: /home/feng/.local/share/nvim/site/pack/packer/opt/vim-markdown/ftdetect/markdown.vim]], true)
+vim.cmd [[source /home/feng/.local/share/nvim/site/pack/packer/opt/vim-markdown/ftdetect/markdown.vim]]
+time([[Sourcing ftdetect script at: /home/feng/.local/share/nvim/site/pack/packer/opt/vim-markdown/ftdetect/markdown.vim]], false)
 vim.cmd("augroup END")
 if should_profile then save_profiles() end
 
