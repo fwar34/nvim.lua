@@ -21,6 +21,9 @@ function M.setup()
     table.insert(runtime_path, "lua/?.lua")
     table.insert(runtime_path, "lua/?/init.lua")
 
+    -- Setup lspconfig.
+    local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
     require'lspconfig'.sumneko_lua.setup {
         cmd = {sumneko_binary .. "/lua-language-server", "-E", sumneko_binary .. "/main.lua"};
         settings = {
@@ -45,6 +48,7 @@ function M.setup()
                 },
             },
         },
+        capabilities = capabilities
     }
 end
 
