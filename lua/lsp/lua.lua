@@ -15,7 +15,6 @@ function M.setup()
     -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
     local sumneko_root_path = vim.fn.stdpath("data") .. "/lsp_servers/sumneko_lua/extension/server"
     local sumneko_binary = sumneko_root_path.."/bin/"..system_name
-    print(sumneko_binary)
 
     local runtime_path = vim.split(package.path, ';')
     table.insert(runtime_path, "lua/?.lua")
