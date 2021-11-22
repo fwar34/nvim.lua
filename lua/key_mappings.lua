@@ -213,6 +213,7 @@ function key_mappings:start()
     -- rnvimr
     self.rnvimr = {
         ['n|<Leader>rn'] = {'<CMD>RnvimrToggle<CR>', true, true},
+        ['t|<M-i>'] = {'<C-\\><C-n>:RnvimrResize<CR>', true, true},
     }
 
     -- undotree
