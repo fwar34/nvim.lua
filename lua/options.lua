@@ -1,5 +1,4 @@
 local options = {}
-local vim = vim
 
 function options.setup()
     vim.cmd('set autochdir')
@@ -147,6 +146,8 @@ function options.setup()
     vim.cmd('set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu')
     vim.cmd('set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc')
     vim.cmd('set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android')
+    -- 设置显示制表符等隐藏字符
+    vim.cmd('set list')
 end
 
 return options
