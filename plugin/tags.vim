@@ -1,4 +1,6 @@
+" 设定项目目录标志：不在 git/svn 内的项目，需要在项目根目录 touch 一个空的 .root/.project 等文件
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+" 默认生成的数据文件集中到 ~/.cache/tags 避免污染项目目录，好清理
 let g:gutentags_cache_dir = expand('~/.cache/tags')
 let g:gutentags_ctags_tagfile = '.tags'
 let g:gutentags_exclude_project_root = [expand('~/.vim')]
@@ -19,17 +21,26 @@ let g:gutentags_ctags_exclude = ['*/debian/*', '*.am', '*.sh', 'makefile', 'Make
 "not gutentags for vim
 "let g:gutentags_exclude_filetypes = ['vim', 'go']
 
+" 默认禁用自动生成
 let g:gutentags_modules = []
+" 如果有 ctags 可执行就允许动态生成 ctags 文件
 if executable('ctags')
     let g:gutentags_modules += ['ctags']
 endif
+" 如果有 gtags 可执行就允许动态生成 gtags 数据库
 if executable('gtags-cscope') && executable('gtags')
     let g:gutentags_modules += ['gtags_cscope']
 endif
 
+" 设置 ctags 的参数
+let g:gutentags_ctags_extra_args = []
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
 " 如果使用 universal ctags 需要增加下面两行
 " Universal Ctags support Wildcard in options.
-let g:gutentags_ctags_extra_args = ['--fields=*', '--extras=*', '--kinds-all=*']
+" let g:gutentags_ctags_extra_args = ['--fields=*', '--extras=*', '--kinds-all=*']
 let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
 
 
@@ -96,3 +107,10 @@ augroup END
 " autocmd FileType qf nnoremap <silent><buffer> q :PreviewClose<cr>
 " noremap <F4> :PreviewSignature!<cr>
 " inoremap <F4> <c-\><c-o>:PreviewSignature!<cr>
+
+if &term =~ '256color' && $TMUX != ''
+	" disable Background Color Erase (BCE) so that color schemes
+	" render properly when inside 256-color tmux and GNU screen.
+	" see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+	set t_ut=
+endif
