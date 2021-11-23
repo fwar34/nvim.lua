@@ -242,6 +242,8 @@ return require('packer').startup(function()
     -- Find everythings
     use {
         'liuchengxu/vim-clap', opt = true, event = 'VimEnter *',
+        -- run = ':Clap install-binary',
+        run = ':eval(clap#installer#force_download())', -- proxychinas4
         config = function()
             -- vim.g.clap_theme = 'material_design_dark'
             vim.g.clap_current_selection_sign = { 
@@ -472,21 +474,22 @@ return require('packer').startup(function()
         end
     }
 
-    -- use {
-    --     -- 'Yggdroot/LeaderF', event = 'VimEnter *', 
-    --     -- 'Yggdroot/LeaderF', cmd = 'Leaderf',
-    --     'Yggdroot/LeaderF',
-    --     config = function()
-    --         vim.g.Lf_WindowPosition = 'popup'
-    --         vim.g.Lf_PreviewInPopup = 1
+    use {
+        -- 'Yggdroot/LeaderF', event = 'VimEnter *', 
+        -- 'Yggdroot/LeaderF', cmd = 'Leaderf',
+        'Yggdroot/LeaderF',
+        run = ':LeaderfInstallCExtension',
+        config = function()
+            -- vim.g.Lf_WindowPosition = 'popup'
+            -- vim.g.Lf_PreviewInPopup = 1
 
-    --         -- vim.cmd [[ unmap <Leader>f ]]
-    --         -- vim.cmd [[ unmap <Leader>b ]]
-    --         -- vim.defer_fn(function()
-    --         --     print("xxxxx")
-    --         -- end, 1000)
-    --     end
-    -- }
+            -- vim.cmd [[ unmap <Leader>f ]]
+            -- vim.cmd [[ unmap <Leader>b ]]
+            -- vim.defer_fn(function()
+            --     print("xxxxx")
+            -- end, 1000)
+        end
+    }
 
     -- Comment
     use {
@@ -501,7 +504,10 @@ return require('packer').startup(function()
     -- Tags
     -- use {'jsfaint/gen_tags.vim', event = 'VimEnter *',}
     use {
+        -- 提供 ctags/gtags 后台数据库自动更新功能
         {'ludovicchabant/vim-gutentags', event = 'VimEnter *'},
+        -- 提供 GscopeFind 命令并自动处理好 gtags 数据库切换
+        -- 支持光标移动到符号名上：<leader>cg 查看定义，<leader>cs 查看引用
         {'skywind3000/gutentags_plus', event = 'VimEnter *'},
     }
 
@@ -638,4 +644,43 @@ return require('packer').startup(function()
     use {'jiangmiao/auto-pairs', config = function()
         vim.cmd [[ au FileType lisp,clojure,lisp let b:AutoPairs = {'```': '```', '`': '`', '"': '"', '[': ']', '(': ')', '{': '}', '"""': '"""'} ]]
     end}
+
+    use {
+        -- 使用 ALT+e 会在不同窗口/标签上显示 A/B/C 等编号，然后字母直接跳转
+        't9md/vim-choosewin',
+        config = function()
+            -- 使用 ALT+E 来选择窗口
+            vim.cmd [[ nmap <m-e> <Plug>(choosewin) ]]
+        end
+    }
+
+    use {
+        -- 用 v 选中一个区域后，ALT_+/- 按分隔符扩大/缩小选区
+        'terryma/vim-expand-region',
+        config = function()
+            -- ALT_+/- 用于按分隔符扩大缩小 v 选区
+            vim.cmd [[ map <m-=> <Plug>(expand_region_expand) ]]
+            vim.cmd [[ map <m--> <Plug>(expand_region_shrink) ]]
+        end
+    }
+
+    use {
+        -- powershell 脚本文件的语法高亮
+        'pprovost/vim-ps1', ft = { 'ps1' }
+    }
+
+    use {
+        -- " 额外语法文件
+        'justinmk/vim-syntax-extra', ft = { 'c', 'bison', 'flex', 'cpp' }
+    }
+
+    use {
+        -- rust 语法增强
+        'rust-lang/rust.vim', ft = 'rust'
+    }
+
+    use {
+        -- vim org-mode 
+        'jceb/vim-orgmode', ft = 'org'
+    }
 end)

@@ -1,5 +1,4 @@
 local options = {}
-local vim = vim
 
 function options.setup()
     vim.cmd('set autochdir')
@@ -14,7 +13,6 @@ function options.setup()
     -- 高亮dos的特殊符号,如^M
     vim.cmd('set fileformats=unix,dos,mac')
     vim.cmd('set wildignorecase')
-    vim.cmd('set wildignore=*.so,*.swp,*.zip,*.exe,.git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**,**/debian/**')
     vim.cmd('set pastetoggle=<F9>')
     -- 禁止光标闪烁
     vim.cmd('set gcr=a:block-blinkon0')
@@ -23,9 +21,13 @@ function options.setup()
     vim.cmd('set shortmess=atcI')
     -- 输入的命令显示出来，看的清楚些
     -- vim.cmd('set showcmd')
+    -- 内部工作编码
     vim.cmd('set encoding=utf-8')
-    vim.cmd('set fileencodings=utf-8,chinese,latin-1')
+    -- 文件默认编码
     vim.cmd('set fileencoding=utf-8')
+    -- 打开文件时自动尝试下面顺序的编码
+    -- vim.cmd('set fileencodings=utf-8,chinese,latin-1')
+    vim.cmd('set fileencodings=ucs-bom,utf-8,gbk,gb18030,big5,euc-jp,latin1')
     -- 设置当文件被改动时自动载入
     vim.cmd('set autoread')
     vim.cmd('set completeopt=menu,menuone,noselect,noinsert,preview')
@@ -90,6 +92,62 @@ function options.setup()
 
     vim.cmd('set ignorecase')
     vim.cmd('set smartcase')
+    -- Windows 禁用 ALT 操作菜单（使得 ALT 可以用到 Vim里）
+    vim.cmd("set winaltkeys=no")
+    -- 关闭自动换行
+    vim.cmd('set nowrap')
+    -- 打开功能键超时检测（终端下功能键为一串 ESC 开头的字符串）
+    vim.cmd('set ttimeout')
+    -- 功能键超时检测 50 毫秒
+    vim.cmd('set ttimeoutlen=50')
+    -- 允许 Vim 自带脚本根据文件类型自动设置缩进等
+    vim.cmd('filetype plugin indent on')
+    -- 语法高亮设置
+    vim.cmd('syntax enable')
+    vim.cmd('syntax on')
+    -- 显示最后一行
+    vim.cmd('set display=lastline')
+    -- 延迟绘制（提升性能）
+    vim.cmd('set lazyredraw')
+    -- 错误格式
+    vim.cmd('set errorformat+=[%f:%l]\\ ->\\ %m,[%f:%l]:%m')
+    -- 设置分隔符可视
+    vim.cmd('set listchars=tab:\\|\\ ,trail:.,extends:>,precedes:<')
+    -- 设置 tags：当前文件所在目录往上向根目录搜索直到碰到 .tags 文件
+    -- 或者 Vim 当前目录包含 .tags 文件
+    vim.cmd('set tags=./.tags;,.tags')
+    -- 如遇Unicode值大于255的文本，不必等到空格再折行
+    vim.cmd('set formatoptions+=m')
+    -- 合并两行中文时，不在中间加空格
+    vim.cmd('set formatoptions+=B')
+    -- 允许代码折叠
+	vim.cmd('set foldenable')
+	-- 代码折叠默认使用缩进
+	vim.cmd('set fdm=indent')
+	-- 默认打开所有缩进
+	vim.cmd('set foldlevel=99')
+
+    -- vim.cmd('set wildignore=*.so,*.swp,*.zip,*.exe,.git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**,**/debian/**')
+    -- 文件搜索和补全时忽略下面扩展名
+    vim.cmd('set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.pyc,.pyo,.egg-info,.class')
+    vim.cmd('set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib') -- stuff to ignore when tab completing
+    vim.cmd('set wildignore+=*.so,*.dll,*.swp,*.egg,*.jar,*.class,*.pyc,*.pyo,*.bin,*.dex')
+    vim.cmd('set wildignore+=*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz') -- MacOSX/Linux
+    vim.cmd('set wildignore+=*DS_Store*,*.ipch')
+    vim.cmd('set wildignore+=*.gem')
+    vim.cmd('set wildignore+=*.png,*.jpg,*.gif,*.bmp,*.tga,*.pcx,*.ppm,*.img,*.iso')
+    vim.cmd('set wildignore+=*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/.rbenv/**')
+    vim.cmd('set wildignore+=*/.nx/**,*.app,*.git,.git')
+    vim.cmd('set wildignore+=*.wav,*.mp3,*.ogg,*.pcm')
+    vim.cmd('set wildignore+=*.mht,*.suo,*.sdf,*.jnlp')
+    vim.cmd('set wildignore+=*.chm,*.epub,*.pdf,*.mobi,*.ttf')
+    vim.cmd('set wildignore+=*.mp4,*.avi,*.flv,*.mov,*.mkv,*.swf,*.swc')
+    vim.cmd('set wildignore+=*.ppt,*.pptx,*.docx,*.xlt,*.xls,*.xlsx,*.odt,*.wps')
+    vim.cmd('set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu')
+    vim.cmd('set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc')
+    vim.cmd('set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android')
+    -- 设置显示制表符等隐藏字符
+    vim.cmd('set list')
 end
 
 return options
