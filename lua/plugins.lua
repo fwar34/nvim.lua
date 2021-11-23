@@ -480,8 +480,8 @@ return require('packer').startup(function()
         'Yggdroot/LeaderF',
         run = ':LeaderfInstallCExtension',
         config = function()
-            vim.g.Lf_WindowPosition = 'popup'
-            vim.g.Lf_PreviewInPopup = 1
+            -- vim.g.Lf_WindowPosition = 'popup'
+            -- vim.g.Lf_PreviewInPopup = 1
 
             -- vim.cmd [[ unmap <Leader>f ]]
             -- vim.cmd [[ unmap <Leader>b ]]
