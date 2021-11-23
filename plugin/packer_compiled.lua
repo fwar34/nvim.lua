@@ -269,7 +269,7 @@ _G.packer_plugins = {
   },
   rnvimr = {
     commands = { "RnvimrToggle" },
-    config = { "\27LJ\2\2ß\2\0\0\2\0\n\0\0256\0\0\0009\0\1\0)\1\1\0=\1\2\0006\0\0\0009\0\1\0)\1\1\0=\1\3\0006\0\0\0009\0\1\0)\1\1\0=\1\4\0006\0\0\0009\0\5\0'\1\6\0B\0\2\0016\0\0\0009\0\1\0)\1d\0=\1\a\0006\0\0\0009\0\1\0005\1\t\0=\1\b\0K\0\1\0\1\0\5\ayw\18EmitRangerCwd\agw\16JumpNvimCwd\n<C-v>\20NvimEdit vsplit\n<C-t>\21NvimEdit tabedit\n<C-x>\19NvimEdit split\18rnvimr_action\27rnvimr_shadow_winblend- highlight link RnvimrNormal CursorLine \bcmd\21rnvimr_enable_bw\25rnvimr_enable_picker\21rnvimr_enable_ex\6g\bvim\0" },
+    config = { "\27LJ\2\2¸\2\0\0\2\0\t\0\0216\0\0\0009\0\1\0)\1\1\0=\1\2\0006\0\0\0009\0\1\0)\1\1\0=\1\3\0006\0\0\0009\0\1\0)\1\1\0=\1\4\0006\0\0\0009\0\5\0'\1\6\0B\0\2\0016\0\0\0009\0\1\0005\1\b\0=\1\a\0K\0\1\0\1\0\5\ayw\18EmitRangerCwd\agw\16JumpNvimCwd\n<C-v>\20NvimEdit vsplit\n<C-t>\21NvimEdit tabedit\n<C-x>\19NvimEdit split\18rnvimr_action- highlight link RnvimrNormal CursorLine \bcmd\21rnvimr_enable_bw\25rnvimr_enable_picker\21rnvimr_enable_ex\6g\bvim\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
