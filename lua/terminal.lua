@@ -1,4 +1,3 @@
-local global = require('global')
 local terminal = setmetatable({}, {__index = {mouse_floaterm = '', mouse_terminal = ''}})
 
 function terminal.setup()

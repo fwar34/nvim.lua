@@ -105,11 +105,17 @@ return require('packer').startup(function()
     use {'Th3Whit3Wolf/onebuddy',  config = function ()
         -- require('colorbuddy').colorscheme('onebuddy')
     end}
+    use {
+        "joshdick/onedark.vim",
+        config = function ()
+            vim.cmd [[ colorscheme onedark ]]
+        end
+    }
 
     -- Themes
     use {
         {'glepnir/oceanic-material', config = function ()
-            vim.cmd [[ colorscheme oceanic_material ]]
+            -- vim.cmd [[ colorscheme oceanic_material ]]
         end},
         -- You can alias plugin names
         {'dracula/vim', as = 'dracula'},
@@ -208,20 +214,20 @@ return require('packer').startup(function()
 		})
 
 		-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-		cmp.setup.cmdline('/', {
-			sources = {
-				{ name = 'buffer' }
-			}
-		})
+		-- cmp.setup.cmdline('/', {
+		-- 	sources = {
+		-- 		{ name = 'buffer' }
+		-- 	}
+		-- })
 
 		-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-		cmp.setup.cmdline(':', {
-			sources = cmp.config.sources({
-				{ name = 'path' }
-			}, {
-				{ name = 'cmdline' }
-			})
-		})
+		-- cmp.setup.cmdline(':', {
+		-- 	sources = cmp.config.sources({
+		-- 		{ name = 'path' }
+		-- 	}, {
+		-- 		{ name = 'cmdline' }
+		-- 	})
+		-- })
 
 	end}
 
