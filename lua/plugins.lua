@@ -105,6 +105,12 @@ return require('packer').startup(function()
     use {'Th3Whit3Wolf/onebuddy',  config = function ()
         -- require('colorbuddy').colorscheme('onebuddy')
     end}
+    use {
+        "joshdick/onedark.vim",
+        config = function ()
+            vim.cmd [[ colorscheme onedark ]]
+        end
+    }
 
     -- Themes
     use {
