@@ -252,6 +252,12 @@ _G.packer_plugins = {
     path = "/home/feng/.local/share/nvim/site/pack/packer/start/onebuddy",
     url = "https://github.com/Th3Whit3Wolf/onebuddy"
   },
+  ["onedark.vim"] = {
+    config = { "\27LJ\1\0029\0\0\2\0\3\0\0054\0\0\0007\0\1\0%\1\2\0>\0\2\1G\0\1\0\26 colorscheme onedark \bcmd\bvim\0" },
+    loaded = true,
+    path = "/home/feng/.local/share/nvim/site/pack/packer/start/onedark.vim",
+    url = "https://github.com/joshdick/onedark.vim"
+  },
   ["packer.nvim"] = {
     loaded = false,
     needs_bufread = false,
@@ -579,22 +585,26 @@ time([[Defining packer_plugins]], false)
 time([[Setup for vim-floaterm]], true)
 try_loadstring("\27LJ\1\2e\0\0\2\0\5\0\t4\0\0\0007\0\1\0'\1\b\0:\1\2\0004\0\0\0007\0\1\0%\1\4\0:\1\3\0G\0\1\0\15<leader>tm\27floaterm_keymap_toggle\22floaterm_winblend\6g\bvim\0", "setup", "vim-floaterm")
 time([[Setup for vim-floaterm]], false)
+-- Config for: onedark.vim
+time([[Config for onedark.vim]], true)
+try_loadstring("\27LJ\1\0029\0\0\2\0\3\0\0054\0\0\0007\0\1\0%\1\2\0>\0\2\1G\0\1\0\26 colorscheme onedark \bcmd\bvim\0", "config", "onedark.vim")
+time([[Config for onedark.vim]], false)
 -- Config for: nvim-treesitter
 time([[Config for nvim-treesitter]], true)
 try_loadstring("\27LJ\1\2ÿ\1\0\0\3\0\b\0\v4\0\0\0%\1\1\0>\0\2\0027\0\2\0003\1\4\0003\2\3\0:\2\5\0013\2\6\0:\2\a\1>\0\2\1G\0\1\0\14highlight\1\0\1\venable\2\21ensure_installed\1\0\0\1\20\0\0\tbash\6c\bcpp\blua\bcss\vfennel\thtml\15javascript\tjson\njulia\ago\nocaml\20ocaml_interface\vpython\trust\ttoml\15typescript\fclojure\vfennel\nsetup\28nvim-treesitter.configs\frequire\0", "config", "nvim-treesitter")
 time([[Config for nvim-treesitter]], false)
--- Config for: nvim-cmp
-time([[Config for nvim-cmp]], true)
-try_loadstring("\27LJ\1\2Ð\1\0\0\a\0\b\2!4\0\0\0004\1\1\0007\1\2\0017\1\3\1'\2\0\0>\1\2\0=\0\0\3\b\1\0\0T\2\20€4\2\1\0007\2\2\0027\2\4\2'\3\0\0\21\4\1\0\16\5\0\0)\6\2\0>\2\5\0028\2\1\2\16\3\2\0007\2\5\2\16\4\1\0\16\5\1\0>\2\4\2\16\3\2\0007\2\6\2%\4\a\0>\2\3\2\n\2\0\0T\2\2€)\2\1\0T\3\1€)\2\2\0H\2\2\0\a%s\nmatch\bsub\23nvim_buf_get_lines\24nvim_win_get_cursor\bapi\bvim\vunpack\0\2C\0\1\3\0\4\0\a4\1\0\0%\2\1\0>\1\2\0027\1\2\0017\2\3\0>\1\2\1G\0\1\0\tbody\15lsp_expand\fluasnip\frequireÅ\1\0\1\2\3\5\0\29+\1\0\0007\1\0\1>\1\1\2\15\0\1\0T\2\4€+\1\0\0007\1\1\1>\1\1\1T\1\19€+\1\1\0007\1\2\1>\1\1\2\15\0\1\0T\2\4€+\1\1\0007\1\3\1>\1\1\1T\1\n€+\1\2\0>\1\1\2\15\0\1\0T\2\4€+\1\0\0007\1\4\1>\1\1\1T\1\2€\16\1\0\0>\1\1\1G\0\1\0\2À\1À\0À\rcomplete\19expand_or_jump\23expand_or_jumpable\21select_next_item\fvisibleŽ\1\0\1\3\2\4\0\23+\1\0\0007\1\0\1>\1\1\2\15\0\1\0T\2\4€+\1\0\0007\1\1\1>\1\1\1T\1\r€+\1\1\0007\1\2\1'\2ÿÿ>\1\2\2\15\0\1\0T\2\5€+\1\1\0007\1\3\1'\2ÿÿ>\1\2\1T\1\2€\16\1\0\0>\1\1\1G\0\1\0\2À\1À\tjump\rjumpable\21select_prev_item\fvisible×\4\1\0\t\0)\0Q1\0\0\0004\1\1\0%\2\2\0>\1\2\0024\2\1\0%\3\3\0>\2\2\0027\3\4\0023\4\b\0003\5\6\0001\6\5\0:\6\a\5:\5\t\0043\5\r\0007\6\n\0021\a\v\0003\b\f\0>\6\3\2:\6\14\0057\6\n\0021\a\15\0003\b\16\0>\6\3\2:\6\17\0057\6\n\0027\a\n\0027\a\18\a'\büÿ>\a\2\0023\b\19\0>\6\3\2:\6\20\0057\6\n\0027\a\n\0027\a\18\a'\b\4\0>\a\2\0023\b\21\0>\6\3\2:\6\22\0057\6\n\0027\a\n\0027\a\23\a>\a\1\0023\b\24\0>\6\3\2:\6\25\0057\6\26\0027\6\27\6:\6\28\0057\6\n\0023\a\30\0007\b\n\0027\b\29\b>\b\1\2:\b\31\a7\b\n\0027\b \b>\b\1\2:\b!\a>\6\2\2:\6\"\0057\6\n\0027\6#\0063\a$\0>\6\2\2:\6%\5:\5\n\0047\5\26\0027\5&\0052\6\3\0003\a'\0;\a\1\0062\a\3\0003\b(\0;\b\1\a>\5\3\2:\5&\4>\3\2\0010\0\0€G\0\1\0\1\0\1\tname\vbuffer\1\0\1\tname\fluasnip\fsources\t<CR>\1\0\1\vselect\2\fconfirm\n<C-g>\6c\nclose\6i\1\0\0\nabort\n<C-y>\fdisable\vconfig\14<C-Space>\1\3\0\0\6i\6c\rcomplete\n<C-f>\1\3\0\0\6i\6c\n<C-b>\1\3\0\0\6i\6c\16scroll_docs\f<S-Tab>\1\3\0\0\6i\6s\0\n<Tab>\1\0\0\1\3\0\0\6i\6s\0\fmapping\fsnippet\1\0\0\vexpand\1\0\0\0\nsetup\bcmp\fluasnip\frequire\0\0", "config", "nvim-cmp")
-time([[Config for nvim-cmp]], false)
--- Config for: vim-expand-region
-time([[Config for vim-expand-region]], true)
-try_loadstring("\27LJ\1\2…\1\0\0\2\0\4\0\t4\0\0\0007\0\1\0%\1\2\0>\0\2\0014\0\0\0007\0\1\0%\1\3\0>\0\2\1G\0\1\0- map <m--> <Plug>(expand_region_shrink) - map <m-=> <Plug>(expand_region_expand) \bcmd\bvim\0", "config", "vim-expand-region")
-time([[Config for vim-expand-region]], false)
 -- Config for: oceanic-material
 time([[Config for oceanic-material]], true)
 try_loadstring("\27LJ\1\2\v\0\0\1\0\0\0\1G\0\1\0\0", "config", "oceanic-material")
 time([[Config for oceanic-material]], false)
+-- Config for: vim-expand-region
+time([[Config for vim-expand-region]], true)
+try_loadstring("\27LJ\1\2…\1\0\0\2\0\4\0\t4\0\0\0007\0\1\0%\1\2\0>\0\2\0014\0\0\0007\0\1\0%\1\3\0>\0\2\1G\0\1\0- map <m--> <Plug>(expand_region_shrink) - map <m-=> <Plug>(expand_region_expand) \bcmd\bvim\0", "config", "vim-expand-region")
+time([[Config for vim-expand-region]], false)
+-- Config for: vim-signify
+time([[Config for vim-signify]], true)
+try_loadstring("\27LJ\1\2\v\0\0\1\0\0\0\1G\0\1\0\0", "config", "vim-signify")
+time([[Config for vim-signify]], false)
 -- Config for: vim-better-whitespace
 time([[Config for vim-better-whitespace]], true)
 try_loadstring("\27LJ\1\2‘\2\0\0\2\0\t\0\0174\0\0\0007\0\1\0%\1\3\0:\1\2\0004\0\0\0007\0\1\0'\1\0\0:\1\4\0004\0\0\0007\0\1\0003\1\6\0:\1\5\0004\0\0\0007\0\a\0%\1\b\0>\0\2\1G\0\1\0. let g:show_spaces_that_precede_tabs = 1 \bcmd\1\a\0\0\14gitcommit\nunite\aqf\thelp\rmarkdown\vpacker*better_whitespace_filetypes_blacklist\30better_whitespace_enabled\15<leader>ss\31better_whitespace_operator\6g\bvim\0", "config", "vim-better-whitespace")
@@ -615,10 +625,10 @@ time([[Config for LeaderF]], false)
 time([[Config for onebuddy]], true)
 try_loadstring("\27LJ\1\2\v\0\0\1\0\0\0\1G\0\1\0\0", "config", "onebuddy")
 time([[Config for onebuddy]], false)
--- Config for: vim-signify
-time([[Config for vim-signify]], true)
-try_loadstring("\27LJ\1\2\v\0\0\1\0\0\0\1G\0\1\0\0", "config", "vim-signify")
-time([[Config for vim-signify]], false)
+-- Config for: rainbow
+time([[Config for rainbow]], true)
+vim.g.rainbow_active = 1
+time([[Config for rainbow]], false)
 -- Config for: vim-scrollstatus
 time([[Config for vim-scrollstatus]], true)
 try_loadstring("\27LJ\1\2‰\1\0\0\2\0\a\0\r4\0\0\0007\0\1\0'\1\f\0:\1\2\0004\0\0\0007\0\1\0%\1\4\0:\1\3\0004\0\0\0007\0\1\0%\1\6\0:\1\5\0G\0\1\0\6#\28scrollstatus_symbol_bar\6-\30scrollstatus_symbol_track\22scrollstatus_size\6g\bvim\0", "config", "vim-scrollstatus")
@@ -627,10 +637,10 @@ time([[Config for vim-scrollstatus]], false)
 time([[Config for auto-pairs]], true)
 try_loadstring("\27LJ\1\2¥\1\0\0\2\0\3\0\0054\0\0\0007\0\1\0%\1\2\0>\0\2\1G\0\1\0…\1 au FileType lisp,clojure,lisp let b:AutoPairs = {'```': '```', '`': '`', '\"': '\"', '[': ']', '(': ')', '{': '}', '\"\"\"': '\"\"\"'} \bcmd\bvim\0", "config", "auto-pairs")
 time([[Config for auto-pairs]], false)
--- Config for: rainbow
-time([[Config for rainbow]], true)
-vim.g.rainbow_active = 1
-time([[Config for rainbow]], false)
+-- Config for: nvim-cmp
+time([[Config for nvim-cmp]], true)
+try_loadstring("\27LJ\1\2Ð\1\0\0\a\0\b\2!4\0\0\0004\1\1\0007\1\2\0017\1\3\1'\2\0\0>\1\2\0=\0\0\3\b\1\0\0T\2\20€4\2\1\0007\2\2\0027\2\4\2'\3\0\0\21\4\1\0\16\5\0\0)\6\2\0>\2\5\0028\2\1\2\16\3\2\0007\2\5\2\16\4\1\0\16\5\1\0>\2\4\2\16\3\2\0007\2\6\2%\4\a\0>\2\3\2\n\2\0\0T\2\2€)\2\1\0T\3\1€)\2\2\0H\2\2\0\a%s\nmatch\bsub\23nvim_buf_get_lines\24nvim_win_get_cursor\bapi\bvim\vunpack\0\2C\0\1\3\0\4\0\a4\1\0\0%\2\1\0>\1\2\0027\1\2\0017\2\3\0>\1\2\1G\0\1\0\tbody\15lsp_expand\fluasnip\frequireÅ\1\0\1\2\3\5\0\29+\1\0\0007\1\0\1>\1\1\2\15\0\1\0T\2\4€+\1\0\0007\1\1\1>\1\1\1T\1\19€+\1\1\0007\1\2\1>\1\1\2\15\0\1\0T\2\4€+\1\1\0007\1\3\1>\1\1\1T\1\n€+\1\2\0>\1\1\2\15\0\1\0T\2\4€+\1\0\0007\1\4\1>\1\1\1T\1\2€\16\1\0\0>\1\1\1G\0\1\0\2À\1À\0À\rcomplete\19expand_or_jump\23expand_or_jumpable\21select_next_item\fvisibleŽ\1\0\1\3\2\4\0\23+\1\0\0007\1\0\1>\1\1\2\15\0\1\0T\2\4€+\1\0\0007\1\1\1>\1\1\1T\1\r€+\1\1\0007\1\2\1'\2ÿÿ>\1\2\2\15\0\1\0T\2\5€+\1\1\0007\1\3\1'\2ÿÿ>\1\2\1T\1\2€\16\1\0\0>\1\1\1G\0\1\0\2À\1À\tjump\rjumpable\21select_prev_item\fvisible×\4\1\0\t\0)\0Q1\0\0\0004\1\1\0%\2\2\0>\1\2\0024\2\1\0%\3\3\0>\2\2\0027\3\4\0023\4\b\0003\5\6\0001\6\5\0:\6\a\5:\5\t\0043\5\r\0007\6\n\0021\a\v\0003\b\f\0>\6\3\2:\6\14\0057\6\n\0021\a\15\0003\b\16\0>\6\3\2:\6\17\0057\6\n\0027\a\n\0027\a\18\a'\büÿ>\a\2\0023\b\19\0>\6\3\2:\6\20\0057\6\n\0027\a\n\0027\a\18\a'\b\4\0>\a\2\0023\b\21\0>\6\3\2:\6\22\0057\6\n\0027\a\n\0027\a\23\a>\a\1\0023\b\24\0>\6\3\2:\6\25\0057\6\26\0027\6\27\6:\6\28\0057\6\n\0023\a\30\0007\b\n\0027\b\29\b>\b\1\2:\b\31\a7\b\n\0027\b \b>\b\1\2:\b!\a>\6\2\2:\6\"\0057\6\n\0027\6#\0063\a$\0>\6\2\2:\6%\5:\5\n\0047\5\26\0027\5&\0052\6\3\0003\a'\0;\a\1\0062\a\3\0003\b(\0;\b\1\a>\5\3\2:\5&\4>\3\2\0010\0\0€G\0\1\0\1\0\1\tname\vbuffer\1\0\1\tname\fluasnip\fsources\t<CR>\1\0\1\vselect\2\fconfirm\n<C-g>\6c\nclose\6i\1\0\0\nabort\n<C-y>\fdisable\vconfig\14<C-Space>\1\3\0\0\6i\6c\rcomplete\n<C-f>\1\3\0\0\6i\6c\n<C-b>\1\3\0\0\6i\6c\16scroll_docs\f<S-Tab>\1\3\0\0\6i\6s\0\n<Tab>\1\0\0\1\3\0\0\6i\6s\0\fmapping\fsnippet\1\0\0\vexpand\1\0\0\0\nsetup\bcmp\fluasnip\frequire\0\0", "config", "nvim-cmp")
+time([[Config for nvim-cmp]], false)
 -- Config for: vim-signature
 time([[Config for vim-signature]], true)
 try_loadstring("\27LJ\1\2i\0\0\2\0\4\0\0054\0\0\0007\0\1\0%\1\3\0:\1\2\0G\0\1\0006abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVW\26SignatureIncludeMarks\6g\bvim\0", "config", "vim-signature")
@@ -673,7 +683,7 @@ vim.cmd [[au FileType markdownd ++once lua require("packer.load")({'vim-markdown
 time([[Defining lazy-load filetype autocommands]], false)
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au VimEnter * ++once lua require("packer.load")({'vim-clap', 'vim-floaterm', 'vim-cpp-enhanced-highlight', 'targets.vim', 'gutentags_plus', 'fennel.vim', 'vim-dispatch', 'vim-terminal-help', 'vista.vim', 'vim-win', 'nvim-colorizer.lua', 'vim-fugitive', 'awesome-cheatsheets', 'vim-surround', 'vim-gutentags', 'vim-unimpaired', 'vim-highlightedyank', 'vim-commentary', 'vim-swap', 'vim-youdao-translater'}, { event = "VimEnter *" }, _G.packer_plugins)]]
+vim.cmd [[au VimEnter * ++once lua require("packer.load")({'vim-clap', 'vim-floaterm', 'vim-cpp-enhanced-highlight', 'targets.vim', 'vim-commentary', 'fennel.vim', 'vim-dispatch', 'vim-terminal-help', 'vista.vim', 'vim-win', 'nvim-colorizer.lua', 'vim-fugitive', 'awesome-cheatsheets', 'vim-surround', 'vim-gutentags', 'vim-unimpaired', 'vim-highlightedyank', 'vim-youdao-translater', 'vim-swap', 'gutentags_plus'}, { event = "VimEnter *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]

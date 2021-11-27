@@ -107,7 +107,10 @@ return require('packer').startup(function()
     end}
     use {
         "joshdick/onedark.vim",
+        -- 'navarasu/onedark.nvim',
         config = function ()
+            -- require('onedark').setup()
+            vim.g.onedark_termcolors = 16
             vim.cmd [[ colorscheme onedark ]]
         end
     }
