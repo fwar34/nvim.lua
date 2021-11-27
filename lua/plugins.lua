@@ -109,7 +109,7 @@ return require('packer').startup(function()
     -- Themes
     use {
         {'glepnir/oceanic-material', config = function ()
-            vim.cmd [[ colorscheme oceanic_material ]]
+            -- vim.cmd [[ colorscheme oceanic_material ]]
         end},
         -- You can alias plugin names
         {'dracula/vim', as = 'dracula'},
@@ -117,18 +117,19 @@ return require('packer').startup(function()
         {'flazz/vim-colorschemes'}, -- one stop shop for vim colorschemes.
     }
 
-    -- use {'nvim-treesitter/nvim-treesitter', config = function ()
-    --     require('nvim-treesitter.configs').setup {
-    --         ensure_installed = { 
-    --             'bash', 'c', 'cpp', 'lua', 'css', 'fennel', 'html', 'javascript', 'json', 'julia', 
-    --             'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure', 'fennel'
-    --         },     -- one of "all", "language", or a list of languages
-    --         highlight = {
-    --             enable = true,              -- false will disable the whole extension
-    --             -- disable = { "c", "rust" },  -- list of language that will be disabled
-    --         },
-    --     }
-    -- end}
+    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
+    config = function ()
+        require('nvim-treesitter.configs').setup {
+            ensure_installed = {
+                'bash', 'c', 'cpp', 'lua', 'css', 'fennel', 'html', 'javascript', 'json', 'julia', 'go',
+                'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure', 'fennel'
+            },     -- one of "all", "language", or a list of languages
+            highlight = {
+                enable = true,              -- false will disable the whole extension
+                -- disable = { "c", "rust" },  -- list of language that will be disabled
+            },
+        }
+    end}
 
     -- use {'p00f/nvim-ts-rainbow', config = function ()
     --     require('nvim-treesitter.configs').setup {
@@ -208,20 +209,20 @@ return require('packer').startup(function()
 		})
 
 		-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-		cmp.setup.cmdline('/', {
-			sources = {
-				{ name = 'buffer' }
-			}
-		})
+		-- cmp.setup.cmdline('/', {
+		-- 	sources = {
+		-- 		{ name = 'buffer' }
+		-- 	}
+		-- })
 
 		-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-		cmp.setup.cmdline(':', {
-			sources = cmp.config.sources({
-				{ name = 'path' }
-			}, {
-				{ name = 'cmdline' }
-			})
-		})
+		-- cmp.setup.cmdline(':', {
+		-- 	sources = cmp.config.sources({
+		-- 		{ name = 'path' }
+		-- 	}, {
+		-- 		{ name = 'cmdline' }
+		-- 	})
+		-- })
 
 	end}
 
@@ -343,7 +344,7 @@ return require('packer').startup(function()
     }
 
     -- Better Lua highlighting
-    use {'euclidianAce/BetterLua.vim', opt = true, ft = {'lua'}}
+    -- use {'euclidianAce/BetterLua.vim', opt = true, ft = {'lua'}}
 
     -- Registers
     -- Peekaboo extends " and @ in normal mode and <CTRL-R> in insert mode so you can see the contents of the registers.

@@ -10,8 +10,8 @@ function key_map:new()
         lhs = '',
         rhs = '',
         options = {
-            noremap = false,
-            silent = false
+            noremap = true,
+            silent = true
         }
     }
     setmetatable(instance, self)
@@ -26,9 +26,13 @@ end
 local function create_keymap(key, value)
     local keymap = key_map:new()
     keymap.mode, keymap.lhs = key:match('([^|]*)|?(.*)')
-    keymap.rhs = value[1]
-    keymap.options.noremap = value[2] and true or false
-    keymap.options.silent = value[3] and true or false
+    if (type(value) == 'table') then
+        keymap.rhs = value[1]
+        keymap.options.noremap = value[2] and value[2] or keymap.options.noremap
+        keymap.options.silent = value[3] and value[3] or keymap.options.silent
+    else
+        keymap.rhs = value
+    end
 
     return keymap
 end
@@ -46,29 +50,29 @@ end
 
 function key_mappings:start()
     self.normal = {
-        ['n|<Leader>zz'] = {'<CMD>w<CR>', true, true},
-        ['n|<Leader>fd'] = {'<CMD>echo expand("%:p")<CR>', true, true},
-        ['n|<Leader>a'] = {'^', true, true},
-        ['n|<Leader>e'] = {'$', true, true},
-        ['n|<Leader>xx'] = {'<CMD>nohl<CR>', true, true},
-        ['n|<Leader><TAB>'] = {'<C-w><C-w>', true, true},
-        ['n|<Leader>do'] = {'<CMD>on<CR>', true, true},
-        ['n|<Leader>dm'] = {'<CMD>delmarks!<CR>', true, true},
-        ['n|<Leader>kb'] = {'<CMD>bdel<CR>', true, true},
+        ['n|<Leader>zz'] = '<CMD>w<CR>',
+        ['n|<Leader>fd'] = '<CMD>echo expand("%:p")<CR>',
+        ['n|<Leader>a'] = '^',
+        ['n|<Leader>e'] = '$',
+        ['n|<Leader>xx'] = '<CMD>nohl<CR>',
+        ['n|<Leader><TAB>'] = '<C-w><C-w>',
+        ['n|<Leader>do'] = '<CMD>on<CR>',
+        ['n|<Leader>dm'] = '<CMD>delmarks!<CR>',
+        ['n|<Leader>kb'] = '<CMD>bdel<CR>',
         ['n|<Space><Space>'] = {':', true},
-        ['n|<Leader>bb'] = {'<C-^>', true, true},
-        ['n|<Leader>lm'] = {'<CMD>lua require("futil").toggle_line_number()<CR>', true, true},
-        ['n|<LocalLeader>qq'] = {'<CMD>q<CR>', true, true},
-        ['n|Y'] = {'y$', true, true},
-        ['n|<F12>'] = {'<CMD>lua require("futil").toggle_mouse()<CR>', true, true},
-        ['n|<Leader>ia'] = {'m`A;<Esc>``', true, true},
-        ['n|<Leader>yy'] = {"m`y'a``", true, true},
-        ['n|<Leader>dd'] = {"d'a", true, true},
-        ['n|<Leader>qf'] = {'<CMD>copen<CR>', true, true},
-        ['n|<Leader>mf'] = {'<CMD>lua require("futil").make_fennel()<CR>', true, true},
-        -- ['n|<Leader>cs'] = {'<CMD>lua require("mylib").coc_status()<CR>', true, true},
-        ['n|<Leader>fn'] = {'<CMD>lua require("futil").display_function()<CR>', true, true},
-        ['n|<C-g>'] = {'<C-c>', true, true},
+        ['n|<Leader>bb'] = '<C-^>',
+        ['n|<Leader>lm'] = '<CMD>lua require("futil").toggle_line_number()<CR>',
+        ['n|<LocalLeader>qq'] = '<CMD>q<CR>',
+        ['n|Y'] = 'y$',
+        ['n|<F12>'] = '<CMD>lua require("futil").toggle_mouse()<CR>',
+        ['n|<Leader>ia'] = 'm`A;<Esc>``',
+        ['n|<Leader>yy'] = "m`y'a``",
+        ['n|<Leader>dd'] = "d'a",
+        ['n|<Leader>qf'] = '<CMD>copen<CR>',
+        ['n|<Leader>mf'] = '<CMD>lua require("futil").make_fennel()<CR>',
+        -- ['n|<Leader>cs'] = '<CMD>lua require("mylib").coc_status()<CR>',
+        ['n|<Leader>fn'] = '<CMD>lua require("futil").display_function()<CR>',
+        ['n|<C-g>'] = '<C-c>',
         -- help motion.txt
         -- If your '{' or '}' are not in the first column, and you would like to use "[["
         -- and "]]" anyway, try these mappings: >
@@ -79,147 +83,149 @@ function key_mappings:start()
     }
 
     self.visual = {
-        ['v|<Leader>g'] = {'<C-c>', true, true},
-        ['v|<C-g>'] = {'<C-c>', true, true},
+        ['v|<Leader>g'] = '<C-c>',
+        ['v|<C-g>'] = '<C-c>',
     }
 
     self.insert = {
-        ['i|<Leader>g'] = {'<C-c>', true, true},
-        ['i|<Leader>O'] = {'<C-o>O', true, true},
-        ['i|<Leader>o'] = {'<C-o>o', true, true},
-        ['i|<Leader>zz'] = {'<Esc><CMD>w<CR>a', true, true},
-        ['i|<C-b>'] = {'<Left>', true, true},
-        ['i|<C-f>'] = {'<Right>', true, true},
-        ['i|<C-a>'] = {'<Esc>I', true, true},
-        ['i|<C-e>'] = {'<End>', true, true},
-        ['i|<C-g>'] = {'<C-c>', true, true},
-        ['i|<C-j>'] = {'<Down>', true, true},
-        ['i|<C-k>'] = {'<Up>', true, true},
-        ['i|<C-d>'] = {'<Del>', ture, true},
+        ['i|<Leader>g'] = '<C-c>',
+        ['i|<Leader>O'] = '<C-o>O',
+        ['i|<Leader>o'] = '<C-o>o',
+        ['i|<Leader>zz'] = '<Esc><CMD>w<CR>a',
+        ['i|<C-b>'] = '<Left>',
+        ['i|<C-f>'] = '<Right>',
+        ['i|<C-a>'] = '<Esc>I',
+        ['i|<C-e>'] = '<End>',
+        ['i|<C-g>'] = '<C-c>',
+        ['i|<C-j>'] = '<Down>',
+        ['i|<C-k>'] = '<Up>',
+        ['i|<C-d>'] = '<Del>',
     }
 
     self.terminal = {
-        ['t|<F12>'] = {'<CMD>lua require("futil").toggle_mouse()<CR>', true, true},
+        ['t|<F12>'] = '<CMD>lua require("futil").toggle_mouse()<CR>',
     }
 
     self.command = {
-        ['c|<C-g>'] = {'<C-c>', true, true},
+        ['c|<C-g>'] = '<C-c>',
     }
 
     -- coc
     -- self.coc = {
-    --     ['n|<Leader>tl'] = {'<CMD>CocCommand explorer<CR>', true, true},
-    --     ['n|<Leader>tt'] = {'<CMD>CocCommand explorer --position floating<CR>', true, true},
+    --     ['n|<Leader>tl'] = '<CMD>CocCommand explorer<CR>',
+    --     ['n|<Leader>tt'] = '<CMD>CocCommand explorer --position floating<CR>',
     -- }
 
     -- coc-fzf key mappings
     -- self.cocfzf = {
-    --     ['n|<LocalLeader>fl'] = {':<C-u>CocFzfList<CR>', true, true},
-    --     ['n|<LocalLeader>da'] = {':<C-u>CocFzfList diagnostics<CR>', true, true},
-    --     ['n|<LocalLeader>db'] = {':<C-u>CocFzfList diagnostics --current-buf<CR>', true, true},
-    --     ['n|<LocalLeader>cc'] = {':<C-u>CocFzfList commands<CR>', true, true},
-    --     ['n|<LocalLeader>ex'] = {':<C-u>CocFzfList extensions<CR>', true, true},
-    --     ['n|<LocalLeader>co'] = {':<C-u>CocFzfList location<CR>', true, true},
-    --     ['n|<LocalLeader>ol'] = {':<C-u>CocFzfList outline<CR>', true, true},
-    --     ['n|<LocalLeader>sy'] = {':<C-u>CocFzfList symbols<CR>', true, true},
-    --     -- ['n|<LocalLeader>re'] = {':<C-u>CocFzfListResume<CR>', true, true},
-    --     ['n|<LocalLeader>re'] = {':<C-u>CocListResume<CR>', true, true},
+    --     ['n|<LocalLeader>fl'] = ':<C-u>CocFzfList<CR>',
+    --     ['n|<LocalLeader>da'] = ':<C-u>CocFzfList diagnostics<CR>',
+    --     ['n|<LocalLeader>db'] = ':<C-u>CocFzfList diagnostics --current-buf<CR>',
+    --     ['n|<LocalLeader>cc'] = ':<C-u>CocFzfList commands<CR>',
+    --     ['n|<LocalLeader>ex'] = ':<C-u>CocFzfList extensions<CR>',
+    --     ['n|<LocalLeader>co'] = ':<C-u>CocFzfList location<CR>',
+    --     ['n|<LocalLeader>ol'] = ':<C-u>CocFzfList outline<CR>',
+    --     ['n|<LocalLeader>sy'] = ':<C-u>CocFzfList symbols<CR>',
+    --     -- ['n|<LocalLeader>re'] = ':<C-u>CocFzfListResume<CR>',
+    --     ['n|<LocalLeader>re'] = ':<C-u>CocListResume<CR>',
     -- }
 
     -- fzf.vim key mappings
     -- self.fzfvim = {
     --     ['n|<Leader>fa'] = {'<CMD>Ag<CR>', true},
-    --     ['n|<Leader>fw'] = {':Ag <C-R>=expand("<cword>")<CR><CR>', true, true},
-    --     ['n|<Leader>fs'] = {'<CMD>lua require("mylib")["search_word"]()<CR>', true, true},
-    --     -- ['n|<Leader>fs'] = {'<CMD>lua require("futil").search_word()<CR>', true, true},
-    --     ['n|<Leader>fg'] = {'<CMD>Rg<CR>', true},
-    --     ['n|<Leader>rm'] = {'<CMD>History<CR>', true},
-    --     ['n|<Leader>ch'] = {'<CMD>History:<CR>', true},
-    --     ['n|<Leader>sh'] = {'<CMD>History/<CR>', true},
-    --     ['n|<Leader>li'] = {'<CMD>BLines<CR>', true},
-    --     ['n|<Leader>bs'] = {'<CMD>Buffers<CR>', true, true},
-    --     ['n|<Leader>gf'] = {'<CMD>GFiles<CR>', true, true},
-    --     ['n|<Leader>ma'] = {'<CMD>Marks<CR>', true, true},
-    --     ['n|<Leader>cc'] = {'<CMD>Commands<CR>', true, true},
-    --     ['n|<Leader>mp'] = {'<CMD>Maps<CR>', true, true},
-    --     ['n|<Leader>hl'] = {'<CMD>Helptags<CR>', true, true},
-    --     ['n|<Leader>tg'] = {'<CMD>Tags<CR>', true, true},
-    --     ['n|<Leader>ii'] = {'<CMD>BTags<CR>', true, true},
+    --     ['n|<Leader>fw'] = ':Ag <C-R>=expand("<cword>")<CR><CR>',
+    --     ['n|<Leader>fs'] = '<CMD>lua require("mylib")["search_word"]()<CR>',
+    --     -- ['n|<Leader>fs'] = '<CMD>lua require("futil").search_word()<CR>',
+    --     ['n|<Leader>fg'] = '<CMD>Rg<CR>',
+    --     ['n|<Leader>rm'] = '<CMD>History<CR>',
+    --     ['n|<Leader>ch'] = '<CMD>History:<CR>',
+    --     ['n|<Leader>sh'] = '<CMD>History/<CR>',
+    --     ['n|<Leader>li'] = '<CMD>BLines<CR>',
+    --     ['n|<Leader>bs'] = '<CMD>Buffers<CR>',
+    --     ['n|<Leader>gf'] = '<CMD>GFiles<CR>',
+    --     ['n|<Leader>ma'] = '<CMD>Marks<CR>',
+    --     ['n|<Leader>cc'] = '<CMD>Commands<CR>',
+    --     ['n|<Leader>mp'] = '<CMD>Maps<CR>',
+    --     ['n|<Leader>hl'] = '<CMD>Helptags<CR>',
+    --     ['n|<Leader>tg'] = '<CMD>Tags<CR>',
+    --     ['n|<Leader>ii'] = '<CMD>BTags<CR>',
     -- }
 
     -- Leaderf key mappings
     self.Leaderf = {
-        ['n|<LocalLeader>ff'] = {'<CMD>Leaderf file<CR>', true},
-        ['n|<LocalLeader>fa'] = {'<CMD>Leaderf rg<CR>', true},
-        ['n|<LocalLeader>fw'] = {':Leaderf rg <C-R>=expand("<cword>")<CR><CR>', true, true},
-        ['n|<LocalLeader>fs'] = {'<CMD>lua require("mylib")["search_word"]()<CR>', true, true},
-        -- ['n|<LocalLeader>fs'] = {'<CMD>lua require("futil").search_word()<CR>', true, true},
-        ['n|<LocalLeader>rm'] = {'<CMD>Leaderf mru<CR>', true},
-        ['n|<LocalLeader>ch'] = {'<CMD>Leaderf cmdHistory<CR>', true},
-        ['n|<LocalLeader>sh'] = {'<CMD>Leaderf searchHistory<CR>', true},
-        ['n|<LocalLeader>li'] = {'<CMD>Leaderf line<CR>', true},
-        ['n|<LocalLeader>bs'] = {'<CMD>Leaderf buffer<CR>', true, true},
-        -- ['n|<LocalLeader>gf'] = {'<CMD>GFiles<CR>', true, true},
-        -- ['n|<LocalLeader>ma'] = {'<CMD>Marks<CR>', true, true},
-        ['n|<LocalLeader>cc'] = {'<CMD>Leaderf command<CR>', true, true},
-        -- ['n|<LocalLeader>mp'] = {'<CMD>Maps<CR>', true, true},
-        ['n|<LocalLeader>hp'] = {'<CMD>Leaderf help<CR>', true, true},
-        ['n|<LocalLeader>tg'] = {'<CMD>Leaderf tag<CR>', true, true},
-        ['n|<LocalLeader>bg'] = {'<CMD>Leaderf bufTag<CR>', true, true},
-        ['n|<LocalLeader>ii'] = {'<CMD>Leaderf function<CR>', true, true},
-        ['n|<LocalLeader>qf'] = {'<CMD>Leaderf quickfix<CR>', true, true},
-        ['n|<LocalLeader>ll'] = {'<CMD>Leaderf loclist<CR>', true, true},
-        ['n|<LocalLeader>gt'] = {'<CMD>Leaderf gtags<CR>', true, true},
+        ['n|<LocalLeader>ff'] = '<CMD>Leaderf file<CR>',
+        ['n|<LocalLeader>fa'] = '<CMD>Leaderf rg<CR>',
+        ['n|<LocalLeader>fw'] = ':Leaderf rg <C-R>=expand("<cword>")<CR><CR>',
+        ['n|<LocalLeader>fs'] = '<CMD>lua require("mylib")["search_word"]()<CR>',
+        -- ['n|<LocalLeader>fs'] = '<CMD>lua require("futil").search_word()<CR>',
+        ['n|<LocalLeader>rm'] = '<CMD>Leaderf mru<CR>',
+        ['n|<LocalLeader>ch'] = '<CMD>Leaderf cmdHistory<CR>',
+        ['n|<LocalLeader>sh'] = '<CMD>Leaderf searchHistory<CR>',
+        ['n|<LocalLeader>li'] = '<CMD>Leaderf line<CR>',
+        ['n|<LocalLeader>bs'] = '<CMD>Leaderf buffer<CR>',
+        -- ['n|<LocalLeader>gf'] = '<CMD>GFiles<CR>',
+        -- ['n|<LocalLeader>ma'] = '<CMD>Marks<CR>',
+        ['n|<LocalLeader>cc'] = '<CMD>Leaderf command<CR>',
+        -- ['n|<LocalLeader>mp'] = '<CMD>Maps<CR>',
+        ['n|<LocalLeader>hp'] = '<CMD>Leaderf help<CR>',
+        ['n|<LocalLeader>tg'] = '<CMD>Leaderf tag<CR>',
+        ['n|<LocalLeader>bg'] = '<CMD>Leaderf bufTag<CR>',
+        ['n|<LocalLeader>ii'] = '<CMD>Leaderf function<CR>',
+        ['n|<LocalLeader>qf'] = '<CMD>Leaderf quickfix<CR>',
+        ['n|<LocalLeader>ll'] = '<CMD>Leaderf loclist<CR>',
+        ['n|<LocalLeader>gt'] = '<CMD>Leaderf gtags<CR>',
     }
 
     -- Clap
     self.clap = {
-        ['n|<Leader>cl'] = {'<CMD>Clap<CR>', true, true},
-        ['n|<Leader>li'] = {'<CMD>Clap blines<CR>', true},
-        ['n|<Leader>bs'] = {'<CMD>Clap buffer<CR>', true, true},
-        ['n|<Leader>co'] = {'<CMD>Clap colors<CR>', true, true},
-        ['n|<Leader>cm'] = {'<CMD>Clap command<CR>', true, true},
-        ['n|<Leader>ch'] = {'<CMD>Clap command_history<CR>', true},
-        ['n|<Leader>sh'] = {'<CMD>Clap search_history<CR>', true},
-        ['n|<Leader>ff'] = {'<CMD>Clap files<CR>', true},
-        -- ['n|<Leader>fw'] = {'<CMD>Leaderf rg <C-R>=expand("<cword>")<CR><CR>', true, true},
-        -- ['n|<Leader>fs'] = {'<CMD>lua require("mylib")["search_word"]()<CR>', true, true},
-        -- ['n|<Leader>ii'] = {'<CMD>Clap function<CR>', true, true},
-        ['n|<Leader>gf'] = {'<CMD>Clap git_files<CR>', true, true},
-        ['n|<Leader>rm'] = {'<CMD>Clap history<CR>', true, true},
-        ['n|<Leader>hp'] = {'<CMD>Clap help_tags<CR>', true, true},
-        ['n|<Leader>jj'] = {'<CMD>Clap jumps<CR>', true, true},
-        ['n|<Leader>ma'] = {'<CMD>Clap marks<CR>', true, true},
-        ['n|<Leader>mp'] = {'<CMD>Clap maps<CR>', true, true},
-        ['n|<Leader>qf'] = {'<CMD>Clap quickfix<CR>', true, true},
-        ['n|<Leader>ll'] = {'<CMD>Clap loclist<CR>', true, true},
-        ['n|<Leader>fa'] = {'<CMD>Clap grep<CR>', true, true},
-        ['n|<Leader>fm'] = {'<CMD>Clap grep2<CR>', true},
-        ['n|<Leader>ra'] = {'<CMD>Clap registers<CR>', true},
-        ['n|<Leader>bt'] = {'<CMD>Clap tags<CR>', true, true},
-        ['n|<Leader>pt'] = {'<CMD>Clap proj_tags<CR>', true, true},
-        ['n|<Leader>yk'] = {'<CMD>Clap yanks<CR>', true, true},
-        ['n|<Leader>fl'] = {'<CMD>Clap filer<CR>', true, true},
-        ['n|<Leader>pr'] = {'<CMD>Clap providers<CR>', true, true},
-        ['n|<Leader>df'] = {'<CMD>Clap dot<CR>', true, true},
+        ['n|<Leader>cl'] = '<CMD>Clap<CR>',
+        ['n|<Leader>li'] = '<CMD>Clap blines<CR>',
+        ['n|<Leader>bs'] = '<CMD>Clap buffer<CR>',
+        ['n|<Leader>co'] = '<CMD>Clap colors<CR>',
+        ['n|<Leader>cm'] = '<CMD>Clap command<CR>',
+        ['n|<Leader>ch'] = '<CMD>Clap command_history<CR>',
+        ['n|<Leader>sh'] = '<CMD>Clap search_history<CR>',
+        ['n|<Leader>ff'] = '<CMD>Clap files<CR>',
+        -- ['n|<Leader>fw'] = '<CMD>Leaderf rg <C-R>=expand("<cword>")<CR><CR>',
+        -- ['n|<Leader>fs'] = '<CMD>lua require("mylib")["search_word"]()<CR>',
+        -- ['n|<Leader>ii'] = '<CMD>Clap function<CR>',
+        ['n|<Leader>gf'] = '<CMD>Clap git_files<CR>',
+        ['n|<Leader>rm'] = '<CMD>Clap history<CR>',
+        ['n|<Leader>hp'] = '<CMD>Clap help_tags<CR>',
+        ['n|<Leader>jj'] = '<CMD>Clap jumps<CR>',
+        ['n|<Leader>ma'] = '<CMD>Clap marks<CR>',
+        ['n|<Leader>mp'] = '<CMD>Clap maps<CR>',
+        ['n|<Leader>qf'] = '<CMD>Clap quickfix<CR>',
+        ['n|<Leader>ll'] = '<CMD>Clap loclist<CR>',
+        ['n|<Leader>fa'] = '<CMD>Clap grep<CR>',
+        ['n|<Leader>fm'] = '<CMD>Clap grep2<CR>',
+        ['n|<Leader>ra'] = '<CMD>Clap registers<CR>',
+        ['n|<Leader>bt'] = '<CMD>Clap tags<CR>',
+        ['n|<Leader>pt'] = '<CMD>Clap proj_tags<CR>',
+        ['n|<Leader>yk'] = '<CMD>Clap yanks<CR>',
+        ['n|<Leader>fl'] = '<CMD>Clap filer<CR>',
+        ['n|<Leader>pr'] = '<CMD>Clap providers<CR>',
+        ['n|<Leader>df'] = '<CMD>Clap dot<CR>',
     }
 
-    self.Commentary = { ['n|<Leader>ci'] = {'<CMD>Commentary<CR>', true, true} }
+    self.Commentary = {
+        ['n|<Leader>ci'] = '<CMD>Commentary<CR>',
+    }
 
     -- Vista
     self.vista = {
-        ['n|<Leader>ii'] = {'<CMD>Vista<CR>', true, true},
+        ['n|<Leader>ii'] = '<CMD>Vista<CR>',
     }
 
     -- rnvimr
     self.rnvimr = {
-        ['n|<Leader>rn'] = {'<CMD>RnvimrToggle<CR>', true, true},
-        ['t|<M-i>'] = {'<C-\\><C-n>:RnvimrResize<CR>', true, true},
+        ['n|<Leader>rn'] = '<CMD>RnvimrToggle<CR>',
+        ['t|<M-i>'] = '<C-\\><C-n>:RnvimrResize<CR>',
     }
 
     -- undotree
     self.undotree = {
-        ['n|<LocalLeader>ud'] = {'<CMD>GundoToggle<CR>', true, true},
+        ['n|<LocalLeader>ud'] = '<CMD>GundoToggle<CR>',
     }
 
     -- coc.translator
@@ -235,47 +241,47 @@ function key_mappings:start()
 
     -- vim-fugitive
     self.vim_fugitive = {
-        ['n|<Leader>gt'] = {'<CMD>Git<CR>', true, true},
-        ['n|<Leader>gd'] = {'<CMD>Git diff<CR>', true, true},
-        ['n|<Leader>gs'] = {'<CMD>Gvdiffsplit<CR>', true, true},
-        ['n|<Leader>gp'] = {'<CMD>Git push<CR>', true, true},
-        ['n|<Leader>gl'] = {'<CMD>Git pull<CR>', true, true},
+        ['n|<Leader>gt'] = '<CMD>Git<CR>',
+        ['n|<Leader>gd'] = '<CMD>Git diff<CR>',
+        ['n|<Leader>gs'] = '<CMD>Gvdiffsplit<CR>',
+        ['n|<Leader>gp'] = '<CMD>Git push<CR>',
+        ['n|<Leader>gl'] = '<CMD>Git pull<CR>',
     }
 
     -- vim-better-whitespace
     self.vim_better_whitespace = {
-        ['n|]w'] = {'<CMD>NextTrailingWhitespace<CR>', true, true},
-        ['n|[w'] = {'<CMD>PrevTrailingWhitespace<CR>', true, true},
+        ['n|]w'] = '<CMD>NextTrailingWhitespace<CR>',
+        ['n|[w'] = '<CMD>PrevTrailingWhitespace<CR>',
     }
 
     -- nnn.vim
     self.nnn_vim = {
-        ['n|<Leader>nn'] = {'<CMD>NnnPicker<CR>', true, true},
+        ['n|<Leader>nn'] = '<CMD>NnnPicker<CR>',
     }
 
     -- floaterm
     -- self.floaterm = {
-    --     ['n|<Leader>ff'] = {'<CMD>FloatermNew lf<CR>', true, true},
+    --     ['n|<Leader>ff'] = '<CMD>FloatermNew lf<CR>',
     -- }
 
     -- vim-signify
     self.vim_signify = {
-        ['n|<LocalLeader>du'] = {'<CMD>SignifyHunkDiff<CR>', true, true},
-        ['n|<LocalLeader>dr'] = {'<CMD>SignifyHunkUndo<CR>', true, true},
-        ['n|<LocalLeader>dn'] = {'<plug>(signify-next-hunk)', false, true},
-        ['n|<LocalLeader>dp'] = {'<plug>(signify-prev-hunk)', false, true},
+        ['n|<LocalLeader>du'] = '<CMD>SignifyHunkDiff<CR>',
+        ['n|<LocalLeader>dr'] = '<CMD>SignifyHunkUndo<CR>',
+        ['n|<LocalLeader>dn'] = {'<plug>(signify-next-hunk)', false},
+        ['n|<LocalLeader>dp'] = {'<plug>(signify-prev-hunk)', false},
     }
 
     -- vim-youdao-translater
     self.vim_youdao_translater = {
-        ['v|<C-y>'] = {'<CMD>Ydv<CR>'},
-        ['n|<C-y>'] = {'<CMD>Ydc<CR>'},
-        ['|<Leader>yd'] = {':<C-u>Yde<CR>'},
+        ['v|<C-y>'] = '<CMD>Ydv<CR>',
+        ['n|<C-y>'] = '<CMD>Ydc<CR>',
+        ['|<Leader>yd'] = ':<C-u>Yde<CR>',
     }
 
     -- tagbar
     -- self.tagbar = {
-    --     ['n|<Leader>tb'] = {'<CMD>TagbarToggle<CR>'},
+    --     ['n|<Leader>tb'] = '<CMD>TagbarToggle<CR>',
     -- }
 
     self:process_keys()
