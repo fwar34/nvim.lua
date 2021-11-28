@@ -1,16 +1,17 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
 -- Only required if you have packer in your `opt` pack
-vim.cmd [[packadd packer.nvim]]
+-- vim.cmd [[packadd packer.nvim]]
+vim.cmd [[ packadd vim-packager ]]
 -- Only if your version of Neovim doesn't have https://github.com/neovim/neovim/pull/12632 merged
 -- vim._update_package_paths()
 
-return require('packer').startup(function()
+require ('packager').setup (function (packager)
     -- Packer can manage itself as an optional plugin
-    use { 'wbthomason/packer.nvim', opt = true, }
+    -- packager.add { 'wbthomason/packer.nvim', opt = true, }
 
     -- Beautiful tabline
-    -- use {
+    -- packager.add {
     --     'mg979/vim-xtabline',
     --     config = function()
     --         -- vim.cmd [[ let g:xtabline_settings.enable_mappings = 0 ]]
@@ -20,9 +21,9 @@ return require('packer').startup(function()
     --     end
     -- }
 
-    -- use {'ap/vim-buftabline', event = 'VimEnter *'}
+    -- packager.add {'ap/vim-buftabline', event = 'VimEnter *'}
 
-    -- use {
+    -- packager.add {
     --     'akinsho/nvim-bufferline.lua', event = 'VimEnter *',
     --     requires = {'kyazdani42/nvim-web-devicons'},
     --     config = function()
@@ -61,14 +62,14 @@ return require('packer').startup(function()
     -- }
 
     -- Simple plugins can be specified as strings
-    -- use '9mm/vim-closer'
+    -- packager.add '9mm/vim-closer'
 
     -- Lazy loading:
     -- Load on specific commands
-    -- use {'tpope/vim-dispatch', opt = true, cmd = {'Dispatch', 'Make', 'Focus', 'Start'}}
+    -- packager.add {'tpope/vim-dispatch', opt = true, cmd = {'Dispatch', 'Make', 'Focus', 'Start'}}
 
     -- Load on an autocommand event
-    -- use {
+    -- packager.add {
     --     'andymass/vim-matchup', opt = true, event = 'VimEnter *',
     --     config = function()
     --         vim.cmd [[ let g:matchup_matchparen_offscreen = {'method': 'popup'} ]]
@@ -77,7 +78,7 @@ return require('packer').startup(function()
 
     -- Load on a combination of conditions: specific filetypes or commands
     -- Also run code after load (see the "config" key)
-    -- use {
+    -- packager.add {
     --     'w0rp/ale',
     --     ft = {'sh', 'zsh', 'bash', 'c', 'cpp', 'cmake', 'html', 'markdown', 'racket', 'vim', 'tex'},
     --     cmd = 'ALEEnable',
@@ -85,61 +86,57 @@ return require('packer').startup(function()
     -- }
 
     -- Plugins can have dependencies on other plugins
-    -- use {
+    -- packager.add {
     --     'haorenW1025/completion-nvim',
     --     opt = true,
     --     requires = {{'hrsh7th/vim-vsnip', opt = true}, {'hrsh7th/vim-vsnip-integ', opt = true}}
     -- }
 
     -- Local plugins can be included
-    --use '~/projects/personal/hover.nvim'
+    --packager.add '~/projects/personal/hover.nvim'
 
     -- Plugins can have post-install/update hooks
-    use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
+    packager.add ('iamcco/markdown-preview.nvim', {['do'] = 'cd app && yarn install'})
 
     -----------------------------------------------------------------------------------------
     -- A colorscheme helper for Neovim.
-    use {'tjdevries/colorbuddy.nvim'}
+    packager.add ('tjdevries/colorbuddy.nvim')
     -- Color scheme
-    use {'tjdevries/gruvbuddy.nvim',}
-    use {'Th3Whit3Wolf/onebuddy',  config = function ()
+    packager.add ('tjdevries/gruvbuddy.nvim')
+    packager.add ('Th3Whit3Wolf/onebuddy',  {['do'] = function ()
         -- require('colorbuddy').colorscheme('onebuddy')
-    end}
-    use {
-        -- "joshdick/onedark.vim",
+    end})
+    packager.add (        -- "joshdick/onedark.vim",
         'ii14/onedark.nvim',
         -- 'navarasu/onedark.nvim',
-        config = function ()
+        {['do'] = function ()
             vim.cmd [[ colorscheme onedark ]]
-        end
-    }
+        end}
+    )
 
     -- Themes
-    use {
-        {'glepnir/oceanic-material', config = function ()
-            -- vim.cmd [[ colorscheme oceanic_material ]]
-        end},
-        -- You can alias plugin names
-        {'dracula/vim', as = 'dracula'},
-        -- {'fwar34/vim-color-wombat256.git', as = 'wombat256'}
-        {'flazz/vim-colorschemes'}, -- one stop shop for vim colorschemes.
-    }
+    packager.add ('glepnir/oceanic-material')
+    -- You can alias plugin names
+    packager.add ('dracula/vim')
+    -- {'fwar34/vim-color-wombat256.git', as = 'wombat256'}
+    packager.add ('flazz/vim-colorschemes')  -- one stop shop for vim colorschemes.
 
-    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
-    config = function ()
-        require('nvim-treesitter.configs').setup {
-            ensure_installed = {
-                'bash', 'c', 'cpp', 'lua', 'css', 'fennel', 'html', 'javascript', 'json', 'julia', 'go',
-                'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure', 'fennel'
-            },     -- one of "all", "language", or a list of languages
-            highlight = {
-                enable = true,              -- false will disable the whole extension
-                -- disable = { "c", "rust" },  -- list of language that will be disabled
-            },
-        }
-    end}
 
-    -- use {'p00f/nvim-ts-rainbow', config = function ()
+    packager.add ('nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
+        {['do'] = function ()
+            require('nvim-treesitter.configs').setup {
+                ensure_installed = {
+                    'bash', 'c', 'cpp', 'lua', 'css', 'fennel', 'html', 'javascript', 'json', 'julia', 'go',
+                    'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure', 'fennel'
+                },     -- one of "all", "language", or a list of languages
+                highlight = {
+                    enable = true,              -- false will disable the whole extension
+                    -- disable = { "c", "rust" },  -- list of language that will be disabled
+                },
+            }
+        end})
+
+    -- packager.add {'p00f/nvim-ts-rainbow', config = function ()
     --     require('nvim-treesitter.configs').setup {
     --         rainbow = {
     --             enable = true,
@@ -148,29 +145,29 @@ return require('packer').startup(function()
     --     }
     -- end}
 
-    use {'hrsh7th/cmp-nvim-lsp'}
-    use {'hrsh7th/cmp-buffer'}
-    use {'hrsh7th/cmp-path'}
-    use {'hrsh7th/cmp-cmdline'}
-	use {'hrsh7th/nvim-cmp', config = function()
+    packager.add ('hrsh7th/cmp-nvim-lsp')
+    packager.add ('hrsh7th/cmp-buffer')
+    packager.add ('hrsh7th/cmp-path')
+    packager.add ('hrsh7th/cmp-cmdline')
+    packager.add ('hrsh7th/nvim-cmp', {['do'] = function()
         local has_words_before = function()
             local line, col = unpack(vim.api.nvim_win_get_cursor(0))
             return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
         end
         local luasnip = require("luasnip")
 
-		-- Setup nvim-cmp.
-		local cmp = require'cmp'
-		cmp.setup({
-			snippet = {
-				-- REQUIRED - you must specify a snippet engine
-				expand = function(args)
-					-- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-					require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-					-- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-					-- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
-				end,
-			},
+        -- Setup nvim-cmp.
+        local cmp = require'cmp'
+        cmp.setup({
+            snippet = {
+                -- REQUIRED - you must specify a snippet engine
+                expand = function(args)
+                    -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+                    require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+                    -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+                    -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
+                end,
+            },
 
             mapping = {
                 ["<Tab>"] = cmp.mapping(function(fallback)
@@ -205,58 +202,56 @@ return require('packer').startup(function()
                 }),
                 ['<CR>'] = cmp.mapping.confirm({ select = true }),
             },
-			sources = cmp.config.sources({
-				-- { name = 'nvim_lsp' },
-				-- { name = 'vsnip' }, -- For vsnip users.
-				{ name = 'luasnip' }, -- For luasnip users.
-				-- { name = 'ultisnips' }, -- For ultisnips users.
-				-- { name = 'snippy' }, -- For snippy users.
-			}, {
-				{ name = 'buffer' },
-			})
-		})
+            sources = cmp.config.sources({
+                -- { name = 'nvim_lsp' },
+                -- { name = 'vsnip' }, -- For vsnip users.
+                { name = 'luasnip' }, -- For luasnip users.
+                -- { name = 'ultisnips' }, -- For ultisnips users.
+                -- { name = 'snippy' }, -- For snippy users.
+            }, {
+                    { name = 'buffer' },
+                })
+        })
 
-		-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-		-- cmp.setup.cmdline('/', {
-		-- 	sources = {
-		-- 		{ name = 'buffer' }
-		-- 	}
-		-- })
+        -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+        -- cmp.setup.cmdline('/', {
+        -- 	sources = {
+        -- 		{ name = 'buffer' }
+        -- 	}
+        -- })
 
-		-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-		-- cmp.setup.cmdline(':', {
-		-- 	sources = cmp.config.sources({
-		-- 		{ name = 'path' }
-		-- 	}, {
-		-- 		{ name = 'cmdline' }
-		-- 	})
-		-- })
+        -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+        -- cmp.setup.cmdline(':', {
+        -- 	sources = cmp.config.sources({
+        -- 		{ name = 'path' }
+        -- 	}, {
+        -- 		{ name = 'cmdline' }
+        -- 	})
+        -- })
 
-	end}
+    end})
 
     -- Lsp
-    use {
-        'neovim/nvim-lspconfig',
-        'williamboman/nvim-lsp-installer',
-    }
+    packager.add ('neovim/nvim-lspconfig')
+    packager.add （'williamboman/nvim-lsp-installer')
 
     -- Status line
-    use {'itchyny/lightline.vim'}
-    -- use 'glepnir/spaceline.vim'
+    packager.add {'itchyny/lightline.vim'}
+    -- packager.add 'glepnir/spaceline.vim'
 
     -- Coding
-    use {'liuchengxu/vista.vim', event = 'VimEnter *'}
-    -- use {'majutsushi/tagbar', cmd = 'TagbarToggle'}
+    packager.add {'liuchengxu/vista.vim', event = 'VimEnter *'}
+    -- packager.add {'majutsushi/tagbar', cmd = 'TagbarToggle'}
 
     -- Find everythings
-    use {
+    packager.add {
         'liuchengxu/vim-clap', opt = true, event = 'VimEnter *',
         -- run = ':Clap install-binary',
         run = ':eval(clap#installer#force_download())', -- proxychinas4
         config = function()
             -- vim.g.clap_theme = 'material_design_dark'
-            vim.g.clap_current_selection_sign = { 
-                text = '->', texthl = 'ClapCurrentSelectionSign', linehl = 'ClapCurrentSelection' 
+            vim.g.clap_current_selection_sign = {
+                text = '->', texthl = 'ClapCurrentSelectionSign', linehl = 'ClapCurrentSelection'
             }
 
             -- Change the CamelCase of related highlight group name to under_score_case.
@@ -284,18 +279,18 @@ return require('packer').startup(function()
         end
     }
 
-    use { 'liuchengxu/vim-which-key', opt = true, cmd = {'WhichKey', 'WhichKey!'}}
-    -- use {
+    packager.add { 'liuchengxu/vim-which-key', opt = true, cmd = {'WhichKey', 'WhichKey!'}}
+    -- packager.add {
     --     'AckslD/nvim-whichkey-setup.lua',
     --     requires = {'liuchengxu/vim-which-key'},
     -- }
 
     -- Grepping
-    -- use {'mhinz/vim-grepper', opt = true, cmd = 'Grepper'}
+    -- packager.add {'mhinz/vim-grepper', opt = true, cmd = 'Grepper'}
 
     -- File manager
-    use {'Shougo/defx.nvim', opt = true, cmd = {'Defx'}}
-    use {
+    packager.add {'Shougo/defx.nvim', opt = true, cmd = {'Defx'}}
+    packager.add {
         'kevinhwang91/rnvimr', cmd = 'RnvimrToggle',
         config = function()
             -- Make Ranger replace Netrw and be the file explorer
@@ -319,7 +314,7 @@ return require('packer').startup(function()
                  }
         end
     } -- Ranger
-    -- use { -- nnn
+    -- packager.add { -- nnn
     --     'mcchrish/nnn.vim', cmd = {'NnnPicker', 'Np'},
     --     config = function()
     --         -- Disable default mappings
@@ -331,7 +326,7 @@ return require('packer').startup(function()
     -- }
 
     -- Terminal
-    use {
+    packager.add {
         'voldikss/vim-floaterm', event = 'VimEnter *',
         setup = function()
             -- Type Number. The transparency of the floating terminal. Only works in neovim.
@@ -343,7 +338,7 @@ return require('packer').startup(function()
         end
     }
 
-    use {
+    packager.add {
         'skywind3000/vim-terminal-help', event = 'VimEnter *',
         config = function()
             vim.g.terminal_height = 20
@@ -352,44 +347,44 @@ return require('packer').startup(function()
     }
 
     -- Better Lua highlighting
-    -- use {'euclidianAce/BetterLua.vim', opt = true, ft = {'lua'}}
+    -- packager.add {'euclidianAce/BetterLua.vim', opt = true, ft = {'lua'}}
 
     -- Registers
     -- Peekaboo extends " and @ in normal mode and <CTRL-R> in insert mode so you can see the contents of the registers.
-    use 'junegunn/vim-peekaboo'
+    packager.add 'junegunn/vim-peekaboo'
 
     -- Marks
-    use {'kshenoy/vim-signature', config = function ()
+    packager.add {'kshenoy/vim-signature', config = function ()
         vim.g.SignatureIncludeMarks = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVW'
     end}
 
     -- Buffer management
 
     -- Movement
-    use {'easymotion/vim-easymotion'}
+    packager.add {'easymotion/vim-easymotion'}
 
     -- Quickfix
 
     -- Do stuff like :sudowrite
-    use 'lambdalisue/suda.vim'
+    packager.add 'lambdalisue/suda.vim'
 
     -- Coc
-    -- use {'neoclide/coc.nvim', branch = 'release'}
+    -- packager.add {'neoclide/coc.nvim', branch = 'release'}
 
-    -- use {'vn-ki/coc-clap', after = 'coc.nvim'}
+    -- packager.add {'vn-ki/coc-clap', after = 'coc.nvim'}
 
     -- Git
-    use {'rhysd/git-messenger.vim', opt = true, cmd = 'GitMessenger'}
-    use {'tpope/vim-fugitive', event = 'VimEnter *',}
-    -- use {'airblade/vim-gitgutter', }
-	use {
+    packager.add {'rhysd/git-messenger.vim', opt = true, cmd = 'GitMessenger'}
+    packager.add {'tpope/vim-fugitive', event = 'VimEnter *',}
+    -- packager.add {'airblade/vim-gitgutter', }
+	packager.add {
         'mhinz/vim-signify',
         config = function()
         end
     }
 
     -- Status line
-    use {
+    packager.add {
         'ojroques/vim-scrollstatus',
         config = function()
             vim.g.scrollstatus_size = 12
@@ -399,7 +394,7 @@ return require('packer').startup(function()
     }
 
     -- Coc-fzf
-    -- use {
+    -- packager.add {
     --     'antoinemadec/coc-fzf',
     --     -- after = 'coc.nvim',
     --     cmd = {'CocFzfList', 'CocFzfListResume'},
@@ -415,8 +410,8 @@ return require('packer').startup(function()
     --     end,
     -- }
 
-    use {'junegunn/fzf', run = './install --all', lock = true}
-    -- use {
+    packager.add {'junegunn/fzf', run = './install --all', lock = true}
+    -- packager.add {
     --     'junegunn/fzf.vim', event = 'VimEnter *',
     --     config = function()
     --         vim.g.fzf_preview_window = { 'up:50%', 'ctrl-/' }
@@ -427,25 +422,25 @@ return require('packer').startup(function()
     -- }
 
     -- Profiling
-    use {'dstein64/vim-startuptime', cmd = 'StartupTime'}
+    packager.add {'dstein64/vim-startuptime', cmd = 'StartupTime'}
 
     -- Snippets
-    -- use {'honza/vim-snippets', requires = {
+    -- packager.add {'honza/vim-snippets', requires = {
     --     {'SirVer/ultisnips', config = function()
-    --     -- " Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
+    --     -- " Trigger configuration. You need to change this to something other than <tab> if you packager.add one of the following:
     --     -- " - https://github.com/Valloric/YouCompleteMe
     --     -- " - https://github.com/nvim-lua/completion-nvim
     --     -- let g:UltiSnipsExpandTrigger="<tab>"
     --     -- let g:UltiSnipsJumpForwardTrigger="<c-b>"
     --     -- let g:UltiSnipsJumpBackwardTrigger="<c-z>"
     -- end},}}
-    use {'L3MON4D3/LuaSnip'}
+    packager.add {'L3MON4D3/LuaSnip'}
 
     -- Undo
-    -- use {'mbbill/undotree', cmd = 'UndotreeToggle'}
+    -- packager.add {'mbbill/undotree', cmd = 'UndotreeToggle'}
 
     -- vim-multiple-cursors
-    use {
+    packager.add {
         'terryma/vim-multiple-cursors',
         config = function()
             -- If set to 0, insert mappings won't be supported in Insert mode anymore.
@@ -454,13 +449,13 @@ return require('packer').startup(function()
     }
 
     -- Icons
-    use {'ryanoasis/vim-devicons', }
+    packager.add {'ryanoasis/vim-devicons', }
 
     -- Surround
-    use {'tpope/vim-surround', event = 'VimEnter *'}
+    packager.add {'tpope/vim-surround', event = 'VimEnter *'}
 
     -- Highlight for stl
-    use {
+    packager.add {
         'octol/vim-cpp-enhanced-highlight', event = 'VimEnter *',
         config = function()
             vim.g.cpp_class_scope_highlight = 1
@@ -469,11 +464,11 @@ return require('packer').startup(function()
     }
 
     -- Undo
-    use {'sjl/gundo.vim', cmd = 'GundoToggle', config = 'vim.g.gundo_prefer_python3 = 1'}
+    packager.add {'sjl/gundo.vim', cmd = 'GundoToggle', config = 'vim.g.gundo_prefer_python3 = 1'}
 
     -- Highlight whitespace and fix
-    -- use {'bronson/vim-trailing-whitespace', event = 'VimEnter *'}
-    use {
+    -- packager.add {'bronson/vim-trailing-whitespace', event = 'VimEnter *'}
+    packager.add {
         'ntpeters/vim-better-whitespace',
         config = function()
             vim.g.better_whitespace_operator = '<leader>ss'
@@ -483,8 +478,8 @@ return require('packer').startup(function()
         end
     }
 
-    use {
-        -- 'Yggdroot/LeaderF', event = 'VimEnter *', 
+    packager.add {
+        -- 'Yggdroot/LeaderF', event = 'VimEnter *',
         -- 'Yggdroot/LeaderF', cmd = 'Leaderf',
         'Yggdroot/LeaderF',
         run = ':LeaderfInstallCExtension',
@@ -501,7 +496,7 @@ return require('packer').startup(function()
     }
 
     -- Comment
-    use {
+    packager.add {
         'tpope/vim-commentary', event = 'VimEnter *',
         config = function ()
             -- My favorite file type isn't supported!
@@ -511,8 +506,8 @@ return require('packer').startup(function()
     }
 
     -- Tags
-    -- use {'jsfaint/gen_tags.vim', event = 'VimEnter *',}
-    use {
+    -- packager.add {'jsfaint/gen_tags.vim', event = 'VimEnter *',}
+    packager.add {
         -- 提供 ctags/gtags 后台数据库自动更新功能
         {'ludovicchabant/vim-gutentags', event = 'VimEnter *'},
         -- 提供 GscopeFind 命令并自动处理好 gtags 数据库切换
@@ -520,20 +515,20 @@ return require('packer').startup(function()
         {'skywind3000/gutentags_plus', event = 'VimEnter *'},
     }
 
-    use {
+    packager.add {
         'plasticboy/vim-markdown', after = 'tabular', ft = 'markdownd',
         requires = {'godlygeek/tabular'},
     }
 
     -- This vim bundle adds advanced syntax highlighting for GNU as (AT&T).
-    use {
+    packager.add {
         'Shirk/vim-gas', ft = 'asm',
     }
 
     -- Improved Lua 5.3 syntax and indentation support for Vim.
-    use {'tbastos/vim-lua', ft = 'lua'}
+    packager.add {'tbastos/vim-lua', ft = 'lua'}
 
-    use {
+    packager.add {
         'vim-python/python-syntax', ft = 'python',
         config = function()
             vim.g.python_highlight_all = 1
@@ -541,23 +536,23 @@ return require('packer').startup(function()
     }
 
     -- A Vim text editor plugin to swap delimited items.
-    use {
+    packager.add {
         'machakann/vim-swap', event = 'VimEnter *',
     }
 
     -- adds various text objects to give you more targets to operate on.
-    use {
+    packager.add {
         'wellle/targets.vim', event = 'VimEnter *',
     }
 
-    use {
+    packager.add {
         'dstein64/vim-win', event = 'VimEnter *',
         config = function()
         end
     }
 
     -- Async task
-    use {
+    packager.add {
         'skywind3000/asynctasks.vim', after = 'asyncrun.vim',
         requires = {'skywind3000/asyncrun.vim', event = 'VimEnter *'},
         config = function()
@@ -565,32 +560,32 @@ return require('packer').startup(function()
             vim.g.asyncrun_open = 6
         end
     }
-    
+   
     -- 前面编译运行时需要频繁的操作 quickfix 窗口，ale查错时也需要快速再错误间跳转（location list），
     -- 就连文件比较也会用到快速跳转到上/下一个差异处，unimpaired 插件帮你定义了一系列方括号开头的快捷键，
     -- 被称为官方 Vim 中丢失的快捷键。
-    use {
+    packager.add {
         'tpope/vim-unimpaired', event = 'VimEnter *',
     }
 
     -- switch file betten .cpp and .h
-    use {
+    packager.add {
         'derekwyatt/vim-fswitch', ft = {'cpp', 'c'},
     }
 
-    use {
+    packager.add {
         'skywind3000/awesome-cheatsheets', event = 'VimEnter *',
     }
 
-    use { 'ianva/vim-youdao-translater', event = 'VimEnter *', }
+    packager.add { 'ianva/vim-youdao-translater', event = 'VimEnter *', }
 
     -- Highlight yank
-    use {
+    packager.add {
         'machakann/vim-highlightedyank', event = 'VimEnter *',
     }
 
     -- Create user text objects
-    -- use {
+    -- packager.add {
     --     'kana/vim-textobj-user'
     -- }
 
@@ -601,17 +596,17 @@ return require('packer').startup(function()
     -- Press t to toggle RGB text visibility
     -- Press f to set RGB text to current color
     -- Buffer behavior similar to Scratch.vim
-    use {
+    packager.add {
         'guns/xterm-color-table.vim', cmd = 'XtermColorTable'
     }
 
-    use {
+    packager.add {
         'luochen1990/rainbow',
         config = 'vim.g.rainbow_active = 1',
     }
 
 
-    use {
+    packager.add {
         'norcalli/nvim-colorizer.lua', event = 'VimEnter *',
         config = function ()
             require('colorizer').setup()
@@ -619,7 +614,7 @@ return require('packer').startup(function()
     }
 
     -- Clojure
-    use {
+    packager.add {
         {'guns/vim-sexp', ft = {'fennel', 'clojure', 'lisp'}},
         {'tpope/vim-sexp-mappings-for-regular-people', ft = {'fennel', 'clojure', 'lisp'}},
         -- {'Olical/conjure', tag = 'v4.9.0',},
@@ -642,7 +637,7 @@ return require('packer').startup(function()
         -- Iron is both a plugin and a library to allow users to deal with repls.
         {'hkupty/iron.nvim',},
         -- This is a vim plugin for using parinfer to indent your clojure and lisp code.
-        -- Parinfer is trigger on all TextChanged events within vim. In addition, you may use the following mapped commands:
+        -- Parinfer is trigger on all TextChanged events within vim. In addition, you may packager.add the following mapped commands:
         -- <Tab> - indents s-expression
         -- <Tab-S> - dedents s-expression
         -- dd - deletes line and balances parenthesis
@@ -650,11 +645,11 @@ return require('packer').startup(function()
         -- {'bhurlow/vim-parinfer', ft = {'fennel', 'clojure', 'lisp'}}
     }
 
-    use {'jiangmiao/auto-pairs', config = function()
+    packager.add {'jiangmiao/auto-pairs', config = function()
         vim.cmd [[ au FileType lisp,clojure,lisp let b:AutoPairs = {'```': '```', '`': '`', '"': '"', '[': ']', '(': ')', '{': '}', '"""': '"""'} ]]
     end}
 
-    use {
+    packager.add {
         -- 使用 ALT+e 会在不同窗口/标签上显示 A/B/C 等编号，然后字母直接跳转
         't9md/vim-choosewin',
         config = function()
@@ -663,7 +658,7 @@ return require('packer').startup(function()
         end
     }
 
-    use {
+    packager.add {
         -- 用 v 选中一个区域后，ALT_+/- 按分隔符扩大/缩小选区
         'terryma/vim-expand-region',
         config = function()
@@ -673,23 +668,23 @@ return require('packer').startup(function()
         end
     }
 
-    use {
+    packager.add {
         -- powershell 脚本文件的语法高亮
         'pprovost/vim-ps1', ft = { 'ps1' }
     }
 
-    use {
+    packager.add {
         -- " 额外语法文件
         'justinmk/vim-syntax-extra', ft = { 'c', 'bison', 'flex', 'cpp' }
     }
 
-    use {
+    packager.add {
         -- rust 语法增强
         'rust-lang/rust.vim', ft = 'rust'
     }
 
-    use {
-        -- vim org-mode 
+    packager.add {
+        -- vim org-mode
         'jceb/vim-orgmode', ft = 'org'
     }
 end)
