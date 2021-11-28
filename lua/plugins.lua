@@ -106,11 +106,10 @@ return require('packer').startup(function()
         -- require('colorbuddy').colorscheme('onebuddy')
     end}
     use {
-        "joshdick/onedark.vim",
+        -- "joshdick/onedark.vim",
+        'ii14/onedark.nvim',
         -- 'navarasu/onedark.nvim',
         config = function ()
-            -- require('onedark').setup()
-            vim.g.onedark_termcolors = 16
             vim.cmd [[ colorscheme onedark ]]
         end
     }
