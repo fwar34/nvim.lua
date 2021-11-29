@@ -105,10 +105,12 @@ return require('packer').startup(function()
     use {'Th3Whit3Wolf/onebuddy',  config = function ()
         -- require('colorbuddy').colorscheme('onebuddy')
     end}
+
     use {
         -- "joshdick/onedark.vim",
         'ii14/onedark.nvim',
         -- 'navarasu/onedark.nvim',
+        -- 'olimorris/onedarkpro.nvim',
         config = function ()
             vim.cmd [[ colorscheme onedark ]]
         end
@@ -122,7 +124,9 @@ return require('packer').startup(function()
         -- You can alias plugin names
         {'dracula/vim', as = 'dracula'},
         -- {'fwar34/vim-color-wombat256.git', as = 'wombat256'}
-        {'flazz/vim-colorschemes'}, -- one stop shop for vim colorschemes.
+
+        -- Note: vim-colorschemes conflict with onedark
+        -- {'flazz/vim-colorschemes'}, -- one stop shop for vim colorschemes. 
     }
 
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
