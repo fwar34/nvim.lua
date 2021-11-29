@@ -50,4 +50,4 @@ function autocmd.setup()
     golang_autocmd()
 end
 
-return autocmd
+autocmd.setup()

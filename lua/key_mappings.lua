@@ -182,7 +182,7 @@ function key_mappings:start()
     self.clap = {
         ['n|<Leader>cl'] = '<CMD>Clap<CR>',
         ['n|<Leader>li'] = '<CMD>Clap blines<CR>',
-        ['n|<Leader>bs'] = '<CMD>Clap buffer<CR>',
+        ['n|<Leader>bs'] = '<CMD>Clap buffers<CR>',
         ['n|<Leader>co'] = '<CMD>Clap colors<CR>',
         ['n|<Leader>cm'] = '<CMD>Clap command<CR>',
         ['n|<Leader>ch'] = '<CMD>Clap command_history<CR>',
@@ -301,4 +301,4 @@ function key_mappings.setup()
     key_mappings:start()
 end
 
-return key_mappings
+key_mappings.setup()

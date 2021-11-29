@@ -11,7 +11,7 @@ else
 end
 
 require("options")
-require("key_mappings").setup()
-require("autocmd").setup()
+require("key_mappings")
+require("autocmd")
 require("terminal").setup()
-require("lsp.setup").setup()
+require("lsp")
