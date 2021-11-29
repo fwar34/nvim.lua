@@ -126,7 +126,7 @@ return require('packer').startup(function()
         -- {'fwar34/vim-color-wombat256.git', as = 'wombat256'}
 
         -- Note: vim-colorschemes conflict with onedark
-        -- {'flazz/vim-colorschemes'}, -- one stop shop for vim colorschemes. 
+        -- {'flazz/vim-colorschemes'}, -- one stop shop for vim colorschemes.
     }
 
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
@@ -259,8 +259,8 @@ return require('packer').startup(function()
         run = ':eval(clap#installer#force_download())', -- proxychinas4
         config = function()
             -- vim.g.clap_theme = 'material_design_dark'
-            vim.g.clap_current_selection_sign = { 
-                text = '->', texthl = 'ClapCurrentSelectionSign', linehl = 'ClapCurrentSelection' 
+            vim.g.clap_current_selection_sign = {
+                text = '->', texthl = 'ClapCurrentSelectionSign', linehl = 'ClapCurrentSelection'
             }
 
             -- Change the CamelCase of related highlight group name to under_score_case.
@@ -488,7 +488,7 @@ return require('packer').startup(function()
     }
 
     use {
-        -- 'Yggdroot/LeaderF', event = 'VimEnter *', 
+        -- 'Yggdroot/LeaderF', event = 'VimEnter *',
         -- 'Yggdroot/LeaderF', cmd = 'Leaderf',
         'Yggdroot/LeaderF',
         run = ':LeaderfInstallCExtension',
@@ -569,7 +569,7 @@ return require('packer').startup(function()
             vim.g.asyncrun_open = 6
         end
     }
-    
+
     -- 前面编译运行时需要频繁的操作 quickfix 窗口，ale查错时也需要快速再错误间跳转（location list），
     -- 就连文件比较也会用到快速跳转到上/下一个差异处，unimpaired 插件帮你定义了一系列方括号开头的快捷键，
     -- 被称为官方 Vim 中丢失的快捷键。
@@ -693,12 +693,18 @@ return require('packer').startup(function()
     }
 
     use {
-        -- vim org-mode 
+        -- vim org-mode
         'jceb/vim-orgmode', ft = 'org'
     }
 
     use {
         'nvim-telescope/telescope.nvim',
         requires = { {'nvim-lua/plenary.nvim'} }
+    }
+
+    use {
+        -- tabline plugin
+        'romgrk/barbar.nvim',
+        requires = {'kyazdani42/nvim-web-devicons'}
     }
 end)

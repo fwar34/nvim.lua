@@ -48,6 +48,24 @@ function key_mappings:process_keys()
     end
 end
 
+function Rg_options()
+    -- return { "--glob !tags", "--glob !nvim/snippets/**", }
+    return {
+        "--iglob",
+        "!tags",
+        "--iglob",
+        "!*.lo",
+        "--iglob",
+        "!*.makefile",
+        "--iglob",
+        "!*.html",
+        "--iglob",
+        "!*.svn/*",
+        "--iglob",
+        "!*.git/*",
+    }
+end
+
 function key_mappings:start()
     self.normal = {
         ['n|<Leader>zz'] = '<CMD>w<CR>',
@@ -75,8 +93,6 @@ function key_mappings:start()
         ['n|<C-g>'] = '<C-c>',
         ['n|<Leader>md'] = '<CMD>m .+1<CR>',
         ['n|<Leader>mu'] = '<CMD>m .-2<CR>',
-        ["n|<S-l>"] = "<CMD>BufferNext<CR>",
-        ["n|<S-h>"] = "<CMD>BufferPrevious<CR>",
         -- help motion.txt
         -- If your '{' or '}' are not in the first column, and you would like to use "[["
         -- and "]]" anyway, try these mappings: >
@@ -92,8 +108,8 @@ function key_mappings:start()
         ["v|>"] = ">gv",
         ["v|<"] = "<gv",
         -- Move selected line / block of text in visual mode
-        ["v|K"] = ":move '<-2<CR>gv-gv",
-        ["v|J"] = ":move '>+1<CR>gv-gv",
+        ["v|K"] = "<CMD>move '<-2<CR>gv-gv",
+        ["v|J"] = "<CMD>move '>+1<CR>gv-gv",
     }
 
     self.insert = {
@@ -219,32 +235,36 @@ function key_mappings:start()
 
     self.telescope = {
         ['n|<Leader>cl'] = '<CMD>Clap<CR>',
-        ['n|<Leader>li'] = '<CMD>Clap blines<CR>',
+        ['n|<Leader>li'] = '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find()<CR>',
         ['n|<Leader>bs'] = '<CMD>Clap buffers<CR>',
         ['n|<Leader>co'] = '<CMD>Clap colors<CR>',
         ['n|<Leader>cm'] = '<CMD>Clap command<CR>',
         ['n|<Leader>ch'] = '<CMD>Clap command_history<CR>',
         ['n|<Leader>sh'] = '<CMD>Clap search_history<CR>',
-        ['n|<Leader>ff'] = '<CMD>Clap files<CR>',
-        -- ['n|<Leader>fw'] = '<CMD>Leaderf rg <C-R>=expand("<cword>")<CR><CR>',
+        ['n|<Leader>fa'] = '<CMD>lua require("telescope.builtin").live_grep({additional_args = Rg_options})<CR>',
+        ['n|<Leader>ff'] = '<CMD>Telescope find_files find_command=rg,--ignore,--hidden,--files,--iglob,!*.svn,--iglob,!*.git<CR>',
+        ['n|<Leader>fw'] = '<cmd>lua require("telescope.builtin").grep_string({additional_args = Rg_options})<CR>',
+        ['n|<Leader>fo'] = '<cmd>FSHere<CR>',
+        ['n|<Leader>fp'] = "<cmd>Telescope projects<CR>",
         -- ['n|<Leader>fs'] = '<CMD>lua require("mylib")["search_word"]()<CR>',
         -- ['n|<Leader>ii'] = '<CMD>Clap function<CR>',
         ['n|<Leader>gf'] = '<CMD>Clap git_files<CR>',
-        ['n|<Leader>rm'] = '<CMD>Clap history<CR>',
+        ['n|<Leader>rm'] = '<CMD>Telescope oldfiles<CR>',
         ['n|<Leader>hp'] = '<CMD>Clap help_tags<CR>',
         ['n|<Leader>jj'] = '<CMD>Clap jumps<CR>',
         ['n|<Leader>ma'] = '<CMD>Clap marks<CR>',
         ['n|<Leader>mp'] = '<CMD>Clap maps<CR>',
         ['n|<Leader>qf'] = '<CMD>Clap quickfix<CR>',
         ['n|<Leader>ll'] = '<CMD>Clap loclist<CR>',
-        ['n|<Leader>fa'] = '<CMD>Clap grep2<CR>',
         ['n|<Leader>fm'] = '<CMD>Clap grep<CR>',
         ['n|<Leader>ra'] = '<CMD>Clap registers<CR>',
-        ['n|<Leader>bt'] = '<CMD>Clap tags<CR>',
+        ['n|<Leader>bt'] = '<cmd>lua require("telescope.builtin").current_buffer_tags()<CR>',
+        ['n|<Leader>op'] = '<cmd>lua require("telescope.builtin").vim_options()<CR>',
+        ['n|<LocalLeader>ir'] = '<cmd>lua require("telescope.builtin").resume()<CR>',
         ['n|<Leader>pt'] = '<CMD>Clap proj_tags<CR>',
         ['n|<Leader>yk'] = '<CMD>Clap yanks<CR>',
         ['n|<Leader>fl'] = '<CMD>Clap filer<CR>',
-        ['n|<Leader>pr'] = '<CMD>Clap providers<CR>',
+        ['n|<Leader>pa'] = '<CMD>Telescope<CR>',
         ['n|<Leader>df'] = '<CMD>Clap dot<CR>',
     }
 
@@ -254,7 +274,7 @@ function key_mappings:start()
 
     -- Vista
     self.vista = {
-        ['n|<Leader>ii'] = '<CMD>Vista<CR>',
+        ['n|<Leader>ii'] = '<CMD>Vista!!<CR>',
     }
 
     -- rnvimr
@@ -323,6 +343,12 @@ function key_mappings:start()
     -- self.tagbar = {
     --     ['n|<Leader>tb'] = '<CMD>TagbarToggle<CR>',
     -- }
+
+    -- barbar.nvim
+    self.barbar = {
+        ["n|<S-l>"] = "<CMD>BufferNext<CR>",
+        ["n|<S-h>"] = "<CMD>BufferPrevious<CR>",
+    }
 
     self:process_keys()
 end
