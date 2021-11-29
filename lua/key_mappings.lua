@@ -75,6 +75,8 @@ function key_mappings:start()
         ['n|<C-g>'] = '<C-c>',
         ['n|<Leader>md'] = '<CMD>m .+1<CR>',
         ['n|<Leader>mu'] = '<CMD>m .-2<CR>',
+        ["n|<S-l>"] = "<CMD>BufferNext<CR>",
+        ["n|<S-h>"] = "<CMD>BufferPrevious<CR>",
         -- help motion.txt
         -- If your '{' or '}' are not in the first column, and you would like to use "[["
         -- and "]]" anyway, try these mappings: >
@@ -87,6 +89,11 @@ function key_mappings:start()
     self.visual = {
         ['v|<Leader>g'] = '<C-c>',
         ['v|<C-g>'] = '<C-c>',
+        ["v|>"] = ">gv",
+        ["v|<"] = "<gv",
+        -- Move selected line / block of text in visual mode
+        ["v|K"] = ":move '<-2<CR>gv-gv",
+        ["v|J"] = ":move '>+1<CR>gv-gv",
     }
 
     self.insert = {
