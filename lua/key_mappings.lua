@@ -179,7 +179,38 @@ function key_mappings:start()
     }
 
     -- Clap
-    self.clap = {
+    -- self.clap = {
+    --     ['n|<Leader>cl'] = '<CMD>Clap<CR>',
+    --     ['n|<Leader>li'] = '<CMD>Clap blines<CR>',
+    --     ['n|<Leader>bs'] = '<CMD>Clap buffers<CR>',
+    --     ['n|<Leader>co'] = '<CMD>Clap colors<CR>',
+    --     ['n|<Leader>cm'] = '<CMD>Clap command<CR>',
+    --     ['n|<Leader>ch'] = '<CMD>Clap command_history<CR>',
+    --     ['n|<Leader>sh'] = '<CMD>Clap search_history<CR>',
+    --     ['n|<Leader>ff'] = '<CMD>Clap files<CR>',
+    --     -- ['n|<Leader>fw'] = '<CMD>Leaderf rg <C-R>=expand("<cword>")<CR><CR>',
+    --     -- ['n|<Leader>fs'] = '<CMD>lua require("mylib")["search_word"]()<CR>',
+    --     -- ['n|<Leader>ii'] = '<CMD>Clap function<CR>',
+    --     ['n|<Leader>gf'] = '<CMD>Clap git_files<CR>',
+    --     ['n|<Leader>rm'] = '<CMD>Clap history<CR>',
+    --     ['n|<Leader>hp'] = '<CMD>Clap help_tags<CR>',
+    --     ['n|<Leader>jj'] = '<CMD>Clap jumps<CR>',
+    --     ['n|<Leader>ma'] = '<CMD>Clap marks<CR>',
+    --     ['n|<Leader>mp'] = '<CMD>Clap maps<CR>',
+    --     ['n|<Leader>qf'] = '<CMD>Clap quickfix<CR>',
+    --     ['n|<Leader>ll'] = '<CMD>Clap loclist<CR>',
+    --     ['n|<Leader>fa'] = '<CMD>Clap grep2<CR>',
+    --     ['n|<Leader>fm'] = '<CMD>Clap grep<CR>',
+    --     ['n|<Leader>ra'] = '<CMD>Clap registers<CR>',
+    --     ['n|<Leader>bt'] = '<CMD>Clap tags<CR>',
+    --     ['n|<Leader>pt'] = '<CMD>Clap proj_tags<CR>',
+    --     ['n|<Leader>yk'] = '<CMD>Clap yanks<CR>',
+    --     ['n|<Leader>fl'] = '<CMD>Clap filer<CR>',
+    --     ['n|<Leader>pr'] = '<CMD>Clap providers<CR>',
+    --     ['n|<Leader>df'] = '<CMD>Clap dot<CR>',
+    -- }
+
+    self.telescope = {
         ['n|<Leader>cl'] = '<CMD>Clap<CR>',
         ['n|<Leader>li'] = '<CMD>Clap blines<CR>',
         ['n|<Leader>bs'] = '<CMD>Clap buffers<CR>',

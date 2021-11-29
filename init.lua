@@ -13,5 +13,5 @@ end
 require("options")
 require("key_mappings")
 require("autocmd")
-require("terminal").setup()
+-- require("terminal").setup()
 require("lsp")

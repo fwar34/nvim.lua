@@ -1,6 +1,6 @@
 vim.cmd('set autochdir')
 -- 可以在normal,visual模式使用鼠标
-vim.cmd('set mouse=')
+vim.cmd('set mouse=a')
 vim.cmd('set splitright')
 -- 相对行号
 -- vim.cmd('set relativenumber')

@@ -696,4 +696,9 @@ return require('packer').startup(function()
         -- vim org-mode 
         'jceb/vim-orgmode', ft = 'org'
     }
+
+    use {
+        'nvim-telescope/telescope.nvim',
+        requires = { {'nvim-lua/plenary.nvim'} }
+    }
 end)

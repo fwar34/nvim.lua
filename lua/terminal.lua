@@ -3,7 +3,7 @@ local terminal = {mouse_floaterm = '', mouse_terminal = ''}
 
 function terminal:set_mouse_for_floaterm()
     self.mouse_floaterm = vim.o.mouse
-    vim.o.mouse = 'n'
+    vim.o.mouse = 'a'
 end
 
 function terminal:restore_mouse_from_floaterm()
@@ -15,7 +15,7 @@ end
 function terminal:set_mouse_for_terminal()
     if string.find(vim.fn.bufname(), 'term:', 1) ~= nil and vim.bo.filetype ~= 'floaterm' then
         self.mouse_terminal = vim.o.mouse
-        vim.o.mouse = 'n'
+        vim.o.mouse = 'a'
     end
     print(vim.fn.bufname())
 end
