@@ -350,6 +350,11 @@ function key_mappings:start()
         ["n|<S-h>"] = "<CMD>BufferPrevious<CR>",
     }
 
+    self.easymotion = {
+        ['n|<Leader>ms'] = "<Plug>(easymotion-s2)",
+        ['n|<Leader>mr'] = "<Plug>(easymotion-repeat)",
+    }
+
     self:process_keys()
 end
 
