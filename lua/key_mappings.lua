@@ -73,6 +73,8 @@ function key_mappings:start()
         -- ['n|<Leader>cs'] = '<CMD>lua require("mylib").coc_status()<CR>',
         ['n|<Leader>fn'] = '<CMD>lua require("futil").display_function()<CR>',
         ['n|<C-g>'] = '<C-c>',
+        ['n|<Leader>md'] = '<CMD>m .+1<CR>',
+        ['n|<Leader>mu'] = '<CMD>m .-2<CR>',
         -- help motion.txt
         -- If your '{' or '}' are not in the first column, and you would like to use "[["
         -- and "]]" anyway, try these mappings: >
