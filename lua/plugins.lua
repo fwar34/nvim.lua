@@ -758,7 +758,6 @@ return require('packer').startup(function()
                 'nvim-telescope/telescope-packer.nvim',
                 config = function()
                     require("telescope").load_extension("packer")
-                    -- require('telescope').extensions.packer.plugins(opts)
                 end
             }
         }
