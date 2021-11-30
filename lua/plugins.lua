@@ -253,40 +253,40 @@ return require('packer').startup(function()
     -- use {'majutsushi/tagbar', cmd = 'TagbarToggle'}
 
     -- Find everythings
-    use {
-        'liuchengxu/vim-clap', opt = true, event = 'VimEnter *',
-        -- run = ':Clap install-binary',
-        run = ':eval(clap#installer#force_download())', -- proxychinas4
-        config = function()
-            -- vim.g.clap_theme = 'material_design_dark'
-            vim.g.clap_current_selection_sign = {
-                text = '->', texthl = 'ClapCurrentSelectionSign', linehl = 'ClapCurrentSelection'
-            }
+    -- use {
+    --     'liuchengxu/vim-clap', opt = true, event = 'VimEnter *',
+    --     -- run = ':Clap install-binary',
+    --     run = ':eval(clap#installer#force_download())', -- proxychinas4
+    --     config = function()
+    --         -- vim.g.clap_theme = 'material_design_dark'
+    --         vim.g.clap_current_selection_sign = {
+    --             text = '->', texthl = 'ClapCurrentSelectionSign', linehl = 'ClapCurrentSelection'
+    --         }
 
-            -- Change the CamelCase of related highlight group name to under_score_case.
-            -- let g:clap_theme = { 'search_text': {'guifg': 'red', 'ctermfg': 'red'} }
-            vim.g.clap_theme = { ClapInput = {guifg = 'red', ctermfg = 'red'} }
+    --         -- Change the CamelCase of related highlight group name to under_score_case.
+    --         -- let g:clap_theme = { 'search_text': {'guifg': 'red', 'ctermfg': 'red'} }
+    --         vim.g.clap_theme = { ClapInput = {guifg = 'red', ctermfg = 'red'} }
 
-            local cheatsheets_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/awesome-cheatsheets/README.md'
-            -- `:Clap dotfiles` to open some dotfiles quickly.
-            vim.g.clap_provider_dot = {
-                source = {
-                    '~/.config/nvim/lua/start.lua',
-                    '~/.config/nvim/lua/plugins.lua',
-                    '~/.config/nvim/lua/key_mappings.lua',
-                    '~/.config/nvim/lua/autocmd.lua',
-                    '~/.config/nvim/init.vim',
-                    -- '~/.config/nvim/plugin/coc.vim',
-                    '~/.config/nvim/plugin/which-vim-key.vim',
-                    '~/.config/nvim/cheatsheets.md',
-                    '~/.zshrc',
-                    '~/.tmux.conf',
-                    cheatsheets_path,
-                },
-                sink = 'e'
-            }
-        end
-    }
+    --         local cheatsheets_path = vim.fn.stdpath('data') .. '/site/pack/packer/opt/awesome-cheatsheets/README.md'
+    --         -- `:Clap dotfiles` to open some dotfiles quickly.
+    --         vim.g.clap_provider_dot = {
+    --             source = {
+    --                 '~/.config/nvim/lua/start.lua',
+    --                 '~/.config/nvim/lua/plugins.lua',
+    --                 '~/.config/nvim/lua/key_mappings.lua',
+    --                 '~/.config/nvim/lua/autocmd.lua',
+    --                 '~/.config/nvim/init.vim',
+    --                 -- '~/.config/nvim/plugin/coc.vim',
+    --                 '~/.config/nvim/plugin/which-vim-key.vim',
+    --                 '~/.config/nvim/cheatsheets.md',
+    --                 '~/.zshrc',
+    --                 '~/.tmux.conf',
+    --                 cheatsheets_path,
+    --             },
+    --             sink = 'e'
+    --         }
+    --     end
+    -- }
 
     use { 'liuchengxu/vim-which-key', opt = true, cmd = {'WhichKey', 'WhichKey!'}}
     -- use {
@@ -487,22 +487,22 @@ return require('packer').startup(function()
         end
     }
 
-    use {
-        -- 'Yggdroot/LeaderF', event = 'VimEnter *',
-        -- 'Yggdroot/LeaderF', cmd = 'Leaderf',
-        'Yggdroot/LeaderF',
-        run = ':LeaderfInstallCExtension',
-        config = function()
-            -- vim.g.Lf_WindowPosition = 'popup'
-            -- vim.g.Lf_PreviewInPopup = 1
+    -- use {
+    --     -- 'Yggdroot/LeaderF', event = 'VimEnter *',
+    --     -- 'Yggdroot/LeaderF', cmd = 'Leaderf',
+    --     'Yggdroot/LeaderF',
+    --     run = ':LeaderfInstallCExtension',
+    --     config = function()
+    --         -- vim.g.Lf_WindowPosition = 'popup'
+    --         -- vim.g.Lf_PreviewInPopup = 1
 
-            -- vim.cmd [[ unmap <Leader>f ]]
-            -- vim.cmd [[ unmap <Leader>b ]]
-            -- vim.defer_fn(function()
-            --     print("xxxxx")
-            -- end, 1000)
-        end
-    }
+    --         -- vim.cmd [[ unmap <Leader>f ]]
+    --         -- vim.cmd [[ unmap <Leader>b ]]
+    --         -- vim.defer_fn(function()
+    --         --     print("xxxxx")
+    --         -- end, 1000)
+    --     end
+    -- }
 
     -- Comment
     use {
@@ -698,8 +698,63 @@ return require('packer').startup(function()
     }
 
     use {
-        'nvim-telescope/telescope.nvim',
-        requires = { {'nvim-lua/plenary.nvim'} }
+        'nvim-telescope/telescope.nvim', config = function ()
+            -- You dont need to set any of these options. These are the default ones. Only
+            -- the loading is important
+            require('telescope').setup {
+                vimgrep_arguments = {
+                    "rg",
+                    "--color=never",
+                    "--no-heading",
+                    "--with-filename",
+                    "--line-number",
+                    "--column",
+                    "--smart-case",
+                    "--hidden",
+                },
+                file_ignore_patterns = {},
+                color_devicons = true,
+                --pickers = {
+                --    find_files = {
+                --        find_command = { "fd", "--type=file", "--hidden", "--smart-case" },
+                --    },
+                --    live_grep = {
+                --        --@usage don't include the filename in the search results
+                --        only_sort_text = true,
+                --    },
+                --},
+                extensions = {
+                    fzf = {
+                        fuzzy = true,                    -- false will only do exact matching
+                        override_generic_sorter = true,  -- override the generic sorter
+                        override_file_sorter = true,     -- override the file sorter
+                        case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+                        -- the default case_mode is "smart_case"
+                    }
+                }
+            }
+            -- To get fzf loaded and working with telescope, you need to call
+            -- load_extension, somewhere after setup function:
+            require('telescope').load_extension('fzf')
+        end,
+
+        requires = {
+            {'nvim-lua/plenary.nvim'},
+            {
+                'nvim-telescope/telescope-project.nvim', config = function ()
+                    require('telescope').load_extension('project')
+                end
+            },
+            {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+            {
+                -- need install sqlit
+                "nvim-telescope/telescope-frecency.nvim",
+                config = function()
+                    require("telescope").load_extension("frecency")
+                end,
+                requires = {"tami5/sqlite.lua"}
+            }
+        }
     }
 
     use {
