@@ -394,6 +394,16 @@ return require('packer').startup(function()
             vim.cmd [[xmap ic <plug>(signify-motion-inner-visual)]]
             vim.cmd [[omap ac <plug>(signify-motion-outer-pending)]]
             vim.cmd [[xmap ac <plug>(signify-motion-outer-visual)]]
+
+            -- {{{
+            -- When you jump to a hunk, show "[Hunk 2/15]" by putting this in your vimrc:
+            function Show_hunk()
+                local h = vim.api.nvim_eval('sy#util#get_hunk_stats()')
+                -- print(vim.inspect(h))
+                print(string.format('[Hunk %d/%d]', h.current_hunk, h.total_hunks))
+            end
+            vim.cmd [[autocmd User SignifyHunk lua Show_hunk()]]
+            -- }}}
         end
     }
 
@@ -406,23 +416,6 @@ return require('packer').startup(function()
             vim.g.scrollstatus_symbol_bar = '#'
         end
     }
-
-    -- Coc-fzf
-    -- use {
-    --     'antoinemadec/coc-fzf',
-    --     -- after = 'coc.nvim',
-    --     cmd = {'CocFzfList', 'CocFzfListResume'},
-    --     branch = 'release',
-    --     config = function()
-    --         -- Q: How to get the FZF floating window?
-    --         -- A: You can look at FZF Vim integration:
-    --         vim.cmd [[ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  } ]]
-    --         -- Q: CocFzf looks different from my other Fzf commands. How to make it the same?
-    --         -- A: By default, CocFzf tries to mimic CocList. Here is how to change this:
-    --         vim.cmd [[ let g:coc_fzf_preview = '' ]]
-    --         vim.cmd [[ let g:coc_fzf_opts = [] ]]
-    --     end,
-    -- }
 
     use {'junegunn/fzf', run = './install --all', lock = true}
     -- use {

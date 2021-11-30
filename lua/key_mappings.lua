@@ -101,72 +101,9 @@ function key_mappings:start()
         ['n|<Leader>dd'] = "d'a",
         ['n|<Leader>qf'] = '<CMD>copen<CR>',
         ['n|<Leader>mf'] = '<CMD>lua require("futil").make_fennel()<CR>',
-        -- ['n|<Leader>cs'] = '<CMD>lua require("mylib").coc_status()<CR>',
-        ['n|<Leader>fn'] = '<CMD>lua require("futil").display_function()<CR>',
-        ['n|<C-g>'] = '<C-c>',
-        ['n|<Leader>md'] = '<CMD>m .+1<CR>',
-        ['n|<Leader>mu'] = '<CMD>m .-2<CR>',
-        -- help motion.txt
-        -- If your '{' or '}' are not in the first column, and you would like to use "[["
-        -- and "]]" anyway, try these mappings: >
-        -- ['n|[['] = {'?{<CR>w99[{'},
-        -- ['n|]['] = {'/}<CR>b99]}'},
-        -- ['n|]]'] = {'j0[[%/{<CR>'},
-        -- ['n|[]'] = {'k$][%?}<CR>'},
+        -- ['n|<Leader>cs'] = '<CMD>lua require("mylib").
     }
 
-    self.visual = {
-        ['v|<Leader>g'] = '<C-c>',
-        ['v|<C-g>'] = '<C-c>',
-        ["v|>"] = ">gv",
-        ["v|<"] = "<gv",
-        -- Move selected line / block of text in visual mode
-        ["v|K"] = "<CMD>move '<-2<CR>gv-gv",
-        ["v|J"] = "<CMD>move '>+1<CR>gv-gv",
-    }
-
-    self.insert = {
-        ['i|<Leader>g'] = '<C-c>',
-        ['i|<Leader>O'] = '<C-o>O',
-        ['i|<Leader>o'] = '<C-o>o',
-        ['i|<Leader>zz'] = '<Esc><CMD>w<CR>a',
-        ['i|<C-b>'] = '<Left>',
-        ['i|<C-f>'] = '<Right>',
-        ['i|<C-a>'] = '<Esc>I',
-        ['i|<C-e>'] = '<End>',
-        ['i|<C-g>'] = '<C-c>',
-        ['i|<C-j>'] = '<Down>',
-        ['i|<C-k>'] = '<Up>',
-        ['i|<C-d>'] = '<Del>',
-    }
-
-    self.terminal = {
-        ['t|<F12>'] = '<CMD>lua require("futil").toggle_mouse()<CR>',
-    }
-
-    self.command = {
-        ['c|<C-g>'] = '<C-c>',
-    }
-
-    -- coc
-    -- self.coc = {
-    --     ['n|<Leader>tl'] = '<CMD>CocCommand explorer<CR>',
-    --     ['n|<Leader>tt'] = '<CMD>CocCommand explorer --position floating<CR>',
-    -- }
-
-    -- coc-fzf key mappings
-    -- self.cocfzf = {
-    --     ['n|<LocalLeader>fl'] = ':<C-u>CocFzfList<CR>',
-    --     ['n|<LocalLeader>da'] = ':<C-u>CocFzfList diagnostics<CR>',
-    --     ['n|<LocalLeader>db'] = ':<C-u>CocFzfList diagnostics --current-buf<CR>',
-    --     ['n|<LocalLeader>cc'] = ':<C-u>CocFzfList commands<CR>',
-    --     ['n|<LocalLeader>ex'] = ':<C-u>CocFzfList extensions<CR>',
-    --     ['n|<LocalLeader>co'] = ':<C-u>CocFzfList location<CR>',
-    --     ['n|<LocalLeader>ol'] = ':<C-u>CocFzfList outline<CR>',
-    --     ['n|<LocalLeader>sy'] = ':<C-u>CocFzfList symbols<CR>',
-    --     -- ['n|<LocalLeader>re'] = ':<C-u>CocFzfListResume<CR>',
-    --     ['n|<LocalLeader>re'] = ':<C-u>CocListResume<CR>',
-    -- }
 
     -- fzf.vim key mappings
     -- self.fzfvim = {
@@ -304,17 +241,6 @@ function key_mappings:start()
     self.undotree = {
         ['n|<LocalLeader>ud'] = '<CMD>GundoToggle<CR>',
     }
-
-    -- coc.translator
-    -- self.coc_translator = {
-    --     -- " NOTE: do NOT use `nore` mappings
-    --     ['n|<Leader>tu'] = {'<Plug>(coc-translator-p)',},
-    --     ['v|<Leader>tu'] = {'<Plug>(coc-translator-pv)',},
-    --     ['n|<Leader>te'] = {'<Plug>(coc-translator-e)',},
-    --     ['v|<Leader>te'] = {'<Plug>(coc-translator-ev)',},
-    --     ['n|<Leader>tr'] = {'<Plug>(coc-translator-r)',},
-    --     ['v|<Leader>tr'] = {'<Plug>(coc-translator-rv)',},
-    -- }
 
     -- vim-fugitive
     self.vim_fugitive = {
