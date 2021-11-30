@@ -246,6 +246,7 @@ function key_mappings:start()
         ['n|<Leader>fw'] = '<cmd>lua require("telescope.builtin").grep_string({additional_args = Rg_options})<CR>',
         -- ['n|<Leader>fp'] = "<CMD>lua require'telescope'.extensions.project.project{}<CR>",
         ['n|<Leader>fp'] = "<CMD>Telescope project<CR>",
+        ['n|<Leader>pc'] = "<CMD>lua require('telescope').extensions.packer.plugins(opts)<CR>",
         -- ['n|<Leader>fs'] = '<CMD>lua require("mylib")["search_word"]()<CR>',
         -- ['n|<Leader>ii'] = '<CMD>Clap function<CR>',
         ['n|<Leader>gf'] = '<CMD>Telescope git_files<CR>',

@@ -753,6 +753,13 @@ return require('packer').startup(function()
                     require("telescope").load_extension("frecency")
                 end,
                 requires = {"tami5/sqlite.lua"}
+            },
+            {
+                'nvim-telescope/telescope-packer.nvim',
+                config = function()
+                    require("telescope").load_extension("packer")
+                    -- require('telescope').extensions.packer.plugins(opts)
+                end
             }
         }
     }
