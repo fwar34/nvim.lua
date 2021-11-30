@@ -34,15 +34,6 @@ local function create_keymap(key, value)
         if value[3] ~= nil then
             keymap.options.silent = value[3]
         end
-        -- keymap.options.noremap = (value[2] ~= nil and false) or value[2]
-        -- keymap.options.silent = (value[3] ~= nil) and value[3] or keymap.options.silent
-        -- if value[2] == false then
-        --     print(vim.inspect(value))
-        --     print(vim.inspect(keymap))
-        --     print(value[2])
-        --     print(value[3])
-        --     print(keymap.options.noremap)
-        -- end
     else
         keymap.rhs = value
     end
@@ -101,9 +92,53 @@ function key_mappings:start()
         ['n|<Leader>dd'] = "d'a",
         ['n|<Leader>qf'] = '<CMD>copen<CR>',
         ['n|<Leader>mf'] = '<CMD>lua require("futil").make_fennel()<CR>',
+        -- ['n|<Leader>cs'] = '<CMD>lua require("mylib").coc_status()<CR>',
+        ['n|<LocalLeader>fn'] = '<CMD>lua require("futil").display_function()<CR>',
+        ['n|<C-g>'] = '<C-c>',
+        ['n|<Leader>md'] = '<CMD>m .+1<CR>',
+        ['n|<Leader>mu'] = '<CMD>m .-2<CR>',
+        -- help motion.txt
+        -- If your '{' or '}' are not in the first column, and you would like to use "[["
+        -- and "]]" anyway, try these mappings: >
+        -- ['n|[['] = {'?{<CR>w99[{'},
+        -- ['n|]['] = {'/}<CR>b99]}'},
+        -- ['n|]]'] = {'j0[[%/{<CR>'},
+        -- ['n|[]'] = {'k$][%?}<CR>'},
         -- ['n|<Leader>cs'] = '<CMD>lua require("mylib").
     }
 
+    self.visual = {
+        ['v|<Leader>g'] = '<C-c>',
+        ['v|<C-g>'] = '<C-c>',
+        ["v|>"] = ">gv",
+        ["v|<"] = "<gv",
+        -- Move selected line / block of text in visual mode
+        ["v|K"] = "<CMD>move '<-2<CR>gv-gv",
+        ["v|J"] = "<CMD>move '>+1<CR>gv-gv",
+    }
+
+    self.insert = {
+        ['i|<Leader>g'] = '<C-c>',
+        ['i|<Leader>O'] = '<C-o>O',
+        ['i|<Leader>o'] = '<C-o>o',
+        ['i|<Leader>zz'] = '<Esc><CMD>w<CR>a',
+        ['i|<C-b>'] = '<Left>',
+        ['i|<C-f>'] = '<Right>',
+        ['i|<C-a>'] = '<Esc>I',
+        ['i|<C-e>'] = '<End>',
+        ['i|<C-g>'] = '<C-c>',
+        ['i|<C-j>'] = '<Down>',
+        ['i|<C-k>'] = '<Up>',
+        ['i|<C-d>'] = '<Del>',
+    }
+
+    self.terminal = {
+        ['t|<F12>'] = '<CMD>lua require("futil").toggle_mouse()<CR>',
+    }
+
+    self.command = {
+        ['c|<C-g>'] = '<C-c>',
+    }
 
     -- fzf.vim key mappings
     -- self.fzfvim = {
