@@ -485,7 +485,7 @@ return require('packer').startup(function()
             vim.g.better_whitespace_operator = '<leader>ss'
             vim.g.better_whitespace_enabled = 0
             vim.g.better_whitespace_filetypes_blacklist = {'gitcommit', 'unite', 'qf', 'help', 'markdown', 'packer',}
-            vim.cmd [[ let g:show_spaces_that_precede_tabs = 1 ]]
+            vim.cmd [[let g:show_spaces_that_precede_tabs = 1]]
         end
     }
 
@@ -657,25 +657,25 @@ return require('packer').startup(function()
     }
 
     use {'jiangmiao/auto-pairs', config = function()
-        vim.cmd [[ au FileType lisp,clojure,lisp let b:AutoPairs = {'```': '```', '`': '`', '"': '"', '[': ']', '(': ')', '{': '}', '"""': '"""'} ]]
+        vim.cmd [[au FileType lisp,clojure,lisp let b:AutoPairs = {'```': '```', '`': '`', '"': '"', '[': ']', '(': ')', '{': '}', '"""': '"""'}]]
     end}
 
-    use {
-        -- 使用 ALT+e 会在不同窗口/标签上显示 A/B/C 等编号，然后字母直接跳转
-        't9md/vim-choosewin',
-        config = function()
-            -- 使用 ALT+E 来选择窗口
-            vim.cmd [[ nmap <m-e> <Plug>(choosewin) ]]
-        end
-    }
+    -- use {
+    --     -- 使用 ALT+e 会在不同窗口/标签上显示 A/B/C 等编号，然后字母直接跳转
+    --     't9md/vim-choosewin',
+    --     config = function()
+    --         -- 使用 ALT+E 来选择窗口
+    --         vim.cmd [[nmap <m-e> <Plug>(choosewin)]]
+    --     end
+    -- }
 
     use {
         -- 用 v 选中一个区域后，ALT_+/- 按分隔符扩大/缩小选区
         'terryma/vim-expand-region',
         config = function()
             -- ALT_+/- 用于按分隔符扩大缩小 v 选区
-            vim.cmd [[ map <m-=> <Plug>(expand_region_expand) ]]
-            vim.cmd [[ map <m--> <Plug>(expand_region_shrink) ]]
+            vim.cmd [[map <m-=> <Plug>(expand_region_expand)]]
+            vim.cmd [[map <m--> <Plug>(expand_region_shrink)]]
         end
     }
 

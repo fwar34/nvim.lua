@@ -52,7 +52,7 @@ function key_mappings:process_keys()
     end
 end
 
-function Rg_options()
+function _G.rg_options()
     -- return { "--glob !tags", "--glob !nvim/snippets/**", }
     return {
         "--iglob",
@@ -227,11 +227,11 @@ function key_mappings:start()
         ['n|<Leader>cm'] = '<CMD>Telescope commands<CR>',
         ['n|<Leader>ch'] = '<CMD>Telescope command_history<CR>',
         ['n|<Leader>sh'] = '<CMD>Telescope search_history<CR>',
-        ['n|<Leader>fa'] = '<CMD>lua require("telescope.builtin").live_grep({additional_args = Rg_options})<CR>',
-        -- ['n|<Leader>fr'] = '<CMD>lua require("telescope").extensions.live_grep_raw.live_grep_raw()<CR>',
-        ['n|<Leader>fr'] = '<CMD>Telescope live_grep_raw<CR>',
+        ['n|<Leader>fr'] = '<CMD>lua require("telescope.builtin").live_grep({additional_args = _G.rg_options})<CR>',
+        ['n|<Leader>fa'] = '<CMD>lua require("telescope").extensions.live_grep_raw.live_grep_raw({additional_args = _G.rg_options})<CR>',
+        -- ['n|<Leader>fa'] = '<CMD>Telescope live_grep_raw<CR>',
         ['n|<Leader>ff'] = '<CMD>Telescope find_files find_command=rg,--ignore,--hidden,--files,--iglob,!*.svn,--iglob,!*.git<CR>',
-        ['n|<Leader>fw'] = '<cmd>lua require("telescope.builtin").grep_string({additional_args = Rg_options})<CR>',
+        ['n|<Leader>fw'] = '<cmd>lua require("telescope.builtin").grep_string({additional_args = _G.rg_options})<CR>',
         -- ['n|<Leader>fp'] = "<CMD>lua require'telescope'.extensions.project.project{}<CR>",
         ['n|<Leader>fp'] = "<CMD>Telescope project<CR>",
         ['n|<Leader>pc'] = "<CMD>lua require('telescope').extensions.packer.plugins(opts)<CR>",
