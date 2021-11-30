@@ -9,13 +9,13 @@ endfunction
 " autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " gitgutter
-function! GitStatus()
-    let [a,m,r] = GitGutterGetHunkSummary()
-    if a || m || r
-        return printf('+%d ~%d -%d', a, m, r)
-    endif
-    return ''
-endfunction
+" function! GitStatus()
+"     let [a,m,r] = GitGutterGetHunkSummary()
+"     if a || m || r
+"         return printf('+%d ~%d -%d', a, m, r)
+"     endif
+"     return ''
+" endfunction
 
 let g:lightline = {
             \ 'colorscheme': 'wombat',
@@ -35,5 +35,5 @@ let g:lightline = {
             \    },
             \ }
 
-autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+" autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 "FugitiveStatusline FugitiveHead

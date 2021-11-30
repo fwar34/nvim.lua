@@ -616,13 +616,12 @@ return require('packer').startup(function()
         config = 'vim.g.rainbow_active = 1',
     }
 
-
-    use {
-        'norcalli/nvim-colorizer.lua', event = 'VimEnter *',
-        config = function ()
-            require('colorizer').setup()
-        end
-    }
+    -- use {
+    --     'norcalli/nvim-colorizer.lua', event = 'VimEnter *',
+    --     config = function ()
+    --         require('colorizer').setup()
+    --     end
+    -- }
 
     -- Clojure
     use {
