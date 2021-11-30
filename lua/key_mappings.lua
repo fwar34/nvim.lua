@@ -83,7 +83,7 @@ function key_mappings:start()
         ['n|<Leader>kb'] = '<CMD>bdel<CR>',
         ['n|<Space><Space>'] = {':', true},
         ['n|<Leader>bb'] = '<C-^>',
-        ['n|<Leader>lm'] = '<CMD>lua require("futil").toggle_line_number()<CR>',
+        ['n|<LocalLeader>lm'] = '<CMD>lua require("futil").toggle_line_number()<CR>',
         ['n|<LocalLeader>qq'] = '<CMD>q<CR>',
         ['n|Y'] = 'y$',
         ['n|<F12>'] = '<CMD>lua require("futil").toggle_mouse()<CR>',
@@ -97,6 +97,7 @@ function key_mappings:start()
         ['n|<C-g>'] = '<C-c>',
         ['n|<Leader>md'] = '<CMD>m .+1<CR>',
         ['n|<Leader>mu'] = '<CMD>m .-2<CR>',
+        ['n|<Leader>ge'] = 'G',
         -- help motion.txt
         -- If your '{' or '}' are not in the first column, and you would like to use "[["
         -- and "]]" anyway, try these mappings: >
