@@ -235,37 +235,36 @@ function key_mappings:start()
 
     self.telescope = {
         ['n|<Leader>cl'] = '<CMD>Clap<CR>',
-        ['n|<Leader>li'] = '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find()<CR>',
-        ['n|<Leader>bs'] = '<CMD>Clap buffers<CR>',
-        ['n|<Leader>co'] = '<CMD>Clap colors<CR>',
-        ['n|<Leader>cm'] = '<CMD>Clap command<CR>',
-        ['n|<Leader>ch'] = '<CMD>Clap command_history<CR>',
-        ['n|<Leader>sh'] = '<CMD>Clap search_history<CR>',
+        ['n|<Leader>li'] = '<cmd>Telescope current_buffer_fuzzy_find<CR>',
+        ['n|<Leader>bs'] = '<CMD>Telescope buffers<CR>',
+        ['n|<Leader>co'] = '<CMD>Telescope colorscheme<CR>',
+        ['n|<Leader>cm'] = '<CMD>Telescope commands<CR>',
+        ['n|<Leader>ch'] = '<CMD>Telescope command_history<CR>',
+        ['n|<Leader>sh'] = '<CMD>Telescope search_history<CR>',
         ['n|<Leader>fa'] = '<CMD>lua require("telescope.builtin").live_grep({additional_args = Rg_options})<CR>',
         ['n|<Leader>ff'] = '<CMD>Telescope find_files find_command=rg,--ignore,--hidden,--files,--iglob,!*.svn,--iglob,!*.git<CR>',
         ['n|<Leader>fw'] = '<cmd>lua require("telescope.builtin").grep_string({additional_args = Rg_options})<CR>',
-        ['n|<Leader>fo'] = '<cmd>FSHere<CR>',
         ['n|<Leader>fp'] = "<cmd>Telescope projects<CR>",
         -- ['n|<Leader>fs'] = '<CMD>lua require("mylib")["search_word"]()<CR>',
         -- ['n|<Leader>ii'] = '<CMD>Clap function<CR>',
-        ['n|<Leader>gf'] = '<CMD>Clap git_files<CR>',
+        ['n|<Leader>gf'] = '<CMD>Telescope git_files<CR>',
         ['n|<Leader>rm'] = '<CMD>Telescope oldfiles<CR>',
-        ['n|<Leader>hp'] = '<CMD>Clap help_tags<CR>',
-        ['n|<Leader>jj'] = '<CMD>Clap jumps<CR>',
-        ['n|<Leader>ma'] = '<CMD>Clap marks<CR>',
-        ['n|<Leader>mp'] = '<CMD>Clap maps<CR>',
-        ['n|<Leader>qf'] = '<CMD>Clap quickfix<CR>',
-        ['n|<Leader>ll'] = '<CMD>Clap loclist<CR>',
-        ['n|<Leader>fm'] = '<CMD>Clap grep<CR>',
-        ['n|<Leader>ra'] = '<CMD>Clap registers<CR>',
-        ['n|<Leader>bt'] = '<cmd>lua require("telescope.builtin").current_buffer_tags()<CR>',
-        ['n|<Leader>op'] = '<cmd>lua require("telescope.builtin").vim_options()<CR>',
-        ['n|<LocalLeader>ir'] = '<cmd>lua require("telescope.builtin").resume()<CR>',
-        ['n|<Leader>pt'] = '<CMD>Clap proj_tags<CR>',
-        ['n|<Leader>yk'] = '<CMD>Clap yanks<CR>',
-        ['n|<Leader>fl'] = '<CMD>Clap filer<CR>',
+        ['n|<Leader>hp'] = '<CMD>Telescope help_tags<CR>',
+        ['n|<Leader>jj'] = '<CMD>Telescope jumplist<CR>',
+        ['n|<Leader>ma'] = '<CMD>Telescope marks<CR>',
+        ['n|<Leader>mn'] = '<CMD>Telescope man_pages<CR>',
+        ['n|<Leader>mp'] = '<CMD>Telescope keymaps<CR>',
+        ['n|<Leader>qf'] = '<CMD>Telescope quickfix<CR>',
+        ['n|<Leader>ll'] = '<CMD>Telescope loclist<CR>',
+        ['n|<Leader>re'] = '<CMD>Telescope registers<CR>',
+        ['n|<Leader>bt'] = '<cmd>Telescope current_buffer_tags<CR>',
+        ['n|<Leader>op'] = '<cmd>Telescope vim_options<CR>',
+        ['n|<LocalLeader>ir'] = '<cmd>Telescope resume<CR>',
+        -- ['n|<Leader>yk'] = '<CMD>Clap yanks<CR>',
+        -- ['n|<Leader>fl'] = '<CMD>Clap filer<CR>',
         ['n|<Leader>pa'] = '<CMD>Telescope<CR>',
-        ['n|<Leader>df'] = '<CMD>Clap dot<CR>',
+        -- ['n|<Leader>df'] = '<CMD>Clap dot<CR>',
+        ['n|<Leader>dj'] = '<CMD>Telescope file_browser<CR>',
     }
 
     self.Commentary = {
@@ -274,7 +273,9 @@ function key_mappings:start()
 
     -- Vista
     self.vista = {
-        ['n|<Leader>ii'] = '<CMD>Vista!!<CR>',
+        ['n|<Leader>ii'] = '<CMD>Vista finder<CR>',
+        ['n|<Leader>vr'] = '<CMD>Vista finder!<CR>',
+        ['n|<Leader>vs'] = '<CMD>Vista!!<CR>',
     }
 
     -- rnvimr
@@ -350,9 +351,15 @@ function key_mappings:start()
         ["n|<S-h>"] = "<CMD>BufferPrevious<CR>",
     }
 
+    -- vim-easymotion
     self.easymotion = {
         ['n|<Leader>ms'] = "<Plug>(easymotion-s2)",
         ['n|<Leader>mr'] = "<Plug>(easymotion-repeat)",
+    }
+
+    -- vim-fswitch
+    self.switch = {
+        ['n|<Leader>fo'] = '<cmd>FSHere<CR>',
     }
 
     self:process_keys()
