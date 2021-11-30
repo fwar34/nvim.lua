@@ -55,10 +55,10 @@ end
 -- reference from help : restore-position
 function futil.display_function()
     -- get mark s info
-    mark_s = vim.fn.getpos("'X")
-    mark_t = vim.fn.getpos("'Y")
+    local mark_s = vim.fn.getpos("'X")
+    local mark_t = vim.fn.getpos("'Y")
     -- get cursor info
-    cur_pos = vim.fn.getcurpos()
+    local cur_pos = vim.fn.getcurpos()
     if mark_s[2] ~= cur_pos[2] then
         vim.fn.setpos("'X", cur_pos)
     end
