@@ -389,6 +389,11 @@ return require('packer').startup(function()
 	use {
         'mhinz/vim-signify',
         config = function()
+            -- hunk text object
+            vim.cmd [[omap ic <plug>(signify-motion-inner-pending)]]
+            vim.cmd [[xmap ic <plug>(signify-motion-inner-visual)]]
+            vim.cmd [[omap ac <plug>(signify-motion-outer-pending)]]
+            vim.cmd [[xmap ac <plug>(signify-motion-outer-visual)]]
         end
     }
 

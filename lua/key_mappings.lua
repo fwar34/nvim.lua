@@ -28,8 +28,21 @@ local function create_keymap(key, value)
     keymap.mode, keymap.lhs = key:match('([^|]*)|?(.*)')
     if (type(value) == 'table') then
         keymap.rhs = value[1]
-        keymap.options.noremap = value[2] and value[2] or keymap.options.noremap
-        keymap.options.silent = value[3] and value[3] or keymap.options.silent
+        if value[2] ~= nil then
+            keymap.options.noremap = value[2]
+        end
+        if value[3] ~= nil then
+            keymap.options.silent = value[3]
+        end
+        -- keymap.options.noremap = (value[2] ~= nil and false) or value[2]
+        -- keymap.options.silent = (value[3] ~= nil) and value[3] or keymap.options.silent
+        -- if value[2] == false then
+        --     print(vim.inspect(value))
+        --     print(vim.inspect(keymap))
+        --     print(value[2])
+        --     print(value[3])
+        --     print(keymap.options.noremap)
+        -- end
     else
         keymap.rhs = value
     end
@@ -177,29 +190,29 @@ function key_mappings:start()
     -- }
 
     -- Leaderf key mappings
-    self.Leaderf = {
-        ['n|<LocalLeader>ff'] = '<CMD>Leaderf file<CR>',
-        ['n|<LocalLeader>fa'] = '<CMD>Leaderf rg<CR>',
-        ['n|<LocalLeader>fw'] = ':Leaderf rg <C-R>=expand("<cword>")<CR><CR>',
-        ['n|<LocalLeader>fs'] = '<CMD>lua require("mylib")["search_word"]()<CR>',
-        -- ['n|<LocalLeader>fs'] = '<CMD>lua require("futil").search_word()<CR>',
-        ['n|<LocalLeader>rm'] = '<CMD>Leaderf mru<CR>',
-        ['n|<LocalLeader>ch'] = '<CMD>Leaderf cmdHistory<CR>',
-        ['n|<LocalLeader>sh'] = '<CMD>Leaderf searchHistory<CR>',
-        ['n|<LocalLeader>li'] = '<CMD>Leaderf line<CR>',
-        ['n|<LocalLeader>bs'] = '<CMD>Leaderf buffer<CR>',
-        -- ['n|<LocalLeader>gf'] = '<CMD>GFiles<CR>',
-        -- ['n|<LocalLeader>ma'] = '<CMD>Marks<CR>',
-        ['n|<LocalLeader>cc'] = '<CMD>Leaderf command<CR>',
-        -- ['n|<LocalLeader>mp'] = '<CMD>Maps<CR>',
-        ['n|<LocalLeader>hp'] = '<CMD>Leaderf help<CR>',
-        ['n|<LocalLeader>tg'] = '<CMD>Leaderf tag<CR>',
-        ['n|<LocalLeader>bg'] = '<CMD>Leaderf bufTag<CR>',
-        ['n|<LocalLeader>ii'] = '<CMD>Leaderf function<CR>',
-        ['n|<LocalLeader>qf'] = '<CMD>Leaderf quickfix<CR>',
-        ['n|<LocalLeader>ll'] = '<CMD>Leaderf loclist<CR>',
-        ['n|<LocalLeader>gt'] = '<CMD>Leaderf gtags<CR>',
-    }
+    -- self.Leaderf = {
+    --     ['n|<LocalLeader>ff'] = '<CMD>Leaderf file<CR>',
+    --     ['n|<LocalLeader>fa'] = '<CMD>Leaderf rg<CR>',
+    --     ['n|<LocalLeader>fw'] = ':Leaderf rg <C-R>=expand("<cword>")<CR><CR>',
+    --     ['n|<LocalLeader>fs'] = '<CMD>lua require("mylib")["search_word"]()<CR>',
+    --     -- ['n|<LocalLeader>fs'] = '<CMD>lua require("futil").search_word()<CR>',
+    --     ['n|<LocalLeader>rm'] = '<CMD>Leaderf mru<CR>',
+    --     ['n|<LocalLeader>ch'] = '<CMD>Leaderf cmdHistory<CR>',
+    --     ['n|<LocalLeader>sh'] = '<CMD>Leaderf searchHistory<CR>',
+    --     ['n|<LocalLeader>li'] = '<CMD>Leaderf line<CR>',
+    --     ['n|<LocalLeader>bs'] = '<CMD>Leaderf buffer<CR>',
+    --     -- ['n|<LocalLeader>gf'] = '<CMD>GFiles<CR>',
+    --     -- ['n|<LocalLeader>ma'] = '<CMD>Marks<CR>',
+    --     ['n|<LocalLeader>cc'] = '<CMD>Leaderf command<CR>',
+    --     -- ['n|<LocalLeader>mp'] = '<CMD>Maps<CR>',
+    --     ['n|<LocalLeader>hp'] = '<CMD>Leaderf help<CR>',
+    --     ['n|<LocalLeader>tg'] = '<CMD>Leaderf tag<CR>',
+    --     ['n|<LocalLeader>bg'] = '<CMD>Leaderf bufTag<CR>',
+    --     ['n|<LocalLeader>ii'] = '<CMD>Leaderf function<CR>',
+    --     ['n|<LocalLeader>qf'] = '<CMD>Leaderf quickfix<CR>',
+    --     ['n|<LocalLeader>ll'] = '<CMD>Leaderf loclist<CR>',
+    --     ['n|<LocalLeader>gt'] = '<CMD>Leaderf gtags<CR>',
+    -- }
 
     -- Clap
     -- self.clap = {
@@ -330,10 +343,11 @@ function key_mappings:start()
 
     -- vim-signify
     self.vim_signify = {
+        ['n|<LocalLeader>df'] = '<CMD>SignifyDiff<CR>',
         ['n|<LocalLeader>du'] = '<CMD>SignifyHunkDiff<CR>',
         ['n|<LocalLeader>dr'] = '<CMD>SignifyHunkUndo<CR>',
-        ['n|<LocalLeader>dn'] = {'<plug>(signify-next-hunk)', false},
-        ['n|<LocalLeader>dp'] = {'<plug>(signify-prev-hunk)', false},
+        ['n|<LocalLeader>dn'] = {'<plug>(signify-next-hunk)', false}, -- must noremap = false
+        ['n|<LocalLeader>dp'] = {'<plug>(signify-prev-hunk)', false}, -- must noremap = false
     }
 
     -- vim-youdao-translater
@@ -355,9 +369,9 @@ function key_mappings:start()
     }
 
     -- vim-easymotion
-    self.easymotion = {
-        ['n|<Leader>ms'] = "<Plug>(easymotion-s2)",
-        ['n|<Leader>mr'] = "<Plug>(easymotion-repeat)",
+    self.easy_motion = {
+        ['n|<Leader>ms'] = {"<Plug>(easymotion-s2)", false},
+        ['n|<Leader>mr'] = {"<Plug>(easymotion-repeat)", false},
     }
 
     -- vim-fswitch
