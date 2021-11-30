@@ -761,7 +761,13 @@ return require('packer').startup(function()
                 config = function()
                     require("telescope").load_extension("packer")
                 end
-            }
+            },
+            {
+                'nvim-telescope/telescope-live-grep-raw.nvim',
+                config = function()
+                    require("telescope").load_extension("live_grep_raw")
+                end,
+            },
         }
     }
 

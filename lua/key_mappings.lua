@@ -228,6 +228,8 @@ function key_mappings:start()
         ['n|<Leader>ch'] = '<CMD>Telescope command_history<CR>',
         ['n|<Leader>sh'] = '<CMD>Telescope search_history<CR>',
         ['n|<Leader>fa'] = '<CMD>lua require("telescope.builtin").live_grep({additional_args = Rg_options})<CR>',
+        -- ['n|<Leader>fr'] = '<CMD>lua require("telescope").extensions.live_grep_raw.live_grep_raw()<CR>',
+        ['n|<Leader>fr'] = '<CMD>Telescope live_grep_raw<CR>',
         ['n|<Leader>ff'] = '<CMD>Telescope find_files find_command=rg,--ignore,--hidden,--files,--iglob,!*.svn,--iglob,!*.git<CR>',
         ['n|<Leader>fw'] = '<cmd>lua require("telescope.builtin").grep_string({additional_args = Rg_options})<CR>',
         -- ['n|<Leader>fp'] = "<CMD>lua require'telescope'.extensions.project.project{}<CR>",
