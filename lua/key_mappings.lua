@@ -70,6 +70,11 @@ function _G.rg_options()
     }
 end
 
+function _G.search_word2()
+    vim.cmd('normal vey')
+    return vim.fn.getreg('0')
+end
+
 function key_mappings:start()
     self.normal = {
         ['n|<Leader>zz'] = '<CMD>w<CR>',
@@ -232,6 +237,7 @@ function key_mappings:start()
         -- ['n|<Leader>fa'] = '<CMD>Telescope live_grep_raw<CR>',
         ['n|<Leader>ff'] = '<CMD>Telescope find_files find_command=rg,--ignore,--hidden,--files,--iglob,!*.svn,--iglob,!*.git<CR>',
         ['n|<Leader>fw'] = '<cmd>lua require("telescope.builtin").grep_string({additional_args = _G.rg_options})<CR>',
+        ['n|<Leader>fs'] = '<cmd>lua require("telescope.builtin").grep_string({search = _G.search_word2()})<CR>',
         -- ['n|<Leader>fp'] = "<CMD>lua require'telescope'.extensions.project.project{}<CR>",
         ['n|<Leader>fp'] = "<CMD>Telescope project<CR>",
         ['n|<Leader>pc'] = "<CMD>lua require('telescope').extensions.packer.plugins(opts)<CR>",
