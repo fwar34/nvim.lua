@@ -71,7 +71,7 @@ function _G.rg_options()
 end
 
 function _G.search_word2()
-    vim.cmd('normal vey')
+    vim.cmd('normal ye')
     return vim.fn.getreg('0')
 end
 
@@ -102,7 +102,8 @@ function key_mappings:start()
         ['n|<C-g>'] = '<C-c>',
         ['n|<Leader>md'] = '<CMD>m .+1<CR>',
         ['n|<Leader>mu'] = '<CMD>m .-2<CR>',
-        ['n|<Leader>ge'] = 'G',
+        ['n|<Leader>mm'] = '%',
+        ['n|ge'] = 'G',
         -- help motion.txt
         -- If your '{' or '}' are not in the first column, and you would like to use "[["
         -- and "]]" anyway, try these mappings: >

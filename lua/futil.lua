@@ -44,7 +44,7 @@ function futil.make_fennel()
 end
 
 function futil.search_word()
-    vim.cmd('normal vey')
+    vim.cmd('normal ye')
     vim.cmd('Ag ' .. vim.fn.getreg('0'))
 end
 
