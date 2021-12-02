@@ -734,9 +734,6 @@ return require('packer').startup(function()
                     }
                 }
             }
-            -- To get fzf loaded and working with telescope, you need to call
-            -- load_extension, somewhere after setup function:
-            require('telescope').load_extension('fzf')
         end,
 
         requires = {
@@ -746,7 +743,14 @@ return require('packer').startup(function()
                     require('telescope').load_extension('project')
                 end
             },
-            {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+            {
+                'nvim-telescope/telescope-fzf-native.nvim', run = 'make',
+                config = function ()
+                    -- To get fzf loaded and working with telescope, you need to call
+                    -- load_extension, somewhere after setup function:
+                    require('telescope').load_extension('fzf')
+                end
+            },
             {
                 -- need install sqlit
                 "nvim-telescope/telescope-frecency.nvim",
