@@ -422,15 +422,15 @@ return require('packer').startup(function()
     }
 
     use {'junegunn/fzf', run = './install --all', lock = true}
-    -- use {
-    --     'junegunn/fzf.vim', event = 'VimEnter *',
-    --     config = function()
-    --         vim.g.fzf_preview_window = { 'up:50%', 'ctrl-/' }
-    --     end,
-    --     requires = {
-    --         {'junegunn/fzf', run = './install --all', lock = true},
-    --     }
-    -- }
+    use {
+        'junegunn/fzf.vim', event = 'VimEnter *',
+        config = function()
+            vim.g.fzf_preview_window = { 'up:50%', 'ctrl-/' }
+        end,
+        -- requires = {
+        --     {'junegunn/fzf', run = './install --all', lock = true},
+        -- }
+    }
 
     -- Profiling
     use {'dstein64/vim-startuptime', cmd = 'StartupTime'}
@@ -769,6 +769,12 @@ return require('packer').startup(function()
                 'nvim-telescope/telescope-live-grep-raw.nvim',
                 config = function()
                     require("telescope").load_extension("live_grep_raw")
+                end,
+            },
+            {
+                'Shatur/neovim-session-manager',
+                config = function()
+                    require("telescope").load_extension("sessions")
                 end,
             },
         }
