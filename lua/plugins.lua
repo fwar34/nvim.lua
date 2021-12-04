@@ -770,12 +770,13 @@ return require('packer').startup(function()
                     require("telescope").load_extension("live_grep_raw")
                 end,
             },
-            {
-                'Shatur/neovim-session-manager',
-                config = function()
-                    require("telescope").load_extension("sessions")
-                end,
-            },
+
+            -- {
+            --     'Shatur/neovim-session-manager',
+            --     config = function()
+            --         require("telescope").load_extension("sessions")
+            --     end,
+            -- },
         }
     }
 
