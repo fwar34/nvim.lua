@@ -1,2 +1,3 @@
 -- require('lsp.lua').setup()
-require('lsp.python').setup()
+require('lsp.python')
+require('lsp.go')

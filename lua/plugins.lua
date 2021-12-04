@@ -155,7 +155,7 @@ return require('packer').startup(function()
     use {'hrsh7th/cmp-nvim-lsp'}
     use {'hrsh7th/cmp-buffer'}
     use {'hrsh7th/cmp-path'}
-    use {'hrsh7th/cmp-cmdline'}
+    -- use {'hrsh7th/cmp-cmdline'}
 	use {'hrsh7th/nvim-cmp', config = function()
         local has_words_before = function()
             local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -210,7 +210,7 @@ return require('packer').startup(function()
                 ['<CR>'] = cmp.mapping.confirm({ select = true }),
             },
 			sources = cmp.config.sources({
-				-- { name = 'nvim_lsp' },
+				{ name = 'nvim_lsp' },
 				-- { name = 'vsnip' }, -- For vsnip users.
 				{ name = 'luasnip' }, -- For luasnip users.
 				-- { name = 'ultisnips' }, -- For ultisnips users.
@@ -235,7 +235,6 @@ return require('packer').startup(function()
 		-- 		{ name = 'cmdline' }
 		-- 	})
 		-- })
-
 	end}
 
     -- Lsp
