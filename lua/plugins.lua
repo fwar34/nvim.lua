@@ -199,8 +199,8 @@ return require('packer').startup(function()
                     end
                 end, { "i", "s" }),
                 -- ... Your other mappings ...
-                ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-                ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+                -- ['<C-B>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+                -- ['<C-F>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
                 ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
                 ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
                 ['<C-g>'] = cmp.mapping({
@@ -208,6 +208,36 @@ return require('packer').startup(function()
                     c = cmp.mapping.close(),
                 }),
                 ['<CR>'] = cmp.mapping.confirm({ select = true }),
+                ['<C-b>'] = function(fallback)
+                    if cmp.visible() then
+                        cmp.close()
+                        vim.cmd[[normal h]]
+                    else
+                        fallback()
+                    end
+                end,
+                ['<C-f>'] = function(fallback)
+                    if cmp.visible() then
+                        cmp.close()
+                        vim.cmd[[normal l]]
+                    else
+                        fallback()
+                    end
+                end,
+                ['<C-e>'] = function(fallback)
+                    if cmp.visible() then
+                        cmp.close()
+                        vim.cmd[[normal $]]
+                        local position = vim.api.nvim_win_get_cursor(0)
+                        -- local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+                        -- print(vim.inspect(position))
+                        vim.api.nvim_win_set_cursor(0, {position[1], position[2] + 1})
+                        local position = vim.api.nvim_win_get_cursor(0)
+                        -- print(vim.inspect(position))
+                    else
+                        fallback()
+                    end
+                end,
             },
 			sources = cmp.config.sources({
 				{ name = 'nvim_lsp' },
