@@ -146,7 +146,7 @@ function key_mappings:start()
         ['i|<C-f>'] = '<CMD>lua _G.move_cursor("right")<CR>',
         ['i|<C-a>'] = '<Esc>I',
         ['i|<C-e>'] = '<End>',
-        ['i|<C-g>'] = '<C-c>',
+        -- ['i|<C-g>'] = '<C-c>',
         ['i|<C-j>'] = '<Down>',
         ['i|<C-k>'] = '<Up>',
         ['i|<C-d>'] = '<Del>',
@@ -158,6 +158,11 @@ function key_mappings:start()
 
     self.command = {
         ['c|<C-g>'] = '<C-c>',
+        -- 下面的四个必须有 silent，不能在echo中显示东西
+        ['c|<C-a>'] = {'<Home>', true, false},
+        ['c|<C-e>'] = {'<End>', true, false},
+        ['c|<C-b>'] = {'<Left>', true, false},
+        ['c|<C-f>'] = {'<Right>', true, false},
     }
 
     -- fzf.vim key mappings
