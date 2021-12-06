@@ -133,6 +133,7 @@ function key_mappings:start()
         -- Move selected line / block of text in visual mode
         ["v|K"] = "<CMD>move '<-2<CR>gv-gv",
         ["v|J"] = "<CMD>move '>+1<CR>gv-gv",
+        ['v|<Leader>mm'] = '%',
     }
 
     self.insert = {

@@ -859,4 +859,16 @@ return require('packer').startup(function()
         -- config = function()
         -- end
     }
+
+    -- use {
+    --     'tonyfettes/fcitx5.nvim',
+    --     config = function()
+    --         -- Load `fcitx5.nvim`
+    --         require'fcitx5'.setup {}
+    --         -- Map <M-Tab> to toggle between most recent two input methods.
+    --         vim.cmd[[inoremap <C-Tab> <Cmd>lua require'fcitx5'.toggle()<CR>]]
+    --     end,
+    --     rocks = {'dbus_proxy', 'lgi'}
+    -- }
+
 end)
