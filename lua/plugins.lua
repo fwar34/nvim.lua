@@ -290,7 +290,7 @@ return require('packer').startup(function()
     -- use 'glepnir/spaceline.vim'
 
     -- Coding
-    use {'liuchengxu/vista.vim', event = 'VimEnter *'}
+    use {'liuchengxu/vista.vim'}
     -- use {'majutsushi/tagbar', cmd = 'TagbarToggle'}
 
     -- Find everythings
