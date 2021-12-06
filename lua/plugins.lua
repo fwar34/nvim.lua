@@ -853,4 +853,10 @@ return require('packer').startup(function()
     --         }
     --     end
     -- }
+
+    use {
+        'azabiong/vim-highlighter',
+        -- config = function()
+        -- end
+    }
 end)
