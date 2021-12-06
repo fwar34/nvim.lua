@@ -812,16 +812,12 @@ return require('packer').startup(function()
                     require("telescope").load_extension("live_grep_raw")
                 end,
             },
-
-            -- {
-            --     'Shatur/neovim-session-manager',
-            --     config = function()
-            --         require("telescope").load_extension("sessions")
-            --     end,
-            -- },
-            -- {
-            --     require('telescope').load_extension('projects')
-            -- }
+            {
+                'Shatur/neovim-session-manager',
+                config = function()
+                    require("telescope").load_extension("sessions")
+                end,
+            },
         }
     }
 
@@ -848,13 +844,13 @@ return require('packer').startup(function()
         end
     }
 
-    use {
-        'rmagatti/auto-session',
-        config = function()
-            require('auto-session').setup {
-                log_level = 'info',
-                -- auto_session_suppress_dirs = {'~/', '~/Projects'}
-            }
-        end
-    }
+    -- use {
+    --     'rmagatti/auto-session',
+    --     config = function()
+    --         require('auto-session').setup {
+    --             log_level = 'info',
+    --             -- auto_session_suppress_dirs = {'~/', '~/Projects'}
+    --         }
+    --     end
+    -- }
 end)
