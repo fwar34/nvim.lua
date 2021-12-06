@@ -236,8 +236,16 @@ return require('packer').startup(function()
                         -- local line, col = unpack(vim.api.nvim_win_get_cursor(0))
                         -- print(vim.inspect(position))
                         vim.api.nvim_win_set_cursor(0, {position[1], position[2] + 1})
-                        local position = vim.api.nvim_win_get_cursor(0)
+                        -- local position = vim.api.nvim_win_get_cursor(0)
                         -- print(vim.inspect(position))
+                    else
+                        fallback()
+                    end
+                end,
+                ['<C-a>'] = function(fallback)
+                    if cmp.visible() then
+                        cmp.close()
+                        vim.cmd[[normal ^]]
                     else
                         fallback()
                     end
