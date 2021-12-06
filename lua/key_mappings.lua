@@ -75,6 +75,17 @@ function _G.search_word2()
     return vim.fn.getreg('0')
 end
 
+function _G.move_cursor(direction)
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local col
+    if direction == 'left' then
+        col = cursor[2] == 0 and 0 or cursor[2] - 1
+    else
+        col = cursor[2] + 1
+    end
+    vim.api.nvim_win_set_cursor(0, {cursor[1], col})
+end
+
 function key_mappings:start()
     self.normal = {
         ['n|<Leader>zz'] = '<CMD>w<CR>',
@@ -129,8 +140,10 @@ function key_mappings:start()
         ['i|<Leader>O'] = '<C-o>O',
         ['i|<Leader>o'] = '<C-o>o',
         ['i|<Leader>zz'] = '<Esc><CMD>w<CR>a',
-        ['i|<C-b>'] = '<Left>',
-        ['i|<C-f>'] = '<Right>',
+        -- ['i|<C-b>'] = '<Left>',
+        -- ['i|<C-f>'] = '<Right>',
+        ['i|<C-b>'] = '<CMD>lua _G.move_cursor("left")<CR>',
+        ['i|<C-f>'] = '<CMD>lua _G.move_cursor("right")<CR>',
         ['i|<C-a>'] = '<Esc>I',
         ['i|<C-e>'] = '<End>',
         ['i|<C-g>'] = '<C-c>',

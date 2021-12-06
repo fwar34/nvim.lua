@@ -211,7 +211,9 @@ return require('packer').startup(function()
                 ['<C-b>'] = function(fallback)
                     if cmp.visible() then
                         cmp.close()
-                        vim.cmd[[normal h]]
+                        -- vim.cmd[[normal h]]
+                        local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+                        vim.api.nvim_win_set_cursor(0, {row, col == 0 and 0 or col - 1})
                     else
                         fallback()
                     end
@@ -219,7 +221,9 @@ return require('packer').startup(function()
                 ['<C-f>'] = function(fallback)
                     if cmp.visible() then
                         cmp.close()
-                        vim.cmd[[normal l]]
+                        -- vim.cmd[[normal l]]
+                        local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+                        vim.api.nvim_win_set_cursor(0, {row, col + 1})
                     else
                         fallback()
                     end
