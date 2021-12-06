@@ -17,12 +17,14 @@ endfunction
 "     return ''
 " endfunction
 
+
+            ""\     'session_name': 'require("auto-session-library").current_session_name()',
 let g:lightline = {
             \ 'colorscheme': 'wombat',
             \ 'component': {'charvaluehex': '0x%B'},
             \ 'active':
             \    {'left': [ [ 'mode', 'paste' ],
-            \               [ 'gitbranch', 'gitstatus', 'readonly', 'filename', 'modified', 'method' ] ],
+            \               [ 'gitbranch', 'gitstatus', 'readonly', 'filename', 'session_name', 'modified', 'method' ] ],
             \     'right': [ [ 'lineinfo' ],
             \                [  'charvaluehex', 'scorestatus', 'fileformat', 'fileencoding', 'filetype' ] ]
             \    },

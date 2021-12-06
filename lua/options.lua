@@ -72,7 +72,8 @@ vim.cmd('set report=0')
 vim.cmd('set scrolloff=1')
 vim.cmd('set sidescrolloff=5')
 -- 设置环境保存项
-vim.cmd('set sessionoptions=blank,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize,unix,slash')
+-- vim.cmd('set sessionoptions=blank,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize,unix,slash')
+vim.cmd('set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal')
 vim.cmd('set number')
 -- 允许折叠
 vim.cmd('set foldenable')

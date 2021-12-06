@@ -779,11 +779,11 @@ return require('packer').startup(function()
 
         requires = {
             {'nvim-lua/plenary.nvim'},
-            {
-                'nvim-telescope/telescope-project.nvim', config = function ()
-                    require('telescope').load_extension('project')
-                end
-            },
+            -- {
+            --     'nvim-telescope/telescope-project.nvim', config = function ()
+            --         require('telescope').load_extension('project')
+            --     end
+            -- },
             {
                 'nvim-telescope/telescope-fzf-native.nvim', run = 'make',
                 config = function ()
@@ -819,6 +819,9 @@ return require('packer').startup(function()
             --         require("telescope").load_extension("sessions")
             --     end,
             -- },
+            -- {
+            --     require('telescope').load_extension('projects')
+            -- }
         }
     }
 
@@ -830,5 +833,28 @@ return require('packer').startup(function()
 
     use {
         'gcmt/wildfire.vim'
+    }
+
+    -- Lua
+    use {
+        "ahmedkhalf/project.nvim",
+        config = function()
+            require("project_nvim").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+                require('telescope').load_extension('projects')
+            }
+        end
+    }
+
+    use {
+        'rmagatti/auto-session',
+        config = function()
+            require('auto-session').setup {
+                log_level = 'info',
+                -- auto_session_suppress_dirs = {'~/', '~/Projects'}
+            }
+        end
     }
 end)
