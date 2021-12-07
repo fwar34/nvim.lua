@@ -281,7 +281,7 @@ function key_mappings:start()
         -- ['n|<Leader>fl'] = '<CMD>Clap filer<CR>',
         ['n|<Leader>pa'] = '<CMD>Telescope<CR>',
         -- ['n|<Leader>df'] = '<CMD>Clap dot<CR>',
-        ['n|<Leader>dj'] = '<CMD>Telescope file_browser<CR>',
+        -- ['n|<Leader>dj'] = '<CMD>Telescope file_browser<CR>',
     }
 
     self.Commentary = {
@@ -375,6 +375,19 @@ function key_mappings:start()
         -- ['n|<LocalLeader>ww'] = '<CMD>Telescope sessions<CR>',
         ['n|<LocalLeader>ws'] = '<CMD>SaveSession<CR>',
         ['n|<LocalLeader>wl'] = '<CMD>LoadLastSession<CR>',
+    }
+
+    -- nerdtree
+    -- self.nerdtree = {
+    --     ['n|<Leader>tt'] = '<CMD>NERDTreeToggle<CR>',
+    --     ['n|<C-n>'] = '<CMD>NERDTree<CR>',
+    --     -- ['n|<C-t>'] = '<CMD>NERDTreeFocus<CR>',
+    --     ['n|<C-f>'] = '<CMD>NERDTreeFind<CR>',
+    -- }
+
+    -- defx
+    self.defx = {
+        ['n|<Leader>dj'] = '<CMD>Defx<CR>'
     }
 
     self:process_keys()

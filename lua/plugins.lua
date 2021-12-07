@@ -339,7 +339,17 @@ return require('packer').startup(function()
     -- use {'mhinz/vim-grepper', opt = true, cmd = 'Grepper'}
 
     -- File manager
-    use {'Shougo/defx.nvim', opt = true, cmd = {'Defx'}}
+    -- pip3 install --user pynvim
+    use {'Shougo/defx.nvim', run = ':UpdateRemotePlugins'}
+    -- use {
+    --     'preservim/nerdtree', cmd = {
+    --         'NERDTreeFocus',
+    --         'NERDTree',
+    --         'NERDTreeToggle',
+    --         'NERDTreeFind',
+    --     }
+    -- }
+    -- use {'justinmk/vim-dirvish'}
     use {
         'kevinhwang91/rnvimr', cmd = 'RnvimrToggle',
         config = function()
@@ -419,7 +429,9 @@ return require('packer').startup(function()
     -- Quickfix
 
     -- Do stuff like :sudowrite
-    use 'lambdalisue/suda.vim'
+    -- use 'lambdalisue/suda.vim'
+    -- 提供一系列 shell 命令
+    use {'tpope/vim-eunuch'}
 
     -- Coc
     -- use {'neoclide/coc.nvim', branch = 'release'}
