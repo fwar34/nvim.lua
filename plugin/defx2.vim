@@ -86,20 +86,28 @@ call defx#custom#column('mark', {
             \ 'selected_icon': '✓',
             \ })
 
+" call defx#custom#column('filename', {
+"             \ 'min_width': 128,
+"             \ 'max_width': 128,
+"             \ 'root_marker_highlight': 'Ignore',
+"             \ })
 call defx#custom#column('filename', {
-            \ 'min_width': 128,
-            \ 'max_width': 128,
             \ 'root_marker_highlight': 'Ignore',
             \ })
 
+" call defx#custom#option('_', {
+"             \ 'columns': 'git:mark:indent:icon:filename:type',
+"             \ 'split': 'vertical',
+"             \ 'winwidth': 35,
+"             \ 'direction': 'topleft',
+"             \ 'resume': v:false,
+"             \ 'toggle': v:false,
+"             \ 'root_marker': ' ',
+            " \ })
 call defx#custom#option('_', {
             \ 'columns': 'git:mark:indent:icon:filename:type',
-            \ 'split': 'vertical',
-            \ 'winwidth': 35,
-            \ 'direction': 'topleft',
             \ 'resume': v:false,
             \ 'toggle': v:false,
             \ 'root_marker': ' ',
             \ })
-
 autocmd BufWritePost * call defx#redraw()
