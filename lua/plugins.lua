@@ -350,7 +350,7 @@ return require('packer').startup(function()
             -- Make Neovim wipe the buffers corresponding to the files deleted by Ranger
             vim.g.rnvimr_enable_bw = 1
             -- Link CursorLine into RnvimrNormal highlight in the Floating window
-            vim.cmd [[ highlight link RnvimrNormal CursorLine ]]
+            -- vim.cmd [[ highlight link RnvimrNormal CursorLine ]]
 
             -- if vim.fn.empty(vim.fn.glob(cheatsheets_path)) > 0 then
             -- end
