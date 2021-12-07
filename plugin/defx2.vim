@@ -90,7 +90,7 @@ call defx#custom#option('_', {
             \ 'winwidth': 35,
             \ 'direction': 'topleft',
             \ 'resume': v:false,
-            \ 'toggle': v:true,
+            \ 'toggle': v:false,
             \ 'root_marker': ' ',
             \ })
 
