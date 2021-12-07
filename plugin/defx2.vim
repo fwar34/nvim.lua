@@ -4,7 +4,7 @@ function! s:defx_my_settings() abort
     " nnoremap <silent><buffer><expr> <CR>
     "             \ defx#do_action('open')
     nnoremap <silent><buffer><expr> <CR> defx#do_action('drop')
-    nnoremap <silent><buffer><expr> P defx#do_action('search',
+    nnoremap <silent><buffer><expr> u defx#do_action('search',
         \ fnamemodify(defx#get_candidate().action__path, ':h'))
     nnoremap <silent><buffer><expr> c
                 \ defx#do_action('copy')
