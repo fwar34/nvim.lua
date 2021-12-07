@@ -387,7 +387,8 @@ function key_mappings:start()
 
     -- defx
     self.defx = {
-        ['n|<Leader>dj'] = '<CMD>Defx<CR>'
+        ['n|<Leader>dj'] = '<CMD>Defx<CR>',
+        ['n|<Leader>df'] = "<CMD>Defx `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>",
     }
 
     self:process_keys()

@@ -1,8 +1,11 @@
 autocmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
     " Define mappings
-    nnoremap <silent><buffer><expr> <CR>
-                \ defx#do_action('open')
+    " nnoremap <silent><buffer><expr> <CR>
+    "             \ defx#do_action('open')
+    nnoremap <silent><buffer><expr> <CR> defx#do_action('drop')
+    nnoremap <silent><buffer><expr> P defx#do_action('search',
+        \ fnamemodify(defx#get_candidate().action__path, ':h'))
     nnoremap <silent><buffer><expr> c
                 \ defx#do_action('copy')
     nnoremap <silent><buffer><expr> m
@@ -78,6 +81,7 @@ call defx#custom#column('mark', {
 call defx#custom#column('filename', {
             \ 'min_width': 128,
             \ 'max_width': 128,
+            \ 'root_marker_highlight': 'Ignore',
             \ })
 
 call defx#custom#option('_', {
@@ -86,5 +90,8 @@ call defx#custom#option('_', {
             \ 'winwidth': 35,
             \ 'direction': 'topleft',
             \ 'resume': v:false,
-            \ 'toggle': v:true
+            \ 'toggle': v:true,
+            \ 'root_marker': ' ',
             \ })
+
+autocmd BufWritePost * call defx#redraw()
