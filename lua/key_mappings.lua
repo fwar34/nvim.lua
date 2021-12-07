@@ -371,7 +371,8 @@ function key_mappings:start()
 
     -- neovim-session-manager
     self.session_manager = {
-        ['n|<LocalLeader>ww'] = '<CMD>Telescope sessions save_current=true<CR>',
+        -- ['n|<LocalLeader>ww'] = '<CMD>Telescope sessions save_current=true<CR>',
+        ['n|<LocalLeader>ww'] = '<CMD>Telescope sessions<CR>',
         ['n|<LocalLeader>ws'] = '<CMD>SaveSession<CR>',
         ['n|<LocalLeader>wl'] = '<CMD>LoadLastSession<CR>',
     }
