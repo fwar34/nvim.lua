@@ -516,7 +516,14 @@ return require('packer').startup(function()
     use {'ryanoasis/vim-devicons', }
 
     -- Surround
-    use {'tpope/vim-surround', event = 'VimEnter *'}
+    use {
+        'tpope/vim-surround',
+        config = function()
+            -- 有定义 i<C-g>s 等 map 导致其他地方定义的 <C-g> 等待超时才起效
+            -- 定义下面的变量可以防止在 insert 模式 vim-surround 定义相关 key mappings
+            vim.g.surround_no_insert_mappings = 1
+        end
+    }
 
     -- Highlight for stl
     use {

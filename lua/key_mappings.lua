@@ -308,11 +308,11 @@ function key_mappings:start()
 
     -- vim-fugitive
     self.vim_fugitive = {
-        ['n|<Leader>gt'] = '<CMD>Git<CR>',
-        ['n|<Leader>gd'] = '<CMD>Git diff<CR>',
-        ['n|<Leader>gs'] = '<CMD>Gvdiffsplit<CR>',
-        ['n|<Leader>gp'] = '<CMD>Git push<CR>',
-        ['n|<Leader>gl'] = '<CMD>Git pull<CR>',
+        ['n|<LocalLeader>ma'] = '<CMD>Git<CR>',
+        ['n|<LocalLeader>gd'] = '<CMD>Git diff<CR>',
+        ['n|<LocalLeader>gs'] = '<CMD>Gvdiffsplit<CR>',
+        ['n|<LocalLeader>gp'] = '<CMD>Git push<CR>',
+        ['n|<LocalLeader>gl'] = '<CMD>Git pull<CR>',
     }
 
     -- vim-better-whitespace
