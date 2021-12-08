@@ -15,7 +15,10 @@ vim.cmd('set pastetoggle=<F9>')
 -- 禁止光标闪烁
 vim.cmd('set gcr=a:block-blinkon0')
 vim.cmd('set hidden')
-vim.cmd('set termguicolors')
+-- 打开这个在非 tmux 中背景是蓝色的，所以只在 tmux 中设置
+if vim.env.TMUX ~= nil then
+    vim.cmd('set termguicolors')
+end
 vim.cmd('set shortmess=atcI')
 -- 输入的命令显示出来，看的清楚些
 -- vim.cmd('set showcmd')
