@@ -872,6 +872,7 @@ return require('packer').startup(function()
         end
     }
 
+    -- fcitx5 在 neovim-qt 中使用没有问题
     -- use {
     --     'rmagatti/auto-session',
     --     config = function()
