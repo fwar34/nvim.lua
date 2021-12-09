@@ -83,12 +83,11 @@ end
 function futil.delete_other_buffers()
     local buffers = vim.api.nvim_list_bufs()
     local current = vim.api.nvim_get_current_buf()
-    print("list:", vim.inspect(buffers), "current:", current)
+    -- print("list:", vim.inspect(buffers), "current:", current)
 
-    for k, buf in ipair(buffers) do
-        print(k)
+    for _, buf in ipairs(buffers) do
         if buf ~= current then
-            vim.api.nvim_buf_delete(buf)
+            vim.api.nvim_buf_delete(buf, {force = 1})
         end
     end
 end
