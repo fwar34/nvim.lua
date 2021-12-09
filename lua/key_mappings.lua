@@ -92,7 +92,7 @@ function key_mappings:start()
         ['n|<Leader>fd'] = '<CMD>echo expand("%:p")<CR>',
         ['n|<Leader>a'] = '^',
         ['n|<Leader>e'] = '$',
-        ['n|<Leader>xx'] = '<CMD>nohl<CR>',
+        ['n|<Leader>xx'] = '<CMD>nohl<CR><CMD>Hi //<CR><CMD>Hi :clear<CR>',
         ['n|<Leader><TAB>'] = '<C-w><C-w>',
         ['n|<Leader>do'] = '<CMD>on<CR>',
         ['n|<Leader>dm'] = '<CMD>delmarks!<CR>',
@@ -173,7 +173,7 @@ function key_mappings:start()
         -- ['n|<Leader>fs'] = '<CMD>lua require("mylib")["search_word"]()<CR>',
         -- ['n|<Leader>fs'] = '<CMD>lua require("futil").search_word()<CR>',
         -- ['n|<Leader>fg'] = '<CMD>Rg<CR>',
-        ['n|<LocalLeader>ff'] = '<CMD>FZF<CR>',
+        ['n|<LocalLeader>ff'] = '<CMD>FZF ~<CR>',
         -- ['n|<Leader>rm'] = '<CMD>History<CR>',
         -- ['n|<Leader>ch'] = '<CMD>History:<CR>',
         -- ['n|<Leader>sh'] = '<CMD>History/<CR>',
@@ -392,8 +392,26 @@ function key_mappings:start()
         ['n|<Leader>df'] = "<CMD>Defx `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>",
     }
 
+    -- vim-highlighter
+    self.vim_highlighter = {
+        -- :nn <silent>-  :<C-U> Hi/next<CR>
+        -- :nn <silent>_  :<C-U> Hi/previous<CR>
+        -- :nn f<Left>    :<C-U> Hi/older<CR>
+        -- :nn f<Right>   :<C-U> Hi/newer<CR>
+        ['n|-'] = ':<C-U> Hi/next<CR>',
+        ['n|_'] = ':<C-U> Hi/previous<CR>',
+        ['n|f<Left>'] = ':<C-U> Hi/older<CR>',
+        ['n|f<Right>'] = ':<C-U> Hi/newer<CR>',
+        ['n|<Leader>so'] = '<CMD>Hi +<CR>',
+    }
+
     self:process_keys()
 end
+
+local function auto_vim_highlighter()
+    vim.cmd [[autocmd FileType find nnoremap q <CMD>Hi /close<CR>]]
+end
+auto_vim_highlighter()
 
 local function set_leader()
     vim.g.mapleader = ";"
