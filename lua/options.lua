@@ -16,7 +16,7 @@ vim.cmd('set pastetoggle=<F9>')
 vim.cmd('set gcr=a:block-blinkon0')
 vim.cmd('set hidden')
 -- 打开这个在非 tmux 中背景是蓝色的，所以只在 tmux 中设置
-if vim.env.TMUX ~= nil then
+if vim.env.TMUX ~= nil or vim.env.ALACRITTY_LOG ~= nil then
     vim.cmd('set termguicolors')
 end
 vim.cmd('set shortmess=atcI')
