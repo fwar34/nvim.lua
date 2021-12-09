@@ -252,6 +252,7 @@ return require('packer').startup(function()
                 end,
             },
 			sources = cmp.config.sources({
+                { name = 'tags' },
 				{ name = 'nvim_lsp' },
 				-- { name = 'vsnip' }, -- For vsnip users.
 				{ name = 'luasnip' }, -- For luasnip users.
@@ -278,6 +279,12 @@ return require('packer').startup(function()
 		-- 	})
 		-- })
 	end}
+
+    use {
+        'quangnguyen30192/cmp-nvim-tags',
+        -- if you want the sources is available for some file types
+        ft = { 'kotlin', 'java', 'cpp', 'lua', 'bash', 'c', 'rust', 'go', 'python', }
+    }
 
     -- Lsp
     use {
