@@ -851,12 +851,12 @@ return require('packer').startup(function()
                 end,
                 requires = {"tami5/sqlite.lua"}
             },
-            {
-                'nvim-telescope/telescope-packer.nvim',
-                config = function()
-                    require("telescope").load_extension("packer")
-                end
-            },
+            -- {
+            --     'nvim-telescope/telescope-packer.nvim',
+            --     config = function()
+            --         require("telescope").load_extension("packer")
+            --     end
+            -- },
             {
                 'nvim-telescope/telescope-live-grep-raw.nvim',
                 config = function()
