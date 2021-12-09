@@ -167,25 +167,26 @@ function key_mappings:start()
     }
 
     -- fzf.vim key mappings
-    -- self.fzfvim = {
-    --     ['n|<Leader>fa'] = {'<CMD>Ag<CR>', true},
-    --     ['n|<Leader>fw'] = ':Ag <C-R>=expand("<cword>")<CR><CR>',
-    --     ['n|<Leader>fs'] = '<CMD>lua require("mylib")["search_word"]()<CR>',
-    --     -- ['n|<Leader>fs'] = '<CMD>lua require("futil").search_word()<CR>',
-    --     ['n|<Leader>fg'] = '<CMD>Rg<CR>',
-    --     ['n|<Leader>rm'] = '<CMD>History<CR>',
-    --     ['n|<Leader>ch'] = '<CMD>History:<CR>',
-    --     ['n|<Leader>sh'] = '<CMD>History/<CR>',
-    --     ['n|<Leader>li'] = '<CMD>BLines<CR>',
-    --     ['n|<Leader>bs'] = '<CMD>Buffers<CR>',
-    --     ['n|<Leader>gf'] = '<CMD>GFiles<CR>',
-    --     ['n|<Leader>ma'] = '<CMD>Marks<CR>',
-    --     ['n|<Leader>cc'] = '<CMD>Commands<CR>',
-    --     ['n|<Leader>mp'] = '<CMD>Maps<CR>',
-    --     ['n|<Leader>hl'] = '<CMD>Helptags<CR>',
-    --     ['n|<Leader>tg'] = '<CMD>Tags<CR>',
-    --     ['n|<Leader>ii'] = '<CMD>BTags<CR>',
-    -- }
+    self.fzfvim = {
+        -- ['n|<Leader>fa'] = {'<CMD>Ag<CR>', true},
+        -- ['n|<Leader>fw'] = ':Ag <C-R>=expand("<cword>")<CR><CR>',
+        -- ['n|<Leader>fs'] = '<CMD>lua require("mylib")["search_word"]()<CR>',
+        -- ['n|<Leader>fs'] = '<CMD>lua require("futil").search_word()<CR>',
+        -- ['n|<Leader>fg'] = '<CMD>Rg<CR>',
+        ['n|<LocalLeader>ff'] = '<CMD>FZF<CR>',
+        -- ['n|<Leader>rm'] = '<CMD>History<CR>',
+        -- ['n|<Leader>ch'] = '<CMD>History:<CR>',
+        -- ['n|<Leader>sh'] = '<CMD>History/<CR>',
+        -- ['n|<Leader>li'] = '<CMD>BLines<CR>',
+        -- ['n|<Leader>bs'] = '<CMD>Buffers<CR>',
+        -- ['n|<Leader>gf'] = '<CMD>GFiles<CR>',
+        -- ['n|<Leader>ma'] = '<CMD>Marks<CR>',
+        -- ['n|<Leader>cc'] = '<CMD>Commands<CR>',
+        -- ['n|<Leader>mp'] = '<CMD>Maps<CR>',
+        -- ['n|<Leader>hl'] = '<CMD>Helptags<CR>',
+        -- ['n|<Leader>tg'] = '<CMD>Tags<CR>',
+        -- ['n|<Leader>ii'] = '<CMD>BTags<CR>',
+    }
 
     -- Leaderf key mappings
     -- self.Leaderf = {
