@@ -411,8 +411,8 @@ function key_mappings:start()
 end
 
 local function auto_cmd()
-    vim.cmd [[autocmd FileType find nnoremap q <CMD>Hi /close<CR>]]
-    vim.cmd [[autocmd FileType gitcommit nnoremap q <CMD>wq<CR>]]
+    vim.cmd [[autocmd FileType find nnoremap <buffer> q <CMD>Hi /close<CR>]]
+    vim.cmd [[autocmd FileType gitcommit nnoremap <buffer> q <CMD>wq<CR>]]
 end
 
 local function set_leader()
