@@ -412,7 +412,7 @@ end
 
 local function auto_cmd()
     vim.cmd [[autocmd FileType find nnoremap q <CMD>Hi /close<CR>]]
-    vim.cmd [[autocmd FileType gitcommit nnoremap q <CMD>wq<CR><CMD>Git push<CR>]]
+    vim.cmd [[autocmd FileType gitcommit nnoremap q <CMD>wq!<CR>]]
 end
 
 local function set_leader()
