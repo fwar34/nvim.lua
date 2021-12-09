@@ -80,4 +80,17 @@ function futil.unmap(maps)
     end
 end
 
+function futil.delete_other_buffers()
+    local buffers = vim.api.nvim_list_bufs()
+    local current = vim.api.nvim_get_current_buf()
+    print("list:", vim.inspect(buffers), "current:", current)
+
+    for k, buf in ipair(buffers) do
+        print(k)
+        if buf ~= current then
+            vim.api.nvim_buf_delete(buf)
+        end
+    end
+end
+
 return futil

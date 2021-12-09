@@ -110,6 +110,7 @@ function key_mappings:start()
         ['n|<Leader>mf'] = '<CMD>lua require("futil").make_fennel()<CR>',
         -- ['n|<Leader>cs'] = '<CMD>lua require("mylib").coc_status()<CR>',
         ['n|<LocalLeader>fn'] = '<CMD>lua require("futil").display_function()<CR>',
+        ['n|<LocalLeader>do'] = '<CMD>lua require("futil").delete_other_buffers()<CR>',
         ['n|<C-g>'] = '<C-c>',
         ['n|<Leader>md'] = '<CMD>m .+1<CR>',
         ['n|<Leader>mu'] = '<CMD>m .-2<CR>',
