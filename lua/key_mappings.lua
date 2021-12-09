@@ -408,10 +408,9 @@ function key_mappings:start()
     self:process_keys()
 end
 
-local function auto_vim_highlighter()
+local function auto_cmd()
     vim.cmd [[autocmd FileType find nnoremap q <CMD>Hi /close<CR>]]
 end
-auto_vim_highlighter()
 
 local function set_leader()
     vim.g.mapleader = ";"
@@ -423,6 +422,7 @@ end
 function key_mappings.setup()
     set_leader()
     key_mappings:start()
+    auto_cmd()
 end
 
 key_mappings.setup()

@@ -329,7 +329,15 @@ return require('packer').startup(function()
     --     end
     -- }
 
-    use { 'liuchengxu/vim-which-key', opt = true, cmd = {'WhichKey', 'WhichKey!'}}
+    use { 
+        'liuchengxu/vim-which-key', cmd = {'WhichKey', 'WhichKey!'}, 
+        config = function()
+            -- " To register the descriptions when using the on-demand load feature,
+            -- " use the autocmd hook to call which_key#register(), e.g., register for the Space key:
+            -- vim.cmd [[autocmd! User vim-which-key call which_key#register('<Space>', 'g:which_key_map')]]
+            -- vim.cmd [[autocmd! User vim-which-key call which_key#register(';', 'g:which_key_map')]]
+        end
+    }
     -- use {
     --     'AckslD/nvim-whichkey-setup.lua',
     --     requires = {'liuchengxu/vim-which-key'},
