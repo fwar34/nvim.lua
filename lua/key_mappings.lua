@@ -293,7 +293,7 @@ function key_mappings:start()
     -- Vista
     self.vista = {
         ['n|<Leader>ii'] = '<CMD>Vista finder<CR>',
-        ['n|<Leader>vr'] = '<CMD>Vista finder!<CR>',
+        ['n|<Leader>it'] = '<CMD>Vista finder!<CR>',
         ['n|<Leader>vs'] = '<CMD>Vista!!<CR>',
     }
 
