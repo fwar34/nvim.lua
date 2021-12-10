@@ -152,6 +152,11 @@ return require('packer').startup(function()
     --     }
     -- end}
 
+    use {
+        'quangnguyen30192/cmp-nvim-tags',
+        -- if you want the sources is available for some file types
+        ft = { 'kotlin', 'java', 'cpp', 'lua', 'bash', 'c', 'rust', 'go', 'python', }
+    }
     use {'hrsh7th/cmp-nvim-lsp'}
     use {'hrsh7th/cmp-buffer'}
     use {'hrsh7th/cmp-path'}
@@ -252,15 +257,18 @@ return require('packer').startup(function()
                 end,
             },
 			sources = cmp.config.sources({
+				{ name = 'buffer' },
                 { name = 'tags' },
 				{ name = 'nvim_lsp' },
 				-- { name = 'vsnip' }, -- For vsnip users.
 				{ name = 'luasnip' }, -- For luasnip users.
 				-- { name = 'ultisnips' }, -- For ultisnips users.
 				-- { name = 'snippy' }, -- For snippy users.
-			}, {
-				{ name = 'buffer' },
-			})
+			}
+			-- {
+				-- { name = 'buffer' },
+			-- }
+            )
 		})
 
 		-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
@@ -280,11 +288,6 @@ return require('packer').startup(function()
 		-- })
 	end}
 
-    use {
-        'quangnguyen30192/cmp-nvim-tags',
-        -- if you want the sources is available for some file types
-        ft = { 'kotlin', 'java', 'cpp', 'lua', 'bash', 'c', 'rust', 'go', 'python', }
-    }
 
     -- Lsp
     use {
@@ -646,7 +649,7 @@ return require('packer').startup(function()
         config = function()
             -- 告诉 asyncrun 运行时自动打开高度为 6 的 quickfix 窗口，不然你看不到任何输出
             vim.g.asyncrun_open = 6
-            vim.g.asyncrun_rootmarks = {'.svn', '.git', '.root', '.bzr', '_darcs', 'build.xml'}
+            vim.g.asyncrun_rootmarks = {'.svn', '.git', '.root', '.bzr', '_darcs', 'build.xml', "pom.xml"}
         end
     }
 

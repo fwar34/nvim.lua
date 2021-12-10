@@ -274,6 +274,7 @@ function key_mappings:start()
         ['n|<Leader>fa'] = '<CMD>lua require("telescope").extensions.live_grep_raw.live_grep_raw({additional_args = _G.rg_options})<CR>',
         -- ['n|<Leader>fa'] = '<CMD>Telescope live_grep_raw<CR>',
         ['n|<Leader>ff'] = '<CMD>lua require("telescope.builtin").find_files({find_command = find_files_args,})<CR>',
+        ['n|<Leader>pf'] = '<CMD>lua require("telescope.builtin").find_files({cwd = require("find_root_dir").find_root_dir(), find_command = find_files_args,})<CR>',
         ['n|<Leader>fw'] = '<cmd>lua require("telescope.builtin").grep_string({additional_args = _G.rg_options})<CR>',
         ['n|<Leader>fs'] = '<cmd>lua require("telescope.builtin").grep_string({search = _G.search_word2()})<CR>',
         -- ['n|<Leader>fp'] = "<CMD>lua require'telescope'.extensions.project.project{}<CR>",
