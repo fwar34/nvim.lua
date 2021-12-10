@@ -100,6 +100,8 @@ find_files_args = {
     "--iglob","!*.la",
     "--iglob","!*.sln",
     "--iglob","!*.vcproj",
+    "--iglob","!*.tags",
+    "--iglob","!debian/tmp/",
 }
 
 function key_mappings:start()
