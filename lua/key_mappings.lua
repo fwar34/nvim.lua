@@ -87,8 +87,19 @@ function _G.move_cursor(direction)
 end
 
 find_files_args = {
-    "rg", "--ignore", "--hidden", "--files","--iglob","!*.svn","--iglob","!*.git","--iglob","!*.deps","--iglob","!*.o","--iglob","!*.a",
+    "rg", "--ignore", 
+    "--hidden", "--files",
+    "--iglob","!*.svn",
+    "--iglob","!*.git",
+    "--iglob","!*.deps",
+    "--iglob","!*.o",
+    "--iglob","!*.a",
     "--iglob","!*.pyc",
+    "--iglob","!*.lo",
+    "--iglob","!*.libs",
+    "--iglob","!*.la",
+    "--iglob","!*.sln",
+    "--iglob","!*.vcproj",
 }
 
 function key_mappings:start()
@@ -417,6 +428,7 @@ end
 local function auto_cmd()
     vim.cmd [[autocmd FileType find nnoremap <buffer> q <CMD>Hi /close<CR>]]
     vim.cmd [[autocmd FileType gitcommit nnoremap <buffer> q <CMD>wq<CR>]]
+    vim.cmd [[autocmd FileType git nnoremap <buffer> q <CMD>q<CR>]]
 end
 
 local function set_leader()

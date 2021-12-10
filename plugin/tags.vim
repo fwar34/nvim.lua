@@ -217,6 +217,51 @@ augroup InitFileTypesGroup
 augroup END
 
 "----------------------------------------------------------------------
+" F5 运行当前文件：根据文件类型判断方法，并且输出到 quickfix 窗口
+"----------------------------------------------------------------------
+function! ExecuteFile()
+	let cmd = ''
+	if index(['c', 'cpp', 'rs', 'go'], &ft) >= 0
+		" native 语言，把当前文件名去掉扩展名后作为可执行运行
+		" 写全路径名是因为后面 -cwd=? 会改变运行时的当前路径，所以写全路径
+		" 加双引号是为了避免路径中包含空格
+		let cmd = '"$(VIM_FILEDIR)/$(VIM_FILENOEXT)"'
+	elseif &ft == 'python'
+		let $PYTHONUNBUFFERED=1 " 关闭 python 缓存，实时看到输出
+		let cmd = 'python "$(VIM_FILEPATH)"'
+	elseif &ft == 'javascript'
+		let cmd = 'node "$(VIM_FILEPATH)"'
+	elseif &ft == 'perl'
+		let cmd = 'perl "$(VIM_FILEPATH)"'
+	elseif &ft == 'ruby'
+		let cmd = 'ruby "$(VIM_FILEPATH)"'
+	elseif &ft == 'php'
+		let cmd = 'php "$(VIM_FILEPATH)"'
+	elseif &ft == 'lua'
+		let cmd = 'lua "$(VIM_FILEPATH)"'
+	elseif &ft == 'zsh'
+		let cmd = 'zsh "$(VIM_FILEPATH)"'
+	elseif &ft == 'ps1'
+		let cmd = 'powershell -file "$(VIM_FILEPATH)"'
+	elseif &ft == 'vbs'
+		let cmd = 'cscript -nologo "$(VIM_FILEPATH)"'
+	elseif &ft == 'sh'
+		let cmd = 'bash "$(VIM_FILEPATH)"'
+	else
+		return
+	endif
+	" Windows 下打开新的窗口 (-mode=4) 运行程序，其他系统在 quickfix 运行
+	" -raw: 输出内容直接显示到 quickfix window 不匹配 errorformat
+	" -save=2: 保存所有改动过的文件
+	" -cwd=$(VIM_FILEDIR): 运行初始化目录为文件所在目录
+	if has('win32') || has('win64')
+		exec 'AsyncRun -cwd=$(VIM_FILEDIR) -raw -save=2 -mode=4 '. cmd
+	else
+		exec 'AsyncRun -cwd=$(VIM_FILEDIR) -raw -save=2 -mode=0 '. cmd
+	endif
+endfunc
+
+"----------------------------------------------------------------------
 " F2 在项目目录下 Grep 光标下单词，默认 C/C++/Py/Js ，扩展名自己扩充
 " 支持 rg/grep/findstr ，其他类型可以自己扩充
 " 不是在当前目录 grep，而是会去到当前文件所属的项目目录 project root

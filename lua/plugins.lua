@@ -566,19 +566,20 @@ return require('packer').startup(function()
     }
 
     -- use {
-    --     -- 'Yggdroot/LeaderF', event = 'VimEnter *',
-    --     -- 'Yggdroot/LeaderF', cmd = 'Leaderf',
-    --     'Yggdroot/LeaderF',
-    --     run = ':LeaderfInstallCExtension',
+    --     'Yggdroot/LeaderF', run = ':LeaderfInstallCExtension',
     --     config = function()
-    --         -- vim.g.Lf_WindowPosition = 'popup'
-    --         -- vim.g.Lf_PreviewInPopup = 1
+    --         -- disable defalut key mappings
+    --         vim.g.Lf_ShortcutF = ""
+    --         vim.g.Lf_ShortcutB = ""
 
-    --         -- vim.cmd [[ unmap <Leader>f ]]
-    --         -- vim.cmd [[ unmap <Leader>b ]]
-    --         -- vim.defer_fn(function()
-    --         --     print("xxxxx")
-    --         -- end, 1000)
+    --         --         -- vim.g.Lf_WindowPosition = 'popup'
+    --         --         -- vim.g.Lf_PreviewInPopup = 1
+
+    --         --         -- vim.cmd [[ unmap <Leader>f ]]
+    --         --         -- vim.cmd [[ unmap <Leader>b ]]
+    --         --         -- vim.defer_fn(function()
+    --         --         --     print("xxxxx")
+    --         --         -- end, 1000)
     --     end
     -- }
 
@@ -596,10 +597,10 @@ return require('packer').startup(function()
     -- use {'jsfaint/gen_tags.vim', event = 'VimEnter *',}
     use {
         -- 提供 ctags/gtags 后台数据库自动更新功能
-        {'ludovicchabant/vim-gutentags', event = 'VimEnter *'},
+        {'ludovicchabant/vim-gutentags'},
         -- 提供 GscopeFind 命令并自动处理好 gtags 数据库切换
         -- 支持光标移动到符号名上：<leader>cg 查看定义，<leader>cs 查看引用
-        {'skywind3000/gutentags_plus', event = 'VimEnter *'},
+        {'skywind3000/gutentags_plus'},
     }
 
     use {
@@ -645,6 +646,7 @@ return require('packer').startup(function()
         config = function()
             -- 告诉 asyncrun 运行时自动打开高度为 6 的 quickfix 窗口，不然你看不到任何输出
             vim.g.asyncrun_open = 6
+            vim.g.asyncrun_rootmarks = {'.svn', '.git', '.root', '.bzr', '_darcs', 'build.xml'}
         end
     }
 
