@@ -339,8 +339,8 @@ return require('packer').startup(function()
     --     end
     -- }
 
-    use { 
-        'liuchengxu/vim-which-key', cmd = {'WhichKey', 'WhichKey!'}, 
+    use {
+        'liuchengxu/vim-which-key', cmd = {'WhichKey', 'WhichKey!'},
         config = function()
             -- " To register the descriptions when using the on-demand load feature,
             -- " use the autocmd hook to call which_key#register(), e.g., register for the Space key:
@@ -433,7 +433,7 @@ return require('packer').startup(function()
 
     -- Marks
     use {
-        'kshenoy/vim-signature', 
+        'kshenoy/vim-signature',
         config = function ()
             vim.g.SignatureIncludeMarks = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVW'
         end
@@ -737,7 +737,7 @@ return require('packer').startup(function()
     }
 
     use {
-        'jiangmiao/auto-pairs', 
+        'jiangmiao/auto-pairs',
         config = function()
             vim.cmd [[au FileType lisp,clojure,lisp let b:AutoPairs = {'```': '```', '`': '`', '"': '"', '[': ']', '(': ')', '{': '}', '"""': '"""'}]]
         end

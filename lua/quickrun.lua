@@ -29,10 +29,10 @@ function M.run()
             vim.cmd [[AsyncRun gcc % && ./a.out]]
         end,
         python = function()
-            vim.cmd [[python3 %]]
+            vim.cmd [[AsyncRun python3 %]]
         end,
         rust = function()
-            vim.cmd [[cargo run]]
+            vim.cmd [[AsyncRun cargo run]]
         end,
     }
 
