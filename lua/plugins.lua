@@ -733,9 +733,12 @@ return require('packer').startup(function()
         -- {'bhurlow/vim-parinfer', ft = {'fennel', 'clojure', 'lisp'}}
     }
 
-    use {'jiangmiao/auto-pairs', config = function()
-        vim.cmd [[au FileType lisp,clojure,lisp let b:AutoPairs = {'```': '```', '`': '`', '"': '"', '[': ']', '(': ')', '{': '}', '"""': '"""'}]]
-    end}
+    use {
+        'jiangmiao/auto-pairs', 
+        config = function()
+            vim.cmd [[au FileType lisp,clojure,lisp let b:AutoPairs = {'```': '```', '`': '`', '"': '"', '[': ']', '(': ')', '{': '}', '"""': '"""'}]]
+        end
+    }
 
     -- use {
     --     -- 使用 ALT+e 会在不同窗口/标签上显示 A/B/C 等编号，然后字母直接跳转
@@ -897,7 +900,6 @@ return require('packer').startup(function()
         end
     }
 
-    -- fcitx5 在 neovim-qt 中使用没有问题
     -- use {
     --     'rmagatti/auto-session',
     --     config = function()
@@ -914,6 +916,7 @@ return require('packer').startup(function()
         -- end
     }
 
+    -- fcitx5 在 neovim-qt 中使用没有问题
     -- use {
     --     'tonyfettes/fcitx5.nvim',
     --     config = function()
