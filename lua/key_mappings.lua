@@ -52,7 +52,7 @@ function key_mappings:process_keys()
     end
 end
 
-function _G.rg_options()
+function rg_options()
     -- return { "--glob !tags", "--glob !nvim/snippets/**", }
     return {
         "--iglob",
@@ -85,6 +85,11 @@ function _G.move_cursor(direction)
     end
     vim.api.nvim_win_set_cursor(0, {cursor[1], col})
 end
+
+find_files_args = {
+    "rg", "--ignore", "--hidden", "--files","--iglob","!*.svn","--iglob","!*.git","--iglob","!*.deps","--iglob","!*.o","--iglob","!*.a",
+    "--iglob","!*.pyc",
+}
 
 function key_mappings:start()
     self.normal = {
@@ -248,7 +253,6 @@ function key_mappings:start()
     -- }
 
     self.telescope = {
-        ['n|<Leader>cl'] = '<CMD>Clap<CR>',
         ['n|<Leader>li'] = '<cmd>Telescope current_buffer_fuzzy_find<CR>',
         ['n|<Leader>bs'] = '<CMD>Telescope buffers<CR>',
         ['n|<Leader>co'] = '<CMD>Telescope colorscheme<CR>',
@@ -258,7 +262,7 @@ function key_mappings:start()
         ['n|<Leader>fr'] = '<CMD>lua require("telescope.builtin").live_grep({additional_args = _G.rg_options})<CR>',
         ['n|<Leader>fa'] = '<CMD>lua require("telescope").extensions.live_grep_raw.live_grep_raw({additional_args = _G.rg_options})<CR>',
         -- ['n|<Leader>fa'] = '<CMD>Telescope live_grep_raw<CR>',
-        ['n|<Leader>ff'] = '<CMD>Telescope find_files find_command=rg,--ignore,--hidden,--files,--iglob,!*.svn,--iglob,!*.git<CR>',
+        ['n|<Leader>ff'] = '<CMD>lua require("telescope.builtin").find_files({find_command = find_files_args,})<CR>',
         ['n|<Leader>fw'] = '<cmd>lua require("telescope.builtin").grep_string({additional_args = _G.rg_options})<CR>',
         ['n|<Leader>fs'] = '<cmd>lua require("telescope.builtin").grep_string({search = _G.search_word2()})<CR>',
         -- ['n|<Leader>fp'] = "<CMD>lua require'telescope'.extensions.project.project{}<CR>",
@@ -282,7 +286,7 @@ function key_mappings:start()
         ['n|<LocalLeader>ir'] = '<cmd>Telescope resume<CR>',
         -- ['n|<Leader>yk'] = '<CMD>Clap yanks<CR>',
         -- ['n|<Leader>fl'] = '<CMD>Clap filer<CR>',
-        ['n|<Leader>pa'] = '<CMD>Telescope<CR>',
+        ['n|<Leader>tl'] = '<CMD>Telescope<CR>',
         -- ['n|<Leader>df'] = '<CMD>Clap dot<CR>',
         -- ['n|<Leader>dj'] = '<CMD>Telescope file_browser<CR>',
     }
