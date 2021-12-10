@@ -1,7 +1,8 @@
 -- https://github.com/glepnir/nvim/blob/master/lua/domain/global.lua
 
 local global = {}
-local home = os.getenv("HOME")
+-- local home = os.getenv("HOME")
+local home = vim.env.HOME
 local path_sep = global.is_windows and '\\' or '/'
 
 function global.dump(...)

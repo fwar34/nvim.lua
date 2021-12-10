@@ -135,6 +135,7 @@ function key_mappings:start()
         ['n|<Leader>mu'] = '<CMD>m .-2<CR>',
         ['n|<Leader>mm'] = '%',
         ['n|ge'] = 'G',
+        ['n|<Leader>qr'] = '<CMD>lua require("quickrun").run()<CR>',
         -- help motion.txt
         -- If your '{' or '}' are not in the first column, and you would like to use "[["
         -- and "]]" anyway, try these mappings: >
