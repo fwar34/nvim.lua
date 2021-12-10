@@ -2,7 +2,7 @@ local M = {}
 
 local function find_go_mod()
     local output = vim.fn.execute('!ls')
-    for line in string.gmatch(output, '[%a/]*\n') do
+    for line in string.gmatch(output, '[%a%./]*\n') do
         if line == 'go.mod\n' then
             return true
         end
