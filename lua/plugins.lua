@@ -931,4 +931,8 @@ return require('packer').startup(function()
     --     rocks = {'dbus_proxy', 'lgi'}
     -- }
 
+    -- use {
+    --     'thinca/vim-quickrun'
+    -- }
+
 end)
