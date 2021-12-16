@@ -5,6 +5,7 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 -- require('lspconfig')['pyright'].setup {
 --     capabilities = capabilities
 -- }
-require('lspconfig')['pylsp'].setup {
+-- 需要去 zshenv 添加 path 环境变量
+require('lspconfig')['jedi_language_server'].setup {
     capabilities = capabilities
 }
