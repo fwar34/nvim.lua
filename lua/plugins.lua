@@ -935,4 +935,6 @@ return require('packer').startup(function()
     --     'thinca/vim-quickrun'
     -- }
 
+    use {'solarnz/thrift.vim'}
+
 end)
