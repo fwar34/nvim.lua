@@ -427,6 +427,11 @@ function key_mappings:start()
         ['n|<Leader>so'] = '<CMD>Hi +<CR>',
     }
 
+    -- lsp-config
+    self.lsp_config = {
+        ['n|<LocalLeader>=='] = '<CMD>lua vim.lsp.buf.formatting()<CR>',
+    }
+
     self:process_keys()
 end
 
