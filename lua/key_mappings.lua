@@ -290,7 +290,7 @@ function key_mappings:start()
         -- ['n|<Leader>rm'] = '<CMD>Telescope oldfiles<CR>',
         ['n|<Leader>rm'] = '<CMD>Telescope frecency<CR>',
         ['n|<Leader>hp'] = '<CMD>Telescope help_tags<CR>',
-        ['n|<Leader>jj'] = '<CMD>Telescope jumplist<CR>',
+        ['n|<Leader>jl'] = '<CMD>Telescope jumplist<CR>',
         ['n|<Leader>ma'] = '<CMD>Telescope marks<CR>',
         ['n|<Leader>mn'] = '<CMD>Telescope man_pages<CR>',
         ['n|<Leader>mp'] = '<CMD>Telescope keymaps<CR>',
@@ -311,11 +311,11 @@ function key_mappings:start()
         ['n|<Leader>ci'] = '<CMD>Commentary<CR>',
     }
 
-    -- Vista
+    --symotion-prefix) Vista
     self.vista = {
         ['n|<Leader>ii'] = '<CMD>Vista finder<CR>',
-        ['n|<Leader>it'] = '<CMD>Vista finder!<CR>',
-        ['n|<Leader>vs'] = '<CMD>Vista!!<CR>',
+        ['n|<Leader>hl'] = '<CMD>Vista finder!<CR>',
+        ['n|<Leader>jj'] = '<CMD>Vista!!<CR>',
     }
 
     -- rnvimr
