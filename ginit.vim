@@ -21,7 +21,8 @@ if exists(':GuiFont')
     " for neovim-qt
     " Guifont! JetBrains\ Mono:h13
     " Guifont! JetBrainsMono\ Nerd\ Font:h13
-    Guifont! Sarasa\ Mono\ SC\ Nerd:h13
+    " Guifont! Sarasa\ Mono\ SC\ Nerd:h13
+    Guifont! Iosevka\ Curly\ Slab:h18
 endif
 
 " Disable GUI Tabline
