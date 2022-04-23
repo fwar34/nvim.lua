@@ -21,8 +21,11 @@ if exists(':GuiFont')
     " for neovim-qt
     " Guifont! JetBrains\ Mono:h13
     " Guifont! JetBrainsMono\ Nerd\ Font:h13
-    " Guifont! Sarasa\ Mono\ SC\ Nerd:h13
-    Guifont! Iosevka\ Curly\ Slab:h18
+    if $MYHOSTNAME == "FL-Notebook"
+        Guifont! Iosevka\ Curly\ Slab:h18
+    else
+        Guifont! Sarasa\ Mono\ SC\ Nerd:h13
+    endif
 endif
 
 " Disable GUI Tabline
@@ -47,3 +50,5 @@ endif
 nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
 inoremap <silent><RightMouse> <Esc>:call GuiShowContextMenu()<CR>
 vnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>gv
+
+call GuiWindowMaximized(1)
