@@ -871,12 +871,29 @@ return require('packer').startup(function()
                     require("telescope").load_extension("live_grep_raw")
                 end,
             },
+            -- {
+            --     'Shatur/neovim-session-manager',
+            --     config = function()
+            --         require("telescope").load_extension("sessions")
+            --     end,
+            -- },
             {
-                'Shatur/neovim-session-manager',
+                'rmagatti/session-lens',
+                requires = {'rmagatti/auto-session'},
                 config = function()
-                    require("telescope").load_extension("sessions")
-                end,
+                    require('session-lens').setup({--[[your custom config--]]})
+                end
             },
+            -- {
+            --     'JoseConseco/telescope_sessions_picker.nvim',
+            --     require'telescope'.setup {
+            --         extensions = {
+            --             sessions_picker = {
+            --                 sessions_dir = vim.fn.stdpath('data') ..'/session/',  -- same as '/home/user/.local/share/nvim/session'
+            --             }
+            --         },
+            --     }
+            -- },
         }
     }
 
