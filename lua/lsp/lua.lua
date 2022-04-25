@@ -47,7 +47,8 @@ function M.setup()
                 },
             },
         },
-        capabilities = capabilities
+        capabilities = capabilities,
+        on_attach = require'lsp.common'.custom_lsp_attach,
     }
 end
 
