@@ -161,6 +161,7 @@ return require('packer').startup(function()
     use {'hrsh7th/cmp-buffer'}
     use {'hrsh7th/cmp-path'}
     -- use {'hrsh7th/cmp-cmdline'}
+    use {'hrsh7th/cmp-nvim-lsp-signature-help'}
 	use {'hrsh7th/nvim-cmp', config = function()
         local has_words_before = function()
             local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -256,18 +257,35 @@ return require('packer').startup(function()
                     end
                 end,
             },
-			sources = cmp.config.sources({
-				{ name = 'buffer' },
-                { name = 'tags' },
+			-- sources = cmp.config.sources({
+			-- 	{ name = 'buffer' },
+                -- { name = 'tags' },
+			-- 	{ name = 'nvim_lsp' },
+			-- 	-- { name = 'vsnip' }, -- For vsnip users.
+			-- 	{ name = 'luasnip' }, -- For luasnip users.
+			-- 	-- { name = 'ultisnips' }, -- For ultisnips users.
+			-- 	-- { name = 'snippy' }, -- For snippy users.
+                -- { name = 'nvim_lsp_signature_help' },
+                -- { name = 'path' },
+			-- }
+			-- -- {
+			-- 	-- { name = 'buffer' },
+			-- -- }
+            -- )
+
+            sources = cmp.config.sources({
 				{ name = 'nvim_lsp' },
+                { name = 'nvim_lsp_signature_help' },
 				-- { name = 'vsnip' }, -- For vsnip users.
 				{ name = 'luasnip' }, -- For luasnip users.
 				-- { name = 'ultisnips' }, -- For ultisnips users.
 				-- { name = 'snippy' }, -- For snippy users.
+                { name = 'path' },
+			},
+			{
+				{ name = 'buffer' },
+                { name = 'tags' },
 			}
-			-- {
-				-- { name = 'buffer' },
-			-- }
             )
 		})
 
