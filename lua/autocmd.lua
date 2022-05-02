@@ -47,7 +47,7 @@ function autocmd.setup()
     map_wq_to_quit()
     help_mouse()
     disable_auto_comment()
-    golang_autocmd()
+    -- golang_autocmd()
 end
 
 autocmd.setup()
