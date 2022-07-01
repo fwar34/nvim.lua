@@ -38,6 +38,7 @@ local function map_wq_to_quit()
         pattern = "gitcommit", 
         callback = function()
             vim.api.nvim_buf_set_keymap(0, "n", "q", "<CMD>wq<CR>", {noremap = true})
+
             print("xxxxxxxxxxxxxxxxxxx")
             return true
         end
