@@ -13,9 +13,6 @@ local function map_q_to_quit()
     vim.cmd [[ autocmd! FileType help,qf,netrw,startuptime :nnoremap <buffer> q <CMD>q<CR> ]]
 end
 
-local function map_wq_to_quit()
-    vim.cmd [[ autocmd! FileType gitcommit :nnoremap <buffer> q <CMD>wq<CR> ]]
-end
 
 local function help_mouse()
     vim.cmd [[ autocmd! BufEnter *.txt lua require('futil'):set_mouse() ]]
@@ -24,6 +21,18 @@ end
 
 local function golang_autocmd()
     vim.cmd [[ autocmd! FileType go :inoremap <buffer> ; <Space>:=<Space>]]
+end
+
+-- local function map_wq_to_quit()
+--     vim.cmd [[ autocmd! FileType gitcommit :nnoremap <buffer> q <CMD>wq<CR> ]]
+-- end
+local function map_wq_to_quit()
+    vim.api.nvim_create_autocmd("FileType", {
+        pattern = "gitcommit", 
+        callback = function()
+            vim.api.nvim_buf_set_keymap(0, "n", "q", "<CMD>wq<CR>", {noremap = true})
+        end
+    })
 end
 
 local function disable_auto_comment()
