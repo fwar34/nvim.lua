@@ -377,6 +377,30 @@ return require('packer').startup(function()
     -- File manager
     -- pip3 install --user pynvim
     use {'Shougo/defx.nvim', run = ':UpdateRemotePlugins'}
+    use {
+        'kyazdani42/nvim-tree.lua',
+        tag = 'nightly', -- optional, updated every week. (see issue #1193)
+        config = function()
+            -- require("nvim-tree").setup()
+            require("nvim-tree").setup({
+                sort_by = "case_sensitive",
+                view = {
+                    adaptive_size = true,
+                    mappings = {
+                        list = {
+                            { key = "u", action = "dir_up" },
+                        },
+                    },
+                },
+                renderer = {
+                    group_empty = true,
+                },
+                filters = {
+                    dotfiles = true,
+                },
+            })
+        end
+    }
     -- use {
     --     'preservim/nerdtree', cmd = {
     --         'NERDTreeFocus',
@@ -891,19 +915,37 @@ return require('packer').startup(function()
                     require("telescope").load_extension("live_grep_raw")
                 end,
             },
+            -- improve the default vim.ui interfaces
+            {'stevearc/dressing.nvim'},
+            -- {{{ sessions plugins
             -- {
-            --     'Shatur/neovim-session-manager',
+            --     'Shatur/neovim-session-manager', 
             --     config = function()
-            --         require("telescope").load_extension("sessions")
-            --     end,
+            --         local Path = require('plenary.path')
+            --         require('session_manager').setup({
+            --             -- sessions_dir = Path:new(vim.fn.stdpath('data'), 'sessions'), -- The directory where the session files will be saved.
+            --             -- path_replacer = '__', -- The character to which the path separator will be replaced for session files.
+            --             -- colon_replacer = '++', -- The character to which the colon symbol will be replaced for session files.
+            --             autoload_mode = require('session_manager.config').AutoloadMode.Disabled, -- Define what to do when Neovim is started without arguments. Possible values: Disabled, CurrentDir, LastSession
+            --             -- autosave_last_session = true, -- Automatically save last session on exit and on session switch.
+            --             -- autosave_ignore_not_normal = true, -- Plugin will not save a session when no buffers are opened, or all of them aren't writable or listed.
+            --             -- autosave_ignore_filetypes = { -- All buffers of these file types will be closed before the session is saved.
+            --             -- 'gitcommit',
+            --         -- }, 
+            --         -- autosave_only_in_session = false, -- Always autosaves session. If true, only autosaves after a session is active.
+            --         -- max_path_length = 80,  -- Shorten the display path if length exceeds this threshold. Use 0 if don't want to shorten the path at all.
+            --     })
+            -- end
             -- },
-            {
-                'rmagatti/session-lens',
-                requires = {'rmagatti/auto-session'},
+            use({
+                "olimorris/persisted.nvim",
+                -- module = "persisted", -- For lazy loading
                 config = function()
-                    require('session-lens').setup({--[[your custom config--]]})
-                end
-            },
+                    require("persisted").setup()
+                    -- <C-d> to delete session in telescope
+                    require("telescope").load_extension("persisted") -- To load the telescope extension
+                end,
+            })
             -- {
             --     'JoseConseco/telescope_sessions_picker.nvim',
             --     require'telescope'.setup {
@@ -914,6 +956,7 @@ return require('packer').startup(function()
             --         },
             --     }
             -- },
+            -- }}}
         }
     }
 

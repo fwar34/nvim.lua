@@ -402,9 +402,11 @@ function key_mappings:start()
     --     ['n|<LocalLeader>wl'] = '<CMD>LoadLastSession<CR>',
     -- }
 
-    -- session-lens
-    self.session_len = {
-        ['n|<LocalLeader>ww'] = '<CMD>Telescope session-lens search_session<CR>',
+    -- persisted
+    self.persisted = {
+        ['n|<LocalLeader>ww'] = '<CMD>Telescope persisted<CR>',
+        ['n|<LocalLeader>ws'] = '<CMD>SessionSave<CR>',
+        ['n|<LocalLeader>wl'] = '<CMD>SessionLoadLast<CR>',
     }
 
     -- nerdtree
@@ -419,6 +421,12 @@ function key_mappings:start()
     self.defx = {
         ['n|<Leader>dj'] = '<CMD>Defx<CR>',
         ['n|<Leader>df'] = "<CMD>Defx `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>",
+    }
+
+    -- nvim-tree
+    self.nvim_tree = {
+        ['n|<Leader>tt'] = '<CMD>NvimTreeToggle<CR>',
+        ['n|<Leader>tf'] = '<CMD>NvimTreeFocus<CR>',
     }
 
     -- vim-highlighter
