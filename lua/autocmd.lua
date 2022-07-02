@@ -1,5 +1,6 @@
 local autocmd = {}
 local vim = vim
+local api = vim.api
 
 local function goto_last_position()
     vim.cmd [[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]
@@ -13,10 +14,19 @@ end
 --     vim.cmd [[ autocmd! FileType help,qf,netrw,startuptime :nnoremap <buffer> q <CMD>q<CR> ]]
 -- end
 local function map_q_to_quit()
-    vim.api.nvim_create_autocmd("FileType", {
-        pattern = {'help', 'qf', 'netrw', 'startuptime'},
+    api.nvim_create_autocmd("FileType", {
+        pattern = {'help', 'qf', 'netrw', 'startuptime', 'git'},
         callback = function()
-            vim.api.nvim_buf_set_keymap(0, 'n', 'q', '<CMD>q<CR>', {noremap = true})
+            api.nvim_buf_set_keymap(0, 'n', 'q', '<CMD>q<CR>', {noremap = true})
+        end
+    })
+end
+
+local function map_fugitiv_q_2_quit()
+    api.nvim_create_autocmd("FileType", {
+        pattern = 'fugitive',
+        callback = function()
+            api.nvim_buf_set_keymap(0, 'n', 'q', 'gq', {})
         end
     })
 end
@@ -34,11 +44,20 @@ end
 --     vim.cmd [[ autocmd! FileType gitcommit :nnoremap <buffer> q <CMD>wq<CR> ]]
 -- end
 local function map_wq_to_quit()
-    vim.api.nvim_create_autocmd("FileType", {
+    api.nvim_create_autocmd("FileType", {
         pattern = "gitcommit", 
         callback = function()
-            vim.api.nvim_buf_set_keymap(0, "n", "q", "<CMD>wq<CR>", {noremap = true})
+            api.nvim_buf_set_keymap(0, "n", "q", "<CMD>wq<CR>", {noremap = true})
             return true -- look 'help nvim_create_autocmd' return true to delete this autocmd
+        end
+    })
+end
+
+local function map_find_q_quit()
+    api.nvim_create_autocmd("FileType", {
+        pattern = "find",
+        callback = function()
+            api.nvim_buf_set_keymap(0, 'n', 'q', '<CMD>Hi /close<CR>', {noremap = true})
         end
     })
 end
@@ -61,9 +80,11 @@ function autocmd.setup()
     goto_last_position()
     cmd_for_packer()
     map_q_to_quit()
+    map_find_q_quit()
     map_wq_to_quit()
     help_mouse()
     disable_auto_comment()
+    map_fugitiv_q_2_quit()
     -- golang_autocmd()
 end
 

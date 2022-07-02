@@ -1,5 +1,7 @@
 -- key_mappings
 local global = require('global')
+local vim = vim
+local api = vim.api
 
 local key_mappings = {}
 local key_map = {}
@@ -20,7 +22,7 @@ function key_map:new()
 end
 
 function key_map:process()
-    vim.api.nvim_set_keymap(self.mode, self.lhs, self.rhs, self.options)
+    api.nvim_set_keymap(self.mode, self.lhs, self.rhs, self.options)
 end
 
 local function create_keymap(key, value)
@@ -28,11 +30,11 @@ local function create_keymap(key, value)
     keymap.mode, keymap.lhs = key:match('([^|]*)|?(.*)')
     if (type(value) == 'table') then
         keymap.rhs = value[1]
-        if value[2] ~= nil then
-            keymap.options.noremap = value[2]
+        if value['noremap'] ~= nil then
+            keymap.options.noremap = value['noremap']
         end
-        if value[3] ~= nil then
-            keymap.options.silent = value[3]
+        if value['silent'] ~= nil then
+            keymap.options.silent = value['silent']
         end
     else
         keymap.rhs = value
@@ -76,14 +78,14 @@ function _G.search_word2()
 end
 
 function _G.move_cursor(direction)
-    local cursor = vim.api.nvim_win_get_cursor(0)
+    local cursor = api.nvim_win_get_cursor(0)
     local col
     if direction == 'left' then
         col = cursor[2] == 0 and 0 or cursor[2] - 1
     else
         col = cursor[2] + 1
     end
-    vim.api.nvim_win_set_cursor(0, {cursor[1], col})
+    api.nvim_win_set_cursor(0, {cursor[1], col})
 end
 
 find_files_args = {
@@ -120,7 +122,7 @@ function key_mappings:start()
         ['n|<LocalLeader>lm'] = '<CMD>lua require("futil").toggle_line_number()<CR>',
         ['n|<LocalLeader>qq'] = '<CMD>q<CR>',
         ['n|<LocalLeader>qa'] = '<CMD>qa<CR>',
-        ['n|Y'] = 'y$',
+        -- ['n|Y'] = 'y$', -- nvim 0.6 builtin
         ['n|<F12>'] = '<CMD>lua require("futil").toggle_mouse()<CR>',
         ['n|<Leader>ia'] = 'm`A;<Esc>``',
         ['n|<Leader>yy'] = "m`y'a``",
@@ -182,10 +184,10 @@ function key_mappings:start()
     self.command = {
         ['c|<C-g>'] = '<C-c>',
         -- 下面的四个必须有 silent，不能在echo中显示东西
-        ['c|<C-a>'] = {'<Home>', true, false},
-        ['c|<C-e>'] = {'<End>', true, false},
-        ['c|<C-b>'] = {'<Left>', true, false},
-        ['c|<C-f>'] = {'<Right>', true, false},
+        ['c|<C-a>'] = {'<Home>', silent = false},
+        ['c|<C-e>'] = {'<End>', silent = false},
+        ['c|<C-b>'] = {'<Left>', silent = false},
+        ['c|<C-f>'] = {'<Right>', silent = false},
     }
 
     -- fzf.vim key mappings
@@ -359,8 +361,8 @@ function key_mappings:start()
         ['n|<LocalLeader>df'] = '<CMD>SignifyDiff<CR>',
         ['n|<LocalLeader>du'] = '<CMD>SignifyHunkDiff<CR>',
         ['n|<LocalLeader>dr'] = '<CMD>SignifyHunkUndo<CR>',
-        ['n|<LocalLeader>dn'] = {'<plug>(signify-next-hunk)', false}, -- must noremap = false
-        ['n|<LocalLeader>dp'] = {'<plug>(signify-prev-hunk)', false}, -- must noremap = false
+        ['n|<LocalLeader>dn'] = {'<plug>(signify-next-hunk)', noremap = false}, -- must noremap = false
+        ['n|<LocalLeader>dp'] = {'<plug>(signify-prev-hunk)', noremap = false}, -- must noremap = false
     }
 
     -- vim-youdao-translater
@@ -383,8 +385,8 @@ function key_mappings:start()
 
     -- vim-easymotion
     self.easy_motion = {
-        ['n|<Leader>ms'] = {"<Plug>(easymotion-s2)", false},
-        ['n|<Leader>mr'] = {"<Plug>(easymotion-repeat)", false},
+        ['n|<Leader>ms'] = {"<Plug>(easymotion-s2)", noremap = false},
+        ['n|<Leader>mr'] = {"<Plug>(easymotion-repeat)", noremap = false},
     }
 
     -- vim-fswitch
@@ -440,23 +442,16 @@ function key_mappings:start()
     self:process_keys()
 end
 
-local function auto_cmd()
-    vim.cmd [[autocmd FileType find nnoremap <buffer> q <CMD>Hi /close<CR>]]
-    vim.cmd [[autocmd FileType gitcommit nnoremap <buffer> q <CMD>wq<CR>]]
-    vim.cmd [[autocmd FileType git nnoremap <buffer> q <CMD>q<CR>]]
-end
-
 local function set_leader()
     vim.g.mapleader = ";"
     vim.g.maplocalleader = " "
-    vim.api.nvim_set_keymap('n', ' ', '', {noremap = true})
-    vim.api.nvim_set_keymap('x', ' ', '', {noremap = true})
+    api.nvim_set_keymap('n', ' ', '', {noremap = true})
+    api.nvim_set_keymap('x', ' ', '', {noremap = true})
 end
 
 function key_mappings.setup()
     set_leader()
     key_mappings:start()
-    auto_cmd()
 end
 
 key_mappings.setup()
