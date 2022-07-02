@@ -389,6 +389,8 @@ return require('packer').startup(function()
                     mappings = {
                         list = {
                             { key = "u", action = "dir_up" },
+                            { key = "h", action = "dir_up" },
+                            { key = "l", action = "cd" },
                         },
                     },
                 },
