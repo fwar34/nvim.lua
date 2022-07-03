@@ -410,9 +410,7 @@ function key_mappings:start()
 
     -- session-lens
     self.session_lens = {
-        ['n|<LocalLeader>ww'] = '<CMD>lua require('session-lens').search_session()<CR>',
-        ['n|<LocalLeader>ws'] = '<CMD>SessionSave<CR>',
-        ['n|<LocalLeader>wl'] = '<CMD>SessionLoadLast<CR>',
+        ['n|<LocalLeader>ww'] = '<CMD>lua require("session-lens").search_session()<CR>',
     }
 
     -- nerdtree
