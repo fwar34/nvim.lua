@@ -396,15 +396,21 @@ function key_mappings:start()
 
     -- neovim-session-manager
     -- self.session_manager = {
-    --     ['n|<LocalLeader>ww'] = '<CMD>Telescope sessions save_current=true<CR>',
-    --     -- ['n|<LocalLeader>ww'] = '<CMD>Telescope sessions<CR>',
-    --     ['n|<LocalLeader>ws'] = '<CMD>SaveSession<CR>',
-    --     ['n|<LocalLeader>wl'] = '<CMD>LoadLastSession<CR>',
+    --     ['n|<LocalLeader>ww'] = '<CMD>SessionManager load_session<CR>',
+    --     ['n|<LocalLeader>wl'] = '<CMD>SessionManager load_last_session<CR>',
+    --     ['n|<LocalLeader>ws'] = '<CMD>SessionManager save_current_session<CR>',
     -- }
 
     -- persisted
-    self.persisted = {
-        ['n|<LocalLeader>ww'] = '<CMD>Telescope persisted<CR>',
+    -- self.persisted = {
+    --     ['n|<LocalLeader>ww'] = '<CMD>Telescope persisted<CR>',
+    --     ['n|<LocalLeader>ws'] = '<CMD>SessionSave<CR>',
+    --     ['n|<LocalLeader>wl'] = '<CMD>SessionLoadLast<CR>',
+    -- }
+
+    -- session-lens
+    self.session_lens = {
+        ['n|<LocalLeader>ww'] = '<CMD>lua require('session-lens').search_session()<CR>',
         ['n|<LocalLeader>ws'] = '<CMD>SessionSave<CR>',
         ['n|<LocalLeader>wl'] = '<CMD>SessionLoadLast<CR>',
     }

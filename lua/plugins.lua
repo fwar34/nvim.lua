@@ -917,13 +917,13 @@ return require('packer').startup(function()
                     require("telescope").load_extension("live_grep_raw")
                 end,
             },
-            -- improve the default vim.ui interfaces
-            {'stevearc/dressing.nvim'},
             -- {{{ sessions plugins
+            -- improve the default vim.ui interfaces, neovim-session-manager use vim.ui.select()
+            {'stevearc/dressing.nvim'},
             -- {
             --     'Shatur/neovim-session-manager', 
             --     config = function()
-            --         local Path = require('plenary.path')
+            --         -- local Path = require('plenary.path')
             --         require('session_manager').setup({
             --             -- sessions_dir = Path:new(vim.fn.stdpath('data'), 'sessions'), -- The directory where the session files will be saved.
             --             -- path_replacer = '__', -- The character to which the path separator will be replaced for session files.
@@ -939,15 +939,15 @@ return require('packer').startup(function()
             --     })
             -- end
             -- },
-            use({
-                "olimorris/persisted.nvim",
-                -- module = "persisted", -- For lazy loading
-                config = function()
-                    require("persisted").setup()
-                    -- <C-d> to delete session in telescope
-                    require("telescope").load_extension("persisted") -- To load the telescope extension
-                end,
-            }),
+            -- use({
+            --     "olimorris/persisted.nvim",
+            --     -- module = "persisted", -- For lazy loading
+            --     config = function()
+            --         require("persisted").setup()
+            --         -- <C-d> to delete session in telescope
+            --         require("telescope").load_extension("persisted") -- To load the telescope extension
+            --     end,
+            -- }),
             -- {
             --     'JoseConseco/telescope_sessions_picker.nvim',
             --     require'telescope'.setup {
@@ -958,11 +958,29 @@ return require('packer').startup(function()
             --         },
             --     }
             -- },
-            use({
-                'jedrzejboczar/possession.nvim',
-                requires = { 'nvim-lua/plenary.nvim' },
-            })
-            -- }}}
+            -- use({
+                --     'jedrzejboczar/possession.nvim',
+                --     requires = { 'nvim-lua/plenary.nvim' },
+                -- }),
+
+                -- use {
+                    --     'rmagatti/auto-session',
+                    --     config = function()
+                        --         require('auto-session').setup {
+                            --             log_level = 'info',
+                            --             -- auto_session_suppress_dirs = {'~/', '~/Projects'}
+                            --         }
+                            --     end
+                            -- },
+
+                            use {
+                                'rmagatti/session-lens',
+                                requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim'},
+                                config = function()
+                                    require('session-lens').setup({--[[your custom config--]]})
+                                end
+                            },
+                            -- }}}
         }
     }
 
@@ -989,15 +1007,6 @@ return require('packer').startup(function()
         end
     }
 
-    -- use {
-    --     'rmagatti/auto-session',
-    --     config = function()
-    --         require('auto-session').setup {
-    --             log_level = 'info',
-    --             -- auto_session_suppress_dirs = {'~/', '~/Projects'}
-    --         }
-    --     end
-    -- }
 
     use {
         'azabiong/vim-highlighter',
