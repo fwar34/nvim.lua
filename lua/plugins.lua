@@ -947,7 +947,7 @@ return require('packer').startup(function()
                     -- <C-d> to delete session in telescope
                     require("telescope").load_extension("persisted") -- To load the telescope extension
                 end,
-            })
+            }),
             -- {
             --     'JoseConseco/telescope_sessions_picker.nvim',
             --     require'telescope'.setup {
@@ -958,6 +958,10 @@ return require('packer').startup(function()
             --         },
             --     }
             -- },
+            use({
+                'jedrzejboczar/possession.nvim',
+                requires = { 'nvim-lua/plenary.nvim' },
+            })
             -- }}}
         }
     }
