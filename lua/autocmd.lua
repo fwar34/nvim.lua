@@ -7,7 +7,13 @@ local function goto_last_position()
 end
 
 local function cmd_for_packer()
-    vim.cmd [[ autocmd! BufWritePost plugins.lua PackerCompile ]]
+    -- vim.cmd [[ autocmd! BufWritePost plugins.lua PackerCompile ]]
+    vim.cmd([[
+    augroup packer_user_config
+        autocmd!
+        autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+    augroup end
+    ]])
 end
 
 local function map_q_to_quit()
@@ -75,7 +81,7 @@ end
 
 function autocmd.setup()
     goto_last_position()
-    -- cmd_for_packer()
+    cmd_for_packer()
     map_q_to_quit()
     map_find_q_quit()
     map_wq_to_quit()
@@ -83,12 +89,6 @@ function autocmd.setup()
     disable_auto_comment()
     map_fugitiv_q_2_quit()
     -- golang_autocmd()
-    vim.cmd([[
-    augroup packer_user_config
-        autocmd!
-        autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-    augroup end
-    ]])
 end
 
 autocmd.setup()
