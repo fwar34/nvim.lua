@@ -2,8 +2,20 @@ local autocmd = {}
 local vim = vim
 local api = vim.api
 
+-- local function goto_last_position()
+    -- vim.cmd [[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]
+-- end
+
 local function goto_last_position()
-    vim.cmd [[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]
+    api.nvim_create_autocmd('BufReadPost', {
+        pattern = '*',
+        callback = function()
+            local position = api.nvim_buf_get_mark(0, '"')
+            if position ~= nil then
+                api.nvim_win_set_cursor(0, position)
+            end
+        end
+    })
 end
 
 local function cmd_for_packer()
