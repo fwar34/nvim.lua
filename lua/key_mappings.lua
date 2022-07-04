@@ -2,6 +2,9 @@
 local global = require('global')
 local vim = vim
 local api = vim.api
+local futil = require('futil')
+local telescope = require('telescope')
+local tbuiltin = require('telescope.builtin')
 
 local key_mappings = {}
 local key_map = {}
@@ -25,17 +28,26 @@ function key_map:process()
     api.nvim_set_keymap(self.mode, self.lhs, self.rhs, self.options)
 end
 
+-- https://neovim.io/news/2022/04 whats'new in neovim 0.7
 local function create_keymap(key, value)
     local keymap = key_map:new()
     keymap.mode, keymap.lhs = key:match('([^|]*)|?(.*)')
     if (type(value) == 'table') then
-        keymap.rhs = value[1]
+        if (type(value[1]) == 'function') then
+            keymap.options.callback = value[1]
+        else
+            keymap.rhs = value[1]
+        end
+
         if value['noremap'] ~= nil then
             keymap.options.noremap = value['noremap']
         end
+
         if value['silent'] ~= nil then
             keymap.options.silent = value['silent']
         end
+    elseif (type(value) == 'function') then
+        keymap.options.callback = value
     else
         keymap.rhs = value
     end
@@ -119,25 +131,24 @@ function key_mappings:start()
         ['n|<Leader>kb'] = '<CMD>bdel<CR>',
         ['n|<Space><Space>'] = {':', true},
         ['n|<Leader>bb'] = '<C-^>',
-        ['n|<LocalLeader>lm'] = '<CMD>lua require("futil").toggle_line_number()<CR>',
+        ['n|<LocalLeader>lm'] = function() futil.toggle_line_number() end,
         ['n|<LocalLeader>qq'] = '<CMD>q<CR>',
         ['n|<LocalLeader>qa'] = '<CMD>qa<CR>',
         -- ['n|Y'] = 'y$', -- nvim 0.6 builtin
-        ['n|<F12>'] = '<CMD>lua require("futil").toggle_mouse()<CR>',
+        ['n|<F12>'] = function() futil.toggle_mouse() end,
         ['n|<Leader>ia'] = 'm`A;<Esc>``',
         ['n|<Leader>yy'] = "m`y'a``",
         ['n|<Leader>dd'] = "d'a",
         ['n|<Leader>qf'] = '<CMD>copen<CR>',
-        ['n|<Leader>mf'] = '<CMD>lua require("futil").make_fennel()<CR>',
-        -- ['n|<Leader>cs'] = '<CMD>lua require("mylib").coc_status()<CR>',
-        ['n|<LocalLeader>fn'] = '<CMD>lua require("futil").display_function()<CR>',
-        ['n|<LocalLeader>do'] = '<CMD>lua require("futil").delete_other_buffers()<CR>',
+        ['n|<Leader>mf'] = function() futil.make_fennel() end,
+        ['n|<LocalLeader>fn'] = function() futil.display_function() end,
+        ['n|<LocalLeader>do'] = function() futil.delete_other_buffers() end,
         ['n|<C-g>'] = '<C-c>',
         ['n|<Leader>md'] = '<CMD>m .+1<CR>',
         ['n|<Leader>mu'] = '<CMD>m .-2<CR>',
         ['n|<Leader>mm'] = '%',
         ['n|ge'] = 'G',
-        ['n|<Leader>qr'] = '<CMD>lua require("quickrun").run()<CR>',
+        ['n|<Leader>qr'] = function() require('quickrun').run() end,
         ['n|<Leader>qt'] = '<CMD>AsyncStop<CR>',
         -- help motion.txt
         -- If your '{' or '}' are not in the first column, and you would like to use "[["
@@ -167,8 +178,8 @@ function key_mappings:start()
         ['i|<Leader>zz'] = '<Esc><CMD>w<CR>a',
         -- ['i|<C-b>'] = '<Left>',
         -- ['i|<C-f>'] = '<Right>',
-        ['i|<C-b>'] = '<CMD>lua _G.move_cursor("left")<CR>',
-        ['i|<C-f>'] = '<CMD>lua _G.move_cursor("right")<CR>',
+        ['i|<C-b>'] = function() _G.move_cursor('left') end,
+        ['i|<C-f>'] = function() _G.move_cursor('right') end,
         ['i|<C-a>'] = '<Esc>I',
         ['i|<C-e>'] = '<End>',
         -- ['i|<C-g>'] = '<C-c>',
@@ -178,7 +189,7 @@ function key_mappings:start()
     }
 
     self.terminal = {
-        ['t|<F12>'] = '<CMD>lua require("futil").toggle_mouse()<CR>',
+        ['t|<F12>'] = function() futil.toggle_mouse() end,
     }
 
     self.command = {
@@ -276,16 +287,15 @@ function key_mappings:start()
         ['n|<Leader>cm'] = '<CMD>Telescope commands<CR>',
         ['n|<Leader>ch'] = '<CMD>Telescope command_history<CR>',
         ['n|<Leader>sh'] = '<CMD>Telescope search_history<CR>',
-        ['n|<Leader>fr'] = '<CMD>lua require("telescope.builtin").live_grep({additional_args = _G.rg_options})<CR>',
-        ['n|<Leader>fa'] = '<CMD>lua require("telescope").extensions.live_grep_raw.live_grep_raw({additional_args = _G.rg_options})<CR>',
-        -- ['n|<Leader>fa'] = '<CMD>Telescope live_grep_raw<CR>',
-        ['n|<Leader>ff'] = '<CMD>lua require("telescope.builtin").find_files({find_command = find_files_args,})<CR>',
-        ['n|<Leader>pf'] = '<CMD>lua require("telescope.builtin").find_files({cwd = require("find_root_dir").find_root_dir(), find_command = find_files_args,})<CR>',
-        ['n|<Leader>fw'] = '<cmd>lua require("telescope.builtin").grep_string({additional_args = _G.rg_options})<CR>',
-        ['n|<Leader>fs'] = '<cmd>lua require("telescope.builtin").grep_string({search = _G.search_word2()})<CR>',
+        ['n|<Leader>fr'] = function() tbuiltin.live_grep({additional_args = _G.rg_options}) end,
+        ['n|<Leader>fa'] = function() telescope.extensions.live_grep_raw.live_grep_raw({additional_args = _G.rg_options}) end,
+        ['n|<Leader>ff'] = function() tbuiltin.find_files({find_command = find_files_args,}) end,
+        ['n|<Leader>pf'] = function() tbuiltin.find_files({cwd = require("find_root_dir").find_root_dir(), find_command = find_files_args,}) end,
+        ['n|<Leader>fw'] = function() tbuiltin.grep_string({additional_args = _G.rg_options}) end,
+        ['n|<Leader>fs'] = function() tbuiltin.grep_string({search = _G.search_word2()}) end,
         -- ['n|<Leader>fp'] = "<CMD>lua require'telescope'.extensions.project.project{}<CR>",
         ['n|<Leader>fp'] = "<CMD>Telescope projects<CR>",
-        ['n|<Leader>pc'] = "<CMD>lua require('telescope').extensions.packer.plugins(opts)<CR>",
+        ['n|<Leader>pc'] = function() telescope.extensions.packer.plugins(opts) end,
         -- ['n|<Leader>fs'] = '<CMD>lua require("mylib")["search_word"]()<CR>',
         -- ['n|<Leader>ii'] = '<CMD>Clap function<CR>',
         ['n|<Leader>gf'] = '<CMD>Telescope git_files<CR>',
@@ -410,7 +420,7 @@ function key_mappings:start()
 
     -- session-lens
     self.session_lens = {
-        ['n|<LocalLeader>ww'] = '<CMD>lua require("session-lens").search_session()<CR>',
+        ['n|<LocalLeader>ww'] = function() require("session-lens").search_session() end,
     }
 
     -- nerdtree
@@ -448,7 +458,7 @@ function key_mappings:start()
 
     -- lsp-config
     self.lsp_config = {
-        ['n|<LocalLeader>=='] = '<CMD>lua vim.lsp.buf.formatting()<CR>',
+        ['n|<LocalLeader>=='] = function() vim.lsp.buf.formatting() end,
     }
 
     self:process_keys()
