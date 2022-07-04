@@ -288,7 +288,7 @@ function key_mappings:start()
         ['n|<Leader>ch'] = '<CMD>Telescope command_history<CR>',
         ['n|<Leader>sh'] = '<CMD>Telescope search_history<CR>',
         ['n|<Leader>fr'] = function() tbuiltin.live_grep({additional_args = _G.rg_options}) end,
-        ['n|<Leader>fa'] = function() telescope.extensions.live_grep_raw.live_grep_raw({additional_args = _G.rg_options}) end,
+        ['n|<Leader>fa'] = function() telescope.extensions.live_grep_args.live_grep_args({additional_args = _G.rg_options}) end,
         ['n|<Leader>ff'] = function() tbuiltin.find_files({find_command = find_files_args,}) end,
         ['n|<Leader>pf'] = function() tbuiltin.find_files({cwd = require("find_root_dir").find_root_dir(), find_command = find_files_args,}) end,
         ['n|<Leader>fw'] = function() tbuiltin.grep_string({additional_args = _G.rg_options}) end,
