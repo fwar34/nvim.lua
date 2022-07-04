@@ -12,7 +12,11 @@ local function goto_last_position()
         callback = function()
             local position = api.nvim_buf_get_mark(0, '"')
             if position ~= nil then
-                api.nvim_win_set_cursor(0, position)
+                -- 每次 '"' mark 都减少了一个位置
+                api.nvim_win_set_cursor(0, {position[1], position[2] + 1})
+                -- require('global').dump(position)
+                -- require('global').put(position)
+                -- vim.pretty_print(position)
             end
         end
     })

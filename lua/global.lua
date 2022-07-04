@@ -10,6 +10,17 @@ function global.dump(...)
 	print(unpack(objects))
 end
 
+function global.put(...)
+    local objects = {}
+    for i = 1, select('#', ...) do
+        local v = select(i, ...)
+        table.insert(objects, vim.inspect(v))
+    end
+
+    print(table.concat(objects, '\n'))
+    return ...
+end
+
 -- https://blog.csdn.net/forestsenlin/article/details/50590577
 -- string库的gsub函数，共三个参数：
 -- 1. str是待分割的字符串
