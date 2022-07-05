@@ -36,7 +36,8 @@ local function map_q_to_quit()
     api.nvim_create_autocmd("FileType", {
         pattern = {'help', 'qf', 'netrw', 'startuptime', 'git'},
         callback = function()
-            api.nvim_buf_set_keymap(0, 'n', 'q', '<CMD>q<CR>', {noremap = true})
+            -- api.nvim_buf_set_keymap(0, 'n', 'q', '<CMD>q<CR>', {noremap = true})
+            vim.keymap.set('n', 'q', '<CMD>q<CR>', {buffer = true})
         end
     })
 end
@@ -46,6 +47,7 @@ local function map_fugitiv_q_2_quit()
         pattern = 'fugitive',
         callback = function()
             api.nvim_buf_set_keymap(0, 'n', 'q', 'gq', {})
+            -- vim.keymap.set('n', 'q', 'gq', {buffer = true}) -- 不起作用
         end
     })
 end
