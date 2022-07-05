@@ -1046,4 +1046,9 @@ return require('packer').startup(function()
 
     use {'solarnz/thrift.vim'}
 
+    use { 
+        'ibhagwan/fzf-lua',
+        -- optional for icon support
+        -- requires = { 'kyazdani42/nvim-web-devicons'  }
+    }
 end)

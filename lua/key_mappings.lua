@@ -294,6 +294,7 @@ function key_mappings:start()
         ['n|<Leader>ff'] = function() tbuiltin.find_files({find_command = find_files_args,}) end,
         ['n|<Leader>pf'] = function() tbuiltin.find_files({cwd = require("find_root_dir").find_root_dir(), find_command = find_files_args,}) end,
         ['n|<Leader>cf'] = function() tbuiltin.find_files({cwd = '~/.config/nvim/lua', find_command = find_files_args,}) end,
+        ['n|<Leader>fh'] = function() tbuiltin.find_files({cwd = '~'}) end,
         ['n|<Leader>fw'] = function() tbuiltin.grep_string({additional_args = _G.rg_options}) end,
         ['n|<Leader>fs'] = function() tbuiltin.grep_string({search = _G.search_word2()}) end,
         -- ['n|<Leader>fp'] = "<CMD>lua require'telescope'.extensions.project.project{}<CR>",
