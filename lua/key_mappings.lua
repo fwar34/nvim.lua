@@ -85,8 +85,9 @@ function rg_options()
 end
 
 function _G.search_word2()
-    vim.cmd('normal ye')
-    return vim.fn.getreg('0')
+    vim.cmd('normal "kye')
+    -- print(vim.fn.getreg('k'))
+    return vim.fn.getreg('k')
 end
 
 function _G.move_cursor(direction)
