@@ -990,10 +990,10 @@ return require('packer').startup(function()
         'rmagatti/session-lens',
         requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim',},
         config = function()
-            require('session-lens').setup({--[[your custom config--]]})
             require('auto-session').setup({
                 log_level = 'error',
             })
+            require('session-lens').setup({--[[your custom config--]]})
         end
     }
     -- }}}
