@@ -39,3 +39,7 @@ let g:lightline = {
 
 " autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 "FugitiveStatusline FugitiveHead
+
+" test for neovide font
+" set guifont=Sarasa\ Mono\ SC\ Nerd:h12
+" echo "xxxxxxxxxyyyyyyyyy"
