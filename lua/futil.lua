@@ -74,7 +74,7 @@ function futil.display_function()
 end
 
 function futil.unmap(maps)
-    for _, v in ipair(maps) do
+    for _, v in ipairs(maps) do
         vim.cmd [[ unmap .. v ]]
         print("yyyyy")
     end

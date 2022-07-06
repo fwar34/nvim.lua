@@ -10,13 +10,13 @@ local function goto_last_position()
     api.nvim_create_autocmd('BufReadPost', {
         pattern = '*',
         callback = function()
-            local position = api.nvim_buf_get_mark(0, '"')
-            if position ~= nil then
+            -- vim.pretty_print(position)
+            if position ~= nil and position[1] >= 1 and position[1] <= api.nvim_buf_line_count(0) then
+                -- api.nvim_win_set_cursor(0, position)
                 -- 每次 '"' mark 都减少了一个位置
                 api.nvim_win_set_cursor(0, {position[1], position[2] + 1})
                 -- require('global').dump(position)
                 -- require('global').put(position)
-                -- vim.pretty_print(position)
             end
         end
     })
@@ -46,8 +46,8 @@ local function map_fugitiv_q_2_quit()
     api.nvim_create_autocmd("FileType", {
         pattern = 'fugitive',
         callback = function()
-            api.nvim_buf_set_keymap(0, 'n', 'q', 'gq', {})
-            -- vim.keymap.set('n', 'q', 'gq', {buffer = true}) -- 不起作用
+            -- api.nvim_buf_set_keymap(0, 'n', 'q', 'gq', {})
+            vim.keymap.set('n', 'q', 'gq', {buffer = true, remap = true})
         end
     })
 end
@@ -57,19 +57,16 @@ local function help_mouse()
     vim.cmd [[ autocmd! BufLeave *.txt lua require('futil'):restore_mouse() ]]
 end
 
-local function golang_autocmd()
-    vim.cmd [[ autocmd! FileType go :inoremap <buffer> ; <Space>:=<Space>]]
-end
-
 -- local function map_wq_to_quit()
 --     vim.cmd [[ autocmd! FileType gitcommit :nnoremap <buffer> q <CMD>wq<CR> ]]
 -- end
 local function map_wq_to_quit()
     api.nvim_create_autocmd("FileType", {
-        pattern = "gitcommit", 
+        pattern = "gitcommit",
         callback = function()
-            api.nvim_buf_set_keymap(0, "n", "q", "<CMD>wq<CR>", {noremap = true})
-            return true -- look 'help nvim_create_autocmd' return true to delete this autocmd
+            -- api.nvim_buf_set_keymap(0, "n", "q", "<CMD>wq<CR>", {noremap = true})
+            vim.keymap.set('n', 'q', '<CMD>wq<CR>', {buffer = true})
+            -- return true -- look ':help nvim_create_autocmd' return true to delete this autocmd
         end
     })
 end

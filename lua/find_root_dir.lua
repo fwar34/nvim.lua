@@ -10,8 +10,8 @@ local function find_in_table(data)
 end
 
 function M.find_root_dir()
-    org_pwd = vim.fn.getcwd()
-    dir = org_pwd
+    local org_pwd = vim.fn.getcwd()
+    local dir = org_pwd
 
     while (dir ~= vim.env.HOME) do
         local output = vim.fn.execute('!ls -a ' .. dir)
