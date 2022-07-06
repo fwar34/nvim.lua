@@ -1002,9 +1002,19 @@ return require('packer').startup(function()
         'rmagatti/session-lens',
         requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim',},
         config = function()
-            require('auto-session').setup({
+            -- local function restore_nvim_tree()
+            --     local nvim_tree = require('nvim-tree')
+            --     local reloaders = require "nvim-tree.actions.reloaders"
+            --     nvim_tree.change_dir(vim.fn.getcwd())
+            --     -- nvim_tree.refresh()
+            --     reloaders.reload_explorer()
+            --     print('xxxxxxxxxxxxxxxxxx', vim.fn.getcwd())
+            -- end
+
+            require('auto-session').setup {
                 log_level = 'error',
-            })
+                -- pre_restore_cmds = {restore_nvim_tree}
+            }
             require('session-lens').setup({--[[your custom config--]]})
         end
     }
