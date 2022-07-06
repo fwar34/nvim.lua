@@ -792,10 +792,22 @@ return require('packer').startup(function()
         -- {'bhurlow/vim-parinfer', ft = {'fennel', 'clojure', 'lisp'}}
     }
 
+    -- use {
+    --     'jiangmiao/auto-pairs',
+    --     config = function()
+    --         vim.cmd [[au FileType lisp,clojure,lisp let b:AutoPairs = {'```': '```', '`': '`', '"': '"', '[': ']', '(': ')', '{': '}', '"""': '"""'}]]
+    --     end
+    -- }
+
     use {
-        'jiangmiao/auto-pairs',
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
+    }
+
+    use {
+        'norcalli/nvim-colorizer.lua',
         config = function()
-            vim.cmd [[au FileType lisp,clojure,lisp let b:AutoPairs = {'```': '```', '`': '`', '"': '"', '[': ']', '(': ')', '{': '}', '"""': '"""'}]]
+            require'colorizer'.setup()
         end
     }
 
@@ -1051,4 +1063,18 @@ return require('packer').startup(function()
         -- optional for icon support
         -- requires = { 'kyazdani42/nvim-web-devicons'  }
     }
+
+    -- A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing.
+    use {
+        "folke/trouble.nvim",
+        requires = "kyazdani42/nvim-web-devicons",
+        config = function()
+            require("trouble").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    }
+
 end)

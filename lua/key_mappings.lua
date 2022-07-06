@@ -1,5 +1,5 @@
 -- key_mappings
-local global = require('global')
+-- local global = require('global')
 local vim = vim
 local api = vim.api
 local futil = require('futil')
@@ -66,7 +66,7 @@ function key_mappings:process_keys()
     end
 end
 
-function rg_options()
+function _G.rg_options()
     -- return { "--glob !tags", "--glob !nvim/snippets/**", }
     return {
         "--iglob",
@@ -101,8 +101,8 @@ function _G.move_cursor(direction)
     api.nvim_win_set_cursor(0, {cursor[1], col})
 end
 
-find_files_args = {
-    "rg", "--ignore", 
+local find_files_args = {
+    "rg", "--ignore",
     "--hidden", "--files",
     "--iglob","!*.svn",
     "--iglob","!*.git",
@@ -463,6 +463,12 @@ function key_mappings:start()
     -- lsp-config
     self.lsp_config = {
         ['n|<LocalLeader>=='] = function() vim.lsp.buf.formatting() end,
+    }
+
+    -- trouble.nvim
+    self.trouble_nvim = {
+        ['n|<Leader>xq'] = '<CMD>Trouble quickfix<CR>',
+        ['n|<Leader>xt'] = '<CMD>Trouble<CR>',
     }
 
     self:process_keys()
