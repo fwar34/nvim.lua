@@ -6,6 +6,14 @@ local api = vim.api
     -- vim.cmd [[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]
 -- end
 
+-- 特殊的 marks 可以看 :h marks
+-- . ——最近编辑的位置
+-- 0-9 ——最近使用的文件
+-- ∧ ——最近插入的位置
+-- ' ——上一次跳转前的位置
+-- " ——上一次退出文件时的位置
+-- [ ——上一次修改的开始处
+-- ] ——上一次修改的结尾处'
 local function goto_last_position()
     api.nvim_create_autocmd('BufReadPost', {
         pattern = '*',
