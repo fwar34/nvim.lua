@@ -10,6 +10,10 @@ local function goto_last_position()
     api.nvim_create_autocmd('BufReadPost', {
         pattern = '*',
         callback = function()
+            if vim.bo.filetype == 'gitcommit' then -- 在 gitcommit 中不跳转
+                return
+            end
+            local position = api.nvim_buf_get_mark(0, '"')
             -- vim.pretty_print(position)
             if position ~= nil and position[1] >= 1 and position[1] <= api.nvim_buf_line_count(0) then
                 -- api.nvim_win_set_cursor(0, position)
