@@ -588,7 +588,7 @@ return require('packer').startup(function()
     }
 
     -- Icons
-    use {'ryanoasis/vim-devicons', }
+    -- use {'ryanoasis/vim-devicons', }
 
     -- Surround
     use {
