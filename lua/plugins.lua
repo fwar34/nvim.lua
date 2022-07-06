@@ -1077,4 +1077,11 @@ return require('packer').startup(function()
         end
     }
 
+    use {
+        'nvim-telescope/telescope-packer.nvim',
+        config = function ()
+            require("telescope").load_extension "packer"
+        end
+    }
+
 end)

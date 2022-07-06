@@ -299,7 +299,7 @@ function key_mappings:start()
         ['n|<Leader>fs'] = function() tbuiltin.grep_string({search = _G.search_word2()}) end,
         -- ['n|<Leader>fp'] = "<CMD>lua require'telescope'.extensions.project.project{}<CR>",
         ['n|<Leader>fp'] = "<CMD>Telescope projects<CR>",
-        ['n|<Leader>pc'] = function() telescope.extensions.packer.plugins(opts) end,
+        ['n|<Leader>pc'] = function() telescope.extensions.packer.packer(opt) end,
         -- ['n|<Leader>fs'] = '<CMD>lua require("mylib")["search_word"]()<CR>',
         -- ['n|<Leader>ii'] = '<CMD>Clap function<CR>',
         ['n|<Leader>gf'] = '<CMD>Telescope git_files<CR>',
