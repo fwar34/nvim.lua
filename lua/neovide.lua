@@ -3,7 +3,13 @@ local function setup()
     vim.g.neovide_cursor_animation_length = 0
     vim.g.neovide_remember_window_size = true
     -- vim.g.neovide_transparency = 0.9
-    vim.g.neovide_cursor_vfx_mode = "ripple"
+    -- vim.g.neovide_cursor_vfx_mode = 'railgun'
+    vim.g.neovide_cursor_vfx_mode = 'torpedo'
+    -- vim.g.neovide_cursor_vfx_mode = 'pixiedust'
+
+    -- vim.g.neovide_cursor_vfx_mode = 'sonicboom'
+    -- vim.g.neovide_cursor_vfx_mode = 'wireframe'
+    -- vim.g.neovide_cursor_vfx_mode = "ripple"
     vim.g.neovide_no_idle = true
     if require('global').hostname == 'archlinux' then -- pve-archlinux
         -- https://github.com/laishulu/Sarasa-Mono-SC-Nerd
