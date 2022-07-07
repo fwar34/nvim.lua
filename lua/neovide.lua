@@ -19,9 +19,12 @@ local function setup()
         vim.opt.guifont = 'Sarasa Mono SC Nerd:h13'
         -- vim.o.guifont = "Jetbrains Mono"
         -- vim.o.guifont = 'Sarasa Mono SC Nerd'
-    elseif env.MYHOSTNAME == 'ubuntu-work' then
+    elseif env.MYHOSTNAME == 'ubuntu-work' then -- work
         vim.opt.guifont = 'Sarasa Mono SC Nerd:h12'
+    elseif env.MYHOSTNAME == 'desktop-archlinux' then -- taishi-archlinux
+        vim.opt.guifont = 'Sarasa Mono SC Nerd:h14'
     end
+
 end
 
 setup()
