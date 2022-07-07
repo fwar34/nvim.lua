@@ -1,34 +1,36 @@
 -- :h lua-vim-options
+local opt = vim.opt
 
 -- dirvish 不能设置 autochdir
-vim.cmd('set autochdir')
+opt.autochdir = true
 -- 可以在normal,visual模式使用鼠标
-vim.cmd('set mouse=a')
-vim.cmd('set splitright')
+vim.opt.mouse = 'a'
+opt.splitright = true
 -- 相对行号
--- vim.cmd('set relativenumber')
--- vim.cmd('set cursorline')
-vim.opt.cursorline = true
+opt.relativenumber = true
+opt.cursorline = true
 -- vim 自身命令行模式智能补全
-vim.cmd('set wildmenu')
+opt.wildmenu = true
 -- 高亮dos的特殊符号,如^M
-vim.cmd('set fileformats=unix,dos,mac')
-vim.cmd('set wildignorecase')
-vim.cmd('set pastetoggle=<F9>')
+opt.fileformats = 'unix,dos,mac'
+opt.wildignorecase = true
+opt.pastetoggle = '<F9>'
 -- 禁止光标闪烁
-vim.cmd('set gcr=a:block-blinkon0')
-vim.cmd('set hidden')
+-- vim.cmd('set gcr=a:block-blinkon0')
+opt.hidden = true
 -- 打开这个在非 tmux 中背景是蓝色的，所以只在 tmux 中设置
 if vim.env.TMUX ~= nil or vim.env.ALACRITTY_LOG ~= nil then
-    vim.cmd('set termguicolors')
+    -- vim.cmd('set termguicolors')
+    opt.termguicolors = true
 end
-vim.cmd('set shortmess=atcI')
+opt.shortmess = 'atcI'
+
 -- 输入的命令显示出来，看的清楚些
 -- vim.cmd('set showcmd')
 -- 内部工作编码
-vim.cmd('set encoding=utf-8')
+opt.encoding = 'utf-8'
 -- 文件默认编码
-vim.cmd('set fileencoding=utf-8')
+opt.fileencoding = 'utf-8'
 -- 打开文件时自动尝试下面顺序的编码
 -- vim.cmd('set fileencodings=utf-8,chinese,latin-1')
 vim.cmd('set fileencodings=ucs-bom,utf-8,gbk,gb18030,big5,euc-jp,latin1')
