@@ -8,6 +8,7 @@ vim.cmd('set splitright')
 -- 相对行号
 -- vim.cmd('set relativenumber')
 -- vim.cmd('set cursorline')
+vim.opt.cursorline = true
 -- vim 自身命令行模式智能补全
 vim.cmd('set wildmenu')
 -- 高亮dos的特殊符号,如^M
