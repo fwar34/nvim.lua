@@ -471,7 +471,8 @@ function key_mappings:start()
 
     -- lsp-config
     self.lsp_config = {
-        ['n|<LocalLeader>=='] = function() vim.lsp.buf.formatting() end,
+        -- ['n|<LocalLeader>=='] = function() vim.lsp.buf.formatting() end,
+        ['n|<LocalLeader>=='] = function() vim.lsp.buf.format {async = true} end,
     }
 
     -- trouble.nvim
