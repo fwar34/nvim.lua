@@ -463,7 +463,7 @@ return require('packer').startup(function()
         setup = function()
             -- Type Number. The transparency of the floating terminal. Only works in neovim.
             vim.g.floaterm_winblend = 8
-            vim.g.floaterm_width = 0.6
+            vim.g.floaterm_width = 0.9
             vim.g.floaterm_height = 0.9
             -- vim.g.floaterm_keymap_new = '<F7>'
             -- vim.g.floaterm_keymap_prev = '<F8>'
