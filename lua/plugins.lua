@@ -438,12 +438,12 @@ return require('packer').startup(function()
             -- end
             -- Map Rnvimr action
             vim.g.rnvimr_action = {
-                 [ '<C-t>' ] = 'NvimEdit tabedit',
-                 [ '<C-x>' ] = 'NvimEdit split',
-                 [ '<C-v>' ] = 'NvimEdit vsplit',
-                 [ 'gw' ] = 'JumpNvimCwd',
-                 [ 'yw' ] = 'EmitRangerCwd',
-                 }
+                [ '<C-t>' ] = 'NvimEdit tabedit',
+                [ '<C-x>' ] = 'NvimEdit split',
+                [ '<C-v>' ] = 'NvimEdit vsplit',
+                [ 'gw' ] = 'JumpNvimCwd',
+                [ 'yw' ] = 'EmitRangerCwd',
+            }
         end
     } -- Ranger
     -- use { -- nnn
@@ -463,7 +463,11 @@ return require('packer').startup(function()
         setup = function()
             -- Type Number. The transparency of the floating terminal. Only works in neovim.
             vim.g.floaterm_winblend = 8
-            vim.g.floaterm_width = 0.9
+            if vim.env.MYHOSTNAME == 'ubuntu-work' then
+                vim.g.floaterm_width = 0.9
+            else
+                vim.g.floaterm_width = 0.7
+            end
             vim.g.floaterm_height = 0.9
             -- vim.g.floaterm_keymap_new = '<F7>'
             -- vim.g.floaterm_keymap_prev = '<F8>'
