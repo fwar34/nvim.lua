@@ -1099,4 +1099,7 @@ return require('packer').startup(function()
         end
     }
 
+    -- better quickfix
+    use {'kevinhwang91/nvim-bqf'}
+
 end)
