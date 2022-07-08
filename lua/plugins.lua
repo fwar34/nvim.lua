@@ -874,7 +874,10 @@ return require('packer').startup(function()
                         n = {
                             ["<C-g>"] = "close",
                         }
-                    }
+                    },
+
+                    layout_strategy = 'vertical',
+                    -- layout_config = { height = 0.95 },
                 },
                 vimgrep_arguments = {
                     "rg",
