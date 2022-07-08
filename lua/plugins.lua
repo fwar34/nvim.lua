@@ -1145,7 +1145,9 @@ return require('packer').startup(function()
                 A.nvim_win_set_cursor(0, { erow, col })
             end
 
-            local opt = { silent = true, noremap = true }
+            -- gy0 当前行，光标必须在非空字符上, 其他 gy2j gy2k等等
+            -- local opt = { silent = true, noremap = true }
+            local opt = { noremap = true }
             A.nvim_set_keymap('x', 'gy', '<ESC><CMD>lua ___gdc(vim.fn.visualmode())<CR>', opt)
             A.nvim_set_keymap('n', 'gy', '<CMD>set operatorfunc=v:lua.___gdc<CR>g@', opt)
             -- }}}
