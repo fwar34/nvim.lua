@@ -728,9 +728,10 @@ return require('packer').startup(function()
     use { 'ianva/vim-youdao-translater', event = 'VimEnter *', }
 
     -- Highlight yank
-    use {
-        'machakann/vim-highlightedyank', event = 'VimEnter *',
-    }
+    -- neovim provide vim.highlight.on_yank()
+    -- use {
+    --     'machakann/vim-highlightedyank', event = 'VimEnter *',
+    -- }
 
     -- Create user text objects
     -- use {
