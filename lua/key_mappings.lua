@@ -327,6 +327,15 @@ function key_mappings:start()
     --     ['n|<Leader>ci'] = '<CMD>Commentary<CR>',
     -- }
 
+    -- Comment.vim
+    self.Comment_vim = {
+        ['n|<Leader>cc'] = function ()
+            local line = api.nvim_get_current_line()
+            require('Comment.api').comment_current_linewise()
+            api.nvim_put({line}, 'l', true, false)
+        end
+    }
+
     --symotion-prefix) Vista
     self.vista = {
         ['n|<Leader>ii'] = '<CMD>Vista finder<CR>',
@@ -469,6 +478,12 @@ function key_mappings:start()
     self.trouble_nvim = {
         ['n|<Leader>xq'] = '<CMD>Trouble quickfix<CR>',
         ['n|<Leader>xt'] = '<CMD>Trouble<CR>',
+    }
+
+    -- todo-comments
+    self.todo_comments = {
+        ['n|<LocalLeader>td'] = '<CMD>TodoQuickFix<CR>',
+        ['n|<LocalLeader>tt'] = '<CMD>TodoTelescope<CR>',
     }
 
     self:process_keys()
