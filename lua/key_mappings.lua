@@ -145,8 +145,8 @@ function key_mappings:start()
         ['n|<LocalLeader>fn'] = function() futil.display_function() end,
         ['n|<LocalLeader>do'] = function() futil.delete_other_buffers() end,
         ['n|<C-g>'] = '<C-c>',
-        ['n|<Leader>md'] = '<CMD>m .+1<CR>',
-        ['n|<Leader>mu'] = '<CMD>m .-2<CR>',
+        ['n|<Leader>md'] = '<CMD>m .+1<CR>', -- current line move up
+        ['n|<Leader>mu'] = '<CMD>m .-2<CR>', -- current line move down
         ['n|<Leader>mm'] = '%',
         ['n|<Leader>lf'] = '<CMD>luafile %<CR>',
         ['n|ge'] = 'G',
