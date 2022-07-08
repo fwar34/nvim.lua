@@ -857,6 +857,13 @@ return require('packer').startup(function()
 
     use {
         'nvim-telescope/telescope.nvim', config = function ()
+            local use_devicons = function ()
+                if vim.env.MYHOSTNAME == 'ubuntu-work' then
+                    return false
+                else
+                    return true
+                end
+            end
             -- You dont need to set any of these options. These are the default ones. Only
             -- the loading is important
             require('telescope').setup {
@@ -878,6 +885,7 @@ return require('packer').startup(function()
 
                     layout_strategy = 'vertical',
                     -- layout_config = { height = 0.95 },
+                    color_devicons = use_devicons(),
                 },
                 vimgrep_arguments = {
                     "rg",
@@ -890,7 +898,6 @@ return require('packer').startup(function()
                     "--hidden",
                 },
                 file_ignore_patterns = {},
-                color_devicons = true,
                 --pickers = {
                 --    find_files = {
                 --        find_command = { "fd", "--type=file", "--hidden", "--smart-case" },
