@@ -647,14 +647,14 @@ return require('packer').startup(function()
     -- }
 
     -- Comment
-    use {
-        'tpope/vim-commentary', event = 'VimEnter *',
-        config = function ()
-            -- My favorite file type isn't supported!
-            -- Relax! You just have to adjust 'commentstring':
-            -- autocmd FileType apache setlocal commentstring=#\ %s
-        end
-    }
+    -- use {
+    --     'tpope/vim-commentary', event = 'VimEnter *',
+    --     config = function ()
+    --         -- My favorite file type isn't supported!
+    --         -- Relax! You just have to adjust 'commentstring':
+    --         -- autocmd FileType apache setlocal commentstring=#\ %s
+    --     end
+    -- }
 
     -- Tags
     -- use {'jsfaint/gen_tags.vim', event = 'VimEnter *',}
@@ -1102,4 +1102,10 @@ return require('packer').startup(function()
     -- better quickfix
     use {'kevinhwang91/nvim-bqf'}
 
+    use {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
+        end
+    }
 end)

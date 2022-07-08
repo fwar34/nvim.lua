@@ -323,9 +323,9 @@ function key_mappings:start()
         -- ['n|<Leader>dj'] = '<CMD>Telescope file_browser<CR>',
     }
 
-    self.Commentary = {
-        ['n|<Leader>ci'] = '<CMD>Commentary<CR>',
-    }
+    -- self.Commentary = {
+    --     ['n|<Leader>ci'] = '<CMD>Commentary<CR>',
+    -- }
 
     --symotion-prefix) Vista
     self.vista = {
