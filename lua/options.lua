@@ -38,6 +38,7 @@ vim.cmd('set fileencodings=ucs-bom,utf-8,gbk,gb18030,big5,euc-jp,latin1')
 vim.cmd('set autoread')
 vim.cmd('set completeopt=menu,menuone,noselect,noinsert,preview')
 -- 终端下可以和windows共享clipboard
+-- 可以看 h: provide-clipboard，里面有详细说明，以及不同工具下的共享 clipboard，比如 lemonade 和 doitclient
 vim.cmd('set clipboard=unnamedplus')
 vim.cmd('set nobackup')
 vim.cmd('set nowritebackup')
