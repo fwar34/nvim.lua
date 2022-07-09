@@ -152,6 +152,10 @@ function key_mappings:start()
         ['n|ge'] = 'G',
         ['n|<Leader>qr'] = function() require('quickrun').run() end,
         ['n|<Leader>qt'] = '<CMD>AsyncStop<CR>',
+        ['n|<Leader>x2'] = '<CMD>split<CR>',
+        ['n|<Leader>x3'] = '<CMD>vsplit<CR>',
+        ['n|<LocalLeader>j'] = '<c-w>w3<c-e><c-w>w',
+        ['n|<LocalLeader>k'] = '<c-w>w3<c-y><c-w>w',
         -- help motion.txt
         -- If your '{' or '}' are not in the first column, and you would like to use "[["
         -- and "]]" anyway, try these mappings: >
