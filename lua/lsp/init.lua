@@ -3,7 +3,7 @@ require('lsp.go')
 require('lsp.rust')
 require('lsp.lua')
 
-function setup()
+local function setup()
     -- LSP handlers configuration
     -- local lsp = {
     --     float = {
