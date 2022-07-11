@@ -40,7 +40,7 @@ vim.cmd('set completeopt=menu,menuone,noselect,noinsert,preview')
 -- 终端下可以和windows共享clipboard
 -- 可以看 h: provide-clipboard，里面有详细说明，以及不同工具下的共享 clipboard，比如 lemonade 和 doitclient
 -- https://www.zhihu.com/question/51838774/answer/128467453
-vim.cmd('set clipboard=unnamedplus')
+vim.cmd('set clipboard+=unnamedplus')
 vim.cmd('set nobackup')
 vim.cmd('set nowritebackup')
 vim.cmd('set autowrite')

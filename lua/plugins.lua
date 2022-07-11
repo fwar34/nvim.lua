@@ -1175,5 +1175,9 @@ return require('packer').startup(function()
                 -- refer to the configuration section below
             }
         end
-}
+    }
+
+    -- use {
+    --     'kana/vim-fakeclip'
+    -- }
 end)
