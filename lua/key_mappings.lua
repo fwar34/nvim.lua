@@ -337,7 +337,8 @@ function key_mappings:start()
             local line = api.nvim_get_current_line()
             require('Comment.api').comment_current_linewise()
             api.nvim_put({line}, 'l', true, false)
-        end
+        end,
+        ['n|<Leader>ci'] = '<Plug>(comment_toggle_linewise_count)',
     }
 
     --symotion-prefix) Vista
