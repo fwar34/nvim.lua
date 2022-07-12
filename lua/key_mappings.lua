@@ -46,6 +46,10 @@ local function create_keymap(key, value)
         if value['silent'] ~= nil then
             keymap.options.silent = value['silent']
         end
+
+        if value['expr'] ~= nil then
+            keymap.options.expr = value['expr']
+        end
     elseif (type(value) == 'function') then
         keymap.options.callback = value
     else
@@ -338,7 +342,7 @@ function key_mappings:start()
             require('Comment.api').comment_current_linewise()
             api.nvim_put({line}, 'l', true, false)
         end,
-        ['n|<Leader>ci'] = '<Plug>(comment_toggle_linewise_count)',
+        ['n|<Leader>ci'] = {"v:count == 0 ? '<Plug>(comment_toggle_current_linewise)' : '<Plug>(comment_toggle_linewise_count)'", expr = true}
     }
 
     --symotion-prefix) Vista
