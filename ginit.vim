@@ -26,7 +26,7 @@ if exists(':GuiFont')
     elseif $MYHOSTNAME == "ubuntu-awesome"
         Guifont! JetBrainsMono\ Nerd\ Font:h16
     else
-        Guifont! Sarasa\ Mono\ SC\ Nerd:h13
+        Guifont! Sarasa\ Mono\ SC\ Nerd:h12
     endif
 endif
 
