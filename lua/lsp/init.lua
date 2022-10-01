@@ -2,6 +2,7 @@ require('lsp.python')
 require('lsp.go')
 require('lsp.rust')
 require('lsp.lua')
+require('lsp.js')
 
 local function setup()
     -- LSP handlers configuration
