@@ -1,12 +1,12 @@
 local env = vim.env
 
 local function setup()
-    vim.g.neovide_cursor_trail_legnth = 0
-    vim.g.neovide_cursor_animation_length = 0
+    -- vim.g.neovide_cursor_trail_legnth = 0
+    -- vim.g.neovide_cursor_animation_length = 0
     vim.g.neovide_remember_window_size = true
     -- vim.g.neovide_transparency = 0.9
     -- vim.g.neovide_cursor_vfx_mode = 'railgun'
-    vim.g.neovide_cursor_vfx_mode = 'torpedo'
+    -- vim.g.neovide_cursor_vfx_mode = 'torpedo'
     -- vim.g.neovide_cursor_vfx_mode = 'pixiedust'
 
     -- vim.g.neovide_cursor_vfx_mode = 'sonicboom'
