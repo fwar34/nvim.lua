@@ -53,4 +53,4 @@ nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
 inoremap <silent><RightMouse> <Esc>:call GuiShowContextMenu()<CR>
 vnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>gv
 
-call GuiWindowMaximized(1)
+" call GuiWindowMaximized(1)
