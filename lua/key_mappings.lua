@@ -487,6 +487,11 @@ function key_mappings:start()
                 vim.lsp.buf.formatting()
             end
         end,
+        ['n|<LocalLeader>ca'] = function() vim.lsp.buf.code_action() end,
+        ['n|<LocalLeader>D'] = function() vim.lsp.buf.type_definition() end,
+        ['n|<LocalLeader>wa'] = function() vim.lsp.buf.add_workspace_folder() end,
+        ['n|<LocalLeader>wr'] = function() vim.lsp.buf.remove_workspace_folder() end,
+        ['n|<LocalLeader>wl'] = function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
     }
 
     -- trouble.nvim

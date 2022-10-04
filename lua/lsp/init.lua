@@ -23,8 +23,8 @@ local function setup()
 
     -- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_formatting
     -- :h vim.lsp.buf.formatting
-    vim.lsp.handlers["textDocument/formatting"] = vim.lsp.with(vim.lsp.buf.formatting, {insertSpaces = true})
-
+    -- vim.lsp.handlers["textDocument/formatting"] = vim.lsp.with(vim.lsp.buf.formatting, {insertSpaces = true})
+    -- vim.lsp.handlers["textDocument/formatting"] = vim.lsp.with(vim.lsp.buf.format, {insertSpaces = true, async = true})
 
     -- Hover configuration
     -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, lsp.float)
