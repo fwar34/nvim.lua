@@ -56,7 +56,7 @@ vim.cmd('set autoindent')
 vim.cmd('set smartindent')
 -- C的对齐
 vim.cmd('set cindent')
-vim.cmd('set cinoptions=g0,(0,W4,l1,N-s,E-s,t0,j1,J1')
+-- vim.cmd('set cinoptions=g0,(0,W4,l1,N-s,E-s,t0,j1,J1')
 -- tab使用空格代替
 vim.cmd('set expandtab')
 -- 在行和段开始处使用制表符
