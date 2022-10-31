@@ -168,6 +168,7 @@ function key_mappings:start()
         -- ['n|]]'] = {'j0[[%/{<CR>'},
         -- ['n|[]'] = {'k$][%?}<CR>'},
         -- ['n|<Leader>cs'] = '<CMD>lua require("mylib").
+        ['n|<Leader>se'] = '<CMD>e ~/.config/nvim/lua/plugins.lua<CR>',
     }
 
     self.visual = {
