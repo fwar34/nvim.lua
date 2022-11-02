@@ -435,16 +435,21 @@ function key_mappings:start()
     -- }
 
     -- persisted
-    -- self.persisted = {
-    --     ['n|<LocalLeader>ww'] = '<CMD>Telescope persisted<CR>',
-    --     ['n|<LocalLeader>ws'] = '<CMD>SessionSave<CR>',
-    --     ['n|<LocalLeader>wl'] = '<CMD>SessionLoadLast<CR>',
-    -- }
+    self.persisted = {
+        ['n|<LocalLeader>ww'] = '<CMD>Telescope persisted<CR>',
+        ['n|<LocalLeader>ws'] = '<CMD>SessionSave<CR>',
+        ['n|<LocalLeader>wl'] = '<CMD>SessionLoadLast<CR>',
+    }
 
     -- session-lens
-    self.session_lens = {
-        ['n|<LocalLeader>ww'] = function() require("session-lens").search_session() end,
-    }
+    -- self.session_lens = {
+    --     ['n|<LocalLeader>ww'] = function() require("session-lens").search_session() end,
+    -- }
+
+    -- possession
+    -- self.possession = {
+    --     ['n|<LocalLeader>ww'] = function() require('telescope').extensions.possession.list() end,
+    -- }
 
     -- nerdtree
     -- self.nerdtree = {

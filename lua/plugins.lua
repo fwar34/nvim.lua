@@ -960,12 +960,12 @@ return require('packer').startup(function()
     -- {{{ sessions plugins
     -- improve the default vim.ui interfaces, neovim-session-manager use vim.ui.select()
     use {'stevearc/dressing.nvim'}
-    -- {
-    --     'Shatur/neovim-session-manager', 
+    -- use {
+    --     'Shatur/neovim-session-manager',
     --     config = function()
-    --         -- local Path = require('plenary.path')
+    --         local Path = require('plenary.path')
     --         require('session_manager').setup({
-    --             -- sessions_dir = Path:new(vim.fn.stdpath('data'), 'sessions'), -- The directory where the session files will be saved.
+    --             sessions_dir = Path:new(vim.fn.stdpath('data'), 'sessions'), -- The directory where the session files will be saved.
     --             -- path_replacer = '__', -- The character to which the path separator will be replaced for session files.
     --             -- colon_replacer = '++', -- The character to which the colon symbol will be replaced for session files.
     --             autoload_mode = require('session_manager.config').AutoloadMode.Disabled, -- Define what to do when Neovim is started without arguments. Possible values: Disabled, CurrentDir, LastSession
@@ -973,21 +973,33 @@ return require('packer').startup(function()
     --             -- autosave_ignore_not_normal = true, -- Plugin will not save a session when no buffers are opened, or all of them aren't writable or listed.
     --             -- autosave_ignore_filetypes = { -- All buffers of these file types will be closed before the session is saved.
     --             -- 'gitcommit',
-    --         -- }, 
+    --         -- },
     --         -- autosave_only_in_session = false, -- Always autosaves session. If true, only autosaves after a session is active.
     --         -- max_path_length = 80,  -- Shorten the display path if length exceeds this threshold. Use 0 if don't want to shorten the path at all.
     --     })
     -- end
     -- }
-    -- use({
-    --     "olimorris/persisted.nvim",
-    --     -- module = "persisted", -- For lazy loading
-    --     config = function()
-    --         require("persisted").setup()
-    --         -- <C-d> to delete session in telescope
-    --         require("telescope").load_extension("persisted") -- To load the telescope extension
-    --     end,
-    -- })
+    use({
+        "olimorris/persisted.nvim",
+        -- module = "persisted", -- For lazy loading
+        config = function()
+            require("persisted").setup({
+                branch_separator = "_",
+                telescope = {
+                    before_source = function()
+                        -- Close all open buffers
+                        -- Thanks to https://github.com/avently
+                        vim.api.nvim_input("<ESC>:%bd<CR>")
+                    end,
+                    after_source = function(session)
+                        print("Loaded session " .. session.name)
+                    end,
+                },
+            })
+            -- <C-d> to delete session in telescope
+            require("telescope").load_extension("persisted") -- To load the telescope extension
+        end,
+    })
     -- {
     --     'JoseConseco/telescope_sessions_picker.nvim',
     --     require'telescope'.setup {
@@ -1001,6 +1013,17 @@ return require('packer').startup(function()
     -- use({
     --     'jedrzejboczar/possession.nvim',
     --     requires = { 'nvim-lua/plenary.nvim' },
+    --     config = function ()
+    --         require('telescope').load_extension('possession')
+    --         require('possession').setup {
+    --             -- commands = {
+    --             --     save = 'SSave',
+    --             --     load = 'SLoad',
+    --             --     delete = 'SDelete',
+    --             --     list = 'SList',
+    --             -- }
+    --         }
+    --     end
     -- })
 
     -- use {
@@ -1013,26 +1036,26 @@ return require('packer').startup(function()
     --     end
     -- }
 
-    use {
-        'rmagatti/session-lens',
-        requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim',},
-        config = function()
-            -- local function restore_nvim_tree()
-            --     local nvim_tree = require('nvim-tree')
-            --     local reloaders = require "nvim-tree.actions.reloaders"
-            --     nvim_tree.change_dir(vim.fn.getcwd())
-            --     -- nvim_tree.refresh()
-            --     reloaders.reload_explorer()
-            --     print('xxxxxxxxxxxxxxxxxx', vim.fn.getcwd())
-            -- end
-
-            require('auto-session').setup {
-                log_level = 'error',
-                -- pre_restore_cmds = {restore_nvim_tree}
-            }
-            require('session-lens').setup({--[[your custom config--]]})
-        end
-    }
+    -- use {
+    --     'rmagatti/session-lens',
+    --     requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim',},
+    --     config = function()
+    --         -- local function restore_nvim_tree()
+    --         --     local nvim_tree = require('nvim-tree')
+    --         --     local reloaders = require "nvim-tree.actions.reloaders"
+    --         --     nvim_tree.change_dir(vim.fn.getcwd())
+    --         --     -- nvim_tree.refresh()
+    --         --     reloaders.reload_explorer()
+    --         --     print('xxxxxxxxxxxxxxxxxx', vim.fn.getcwd())
+    --         -- end
+    --
+    --         require('auto-session').setup {
+    --             log_level = 'error',
+    --             -- pre_restore_cmds = {restore_nvim_tree}
+    --         }
+    --         require('session-lens').setup({--[[your custom config--]]})
+    --     end
+    -- }
     -- }}}
 
     use {
