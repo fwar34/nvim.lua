@@ -2,6 +2,7 @@
 
 -- Only required if you have packer in your `opt` pack
 vim.cmd [[packadd packer.nvim]]
+
 -- Only if your version of Neovim doesn't have https://github.com/neovim/neovim/pull/12632 merged
 -- vim._update_package_paths()
 
@@ -989,6 +990,7 @@ return require('packer').startup(function()
                     before_source = function()
                         -- Close all open buffers
                         -- Thanks to https://github.com/avently
+                        vim.api.nvim_input("<Esc>:SessionSave<CR>")
                         vim.api.nvim_input("<ESC>:%bd<CR>")
                     end,
                     after_source = function(session)
