@@ -87,14 +87,24 @@ function futil.delete_other_buffers()
     -- print("list:", vim.inspect(buffers), "current:", current)
 
     for _, buf in ipairs(buffers) do
+        print('buf:' .. api.nvim_buf_get_name(buf) .. ' is load:' .. (vim.api.nvim_buf_is_loaded(buf) and 1 or 0))
         if buf ~= current then
             vim.api.nvim_buf_delete(buf, {force = 1})
         end
     end
 end
 
-function futil.delete_buffer(excludes)
-    local buffers = vim.api
+function futil.delete_buffers(excludes)
+    local buffers = api.nvim_list_bufs()
+    if excludes then
+        buffers = vim.tbl_filter(function (item)
+            if type(excludes) == 'table' then
+                return vim.tbl_contains(excludes, item)
+            else
+                return item == excludes
+            end
+        end, buffers)
+    end
 end
 
 function futil.info(...)
