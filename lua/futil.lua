@@ -1,6 +1,7 @@
 local global = require('global')
 local futil = {mouse_help = '', mouse_g = ''}
 local vim = vim
+local api = vim.api
 
 function futil.toggle_line_number()
     if vim.wo.number then
@@ -90,6 +91,22 @@ function futil.delete_other_buffers()
             vim.api.nvim_buf_delete(buf, {force = 1})
         end
     end
+end
+
+function futil.delete_buffer(excludes)
+    local buffers = vim.api
+end
+
+function futil.info(...)
+    vim.notify(string.format(...), vim.log.levels.INFO)
+end
+
+function futil.warn(...)
+    vim.notify(string.format(...), vim.log.levels.WARN)
+end
+
+function futil.err(...)
+    vim.notify(string.format(...), vim.log.levels.ERROR)
 end
 
 return futil

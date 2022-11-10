@@ -22,10 +22,9 @@ local function open_window()
         row = row,
         col = col
     }
-
-    -------------------------------
     win = api.nvim_open_win(buf, true, opts)
 
+    -------------------------------
     local border_buf = api.nvim_create_buf(false, true)
     local border_opts = {
         style = 'minimal',
@@ -37,4 +36,10 @@ local function open_window()
     }
 
     local border_lines = { '╔' .. string.rep('═', win_width) .. '╗' }
+    local middle_lines = '║' .. string.rep(' ', win_width) .. '║'
+    for _ = 1, win_height do
+        table.insert(border_lines, middle_lines)
+    end
+    table.insert(border_lines, '╚' .. string.rep('═', win_width) .. '╝')
+    vim.api.nvim_buf_set_lines(border_buf, 0, -1, false, border_lines)
 end
