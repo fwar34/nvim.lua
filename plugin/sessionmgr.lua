@@ -69,6 +69,10 @@ api.nvim_create_user_command('SDelete', function (argument)
 end, { nargs = 1, complete = session_complete })
 
 api.nvim_create_user_command('SLoad', function (argument)
+    if current_session then
+        session_save(current_session)
+    end
+
     futil.delete_buffers(false)
     session_load(argument.args)
     -- futil.info('current:%s, last:%s', current_session, last_session)
@@ -89,6 +93,11 @@ api.nvim_create_user_command('SSwitch', function (argument)
 end, { nargs = 1, complete = session_complete })
 
 api.nvim_create_user_command('SPrevious', function ()
+    if not last_session then
+        futil.info('last_session is empty!')
+        return
+    end
+
     if session_save(current_session) then
         futil.delete_buffers(false)
         session_load(last_session)
