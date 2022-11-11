@@ -91,3 +91,7 @@ api.nvim_create_user_command('SPrint', function ()
     futil.info('current:%s, last:%s', current_session, last_session)
     session_complete()
 end, {})
+
+function CurrentSession()
+    return current_session and current_session or ''
+end

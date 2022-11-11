@@ -23,13 +23,14 @@ let g:lightline = {
             \ 'colorscheme': 'wombat',
             \ 'component': {'charvaluehex': '0x%B'},
             \ 'active':
-            \    {'left': [ [ 'mode', 'paste' ],
+            \    {'left': [ [ 'mode', 'sessionmgr', 'paste' ],
             \               [ 'gitbranch', 'gitstatus', 'readonly', 'filename', 'session_name', 'modified', 'method' ] ],
             \     'right': [ [ 'lineinfo' ],
             \                [  'charvaluehex', 'scorestatus', 'fileformat', 'fileencoding', 'filetype' ] ]
             \    },
             \ 'component_function':
             \    {
+            \     'sessionmgr': 'SessionMgrStatus',
             \     'method': 'NearestMethodOrFunction',
             \     'gitbranch': 'FugitiveStatusline',
             \     'scorestatus': 'ScrollStatus',
