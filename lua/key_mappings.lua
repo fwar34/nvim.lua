@@ -441,6 +441,10 @@ function key_mappings:start()
         ['n|<LocalLeader>wl'] = '<CMD>SessionLoadLast<CR>',
     }
 
+    self.sessionmgr = {
+        ['n|<LocalLeader>bb'] = '<CMD>SPrevious<CR>',
+    }
+
     -- session-lens
     -- self.session_lens = {
     --     ['n|<LocalLeader>ww'] = function() require("session-lens").search_session() end,

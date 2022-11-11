@@ -23,7 +23,7 @@ if vim.env.TMUX ~= nil or vim.env.ALACRITTY_LOG ~= nil then
     -- vim.cmd('set termguicolors')
     opt.termguicolors = true
 end
-opt.shortmess = 'atcI'
+-- opt.shortmess = 'atcI'
 
 -- 输入的命令显示出来，看的清楚些
 -- vim.cmd('set showcmd')

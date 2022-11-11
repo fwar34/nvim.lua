@@ -91,10 +91,10 @@ function futil.delete_buffers(exclude_current)
         if api.nvim_buf_get_option(buf, 'filetype') ~= 'floaterm' then
             if exclude_current then
                 if buf ~= current then
-                    api.nvim_buf_delete(buf, {force = 1})
+                    api.nvim_buf_delete(buf, {})
                 end
             else
-                api.nvim_buf_delete(buf, {force = 1})
+                api.nvim_buf_delete(buf, {})
             end
         end
     end

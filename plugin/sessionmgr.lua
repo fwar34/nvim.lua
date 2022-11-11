@@ -49,6 +49,15 @@ if not check_file_exist(session_directory) then
     os.execute('mkdir -p ' .. session_directory)
 end
 
+local function session_complete()
+    local match = {}
+    local output = vim.fn.execute('!ls ' .. vim.fn.expand(session_directory))
+    for line in string.gmatch(output, "(%w+).vim") do
+        table.insert(match, line)
+    end
+    return match
+end
+
 api.nvim_create_user_command('SSave', function (argument)
     session_save(argument.args)
     current_session = argument.args
@@ -56,20 +65,20 @@ end, { nargs = 1, bang = true })
 
 api.nvim_create_user_command('SDelete', function (argument)
     session_delete(argument.args)
-end, { nargs = 1 })
+end, { nargs = 1, complete = session_complete })
 
 api.nvim_create_user_command('SLoad', function (argument)
     futil.delete_buffers(false)
     session_load(argument.args)
     -- futil.info('current:%s, last:%s', current_session, last_session)
-end, { nargs = 1 })
+end, { nargs = 1, complete = session_complete })
 
 api.nvim_create_user_command('SSwitch', function (argument)
     if session_save(current_session) then
         futil.delete_buffers(false)
         session_load(argument.args)
     end
-end, { nargs = 1 })
+end, { nargs = 1, complete = session_complete })
 
 api.nvim_create_user_command('SPrevious', function ()
     if session_save(current_session) then
@@ -80,4 +89,5 @@ end, {})
 
 api.nvim_create_user_command('SPrint', function ()
     futil.info('current:%s, last:%s', current_session, last_session)
+    session_complete()
 end, {})
