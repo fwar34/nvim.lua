@@ -136,7 +136,9 @@ function key_mappings:start()
         ['n|<Leader>kb'] = function ()
             api.nvim_buf_delete(0, {})
         end,
-        ['n|<Space><Space>'] = {':', true},
+        ['n|<Space><Space>'] = function ()
+            vim.api.nvim_input(':')
+        end,
         ['n|<Leader>bb'] = '<C-^>',
         ['n|<LocalLeader>lm'] = function() futil.toggle_line_number() end,
         ['n|<LocalLeader>qq'] = '<CMD>q<CR>',
@@ -294,7 +296,7 @@ function key_mappings:start()
     -- }
 
     self.telescope = {
-        ['n|<Leader>li'] = '<cmd>Telescope current_buffer_fuzzy_find<CR>',
+        ['n|<Leader>li'] = '<CMD>Telescope current_buffer_fuzzy_find<CR>',
         ['n|<Leader>bs'] = '<CMD>Telescope buffers<CR>',
         ['n|<Leader>co'] = '<CMD>Telescope colorscheme<CR>',
         ['n|<Leader>cm'] = '<CMD>Telescope commands<CR>',
