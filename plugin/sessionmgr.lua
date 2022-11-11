@@ -69,6 +69,11 @@ api.nvim_create_user_command('SDelete', function (argument)
 end, { nargs = 1, complete = session_complete })
 
 api.nvim_create_user_command('SLoad', function (argument)
+    if not check_file_exist(gen_session_path(argument.args)) then
+        futil.info('session %s not exist', argument.args)
+        return
+    end
+
     if current_session then
         session_save(current_session)
     end
