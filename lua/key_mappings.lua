@@ -133,7 +133,9 @@ function key_mappings:start()
         ['n|<Leader><TAB>'] = '<C-w><C-w>',
         ['n|<Leader>do'] = '<CMD>on<CR>',
         ['n|<Leader>dm'] = '<CMD>delmarks!<CR>',
-        ['n|<Leader>kb'] = '<CMD>bdel<CR>',
+        ['n|<Leader>kb'] = function ()
+            api.nvim_buf_delete(0, {})
+        end,
         ['n|<Space><Space>'] = {':', true},
         ['n|<Leader>bb'] = '<C-^>',
         ['n|<LocalLeader>lm'] = function() futil.toggle_line_number() end,

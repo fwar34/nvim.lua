@@ -100,6 +100,19 @@ function futil.delete_buffers(exclude_current)
     end
 end
 
+function futil.dump_all_buffers()
+    local buffers = api.nvim_list_bufs()
+    for _, buf in ipairs(buffers) do
+        vim.pretty_print('buf num:' .. buf .. 
+        ' name:' .. api.nvim_buf_get_name(buf) .. 
+        ' is load:' .. (vim.api.nvim_buf_is_loaded(buf) and 1 or 0) .. 
+        ' ft:' .. api.nvim_buf_get_option(buf, 'filetype') .. 
+        ' valid:' .. (api.nvim_buf_is_valid(buf) and 1 or 0))
+    end
+end
+
+api.nvim_create_user_command('DumpBuffers', futil.dump_all_buffers, {})
+
 function futil.info(...)
     vim.notify(string.format(...), vim.log.levels.INFO)
 end
