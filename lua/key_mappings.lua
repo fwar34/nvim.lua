@@ -147,7 +147,7 @@ function key_mappings:start()
         ['n|<Leader>qf'] = '<CMD>copen<CR>',
         ['n|<Leader>mf'] = function() futil.make_fennel() end,
         ['n|<LocalLeader>fn'] = function() futil.display_function() end,
-        ['n|<LocalLeader>do'] = function() futil.delete_other_buffers() end,
+        ['n|<LocalLeader>do'] = function() futil.delete_buffers(true) end,
         ['n|<C-g>'] = '<C-c>',
         ['n|<Leader>md'] = '<CMD>m .+1<CR>', -- current line move up
         ['n|<Leader>mu'] = '<CMD>m .-2<CR>', -- current line move down

@@ -81,29 +81,22 @@ function futil.unmap(maps)
     end
 end
 
-function futil.delete_other_buffers()
+function futil.delete_buffers(exclude_current)
     local buffers = vim.api.nvim_list_bufs()
     local current = vim.api.nvim_get_current_buf()
     -- print("list:", vim.inspect(buffers), "current:", current)
 
     for _, buf in ipairs(buffers) do
-        print('buf:' .. api.nvim_buf_get_name(buf) .. ' is load:' .. (vim.api.nvim_buf_is_loaded(buf) and 1 or 0))
-        if buf ~= current then
-            vim.api.nvim_buf_delete(buf, {force = 1})
-        end
-    end
-end
-
-function futil.delete_buffers(excludes)
-    local buffers = api.nvim_list_bufs()
-    if excludes then
-        buffers = vim.tbl_filter(function (item)
-            if type(excludes) == 'table' then
-                return vim.tbl_contains(excludes, item)
+        -- vim.pretty_print('buf:' .. api.nvim_buf_get_name(buf) .. ' is load:' .. (vim.api.nvim_buf_is_loaded(buf) and 1 or 0) .. ' ft:' .. api.nvim_buf_get_option(buf, 'filetype'))
+        if api.nvim_buf_get_option(buf, 'filetype') ~= 'floaterm' then
+            if exclude_current then
+                if buf ~= current then
+                    api.nvim_buf_delete(buf, {force = 1})
+                end
             else
-                return item == excludes
+                api.nvim_buf_delete(buf, {force = 1})
             end
-        end, buffers)
+        end
     end
 end
 
