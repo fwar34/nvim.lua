@@ -435,13 +435,19 @@ function key_mappings:start()
     -- }
 
     -- persisted
-    self.persisted = {
-        ['n|<LocalLeader>ww'] = '<CMD>Telescope persisted<CR>',
-        ['n|<LocalLeader>ws'] = '<CMD>SessionSave<CR>',
-        ['n|<LocalLeader>wl'] = '<CMD>SessionLoadLast<CR>',
-    }
+    -- self.persisted = {
+    --     ['n|<LocalLeader>ww'] = '<CMD>Telescope persisted<CR>',
+    --     ['n|<LocalLeader>ws'] = '<CMD>SessionSave<CR>',
+    --     ['n|<LocalLeader>wl'] = '<CMD>SessionLoadLast<CR>',
+    -- }
 
     self.sessionmgr = {
+        ['n|<LocalLeader>ww'] = function ()
+            vim.api.nvim_input(':SLoad ')
+        end,
+        ['n|<LocalLeader>ws'] = function ()
+            vim.api.nvim_input(':SSave ')
+        end,
         ['n|<LocalLeader>bb'] = '<CMD>SPrevious<CR>',
     }
 

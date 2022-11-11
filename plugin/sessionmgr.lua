@@ -59,9 +59,10 @@ local function session_complete()
 end
 
 api.nvim_create_user_command('SSave', function (argument)
+    argument.args = argument.args ~= '' and argument.args or current_session
     session_save(argument.args)
     current_session = argument.args
-end, { nargs = 1, bang = true })
+end, { nargs = '?', bang = true })
 
 api.nvim_create_user_command('SDelete', function (argument)
     session_delete(argument.args)
@@ -76,7 +77,14 @@ end, { nargs = 1, complete = session_complete })
 api.nvim_create_user_command('SSwitch', function (argument)
     if session_save(current_session) then
         futil.delete_buffers(false)
-        session_load(argument.args)
+        if not check_file_exist(gen_session_path(argument.args)) then
+            if session_save(argument.args) then
+                last_session = current_session
+                current_session = argument.args
+            end
+        else
+            session_load(argument.args)
+        end
     end
 end, { nargs = 1, complete = session_complete })
 
@@ -91,6 +99,14 @@ api.nvim_create_user_command('SPrint', function ()
     futil.info('current:%s, last:%s', current_session, last_session)
     session_complete()
 end, {})
+
+api.nvim_create_autocmd({ 'VimLeavePre' }, {
+  callback = function ()
+     if current_session then
+         session_save(current_session)
+     end
+  end,
+})
 
 function CurrentSession()
     return current_session and current_session or ''

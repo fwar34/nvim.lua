@@ -980,28 +980,28 @@ return require('packer').startup(function()
     --     })
     -- end
     -- }
-    use({
-        "olimorris/persisted.nvim",
-        -- module = "persisted", -- For lazy loading
-        config = function()
-            require("persisted").setup({
-                branch_separator = "_",
-                telescope = {
-                    before_source = function()
-                        -- Close all open buffers
-                        -- Thanks to https://github.com/avently
-                        vim.api.nvim_input("<Esc>:SessionSave<CR>")
-                        vim.api.nvim_input("<ESC>:%bd<CR>")
-                    end,
-                    after_source = function(session)
-                        print("Loaded session " .. session.name)
-                    end,
-                },
-            })
-            -- <C-d> to delete session in telescope
-            require("telescope").load_extension("persisted") -- To load the telescope extension
-        end,
-    })
+    -- use({
+    --     "olimorris/persisted.nvim",
+    --     -- module = "persisted", -- For lazy loading
+    --     config = function()
+    --         require("persisted").setup({
+    --             branch_separator = "_",
+    --             telescope = {
+    --                 before_source = function()
+    --                     -- Close all open buffers
+    --                     -- Thanks to https://github.com/avently
+    --                     vim.api.nvim_input("<Esc>:SessionSave<CR>")
+    --                     vim.api.nvim_input("<ESC>:%bd<CR>")
+    --                 end,
+    --                 after_source = function(session)
+    --                     print("Loaded session " .. session.name)
+    --                 end,
+    --             },
+    --         })
+    --         -- <C-d> to delete session in telescope
+    --         require("telescope").load_extension("persisted") -- To load the telescope extension
+    --     end,
+    -- })
     -- {
     --     'JoseConseco/telescope_sessions_picker.nvim',
     --     require'telescope'.setup {
