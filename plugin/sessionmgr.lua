@@ -49,18 +49,20 @@ if not check_file_exist(session_directory) then
     os.execute('mkdir -p ' .. session_directory)
 end
 
-local function session_complete(arg, cmd_line)
-    vim.pretty_print('arg: %s', arg)
-    vim.pretty_print('cmd_line: %s', cmd_line)
+-- local function session_complete(arg, cmd_line)
+local function session_complete(arg)
+    -- futil.info('arg: %s', arg)
+    -- futil.info('cmd_line: %s', cmd_line)
     local match = {}
     local output = vim.fn.execute('!ls ' .. vim.fn.expand(session_directory))
     for line in string.gmatch(output, "(%w+).vim") do
-        if string.gmatch(line, arg) then
+        if string.match(line, arg) then
             table.insert(match, 1, line)
         else
             table.insert(match, line)
         end
     end
+    -- vim.pretty_print('match: ', match)
     return match
 end
 
