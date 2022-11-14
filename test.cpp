@@ -95,16 +95,50 @@ std::string SerializeToJson(MeetingRoom& room)
 {
     Json::Value value;
     Json::FastWriter writer;
-    value['id'] = room.id;
-    value['name'] = room.name;
-    value['capacity'] = room.capacity;
-    value['conference'] = 0;
+    value["id"] = room.id;
+    value["name"] = room.name;
+    value["capacity"] = room.capacity;
+    value["conference"] = 0;
     return writer.write(value);
+}
+
+void gen_data()
+{
+    MeetingRoom room1;
+    room1.id = "1111";
+    room1.name = "room1";
+    room1.capacity = 50;
+    string room1_json = SerializeToJson(room1);
+
+    MeetingRoom room2;
+    room2.id = "2222";
+    room2.name = "room2";
+    room2.capacity = 150;
+    string room2_json = SerializeToJson(room2);
+
+    string script = "redis.call('HSET', KEYS[1], KEYS[2], ARGV[3], KEYS[4], KEYS[5])";
+
+	char key[128] = {0};
+	std::vector<std::string> cmds;
+	cmds.push_back("EVAL");
+	cmds.push_back(script);
+	cmds.push_back("5");
+	cmds.push_back("111_meeting_rooms");
+    cmds.push_back("1111");
+    cmds.push_back(room1_json);
+    cmds.push_back("2222");
+    cmds.push_back(room2_json);
+
+	redisReply* reply = ExecuteRedisCmd(key, cmds);
+    if (reply && !CheckRedisReply(reply)) {
+        std::cout << "error";
+    }
 }
 
 bool test_script()
 {
     // 构造数据
+    uint32_t conf_id = 12456;
     string access_rooms = ",1,2,3,4,"; // 被分配的会议室列表
     vector<MeetingRoom> new_rooms; // 添加的会议室列表
     MeetingRoom room1;
@@ -119,8 +153,8 @@ bool test_script()
     new_rooms.push_back(room2);
     // map_name new_room_id1 new_room1_json new_room_id2 new_room2_json ",access_room1_id,access_room2_id,access_room3_id," conf_id
     // KEYS1    KEYS2        KEYS3          KEYS4        KEYS5          ARGV1                                               ARGV2
-	std::string scrpit = "for i = 2, #KEYS, 1 do\
-                              if not redis.call('HGET', KEYS[1], KEYS[i + 1]) == 1 then\
+    std::string scrpit = "for i = 2, (#KEYS - 1) / 2, 2 do\
+                              if not redis.call('HGET', KEYS[1], KEYS[i]) == 1 then\
                                   redis.call('HSET', KEYS[1], KEYS[i], KEYS[i + 1])\
                               end\
                           end\
@@ -162,9 +196,9 @@ bool test_script()
 	cmds.push_back("EVAL");
 	cmds.push_back(scrpit);
 	cmds.push_back(std::to_string(new_rooms.size() * 2 + 1));
-	cmds.push_back("custom_map");
+	cmds.push_back("111_meeting_rooms");
     for (auto& room : new_rooms) {
-        cmds.push_back(std::to_string(room.id));
+        cmds.push_back(room.id);
         cmds.push_back(SerializeToJson(room));
     }
     cmds.push_back(access_rooms);
@@ -191,6 +225,7 @@ int main()
         return 1;
     }
 
+    gen_data();
     test_script();
 
     return 0;
