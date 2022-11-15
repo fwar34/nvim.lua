@@ -290,7 +290,7 @@ void test_join()
     cmds.push_back(access_rooms);
     cmds.push_back("1111"); // current_meeting_room
     cmds.push_back("50"); // current_capacity
-    cmds.push_back(std::to_string(conf_id)); // current_capacity
+    cmds.push_back(std::to_string(conf_id));
 
 	redisReply* reply = ExecuteRedisCmd(cmds);
     if (reply && !CheckRedisReply(reply)) {

@@ -18,7 +18,7 @@
 }
 ```
 
-```
+```cpp
 struct MeetingRoom {
     string name;
     string id;
@@ -41,16 +41,3 @@ struct customercode_info {
 1. 判断用户入会带的customercode_info与本地会议的customercode_info对比是否增加，增加的话则去(customercode)_meeting_rooms中判断新添加的是否已经存在，没有的话则更新到(customercode)_meeting_rooms
 2. 在(customercode)_meeting_rooms中查询当前会议室是否需要升方，如果需要升方则判断出是否有满足需求的会议室，没有的话则返回失败
 上面两步在redis中原子操作
-
-```cpp
-Conference conf;
-CreateConfReq req;
-req.customercode_info 对比 conf.customercode_info 增加了 MeetingRoom new_room1 new_room2;
-conf.customercode_info = req.customercode_info;
-string script = "
-if not redis.call('HGET', KEYS[1], KEYS[2]) then
-    redis.call('HSET', KEYS[1], KEYS[2])
-end
-
-" 3 (customercode)_meeting_rooms new_room1_json new_room2_json ;
-```
