@@ -207,11 +207,7 @@ void test_create()
         std::cout << "error";
     }
 
-    if (strcasecmp("0", reply->str) == 0) {
-        cout << "alloc meeting room failed: " << reply->str << endl;
-    } else {
-        cout << "alloc meeting room sucess: " << reply->str << endl;
-    }
+    cout << "create: " << reply->str << endl;
 }
 
 void test_join()
@@ -297,11 +293,7 @@ void test_join()
         std::cout << "error";
     }
 
-    if (strcasecmp("0", reply->str) == 0) {
-        cout << "relloc meeting room failed: " << reply->str << endl;
-    } else {
-        cout << "relloc meeting room sucess: " << reply->str << endl;
-    }
+    cout << "join: " << reply->str << endl;
 }
 
 int main()
