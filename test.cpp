@@ -265,12 +265,11 @@ void test_join()
                              conference = 0\
                          }\
                          if redis.call('HSET', KEYS[1], roomid_ret, cjson.encode(new_room), ARGV[2], cjson.encode(old_room)) then\
-                                 return cjson.encode({room_id = roomid_ret})\
+                             return cjson.encode({room_id = roomid_ret})\
                          elseif not redis.call('HSET', KEYS[1], roomid_ret, min_room_json, ARGV[2], old_room_json) then\
-                             redis.log(redis.LOG_NOTICE, 'rollback failed for room:', roomid_ret, 'conference:', ARGV[4])\
+                             return cjson.encode({error = string.format('rollback failed for room:%s conference:%s', roomid_ret, ARGV[4])})\
                          end\
                      end\
-                     redis.log(redis.LOG_NOTICE, 'failed relloc meeting room', roomid_ret, 'for conference:', old_room_json['conference'])\
                      return cjson.encode({error = 'failed relloc meeting room'})\
                      ";
 
