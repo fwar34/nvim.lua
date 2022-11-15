@@ -3,7 +3,7 @@
 #include <vector>
 #include <hiredis.h>
 #include <strings.h>
-#include <json/json.h>
+#include "json/json.h"
 
 using namespace std;
 
@@ -63,7 +63,7 @@ bool CheckRedisReply(const redisReply* reply, bool bExcludeNil = true)
     return false;
 }
 
-redisReply* executeCommandArgv(const std::string& key, int argc, const char **argv, const size_t *argvlen)
+redisReply* executeCommandArgv(int argc, const char **argv, const size_t *argvlen)
 {
     redisReply* reply = (redisReply*)redisCommandArgv(g_ctx, argc, argv, argvlen);
     if (!reply) {
@@ -79,7 +79,7 @@ redisReply* executeCommandArgv(const std::string& key, int argc, const char **ar
     return reply;
 }
 
-redisReply* ExecuteRedisCmd(const std::string &key, const std::vector<std::string> &cmd_array)
+redisReply* ExecuteRedisCmd(const std::vector<std::string> &cmd_array)
 {
 	int k = 0;
 	std::vector<const char *> argv(cmd_array.size());
@@ -88,13 +88,13 @@ redisReply* ExecuteRedisCmd(const std::string &key, const std::vector<std::strin
 		argv[k] = it->c_str();
 		argvlen[k] = it->length();
 	}
-	return executeCommandArgv(key, (int)argv.size(), &(argv[0]), &(argvlen[0]));
+	return executeCommandArgv((int)argv.size(), &(argv[0]), &(argvlen[0]));
 }
 
 std::string SerializeToJson(MeetingRoom& room)
 {
-    Json::Value value;
     Json::FastWriter writer;
+    Json::Value value;
     value["id"] = room.id;
     value["name"] = room.name;
     value["capacity"] = room.capacity;
@@ -109,16 +109,17 @@ void gen_data()
     room1.name = "room1";
     room1.capacity = 50;
     string room1_json = SerializeToJson(room1);
+    cout << "room1_json:" << room1_json << endl;
 
     MeetingRoom room2;
     room2.id = "2222";
     room2.name = "room2";
     room2.capacity = 150;
     string room2_json = SerializeToJson(room2);
+    cout << "room2_json:" << room2_json << endl;
 
-    string script = "redis.call('HSET', KEYS[1], KEYS[2], ARGV[3], KEYS[4], KEYS[5])";
+    string script = "return redis.call('HSET', KEYS[1], KEYS[2], KEYS[3], KEYS[4], KEYS[5])";
 
-	char key[128] = {0};
 	std::vector<std::string> cmds;
 	cmds.push_back("EVAL");
 	cmds.push_back(script);
@@ -129,7 +130,7 @@ void gen_data()
     cmds.push_back("2222");
     cmds.push_back(room2_json);
 
-	redisReply* reply = ExecuteRedisCmd(key, cmds);
+	redisReply* reply = ExecuteRedisCmd(cmds);
     if (reply && !CheckRedisReply(reply)) {
         std::cout << "error";
     }
@@ -191,7 +192,6 @@ bool test_script()
                           return '0'\
                           ";
 
-	char key[128] = {0};
 	std::vector<std::string> cmds;
 	cmds.push_back("EVAL");
 	cmds.push_back(scrpit);
@@ -204,7 +204,7 @@ bool test_script()
     cmds.push_back(access_rooms);
     cmds.push_back(std::to_string(conf_id));
 
-	redisReply* reply = ExecuteRedisCmd(key, cmds);
+	redisReply* reply = ExecuteRedisCmd(cmds);
     if (reply && !CheckRedisReply(reply)) {
         std::cout << "error";
         return false;
@@ -225,8 +225,11 @@ int main()
         return 1;
     }
 
+    cout << "11111111111;" << endl;
     gen_data();
+    cout << "2222222222222222222;" << endl;
     test_script();
+    cout << "33333333333;" << endl;
 
     return 0;
 }
