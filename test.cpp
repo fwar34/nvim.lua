@@ -181,7 +181,7 @@ void test_create()
                              }\
                              if redis.call('HSET', KEYS[1], roomid_ret, cjson.encode(new_room)) then\
                                  redis.log(redis.LOG_NOTICE, 'alloc meeting room', roomid_ret, 'for conference:', ARGV[2])\
-                                 return roomid_ret\
+                                 return cjson.encode({room_id = roomid_ret})\
                              else\
                                  if not redis.call('HSET', KEYS[1], roomid_ret, min_room_json) then\
                                      redis.log(redis.LOG_NOTICE, 'rollback failed for room:', roomid_ret, 'conference:', ARGV[2])\
@@ -189,7 +189,7 @@ void test_create()
                              end\
                          end\
                          redis.log(redis.LOG_NOTICE, 'failed alloc meeting room', roomid_ret, 'for conference:', ARGV[2])\
-                         return '0'\
+                         return cjson.encode({error = 'failed alloc meeting room'})\
                          ";
 
 	std::vector<std::string> cmds;
@@ -228,11 +228,14 @@ void test_join()
     room4.id = "4444";
     room4.capacity = 100;
     new_rooms.push_back(room4);
-    // map_name new_room_id1 new_room1_json new_room_id2 new_room2_json ",access_room1_id,access_room2_id,access_room3_id," current_meeting_room
-    // KEYS1    KEYS2        KEYS3          KEYS4        KEYS5          ARGV1                                               ARGV2
-    string script = "if #KEYS > 1 then\
+    // map_name new_room_id1 new_room1_json new_room_id2 new_room2_json ",access_room1_id,access_room2_id,access_room3_id," current_meeting_room current_capacity conf_id
+    // KEYS1    KEYS2        KEYS3          KEYS4        KEYS5          ARGV1                                               ARGV2                ARGV3            ARGV4
+    string script = "redis.log(redis.LOG_NOTICE, 'process join start ---------------------')\
+                     if #KEYS > 1 then\
                          for i = 2, #KEYS - 1, 2 do\
-                             redis.call('HSET', KEYS[1], KEYS[i], KEYS[i + 1])\
+                             if not redis.call('HGET', KEYS[1], KEYS[i]) then\
+                                 redis.call('HSET', KEYS[1], KEYS[i], KEYS[i + 1])\
+                             end\
                          end\
                      end\
                      local all_rooms = redis.call('HGETALL', KEYS[1])\
@@ -240,23 +243,27 @@ void test_join()
                      local roomid_ret = '0'\
                      local old_room_json, min_room_json\
                      for i, j in ipairs(all_rooms) do\
-                         if i % 2 == 1 and string.match(ARGV[1], ',' .. j .. ',') then\
+                         if j == ARGV[2] then\
+                             old_room_json = cjson.decode(all_rooms[i + 1])\
+                         elseif i % 2 == 1 and string.match(ARGV[1], ',' .. j .. ',') then\
                              local room_json = cjson.decode(all_rooms[i + 1])\
-                             if all_rooms[i] == ARGV[2] then\
-                                 old_room_json = room_json\
-                             elseif room_json['conference'] ~= 0 and room_json['capacity'] < min_capacity and room_json['capacity'] > old_room_json['capacity'] then\
+                             redis.log(redis.LOG_NOTICE, type(room_json['conference']), room_json['conference'])\
+                             if room_json['conference'] == 0 and room_json['capacity'] < min_capacity and room_json['capacity'] > tonumber(ARGV[3]) then\
                                  min_capacity = room_json['capacity']\
                                  min_room_json = room_json\
                                  roomid_ret = all_rooms[i]\
                              end\
                          end\
                      end\
+                     if tostring(old_room_json['conference']) ~= ARGV[4] then\
+                         return cjson.encode({error = string.format('meeting conference:%u not equal arg conference:%s', old_room_json['conference'], ARGV[4])})\
+                     end\
                      if roomid_ret ~= '0' then\
                          local new_room = {\
                              id = min_room_json['id'],\
                              name = min_room_json['name'],\
                              capacity = min_room_json['capacity'],\
-                             conference = old_room_json['conference']\
+                             conference = tonumber(ARGV[4])\
                          }\
                          local old_room = {\
                              id = old_room_json['id'],\
@@ -265,15 +272,15 @@ void test_join()
                              conference = 0\
                          }\
                          if redis.call('HSET', KEYS[1], roomid_ret, cjson.encode(new_room), ARGV[2], cjson.encode(old_room)) then\
-                                 return roomid_ret\
+                                 return cjson.encode({room_id = roomid_ret})\
                          else\
                              if not redis.call('HSET', KEYS[1], roomid_ret, min_room_json, ARGV[2], old_room_json) then\
-                                 redis.log(redis.LOG_NOTICE, 'rollback failed for room:', roomid_ret, 'conference:', old_room_json['conference'])\
+                                 redis.log(redis.LOG_NOTICE, 'rollback failed for room:', roomid_ret, 'conference:', ARGV[4])\
                              end\
                          end\
                      end\
                      redis.log(redis.LOG_NOTICE, 'failed relloc meeting room', roomid_ret, 'for conference:', old_room_json['conference'])\
-                     return '0'\
+                     return cjson.encode({error = 'failed relloc meeting room'})\
                      ";
 
 	std::vector<std::string> cmds;
@@ -287,6 +294,8 @@ void test_join()
     }
     cmds.push_back(access_rooms);
     cmds.push_back("1111"); // current_meeting_room
+    cmds.push_back("50"); // current_capacity
+    cmds.push_back(std::to_string(conf_id)); // current_capacity
 
 	redisReply* reply = ExecuteRedisCmd(cmds);
     if (reply && !CheckRedisReply(reply)) {
@@ -309,6 +318,7 @@ int main()
 
     gen_data();
     test_create();
+    getchar();
     test_join();
 
     return 0;
