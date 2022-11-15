@@ -118,7 +118,10 @@ void gen_data()
     string room2_json = SerializeToJson(room2);
     cout << "room2_json:" << room2_json << endl;
 
-    string script = "return redis.call('HSET', KEYS[1], KEYS[2], KEYS[3], KEYS[4], KEYS[5])";
+    string script = "if not redis.call('HGET', KEYS[1], KEYS[2]) then\
+                         redis.log(redis.LOG_NOTICE, 'add gen_data')\
+                         redis.call('HSET', KEYS[1], KEYS[2], KEYS[3], KEYS[4], KEYS[5])\
+                     end";
 
 	std::vector<std::string> cmds;
 	cmds.push_back("EVAL");
@@ -140,55 +143,54 @@ bool test_script()
 {
     // 构造数据
     uint32_t conf_id = 12456;
-    string access_rooms = ",1,2,3,4,"; // 被分配的会议室列表
+    string access_rooms = ",1111,2222,3333,"; // 被分配的会议室列表
     vector<MeetingRoom> new_rooms; // 添加的会议室列表
     MeetingRoom room1;
-    room1.name = "room1_name";
+    room1.name = "room1";
     room1.id = "1111";
     room1.capacity = 50;
     new_rooms.push_back(room1);
-    MeetingRoom room2;
-    room2.name = "room2_name";
-    room2.id = "2222";
-    room2.capacity = 100;
-    new_rooms.push_back(room2);
+    MeetingRoom room3;
+    room3.name = "room3";
+    room3.id = "3333";
+    room3.capacity = 250;
+    new_rooms.push_back(room3);
     // map_name new_room_id1 new_room1_json new_room_id2 new_room2_json ",access_room1_id,access_room2_id,access_room3_id," conf_id
     // KEYS1    KEYS2        KEYS3          KEYS4        KEYS5          ARGV1                                               ARGV2
-    std::string scrpit = "for i = 2, (#KEYS - 1) / 2, 2 do\
-                              if not redis.call('HGET', KEYS[1], KEYS[i]) == 1 then\
+    std::string scrpit = "for i = 2, #KEYS - 1, 2 do\
+                              if not redis.call('HGET', KEYS[1], KEYS[i]) then\
                                   redis.call('HSET', KEYS[1], KEYS[i], KEYS[i + 1])\
                               end\
                           end\
-                          -- 根据传递的会议室列表来判断应该分配哪个会议室\
                           local all_rooms = redis.call('HGETALL', KEYS[1])\
                           local roomid_ret = '0'\
-                          local min_capacity = '99999999'\
-                          local min_room_json = ''\
-                          -- i 下标为奇数，j 是会议室 id，i 为偶数的 j 为会议室 json 串\
+                          local min_capacity = 99999999\
+                          local min_room_json\
                           for i, j in ipairs(all_rooms) do\
                               if i % 2 == 1 and string.match(ARGV[1], ',' .. j .. ',') then\
                                   local room_json = cjson.decode(all_rooms[i + 1])\
-                                  if room_json['conference'] ~= '0' and room_json['capacity'] < min_capacity then\
+                                  if room_json['conference'] == 0 and room_json['capacity'] < min_capacity then\
                                       min_capacity = room_json['capacity']\
                                       roomid_ret = j\
                                       min_room_json = room_json\
                                   end\
                               end\
                           end\
-                          -- 分配到会议室，则更新会议室所对应的会议id\
                           if roomid_ret ~= '0' then\
                               local new_room = {\
                                   id = min_room_json['id'],\
                                   name = min_room_json['name'],\
                                   capacity = min_room_json['capacity'],\
-                                  conference = ARGV[2]\
+                                  conference = tonumber(ARGV[2])\
                               }\
-                              if redis.call('HSET', KEYS[1], cjson.encode(new_room)) == 1 then\
+                              if redis.call('HSET', KEYS[1], roomid_ret, cjson.encode(new_room)) then\
+                                  redis.log(redis.LOG_NOTICE, 'alloc meeting room', roomid_ret, 'for conference:', ARGV[2])\
                                   return roomid_ret\
                               else\
                                   return '0'\
                               end\
                           end\
+                          redis.log(redis.LOG_NOTICE, 'failed alloc meeting room', roomid_ret, 'for conference:', ARGV[2])\
                           return '0'\
                           ";
 
@@ -205,17 +207,17 @@ bool test_script()
     cmds.push_back(std::to_string(conf_id));
 
 	redisReply* reply = ExecuteRedisCmd(cmds);
-    if (reply && !CheckRedisReply(reply)) {
-        std::cout << "error";
-        return false;
-    }
-
-    if (reply->type == REDIS_REPLY_ARRAY) {
-        std::cout << "omk" << endl;
-        return true;
-    } else {
-        return false;
-    }
+    // if (reply && !CheckRedisReply(reply)) {
+    //     std::cout << "error";
+    //     return false;
+    // }
+    //
+    // if (reply->type == REDIS_REPLY_ARRAY) {
+    //     std::cout << "omk" << endl;
+    //     return true;
+    // } else {
+    //     return false;
+    // }
 }
 
 int main()
