@@ -182,10 +182,8 @@ void test_create()
                              if redis.call('HSET', KEYS[1], roomid_ret, cjson.encode(new_room)) then\
                                  redis.log(redis.LOG_NOTICE, 'alloc meeting room', roomid_ret, 'for conference:', ARGV[2])\
                                  return cjson.encode({room_id = roomid_ret})\
-                             else\
-                                 if not redis.call('HSET', KEYS[1], roomid_ret, min_room_json) then\
-                                     redis.log(redis.LOG_NOTICE, 'rollback failed for room:', roomid_ret, 'conference:', ARGV[2])\
-                                 end\
+                             elseif not redis.call('HSET', KEYS[1], roomid_ret, min_room_json) then\
+                                 redis.log(redis.LOG_NOTICE, 'rollback failed for room:', roomid_ret, 'conference:', ARGV[2])\
                              end\
                          end\
                          redis.log(redis.LOG_NOTICE, 'failed alloc meeting room', roomid_ret, 'for conference:', ARGV[2])\
@@ -195,8 +193,7 @@ void test_create()
 	std::vector<std::string> cmds;
 	cmds.push_back("EVAL");
 	cmds.push_back(script);
-	// cmds.push_back(std::to_string(new_rooms.empty() ? 1 : (new_rooms.size() * 2 + 1)));
-	cmds.push_back(std::to_string(new_rooms.size() * 2 + 1));
+	cmds.push_back(std::to_string(new_rooms.empty() ? 1 : (new_rooms.size() * 2 + 1)));
 	cmds.push_back("111_meeting_rooms");
     for (auto& room : new_rooms) {
         cmds.push_back(room.id);
@@ -273,10 +270,8 @@ void test_join()
                          }\
                          if redis.call('HSET', KEYS[1], roomid_ret, cjson.encode(new_room), ARGV[2], cjson.encode(old_room)) then\
                                  return cjson.encode({room_id = roomid_ret})\
-                         else\
-                             if not redis.call('HSET', KEYS[1], roomid_ret, min_room_json, ARGV[2], old_room_json) then\
-                                 redis.log(redis.LOG_NOTICE, 'rollback failed for room:', roomid_ret, 'conference:', ARGV[4])\
-                             end\
+                         elseif not redis.call('HSET', KEYS[1], roomid_ret, min_room_json, ARGV[2], old_room_json) then\
+                             redis.log(redis.LOG_NOTICE, 'rollback failed for room:', roomid_ret, 'conference:', ARGV[4])\
                          end\
                      end\
                      redis.log(redis.LOG_NOTICE, 'failed relloc meeting room', roomid_ret, 'for conference:', old_room_json['conference'])\
