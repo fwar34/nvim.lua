@@ -180,10 +180,9 @@ void test_create()
                                  conference = tonumber(ARGV[2])\
                              }\
                              if redis.call('HSET', KEYS[1], roomid_ret, cjson.encode(new_room)) then\
-                                 redis.log(redis.LOG_NOTICE, 'alloc meeting room', roomid_ret, 'for conference:', ARGV[2])\
                                  return cjson.encode({room_id = roomid_ret})\
                              elseif not redis.call('HSET', KEYS[1], roomid_ret, min_room_json) then\
-                                 redis.log(redis.LOG_NOTICE, 'rollback failed for room:', roomid_ret, 'conference:', ARGV[2])\
+                                 return cjson.encode({error = string.format('rollback failed for room:%s conference:%s', roomid_ret, ARGV[2])})\
                              end\
                          end\
                          return cjson.encode({error = string.format('failed alloc meeting room for conference:%s', ARGV[2])})\
@@ -239,7 +238,6 @@ void test_join()
                              old_room_json = cjson.decode(all_rooms[i + 1])\
                          elseif i % 2 == 1 and string.match(ARGV[1], ',' .. j .. ',') then\
                              local room_json = cjson.decode(all_rooms[i + 1])\
-                             redis.log(redis.LOG_NOTICE, type(room_json['conference']), room_json['conference'])\
                              if room_json['conference'] == 0 and room_json['capacity'] < min_capacity and room_json['capacity'] > tonumber(ARGV[3]) then\
                                  min_capacity = room_json['capacity']\
                                  min_room_json = room_json\
