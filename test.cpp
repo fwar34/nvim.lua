@@ -186,8 +186,7 @@ void test_create()
                                  redis.log(redis.LOG_NOTICE, 'rollback failed for room:', roomid_ret, 'conference:', ARGV[2])\
                              end\
                          end\
-                         redis.log(redis.LOG_NOTICE, 'failed alloc meeting room', roomid_ret, 'for conference:', ARGV[2])\
-                         return cjson.encode({error = 'failed alloc meeting room'})\
+                         return cjson.encode({error = string.format('failed alloc meeting room for conference:%s', ARGV[2])})\
                          ";
 
 	std::vector<std::string> cmds;
