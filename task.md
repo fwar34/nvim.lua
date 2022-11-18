@@ -7,8 +7,8 @@
 ```
 
 ### 数据结构
-1. Conference中添加可分配的会议室列表(customercode_info)，以及当前在使用的会议室
-2. 当前会议所属的customercode
+1. Conference中分配的会议室信息 MeetingRoom
+2. 当前会议所属的 customercode
 
 ### redis table
 ```
@@ -31,13 +31,13 @@ struct customercode_info {
 };
 ```
 
-### 创建会议
-+ 创建会议流程
+### 流程
++ 创建会议
 1. 判断customercode_info与本地会议的customercode_info对比是否有增加，增加的话则去(customercode)_meeting_rooms中判断新添加的是否已经存在，没有存在的话更新到(customercode)_meeting_rooms
 2. 在(customercode)meeting_rooms中查询并且占用方数最小的会议室，没有的话则返回失败
 上面两步在redis中原子操作
 
-+ 入会流程
++ 入会
 1. 判断用户入会带的customercode_info与本地会议的customercode_info对比是否增加，增加的话则去(customercode)_meeting_rooms中判断新添加的是否已经存在，没有的话则更新到(customercode)_meeting_rooms
 2. 在(customercode)_meeting_rooms中查询当前会议室是否需要升方，如果需要升方则判断出是否有满足需求的会议室，没有的话则返回失败
 上面两步在redis中原子操作

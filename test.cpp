@@ -133,6 +133,159 @@ void gen_data()
     }
 }
 
+void test_create_json()
+{
+    uint32_t conf_id = 12456;
+    string custmor_json = R"({
+	"customercode": "111",
+	"access_rooms": [{
+			"id": "1111",
+			"name": "room1",
+			"capacity": 150
+		},
+		{
+			"id": "5555",
+			"name": "room5",
+			"capacity": 80
+		},
+		{
+			"id": "6666",
+			"name": "room6",
+			"capacity": 160
+		}
+	]
+    })";
+    string script = R"(local customer_info = cjson.decode(KEYS[1])
+                       local customer_code = customer_info.customercode
+                       local access_rooms = customer_info.access_rooms
+                       if not access_rooms then
+                           return cjson.encode({error = string.format('access_rooms is empty', customer_code)})
+                       end
+                       local all_rooms = redis.call('HGETALL', customer_code .. '_meeting_rooms')
+                       if not all_rooms then
+                           return cjson.encode({error = string.format('get %s_meeting_rooms failed', customer_code)})
+                       end
+                       local min_capacity = 99999999
+                       local room_ret
+                       for _, room in pairs(access_rooms) do
+                           local found = false
+                           for i, j in pairs(all_rooms) do
+                               redis.log(redis.LOG_NOTICE, 'type(i):', type(i), 'type(j):', type(j))
+                               if i % 2 == 1 and room.id == j then
+                                   found = true
+                                   break
+                               end
+                           end
+                           if not found and room.capacity < min_capacity then
+                               min_capacity = room.capacity
+                               room_ret = room
+                           end
+                       end
+                       if room_ret then
+                           room_ret.conference = KEYS[2]
+                           if redis.call('HSET', customer_code .. '_meeting_rooms', room_ret.id, cjson.encode(room_ret)) then
+                               redis.log(redis.LOG_NOTICE, 'roomid_ret', room_ret.id)
+                               return cjson.encode({room = room_ret.id})
+                           end
+                       end
+                       return cjson.encode({error = 'alloc room failed'})
+                       )";
+
+    std::vector<std::string> cmds;
+    cmds.push_back("EVAL");
+    cmds.push_back(script);
+    cmds.push_back("2");
+    cmds.push_back(custmor_json);
+    cmds.push_back(std::to_string(conf_id));
+
+    redisReply* reply = ExecuteRedisCmd(cmds);
+    if (reply && !CheckRedisReply(reply)) {
+        std::cout << "error";
+    }
+
+    cout << "create: " << reply->str << endl;
+}
+
+void test_join_json()
+{
+    uint32_t conf_id = 12456;
+    string custmor_json = R"({
+	"customercode": "111",
+	"access_rooms": [{
+			"id": "1111",
+			"name": "room1",
+			"capacity": 150
+		},
+		{
+			"id": "5555",
+			"name": "room5",
+			"capacity": 80
+		},
+		{
+			"id": "6666",
+			"name": "room6",
+			"capacity": 160
+		}
+	]
+    })";
+    string script = R"(local customer_info = cjson.decode(KEYS[1])
+                       local customer_code = customer_info.customercode
+                       local access_rooms = customer_info.access_rooms
+                       if not access_rooms then
+                           return cjson.encode({error = string.format('access_rooms is empty', customer_code)})
+                       end
+                       local all_rooms = redis.call('HGETALL', customer_code .. '_meeting_rooms')
+                       if not all_rooms then
+                           return cjson.encode({error = string.format('get %s_meeting_rooms failed', customer_code)})
+                       end
+
+                       local min_capacity = 99999999
+                       local room_ret
+                       local check_conference = false
+                       for _, room in pairs(access_rooms) do
+                           local found = false
+                           for i, j in pairs(all_rooms) do
+                               if i % 2 == 1 and room.id == j then
+                                   local value = cjson.decode(all_rooms[i + 1])
+                                   if not check_conference and value.conference ~= KEYS[2] then
+                                       check_conference = true
+                                       redis.log(redis.LOG_WARNING, 'redis conference:', value.conference, ' not equal conference:', KEYS[2])
+                                   end
+                                   found = true
+                                   break
+                               end
+                           end
+                           if not found and room.capacity < min_capacity and room.capacity > tonumber(KEYS[4]) then
+                               min_capacity = room.capacity
+                               room_ret = room
+                           end
+                       end
+                       if room_ret then
+                           room_ret.conference = KEYS[2]
+                           if redis.call('HSET', customer_code .. '_meeting_rooms', room_ret.id, cjson.encode(room_ret)) and redis.call('DEL', KEYS[3]) then
+                               return cjson.encode({room = room_ret.id})
+                           end
+                       end
+                       return cjson.encode({error = 'relloc room failed'})
+                       )";
+
+    std::vector<std::string> cmds;
+    cmds.push_back("EVAL");
+    cmds.push_back(script);
+    cmds.push_back("4");
+    cmds.push_back(custmor_json);
+    cmds.push_back(std::to_string(conf_id));
+    cmds.push_back("1111"); //current room id
+    cmds.push_back("150");  //current room capacity
+
+    redisReply* reply = ExecuteRedisCmd(cmds);
+    if (reply && !CheckRedisReply(reply)) {
+        std::cout << "error";
+    }
+
+    cout << "join: " << reply->str << endl;
+}
+
 void test_create()
 {
     // 构造数据
@@ -159,6 +312,9 @@ void test_create()
                              end\
                          end\
                          local all_rooms = redis.call('HGETALL', KEYS[1])\
+                         for a, b in pairs(all_rooms) do\
+                             redis.log(redis.LOG_NOTICE, 'all_rooms index:', a, 'value:', b)\
+                         end\
                          local roomid_ret = '0'\
                          local min_capacity = 99999999\
                          local min_room_json\
@@ -299,10 +455,13 @@ int main()
         return 1;
     }
 
-    gen_data();
-    test_create();
+    // gen_data();
+    // test_create();
+    // getchar();
+    // test_join();
+    test_create_json();
     getchar();
-    test_join();
+    test_join_json();
 
     return 0;
 }
