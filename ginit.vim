@@ -26,7 +26,11 @@ if exists(':GuiFont')
     elseif $MYHOSTNAME == "ubuntu-awesome"
         Guifont! JetBrainsMono\ Nerd\ Font:h16
     elseif $MYHOSTNAME == "archlinux-dell"
-        Guifont! Sarasa\ Mono\ SC\ Nerd:h14
+        if $XDG_SESSION_TYPE == 'x11'
+            Guifont! Sarasa\ Mono\ SC\ Nerd:h14
+        else
+            Guifont! Sarasa\ Mono\ SC\ Nerd:h17
+        endif
     else
         Guifont! Sarasa\ Mono\ SC\ Nerd:h12
     endif
