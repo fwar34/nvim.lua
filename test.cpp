@@ -3,6 +3,7 @@
 #include <vector>
 #include <hiredis.h>
 #include <strings.h>
+#include <sstream>
 #include "json/json.h"
 
 using namespace std;
@@ -96,6 +97,165 @@ std::string SerializeToJson(MeetingRoom& room)
     return writer.write(value);
 }
 
+string FindValue(const string &key_value, const char *key)
+{
+	string null;
+	if (key_value.empty()) {
+		return null;
+	}
+
+	string kv_string = key_value;
+	Json::Reader reader;
+	Json::Value root;
+	if (!reader.parse(kv_string, root)) {
+		// sprintf("conf(%d) parse json string(%s) failed!", 999, kv_string.c_str());
+		return null;
+	}
+	if (root.empty() || root.type() != Json::objectValue) {
+		// sprintf("conf(%d) root is not object, or root is null. key:%s, key_value:%s", 999, key, kv_string.c_str());
+		return null;
+	}
+
+	if (!root[key].isNull() && root[key].type() == Json::stringValue) {
+		return root[key].asString();
+	}
+
+	return null;
+}
+
+// "meetingrooms":"{\"customercode\":\"154430\",\"access_rooms\":[{\"id\":12455,\"capacity\":2000}]}"
+void test_json()
+{
+    string custmor_json = R"(
+    {
+        "meetingrooms": {
+	        "customercode": "111",
+	        "access_rooms": [{
+	        		"id": "1111",
+	        		"name": "room1",
+	        		"capacity": 150
+	        	},
+	        	{
+	        		"id": "5555",
+	        		"name": "room5",
+	        		"capacity": 80
+	        	},
+	        	{
+	        		"id": "6666",
+	        		"name": "room6",
+	        		"capacity": 160
+	        	}
+	        ]
+       }
+    })";
+    Json::Reader reader;
+    Json::Value root;
+    reader.parse(custmor_json, root);
+    cout << "type:->" << root["meetingrooms"].type() << endl;
+    cout << root["meetingrooms"].empty() << endl;
+    cout << root["meetingrooms"]["access_rooms"].size() << endl;
+    cout << root["meetingrooms"]["access_rooms"].empty() << endl;
+    cout << root["meetingrooms"] << endl;
+    cout << root["meetingrooms"]["customercode"] << endl;
+    cout << root["meetingrooms"]["access_rooms"][0]["name"] << endl;
+    // cout << root.type() << endl;
+    // cout << root["access_rooms"].type() << endl;
+    // cout << root["access_rooms"][0].type() << endl;
+    // cout << root["access_rooms"][0]["name"].type() << endl;
+    // string customercode = root["customercode"].asString();
+    // cout << customercode << endl;
+    ostringstream oss;
+    oss << root["meetingrooms"];
+    cout << oss.str() << endl;
+
+    // for (auto& item : root["meetingrooms"]["access_rooms"]) {
+    //     if (item["id"].find("5555")) {
+    //         cout << "find 5555" << endl;
+    //     }
+    // }
+    cout << root["meetingrooms"]["customercode"].asString() << endl;
+
+    cout << "------------------" << endl;
+    string ret = FindValue(custmor_json, "encryptionType");
+    cout << ret.empty() << endl;
+}
+
+string replace_all(string& str, const string& old_value, const string& new_value)
+{
+    while (true) {
+        std::size_t pos = str.find(old_value);
+        if (pos != string::npos) {
+            str.replace(pos, old_value.length(), new_value);
+        } else {
+            break;
+        }
+    }
+    return str;
+}
+
+void test_json2()
+{
+    string custmor_json = R"({
+        "meetingrooms":"{\"customercode\":\"154430\",\"access_rooms\":[{\"id\":\"12455\",\"capacity\":2000}]}"
+    })";
+
+    Json::Reader reader;
+    Json::Value root;
+    string test;
+    if (!reader.parse(custmor_json, root)) {
+        cout << "xxxxxxxxxx error" << endl;
+        return;
+    }
+    
+    cout << "type:->" << root["meetingrooms"].type() << endl;
+    cout << root["meetingrooms"] << endl;
+
+    Json::Value rooms;
+    reader.parse(root["meetingrooms"].asString(), rooms);
+    cout << rooms.type() << endl;
+    cout << rooms["customercode"] << endl;
+    cout << rooms["access_rooms"].type() << endl;
+    cout << rooms["access_rooms"][0]["id"] << endl;
+    for (auto& item : rooms["access_rooms"]) {
+        cout << item << endl;
+        if (item["id"] == "12455") {
+            cout << "xxxx" << endl;
+        } else {
+            cout << "yyyy" << endl;
+        }
+    }
+
+    cout << "----------------------" << endl;
+    string ret = root["meetingrooms"].asString();
+    cout << replace_all(ret, "\\", "") << endl;
+    cout << ret << endl;
+    // cout << root["meetingrooms"]["access_rooms"].size() << endl;
+    // cout << root["meetingrooms"]["access_rooms"].empty() << endl;
+    // cout << root["meetingrooms"] << endl;
+    // cout << root["meetingrooms"]["customercode"] << endl;
+    // cout << root["meetingrooms"]["access_rooms"][0]["name"] << endl;
+    // // cout << root.type() << endl;
+    // // cout << root["access_rooms"].type() << endl;
+    // // cout << root["access_rooms"][0].type() << endl;
+    // // cout << root["access_rooms"][0]["name"].type() << endl;
+    // // string customercode = root["customercode"].asString();
+    // // cout << customercode << endl;
+    // ostringstream oss;
+    // oss << root["meetingrooms"];
+    // cout << oss.str() << endl;
+
+    // // for (auto& item : root["meetingrooms"]["access_rooms"]) {
+    // //     if (item["id"].find("5555")) {
+    // //         cout << "find 5555" << endl;
+    // //     }
+    // // }
+    // cout << root["meetingrooms"]["customercode"].asString() << endl;
+
+    // cout << "------------------" << endl;
+    // string ret = FindValue(custmor_json, "encryptionType");
+    // cout << ret.empty() << endl;
+}
+
 void gen_data()
 {
     MeetingRoom room1;
@@ -133,10 +293,48 @@ void gen_data()
     }
 }
 
+void test_json3()
+{
+    uint32_t conf_id = 12456;
+    string custmor_json2 = R"({"roomsinfo": {
+	"customercode": "111",
+	"rooms": [{
+			"id": "1111",
+			"name": "room1",
+			"capacity": 150
+		},
+		{
+			"id": "5555",
+			"name": "room5",
+			"capacity": 80
+		},
+		{
+			"id": "6666",
+			"name": "room6",
+			"capacity": 160
+		}
+	]
+    }})";
+
+    Json::Reader reader;
+    Json::Value root;
+    reader.parse(custmor_json2, root);
+    cout << root.type() << endl;
+    cout << root["roomsinfo"].type() << endl;
+    cout << root["roomsinfo"].empty() << endl;
+    cout << root["roomsinfo"]["rooms"].size() << endl;
+    cout << root["roomsinfo"]["customercode"] << endl;
+    cout << root["roomsinfo"] << endl;
+    ostringstream oss;
+    oss << root["roomsinfo"];
+    string str = oss.str();
+    cout << str << endl;
+}
+
 void test_create_json()
 {
     uint32_t conf_id = 12456;
-    string custmor_json = R"({
+    string custmor_json2 = R"({
 	"customercode": "111",
 	"access_rooms": [{
 			"id": "1111",
@@ -155,23 +353,31 @@ void test_create_json()
 		}
 	]
     })";
+
+    string custmor_json = R"(
+        {"customercode":"154430","access_rooms":[{"id":"12455","capacity":2000}]}
+    )";
+    // string custmor_json = R"(
+    //     {"customercode":"154430","access_rooms":[{"id":"12455","capacity":2000}]}
+    // )";
     string script = R"(local customer_info = cjson.decode(KEYS[1])
                        local customer_code = customer_info.customercode
                        local access_rooms = customer_info.access_rooms
                        if not access_rooms then
                            return cjson.encode({error = string.format('access_rooms is empty', customer_code)})
                        end
-                       local all_rooms = redis.call('HGETALL', customer_code .. '_meeting_rooms')
-                       if not all_rooms then
-                           return cjson.encode({error = string.format('get %s_meeting_rooms failed', customer_code)})
+                       redis.log(redis.LOG_NOTICE, 'customercode', customer_code)
+                       for _, room in pairs(access_rooms) do
+                           redis.log(redis.LOG_NOTICE, 'id:', room.id, ' capacity:', room.capacity)
                        end
+                       local all_rooms = redis.call('HKEYS', customer_code .. '_meeting_rooms')
+                       all_rooms = all_rooms or {}
                        local min_capacity = 99999999
                        local room_ret
                        for _, room in pairs(access_rooms) do
                            local found = false
-                           for i, j in pairs(all_rooms) do
-                               redis.log(redis.LOG_NOTICE, 'type(i):', type(i), 'type(j):', type(j))
-                               if i % 2 == 1 and room.id == j then
+                           for _, j in pairs(all_rooms) do
+                               if j == room.id then
                                    found = true
                                    break
                                end
@@ -214,12 +420,12 @@ void test_join_json()
 	"access_rooms": [{
 			"id": "1111",
 			"name": "room1",
-			"capacity": 150
+			"capacity": 550
 		},
 		{
 			"id": "5555",
 			"name": "room5",
-			"capacity": 80
+			"capacity": 580
 		},
 		{
 			"id": "6666",
@@ -234,19 +440,31 @@ void test_join_json()
                        if not access_rooms then
                            return cjson.encode({error = string.format('access_rooms is empty', customer_code)})
                        end
+                       redis.log(redis.LOG_WARNING, 'conference:', '12345', 'begin----------------------------------------------')
                        local all_rooms = redis.call('HGETALL', customer_code .. '_meeting_rooms')
-                       if not all_rooms then
-                           return cjson.encode({error = string.format('get %s_meeting_rooms failed', customer_code)})
-                       end
-
+                       all_rooms = all_rooms or {}
                        local min_capacity = 99999999
                        local room_ret
                        local check_conference = false
+                       local current_capacity = tonumber(KEYS[4])
+                       for i, j in pairs(all_rooms) do
+                           if i % 2 == 1 then
+                               redis.log(redis.LOG_WARNING, 'cache room i:', i, 'j:', j, 'all_rooms[i + 1]:', all_rooms[i + 1])
+                           end
+                       end
+
+                       for i, j in pairs(access_rooms) do
+                           redis.log(redis.LOG_WARNING, 'input room i:', i, 'j.id:', j.id)
+                       end
+
                        for _, room in pairs(access_rooms) do
                            local found = false
                            for i, j in pairs(all_rooms) do
+                               redis.log(redis.LOG_WARNING, 'cache room i:', i, 'j:', j)
                                if i % 2 == 1 and room.id == j then
+                                   redis.log(redis.LOG_WARNING, 'i:', i, 'all_rooms[i + 1]:', all_rooms[i + 1])
                                    local value = cjson.decode(all_rooms[i + 1])
+                                   redis.log(redis.LOG_WARNING, 'i:', i, 'value.id', value.id)
                                    if not check_conference and value.conference ~= KEYS[2] then
                                        check_conference = true
                                        redis.log(redis.LOG_WARNING, 'redis conference:', value.conference, ' not equal conference:', KEYS[2])
@@ -255,11 +473,14 @@ void test_join_json()
                                    break
                                end
                            end
-                           if not found and room.capacity < min_capacity and room.capacity > tonumber(KEYS[4]) then
+                           redis.log(redis.LOG_WARNING, 'min_capacity:', min_capacity, 'found:', found and 1 or 0, 'room.id:', room.id)
+                           if not found and room.capacity < min_capacity and room.capacity > current_capacity then
                                min_capacity = room.capacity
                                room_ret = room
                            end
+                           redis.log(redis.LOG_WARNING, 'min_capacity:', min_capacity, 'found:', found and 1 or 0)
                        end
+                       redis.log(redis.LOG_WARNING, 'conference:', '12345', 'end----------------------------------------------')
                        if room_ret then
                            room_ret.conference = KEYS[2]
                            if redis.call('HSET', customer_code .. '_meeting_rooms', room_ret.id, cjson.encode(room_ret)) and redis.call('DEL', KEYS[3]) then
@@ -455,13 +676,32 @@ int main()
         return 1;
     }
 
+    // test_json2();
+    // test_json3();
+    // return 0;
+
     // gen_data();
     // test_create();
     // getchar();
     // test_join();
     test_create_json();
+    // return 0;
+
     getchar();
     test_join_json();
 
     return 0;
 }
+
+// string replace_all(string& str, const string& old_value, const string& new_value)
+// {
+//     while (true) {
+//         std::size_t pos = str.find(old_value);
+//         if (pos != string::npos) {
+//             str.replace(pos, old_value.length(), new_value);
+//         } else {
+//             break;
+//         }
+//     }
+//     return str;
+// }
