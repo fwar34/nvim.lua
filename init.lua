@@ -1,6 +1,8 @@
 local vim = vim
 local api = vim.api
 
+require("options")
+
 local function set_leader()
     vim.g.mapleader = ";"
     vim.g.maplocalleader = " "
@@ -25,7 +27,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins")
 
-require("options")
 require("key_mappings")
 require("autocmd")
 -- require("terminal").setup()
