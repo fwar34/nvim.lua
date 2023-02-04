@@ -1,5 +1,7 @@
 return {
-        'nvim-telescope/telescope.nvim', config = function ()
+    {
+        'nvim-telescope/telescope.nvim', 
+        config = function ()
             local use_devicons = function ()
                 if vim.env.MYHOSTNAME == 'ubuntu-work' then
                     return false
@@ -62,40 +64,34 @@ return {
             }
         end,
 
-        requires = {
-            {'nvim-lua/plenary.nvim'},
-            -- {
-            --     'nvim-telescope/telescope-project.nvim', config = function ()
-            --         require('telescope').load_extension('project')
-            --     end
-            -- },
-            {
-                'nvim-telescope/telescope-fzf-native.nvim', run = 'make',
-                config = function ()
-                    -- To get fzf loaded and working with telescope, you need to call
-                    -- load_extension, somewhere after setup function:
-                    require('telescope').load_extension('fzf')
-                end
-            },
-            {
-                -- need install sqlit
-                "nvim-telescope/telescope-frecency.nvim",
-                config = function()
-                    require("telescope").load_extension("frecency")
-                end,
-                requires = {"tami5/sqlite.lua"}
-            },
-            -- {
-            --     'nvim-telescope/telescope-packer.nvim',
-            --     config = function()
-            --         require("telescope").load_extension("packer")
-            --     end
-            -- },
-            {
-                'nvim-telescope/telescope-live-grep-raw.nvim',
-                config = function()
-                    require("telescope").load_extension("live_grep_args")
-                end,
-            },
-        }
-    }
+    },
+    {'nvim-lua/plenary.nvim'},
+    {
+        'nvim-telescope/telescope-fzf-native.nvim', run = 'make',
+        config = function ()
+            -- To get fzf loaded and working with telescope, you need to call
+            -- load_extension, somewhere after setup function:
+            require('telescope').load_extension('fzf')
+        end
+    },
+    {
+        -- need install sqlit
+        "nvim-telescope/telescope-frecency.nvim",
+        config = function()
+            require("telescope").load_extension("frecency")
+        end,
+        dependencies = {"tami5/sqlite.lua"}
+    },
+    -- {
+    --     'nvim-telescope/telescope-packer.nvim',
+    --     config = function()
+    --         require("telescope").load_extension("packer")
+    --     end
+    -- },
+    {
+        'nvim-telescope/telescope-live-grep-raw.nvim',
+        config = function()
+            require("telescope").load_extension("live_grep_args")
+        end,
+    },
+}
