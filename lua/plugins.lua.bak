@@ -95,54 +95,8 @@ return require('packer').startup(function()
     -- Local plugins can be included
     --use '~/projects/personal/hover.nvim'
 
-    -- Plugins can have post-install/update hooks
-    use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
 
-    -----------------------------------------------------------------------------------------
-    -- A colorscheme helper for Neovim.
-    use {'tjdevries/colorbuddy.nvim'}
-    -- Color scheme
-    use {'tjdevries/gruvbuddy.nvim',}
-    use {'Th3Whit3Wolf/onebuddy',  config = function ()
-        -- require('colorbuddy').colorscheme('onebuddy')
-    end}
 
-    use {
-        -- "joshdick/onedark.vim",
-        'ii14/onedark.nvim',
-        -- 'navarasu/onedark.nvim',
-        -- 'olimorris/onedarkpro.nvim',
-        config = function ()
-            vim.cmd [[ colorscheme onedark ]]
-        end
-    }
-
-    -- Themes
-    use {
-        {'glepnir/oceanic-material', config = function ()
-            -- vim.cmd [[ colorscheme oceanic_material ]]
-        end},
-        -- You can alias plugin names
-        {'dracula/vim', as = 'dracula'},
-        -- {'fwar34/vim-color-wombat256.git', as = 'wombat256'}
-
-        -- Note: vim-colorschemes conflict with onedark
-        -- {'flazz/vim-colorschemes'}, -- one stop shop for vim colorschemes.
-    }
-
-    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
-    config = function ()
-        require('nvim-treesitter.configs').setup {
-            ensure_installed = {
-                'bash', 'c', 'cpp', 'lua', 'css', 'fennel', 'html', 'javascript', 'json', 'julia', 'go',
-                'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure', 'fennel'
-            },     -- one of "all", "language", or a list of languages
-            highlight = {
-                enable = true,              -- false will disable the whole extension
-                -- disable = { "c", "rust" },  -- list of language that will be disabled
-            },
-        }
-    end}
 
     -- use {'p00f/nvim-ts-rainbow', config = function ()
     --     require('nvim-treesitter.configs').setup {
@@ -329,18 +283,11 @@ return require('packer').startup(function()
 	end}
 
 
-    -- Lsp
-    use {
-        'neovim/nvim-lspconfig',
-        'williamboman/nvim-lsp-installer',
-    }
 
     -- Status line
     use {'itchyny/lightline.vim'}
     -- use 'glepnir/spaceline.vim'
 
-    -- Coding
-    use {'liuchengxu/vista.vim'}
     -- use {'majutsushi/tagbar', cmd = 'TagbarToggle'}
 
     -- Find everythings
@@ -406,78 +353,6 @@ return require('packer').startup(function()
     -- Grepping
     -- use {'mhinz/vim-grepper', opt = true, cmd = 'Grepper'}
 
-    -- File manager
-    -- pip3 install --user pynvim
-    use {'Shougo/defx.nvim', run = ':UpdateRemotePlugins'}
-    use {
-        'kyazdani42/nvim-tree.lua',
-        tag = 'nightly', -- optional, updated every week. (see issue #1193)
-        config = function()
-            -- require("nvim-tree").setup()
-            require("nvim-tree").setup({
-                sort_by = "case_sensitive",
-                view = {
-                    adaptive_size = true,
-                    mappings = {
-                        list = {
-                            { key = "u", action = "dir_up" },
-                            { key = "h", action = "dir_up" },
-                            { key = "l", action = "cd" },
-                        },
-                    },
-                },
-                renderer = {
-                    group_empty = true,
-                },
-                filters = {
-                    dotfiles = true,
-                },
-            })
-        end
-    }
-    -- use {
-    --     'preservim/nerdtree', cmd = {
-    --         'NERDTreeFocus',
-    --         'NERDTree',
-    --         'NERDTreeToggle',
-    --         'NERDTreeFind',
-    --     }
-    -- }
-    -- use {'justinmk/vim-dirvish'}
-    use {
-        'kevinhwang91/rnvimr', cmd = 'RnvimrToggle',
-        config = function()
-            -- Make Ranger replace Netrw and be the file explorer
-            vim.g.rnvimr_enable_ex = 1
-            -- Make Ranger to be hidden after picking a file
-            vim.g.rnvimr_enable_picker = 1
-            -- Make Neovim wipe the buffers corresponding to the files deleted by Ranger
-            vim.g.rnvimr_enable_bw = 1
-            -- Link CursorLine into RnvimrNormal highlight in the Floating window
-            -- vim.cmd [[ highlight link RnvimrNormal CursorLine ]]
-
-            -- if vim.fn.empty(vim.fn.glob(cheatsheets_path)) > 0 then
-            -- end
-            -- Map Rnvimr action
-            vim.g.rnvimr_action = {
-                [ '<C-t>' ] = 'NvimEdit tabedit',
-                [ '<C-x>' ] = 'NvimEdit split',
-                [ '<C-v>' ] = 'NvimEdit vsplit',
-                [ 'gw' ] = 'JumpNvimCwd',
-                [ 'yw' ] = 'EmitRangerCwd',
-            }
-        end
-    } -- Ranger
-    -- use { -- nnn
-    --     'mcchrish/nnn.vim', cmd = {'NnnPicker', 'Np'},
-    --     config = function()
-    --         -- Disable default mappings
-    --         vim.cmd [[ let g:nnn#set_default_mappings = 0 ]]
-    --         -- Floating window (neovim latest and vim with patch 8.2.191)
-    --         -- vim.g['nnn#layout'] = { window = { width = 0.9, height = 0.6, highlight = 'Debug'}}
-    --         vim.cmd [[ let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } } ]]
-    --     end
-    -- }
 
     -- Terminal
     use {
@@ -574,17 +449,6 @@ return require('packer').startup(function()
         end
     }
 
-    use {'junegunn/fzf', run = './install --all', lock = true}
-    use {
-        -- 需要使用最新版的 bat 来预览，可以直接在 release 页面下载
-        'junegunn/fzf.vim', event = 'VimEnter *',
-        config = function()
-            vim.g.fzf_preview_window = { 'up:50%', 'ctrl-/' }
-        end,
-        -- requires = {
-        --     {'junegunn/fzf', run = './install --all', lock = true},
-        -- }
-    }
 
     -- Profiling
     use {'dstein64/vim-startuptime', cmd = 'StartupTime'}

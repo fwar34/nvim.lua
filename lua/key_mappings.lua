@@ -529,15 +529,8 @@ function key_mappings:start()
     self:process_keys()
 end
 
-local function set_leader()
-    vim.g.mapleader = ";"
-    vim.g.maplocalleader = " "
-    api.nvim_set_keymap('n', ' ', '', {noremap = true})
-    api.nvim_set_keymap('x', ' ', '', {noremap = true})
-end
 
 function key_mappings.setup()
-    set_leader()
     key_mappings:start()
 end
 

@@ -1,6 +1,6 @@
 return {
     {
-        'nvim-telescope/telescope.nvim', 
+        'nvim-telescope/telescope.nvim',
         config = function ()
             local use_devicons = function ()
                 if vim.env.MYHOSTNAME == 'ubuntu-work' then
@@ -67,7 +67,7 @@ return {
     },
     {'nvim-lua/plenary.nvim'},
     {
-        'nvim-telescope/telescope-fzf-native.nvim', run = 'make',
+        'nvim-telescope/telescope-fzf-native.nvim', build = 'make',
         config = function ()
             -- To get fzf loaded and working with telescope, you need to call
             -- load_extension, somewhere after setup function:
@@ -82,12 +82,6 @@ return {
         end,
         dependencies = {"tami5/sqlite.lua"}
     },
-    -- {
-    --     'nvim-telescope/telescope-packer.nvim',
-    --     config = function()
-    --         require("telescope").load_extension("packer")
-    --     end
-    -- },
     {
         'nvim-telescope/telescope-live-grep-raw.nvim',
         config = function()

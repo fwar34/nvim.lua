@@ -1,4 +1,8 @@
 return {
+    -- Lsp
+    'neovim/nvim-lspconfig',
+    'williamboman/nvim-lsp-installer',
+
     {
         'quangnguyen30192/cmp-nvim-tags',
         -- if you want the sources is available for some file types
@@ -11,7 +15,8 @@ return {
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-buffer',
             'hrsh7th/cmp-path',
-            'hrsh7th/cmp-nvim-lsp-signature-help'
+            'hrsh7th/cmp-nvim-lsp-signature-help',
+            'L3MON4D3/LuaSnip'
         },
         config = function()
             local has_words_before = function()
@@ -176,5 +181,6 @@ return {
             -- 		{ name = 'cmdline' }
             -- 	})
             -- })
-        end}
-    }
+        end
+    },
+}
