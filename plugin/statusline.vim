@@ -19,25 +19,25 @@ autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 
             ""\     'session_name': 'require("auto-session-library").current_session_name()',
-let g:lightline = {
-            \ 'colorscheme': 'wombat',
-            \ 'component': {'charvaluehex': '0x%B'},
-            \ 'active':
-            \    {'left': [ [ 'mode', 'sessionmgr', 'paste' ],
-            \               [ 'gitbranch', 'gitstatus', 'readonly', 'filename', 'session_name', 'modified', 'method' ] ],
-            \     'right': [ [ 'lineinfo' ],
-            \                [  'charvaluehex', 'scorestatus', 'fileformat', 'fileencoding', 'filetype' ] ]
-            \    },
-            \ 'component_function':
-            \    {
-            \     'sessionmgr': 'SessionMgrStatus',
-            \     'method': 'NearestMethodOrFunction',
-            \     'gitbranch': 'FugitiveStatusline',
-            \     'scorestatus': 'ScrollStatus',
-            \     'gitstatus': 'sy#repo#get_stats_decorated',
-            \    },
-            \ }
-
+" let g:lightline = {
+"             \ 'colorscheme': 'wombat',
+"             \ 'component': {'charvaluehex': '0x%B'},
+"             \ 'active':
+"             \    {'left': [ [ 'mode', 'sessionmgr', 'paste' ],
+"             \               [ 'gitbranch', 'gitstatus', 'readonly', 'filename', 'session_name', 'modified', 'method' ] ],
+"             \     'right': [ [ 'lineinfo' ],
+"             \                [  'charvaluehex', 'scorestatus', 'fileformat', 'fileencoding', 'filetype' ] ]
+"             \    },
+"             \ 'component_function':
+"             \    {
+"             \     'sessionmgr': 'SessionMgrStatus',
+"             \     'method': 'NearestMethodOrFunction',
+"             \     'gitbranch': 'FugitiveStatusline',
+"             \     'scorestatus': 'ScrollStatus',
+"             \     'gitstatus': 'sy#repo#get_stats_decorated',
+"             \    },
+"             \ }
+"
 " autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 "FugitiveStatusline FugitiveHead
 

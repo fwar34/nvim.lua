@@ -35,16 +35,6 @@ local function goto_last_position()
     })
 end
 
-local function cmd_for_packer()
-    -- vim.cmd [[ autocmd! BufWritePost plugins.lua PackerCompile ]]
-    cmd([[
-    augroup packer_user_config
-        autocmd!
-        autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-    augroup end
-    ]])
-end
-
 local function map_q_to_quit()
     api.nvim_create_autocmd("FileType", {
         pattern = {'help', 'qf', 'netrw', 'startuptime', 'git'},
@@ -113,7 +103,6 @@ end
 
 function autocmd.setup()
     goto_last_position()
-    cmd_for_packer()
     map_q_to_quit()
     map_find_q_quit()
     map_wq_to_quit()

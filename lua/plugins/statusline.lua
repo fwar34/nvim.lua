@@ -10,9 +10,29 @@ return {
     },
 
     -- Status line
-    'itchyny/lightline.vim',
-    -- 'glepnir/spaceline.vim'
-    -- {
-    --     'nvim-lualine/lualine.nvim',
-    -- },
-}
+    {
+        'itchyny/lightline.vim',
+        config = function ()
+            vim.g.lightline = {
+                colorscheme = 'wombat',
+                component = {charvaluehex = '0x%B'},
+                active = {
+                    -- left = {{'mode', 'sessionmgr', 'paste'}, 'gitbranch', 'gitstatus', 'readonly', 'filename', 'session_name', 'modified', 'method'},
+                    left = {{'mode', 'sessionmgr', 'paste'}, 'filename'},
+                    -- right = {{'lineinfo'}, {'charvaluehex', 'scorestatus', 'fileformat', 'fileencoding', 'filetype'}},
+                },
+                component_function = {
+                        sessionmgr = 'SessionMgrStatus',
+                        -- method = 'NearestMethodOrFunction',
+                        -- gitbranch = 'FugitiveStatusline',
+                        -- ['scorestatus'] = 'ScrollStatus',
+                        -- ['gitstatus'] = 'sy#repo#get_stats_decorated',
+                    },
+                }
+            end
+        },
+        -- 'glepnir/spaceline.vim'
+        -- {
+        --     'nvim-lualine/lualine.nvim',
+        -- },
+    }
