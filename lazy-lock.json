@@ -24,7 +24,7 @@
   "gutentags_plus": { "branch": "master", "commit": "345e49dd8d4fd14f59959e6e62b628359bfe263b" },
   "iron.nvim": { "branch": "master", "commit": "f4131638454aeb96cbd92652dd8c396e48eb4118" },
   "lazy.nvim": { "branch": "main", "commit": "3d2dcb2d5ef99106c5ff412da88c6f59a9f8a693" },
-  "lualine.nvim": { "branch": "master", "commit": "0050b308552e45f7128f399886c86afefc3eb988" },
+  "lightline.vim": { "branch": "master", "commit": "b1e91b41f5028d65fa3d31a425ff21591d5d957f" },
   "markdown-preview.nvim": { "branch": "master", "commit": "02cc3874738bc0f86e4b91f09b8a0ac88aef8e96" },
   "nvim-autopairs": { "branch": "master", "commit": "5a3523ddb573804752de6c021c5cb82e267b79ca" },
   "nvim-bqf": { "branch": "main", "commit": "da1cd2557a16386829a213330e0fd46b61db7632" },

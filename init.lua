@@ -1,6 +1,8 @@
 local vim = vim
 local api = vim.api
 
+vim.cmd('set termguicolors')
+
 require("options")
 
 local function set_leader()
