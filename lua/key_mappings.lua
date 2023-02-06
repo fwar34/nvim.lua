@@ -331,7 +331,7 @@ function key_mappings:start()
         ['n|<LocalLeader>ir'] = '<cmd>Telescope resume<CR>',
         -- ['n|<Leader>yk'] = '<CMD>Clap yanks<CR>',
         -- ['n|<Leader>fl'] = '<CMD>Clap filer<CR>',
-        ['n|<Leader>tl'] = '<CMD>Telescope<CR>',
+        ['n|<Leader>hl'] = '<CMD>Telescope<CR>',
         -- ['n|<Leader>df'] = '<CMD>Clap dot<CR>',
         -- ['n|<Leader>dj'] = '<CMD>Telescope file_browser<CR>',
     }
@@ -353,7 +353,7 @@ function key_mappings:start()
     --symotion-prefix) Vista
     self.vista = {
         ['n|<Leader>ii'] = '<CMD>Vista finder<CR>',
-        ['n|<Leader>hl'] = '<CMD>Vista finder!<CR>',
+        ['n|<Leader>tl'] = '<CMD>Vista finder!<CR>',
         ['n|<Leader>jj'] = '<CMD>Vista!!<CR>',
     }
 
