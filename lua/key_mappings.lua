@@ -424,6 +424,8 @@ function key_mappings:start()
     self.easy_motion = {
         ['n|<Leader>ms'] = {"<Plug>(easymotion-s2)", noremap = false},
         ['n|<Leader>mr'] = {"<Plug>(easymotion-repeat)", noremap = false},
+        --  s{char}{char} to move to {char}{char}
+        ['n|s'] = {"<Plug>(easymotion-overwin-f2)"},
     }
 
     -- vim-fswitch
