@@ -17,16 +17,15 @@ return {
                 colorscheme = 'wombat',
                 component = {charvaluehex = '0x%B'},
                 active = {
-                    -- left = {{'mode', 'sessionmgr', 'paste'}, 'gitbranch', 'gitstatus', 'readonly', 'filename', 'session_name', 'modified', 'method'},
-                    left = {{'mode', 'sessionmgr', 'paste'}, 'filename'},
-                    -- right = {{'lineinfo'}, {'charvaluehex', 'scorestatus', 'fileformat', 'fileencoding', 'filetype'}},
+                    left = {{'mode', 'sessionmgr', 'paste'}, {'gitbranch', 'gitstatus', 'readonly', 'filename', 'session_name', 'modified', 'method'}},
+                    right = {{'lineinfo'}, {'charvaluehex', 'scorestatus', 'fileformat', 'fileencoding', 'filetype'}},
                 },
                 component_function = {
                         sessionmgr = 'SessionMgrStatus',
-                        -- method = 'NearestMethodOrFunction',
-                        -- gitbranch = 'FugitiveStatusline',
-                        -- ['scorestatus'] = 'ScrollStatus',
-                        -- ['gitstatus'] = 'sy#repo#get_stats_decorated',
+                        method = 'NearestMethodOrFunction',
+                        gitbranch = 'FugitiveStatusline',
+                        scorestatus = 'ScrollStatus',
+                        gitstatus = 'sy#repo#get_stats_decorated',
                     },
                 }
             end

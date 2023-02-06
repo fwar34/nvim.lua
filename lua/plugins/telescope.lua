@@ -21,10 +21,12 @@ return {
                             -- actions.which_key shows the mappings for your picker,
                             -- e.g. git_{create, delete, ...}_branch for the git_branches picker
                             ["<C-h>"] = "which_key",
-                            ["<C-g>"] = "close",
+                            -- ["<C-g>"] = "close",
+                            ["<C-g>"] = require('telescope.actions').close,
                         },
                         n = {
-                            ["<C-g>"] = "close",
+                            -- ["<C-g>"] = "close",
+                            ["<C-g>"] = require('telescope.actions').close,
                         }
                     },
 
