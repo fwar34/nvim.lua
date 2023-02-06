@@ -518,8 +518,8 @@ function key_mappings:start()
 
     -- trouble.nvim
     self.trouble_nvim = {
-        ['n|<Leader>xq'] = '<CMD>Trouble quickfix<CR>',
-        ['n|<Leader>xt'] = '<CMD>Trouble<CR>',
+        ['n|<LocalLeader>xq'] = '<CMD>Trouble quickfix<CR>',
+        ['n|<LocalLeader>xt'] = '<CMD>Trouble<CR>',
     }
 
     -- todo-comments
