@@ -2,7 +2,7 @@ return {
     -- Terminal
     {
         'voldikss/vim-floaterm', event = 'VimEnter *',
-        setup = function()
+        init = function()
             -- Type Number. The transparency of the floating terminal. Only works in neovim.
             vim.g.floaterm_winblend = 8
             if vim.env.MYHOSTNAME == 'ubuntu-work' then
