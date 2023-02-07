@@ -326,8 +326,9 @@ function key_mappings:start()
         ['n|<Leader>qf'] = '<CMD>Telescope quickfix<CR>',
         ['n|<Leader>ll'] = '<CMD>Telescope loclist<CR>',
         ['n|<Leader>re'] = '<CMD>Telescope registers<CR>',
-        ['n|<Leader>bt'] = '<cmd>Telescope current_buffer_tags<CR>',
-        ['n|<Leader>op'] = '<cmd>Telescope vim_options<CR>',
+        ['n|<Leader>bt'] = '<CMD>Telescope current_buffer_tags<CR>',
+        ['n|<Leader>op'] = '<CMD>Telescope vim_options<CR>',
+        ['n|<Leader>ud'] = '<CMD>Telescope undo<CR>',
         ['n|<LocalLeader>ir'] = '<cmd>Telescope resume<CR>',
         -- ['n|<Leader>yk'] = '<CMD>Clap yanks<CR>',
         -- ['n|<Leader>fl'] = '<CMD>Clap filer<CR>',
@@ -364,9 +365,9 @@ function key_mappings:start()
     }
 
     -- undotree
-    self.undotree = {
-        ['n|<LocalLeader>ud'] = '<CMD>GundoToggle<CR>',
-    }
+    -- self.undotree = {
+    --     ['n|<LocalLeader>ud'] = '<CMD>GundoToggle<CR>',
+    -- }
 
     -- vim-fugitive
     self.vim_fugitive = {

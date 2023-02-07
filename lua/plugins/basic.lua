@@ -70,15 +70,6 @@ return {
         end
     },
 
-    -- Undo
-    {
-        'sjl/gundo.vim',
-        cmd = 'GundoToggle',
-        config = function()
-            vim.g.gundo_prefer_python3 = 1
-        end
-    },
-
     -- Highlight whitespace and fix
     -- use {'bronson/vim-trailing-whitespace', event = 'VimEnter *'}
     {

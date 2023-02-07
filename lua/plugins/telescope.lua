@@ -1,6 +1,9 @@
 return {
     {
         'nvim-telescope/telescope.nvim',
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+        },
         config = function ()
             local use_devicons = function ()
                 if vim.env.MYHOSTNAME == 'ubuntu-work' then
@@ -67,7 +70,6 @@ return {
         end,
 
     },
-    {'nvim-lua/plenary.nvim'},
     {
         'nvim-telescope/telescope-fzf-native.nvim', build = 'make',
         config = function ()
@@ -90,4 +92,10 @@ return {
             require("telescope").load_extension("live_grep_args")
         end,
     },
+    {
+        'debugloop/telescope-undo.nvim',
+        config = function ()
+            require("telescope").load_extension("undo")
+        end
+    }
 }
