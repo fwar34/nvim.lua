@@ -4,7 +4,6 @@
   "asynctasks.vim": { "branch": "master", "commit": "784a4b1f75a913cc6c43dd6c4dbe69d648dbbfa5" },
   "awesome-cheatsheets": { "branch": "master", "commit": "ab533be5ed37313d14e54916b6a7ed3c0fd12d1c" },
   "barbecue": { "branch": "main", "commit": "cb7bde197e6e919e0a4798528fd6ba87352de750" },
-  "catppuccin": { "branch": "main", "commit": "c3697149f825ff73665491223b5df1efae28f687" },
   "cmp-buffer": { "branch": "main", "commit": "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
   "cmp-nvim-lsp": { "branch": "main", "commit": "59224771f91b86d1de12570b4070fe4ad7cd1eeb" },
   "cmp-nvim-lsp-signature-help": { "branch": "main", "commit": "3d8912ebeb56e5ae08ef0906e3a54de1c66b92f1" },
