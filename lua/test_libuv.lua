@@ -43,4 +43,8 @@ function M.asyncGrep(term)
     loop.read_start(stderr, onread)
 end
 
+api.nvim_create_user_command('MGrep', function (argument)
+    M.asyncGrep(argument.args)
+end, {nargs = 1})
+
 return M
