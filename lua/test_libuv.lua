@@ -1,4 +1,6 @@
 -- https://teukka.tech/posts/2020-01-07-vimloop/
+-- " in init.vim
+-- command! -nargs=+ -complete=dir -bar Grep lua require('test_libuv').asyncGrep(<q-args>)"
 local loop = vim.loop
 local api = vim.api
 local M = {}
