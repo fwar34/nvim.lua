@@ -4,11 +4,28 @@ local opt = vim.opt
 -- dirvish 不能设置 autochdir
 opt.autochdir = true
 -- 可以在normal,visual模式使用鼠标
-vim.opt.mouse = 'a'
+opt.mouse:append('a')
+-- vim.opt.mouse = 'a'
 opt.splitright = true
 -- 相对行号
 opt.relativenumber = true
+opt.number = true
 opt.cursorline = true
+-- tab设置
+-- Tab键的宽度
+opt.tabstop = 4
+-- 统一缩进为4
+opt.softtabstop = 4
+opt.shiftwidth = 4
+-- tab使用空格代替
+opt.expandtab = true
+-- 自动缩进
+opt.autoindent = true
+-- 关闭自动换行
+opt.wrap = false
+opt.clipboard:append('unnamedplus')
+opt.ignorecase = true
+opt.smartcase = true
 -- vim 自身命令行模式智能补全
 opt.wildmenu = true
 -- 高亮dos的特殊符号,如^M
@@ -23,6 +40,7 @@ if vim.env.TMUX ~= nil or vim.env.ALACRITTY_LOG ~= nil then
     -- vim.cmd('set termguicolors')
     opt.termguicolors = true
 end
+opt.signcolumn = 'yes'
 -- opt.shortmess = 'atcI'
 
 -- 输入的命令显示出来，看的清楚些
@@ -40,7 +58,7 @@ vim.cmd('set completeopt=menu,menuone,noselect,noinsert,preview')
 -- 终端下可以和windows共享clipboard
 -- 可以看 h: provide-clipboard，里面有详细说明，以及不同工具下的共享 clipboard，比如 lemonade 和 doitclient
 -- https://www.zhihu.com/question/51838774/answer/128467453
-vim.cmd('set clipboard+=unnamedplus')
+-- vim.cmd('set clipboard+=unnamedplus')
 vim.cmd('set nobackup')
 vim.cmd('set nowritebackup')
 vim.cmd('set autowrite')
@@ -51,14 +69,14 @@ vim.cmd('set ruler')
 -- 在处理未保存或只读文件的时候，弹出确认
 vim.cmd('set confirm')
 -- 自动缩进
-vim.cmd('set autoindent')
+-- vim.cmd('set autoindent')
 -- 智能的选择对起方式
 vim.cmd('set smartindent')
 -- C的对齐
 vim.cmd('set cindent')
--- vim.cmd('set cinoptions=g0,(0,W4,l1,N-s,E-s,t0,j1,J1')
+vim.cmd('set cinoptions=g0,(0,W4,l1,N-s,E-s,t0,j1,J1')
 -- tab使用空格代替
-vim.cmd('set expandtab')
+-- vim.cmd('set expandtab')
 -- 在行和段开始处使用制表符
 vim.cmd('set smarttab')
 vim.cmd('set noswapfile')
@@ -86,26 +104,26 @@ vim.cmd('set sidescrolloff=5')
 -- 设置这个选项与 neovim-session-manager 冲突
 -- vim.cmd('set sessionoptions=blank,globals,localoptions,tabpages,folds,help,options,resize,winpos,winsize,unix,slash')
 vim.cmd('set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal')
-vim.cmd('set number')
+-- vim.cmd('set number')
 -- 允许折叠
 vim.cmd('set foldenable')
 -- 手动折叠
 vim.cmd('set foldmethod=manual')
 -- Tab键的宽度
-vim.cmd('set tabstop=4')
+-- vim.cmd('set tabstop=4')
 -- 统一缩进为4
-vim.cmd('set softtabstop=4')
-vim.cmd('set shiftwidth=4')
+-- vim.cmd('set softtabstop=4')
+-- vim.cmd('set shiftwidth=4')
 -- vim.cmd('set cmdheight=2')
 
 vim.cmd('set updatetime=300')
 
-vim.cmd('set ignorecase')
-vim.cmd('set smartcase')
+-- vim.cmd('set ignorecase')
+-- vim.cmd('set smartcase')
 -- Windows 禁用 ALT 操作菜单（使得 ALT 可以用到 Vim里）
 vim.cmd("set winaltkeys=no")
 -- 关闭自动换行
-vim.cmd('set nowrap')
+-- vim.cmd('set nowrap')
 -- 打开功能键超时检测（终端下功能键为一串 ESC 开头的字符串）
 vim.cmd('set ttimeout')
 -- 功能键超时检测 50 毫秒

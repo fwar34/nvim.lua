@@ -146,12 +146,12 @@ return {
         'guns/xterm-color-table.vim', cmd = 'XtermColorTable'
     },
 
-    {
-        'luochen1990/rainbow',
-        config = function ()
-            vim.g.rainbow_active = 1
-        end
-    },
+    -- {
+    --     'luochen1990/rainbow',
+    --     config = function ()
+    --         vim.g.rainbow_active = 1
+    --     end
+    -- },
 
     {
         "windwp/nvim-autopairs",

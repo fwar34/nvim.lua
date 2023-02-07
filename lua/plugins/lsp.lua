@@ -122,6 +122,7 @@ return {
                             -- local position = vim.api.nvim_win_get_cursor(0)
                             -- print(vim.inspect(position))
                         else
+                            -- 默认 Ctrl+e 取消本次补全
                             fallback()
                         end
                     end,
