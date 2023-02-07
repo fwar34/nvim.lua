@@ -81,7 +81,7 @@ vim.cmd('set cinoptions=g0,(0,W4,l1,N-s,E-s,t0,j1,J1')
 vim.cmd('set smarttab')
 vim.cmd('set noswapfile')
 -- 保存 undo 历史。必须先行创建 .undo_history/
-vim.cmd('set undodir=~/.undo_history/')
+-- vim.cmd('set undodir=~/.undo_history/')
 vim.cmd('set undofile')
 vim.cmd('set hlsearch')
 vim.cmd('set incsearch')
