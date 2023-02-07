@@ -194,11 +194,11 @@ return {
         -- vim org-mode
         'jceb/vim-orgmode', ft = 'org'
     },
-    {
-        -- tabline plugin
-        'romgrk/barbar.nvim',
-        dependencies = {'kyazdani42/nvim-web-devicons'}
-    },
+    -- {
+    --     -- tabline plugin
+    --     'romgrk/barbar.nvim',
+    --     dependencies = {'kyazdani42/nvim-web-devicons'}
+    -- },
 
     'gcmt/wildfire.vim',
     'azabiong/vim-highlighter',
@@ -295,5 +295,19 @@ return {
                 require('telescope').load_extension('projects')
             }
         end
-    }
+    },
+    {
+        "utilyre/barbecue.nvim",
+        name = "barbecue",
+        dependencies = {
+            "SmiteshP/nvim-navic",
+            -- "nvim-tree/nvim-web-devicons", -- optional dependency
+        },
+        opts = {
+            -- configurations go here
+        },
+        config = function()
+            require("barbecue").setup()
+        end,
+    },
 }
