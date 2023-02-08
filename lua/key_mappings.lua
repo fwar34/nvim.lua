@@ -385,9 +385,9 @@ function key_mappings:start()
     }
 
     -- nnn.vim
-    self.nnn_vim = {
-        ['n|<Leader>nn'] = '<CMD>NnnPicker<CR>',
-    }
+    --[[ self.nnn_vim = { ]]
+    --[[     ['n|<Leader>nn'] = '<CMD>NnnPicker<CR>', ]]
+    --[[ } ]]
 
     -- floaterm
     -- self.floaterm = {
