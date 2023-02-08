@@ -5,11 +5,14 @@ return {
             require('nvim-treesitter.configs').setup {
                 ensure_installed = {
                     'bash', 'c', 'cpp', 'lua', 'css', 'fennel', 'html', 'javascript', 'json', 'julia', 'go',
-                    'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure', 'fennel'
+                    'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure', 'fennel', 'org'
                 },     -- one of "all", "language", or a list of languages
                 highlight = {
                     enable = true,              -- false will disable the whole extension
                     -- disable = { "c", "rust" },  -- list of language that will be disabled
+                    -- Required for spellcheck, some LaTex highlights and
+                    -- code block highlights that do not have ts grammar
+                    additional_vim_regex_highlighting = {'org'},
                 },
                 -- rainbow = {
                 --     enable = true,

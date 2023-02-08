@@ -163,6 +163,7 @@ return {
                 {
                     { name = 'buffer' },
                     { name = 'tags' },
+                    { name = 'orgmode' }
                 }
                 )
             })

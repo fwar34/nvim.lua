@@ -353,5 +353,16 @@ return {
             -- Enable NERDCommenterToggle to check all selected lines is commented or not
             vim.g.NERDToggleCheckAllLines = 1
         end
+    },
+    {
+        "RutaTang/quicknote.nvim",
+        dependencies = { "nvim-lua/plenary.nvim"},
+    },
+    {
+        'nvim-orgmode/orgmode',
+        config = function()
+            require('orgmode').setup_ts_grammar()
+            require('orgmode').setup()
+        end
     }
 }
