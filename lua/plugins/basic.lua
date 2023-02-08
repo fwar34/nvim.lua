@@ -194,11 +194,11 @@ return {
         -- vim org-mode
         'jceb/vim-orgmode', ft = 'org'
     },
-    -- {
-    --     -- tabline plugin
-    --     'romgrk/barbar.nvim',
-    --     dependencies = {'kyazdani42/nvim-web-devicons'}
-    -- },
+    {
+        -- tabline plugin
+        'romgrk/barbar.nvim',
+        dependencies = {'kyazdani42/nvim-web-devicons'}
+    },
 
     'gcmt/wildfire.vim',
     'azabiong/vim-highlighter',
@@ -215,57 +215,57 @@ return {
         end
     },
 
-    {
-        'numToStr/Comment.nvim',
-        config = function()
-            require('Comment').setup()
-            -- {{{ https://github.com/numToStr/Comment.nvim/issues/70, https://github.com/numToStr/Comment.nvim/pull/73
-            local A = vim.api
-            function _G.___gdc(vmode)
-                local C = require('Comment.config')
-                local U = require('Comment.utils')
-                local Op = require('Comment.opfunc')
-
-                local range = U.get_region(vmode)
-                local cfg = C:get()
-                local ctx = {
-                    cmode = U.cmode.comment, -- Always comment the line
-                    cmotion = U.cmotion.line, -- Line action `gy2j`
-                    ctype = U.ctype.line, -- Use line style comment
-                    range = range,
-                }
-                local lcs, rcs = U.parse_cstr(cfg, ctx)
-                local lines = U.get_lines(range)
-
-                -- Copying the block
-                local srow = ctx.range.erow
-                A.nvim_buf_set_lines(0, srow, srow, false, lines)
-
-                -- Doing the comment
-                Op.linewise({
-                    cfg = cfg,
-                    cmode = ctx.cmode,
-                    lines = lines,
-                    lcs = lcs,
-                    rcs = rcs,
-                    range = range,
-                })
-
-                -- Move the cursor
-                local erow = srow + 1
-                local line = U.get_lines({ srow = srow, erow = erow })
-                local _, col = U.grab_indent(line[1])
-                A.nvim_win_set_cursor(0, { erow, col })
-            end
-
-            -- gy0 当前行，光标必须在非空字符上, 其他 gy2j gy2k等等
-            -- local opt = { silent = true, noremap = true }
-            local opt = { noremap = true }
-            A.nvim_set_keymap('x', 'gy', '<ESC><CMD>lua ___gdc(vim.fn.visualmode())<CR>', opt)
-            A.nvim_set_keymap('n', 'gy', '<CMD>set operatorfunc=v:lua.___gdc<CR>g@', opt)
-            -- }}}
-        end
-    },
+    -- {
+    --     'numToStr/Comment.nvim',
+    --     config = function()
+    --         require('Comment').setup()
+    --         -- {{{ https://github.com/numToStr/Comment.nvim/issues/70, https://github.com/numToStr/Comment.nvim/pull/73
+    --         local A = vim.api
+    --         function _G.___gdc(vmode)
+    --             local C = require('Comment.config')
+    --             local U = require('Comment.utils')
+    --             local Op = require('Comment.opfunc')
+    --
+    --             local range = U.get_region(vmode)
+    --             local cfg = C:get()
+    --             local ctx = {
+    --                 cmode = U.cmode.comment, -- Always comment the line
+    --                 cmotion = U.cmotion.line, -- Line action `gy2j`
+    --                 ctype = U.ctype.line, -- Use line style comment
+    --                 range = range,
+    --             }
+    --             local lcs, rcs = U.parse_cstr(cfg, ctx)
+    --             local lines = U.get_lines(range)
+    --
+    --             -- Copying the block
+    --             local srow = ctx.range.erow
+    --             A.nvim_buf_set_lines(0, srow, srow, false, lines)
+    --
+    --             -- Doing the comment
+    --             Op.linewise({
+    --                 cfg = cfg,
+    --                 cmode = ctx.cmode,
+    --                 lines = lines,
+    --                 lcs = lcs,
+    --                 rcs = rcs,
+    --                 range = range,
+    --             })
+    --
+    --             -- Move the cursor
+    --             local erow = srow + 1
+    --             local line = U.get_lines({ srow = srow, erow = erow })
+    --             local _, col = U.grab_indent(line[1])
+    --             A.nvim_win_set_cursor(0, { erow, col })
+    --         end
+    --
+    --         -- gy0 当前行，光标必须在非空字符上, 其他 gy2j gy2k等等
+    --         -- local opt = { silent = true, noremap = true }
+    --         local opt = { noremap = true }
+    --         A.nvim_set_keymap('x', 'gy', '<ESC><CMD>lua ___gdc(vim.fn.visualmode())<CR>', opt)
+    --         A.nvim_set_keymap('n', 'gy', '<CMD>set operatorfunc=v:lua.___gdc<CR>g@', opt)
+    --         -- }}}
+    --     end
+    -- },
     -- better quickfix
     'kevinhwang91/nvim-bqf',
 
@@ -296,18 +296,43 @@ return {
             }
         end
     },
+    -- {
+    --     "utilyre/barbecue.nvim",
+    --     name = "barbecue",
+    --     dependencies = {
+    --         "SmiteshP/nvim-navic",
+    --         -- "nvim-tree/nvim-web-devicons", -- optional dependency
+    --     },
+    --     opts = {
+    --         -- configurations go here
+    --     },
+    --     config = function()
+    --         require("barbecue").setup()
+    --     end,
+    -- },
+
     {
-        "utilyre/barbecue.nvim",
-        name = "barbecue",
-        dependencies = {
-            "SmiteshP/nvim-navic",
-            -- "nvim-tree/nvim-web-devicons", -- optional dependency
-        },
-        opts = {
-            -- configurations go here
-        },
-        config = function()
-            require("barbecue").setup()
-        end,
-    },
+        -- 注释
+        'preservim/nerdcommenter',
+        config = function ()
+            -- Create default mappings
+            vim.g.NERDCreateDefaultMappings = 1
+            -- Add spaces after comment delimiters by default
+            vim.g.NERDSpaceDelims = 1
+            -- Use compact syntax for prettified multi-line comments
+            vim.g.NERDCompactSexyComs = 1
+            -- Align line-wise comment delimiters flush left instead of following code indentation
+            vim.g.NERDDefaultAlign = 'left'
+            -- Set a language to use its alternate delimiters by default
+            vim.g.NERDAltDelims_java = 1
+            -- Add your own custom formats or override the defaults
+            -- vim.g.NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+            -- Allow commenting and inverting empty lines (useful when commenting a region)
+            vim.g.NERDCommentEmptyLines = 1
+            -- Enable trimming of trailing whitespace when uncommenting
+            vim.g.NERDTrimTrailingWhitespace = 1
+            -- Enable NERDCommenterToggle to check all selected lines is commented or not
+            vim.g.NERDToggleCheckAllLines = 1
+        end
+    }
 }

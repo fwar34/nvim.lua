@@ -342,14 +342,14 @@ function key_mappings:start()
     -- }
 
     -- Comment.vim
-    self.Comment_vim = {
-        ['n|<Leader>cc'] = function ()
-            local line = api.nvim_get_current_line()
-            require('Comment.api').comment_current_linewise()
-            api.nvim_put({line}, 'l', true, false)
-        end,
-        ['n|<Leader>ci'] = {"v:count == 0 ? '<Plug>(comment_toggle_current_linewise)' : '<Plug>(comment_toggle_linewise_count)'", expr = true}
-    }
+    -- self.Comment_vim = {
+    --     ['n|<Leader>cc'] = function ()
+    --         local line = api.nvim_get_current_line()
+    --         require('Comment.api').comment_current_linewise()
+    --         api.nvim_put({line}, 'l', true, false)
+    --     end,
+    --     ['n|<Leader>ci'] = {"v:count == 0 ? '<Plug>(comment_toggle_current_linewise)' : '<Plug>(comment_toggle_linewise_count)'", expr = true}
+    -- }
 
     --symotion-prefix) Vista
     self.vista = {
