@@ -8,7 +8,7 @@ opt.mouse:append('a')
 -- vim.opt.mouse = 'a'
 opt.splitright = true
 -- 相对行号
-opt.relativenumber = true
+-- opt.relativenumber = true
 opt.number = true
 opt.cursorline = true
 -- tab设置
