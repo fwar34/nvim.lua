@@ -196,7 +196,27 @@ return {
     {
         -- tabline plugin
         'romgrk/barbar.nvim',
-        dependencies = {'kyazdani42/nvim-web-devicons'}
+        dependencies = {'kyazdani42/nvim-web-devicons'},
+        config = function ()
+            require'bufferline'.setup({
+                -- Enable/disable animations
+                animation = true,
+                -- Enables/disable clickable tabs
+                --  - left-click: go to buffer
+                --  - middle-click: delete buffer
+                clickable = true,
+                -- Excludes buffers from the tabline
+                -- exclude_ft = {'javascript'},
+                -- exclude_name = {'package.json'},
+                -- Hide inactive buffers and file extensions. Other options are `alternate`, `current`, and `visible`.
+                -- hide = {extensions = true, inactive = true},
+                -- Enable/disable icons
+                -- if set to 'numbers', will show buffer index in the tabline
+                -- if set to 'both', will show buffer index and icons in the tabline
+                -- icons = true,
+                icon_pinned = '車',
+            })
+        end
     },
 
     'gcmt/wildfire.vim',
