@@ -299,7 +299,7 @@ function key_mappings:start()
         ['n|<Leader>li'] = '<CMD>Telescope current_buffer_fuzzy_find<CR>',
         ['n|<Leader>bs'] = '<CMD>Telescope buffers<CR>',
         ['n|<Leader>co'] = '<CMD>Telescope colorscheme<CR>',
-        ['n|<Leader>cm'] = '<CMD>Telescope commands<CR>',
+        ['n|<Leader>cd'] = '<CMD>Telescope commands<CR>',
         ['n|<Leader>ch'] = '<CMD>Telescope command_history<CR>',
         ['n|<Leader>sh'] = '<CMD>Telescope search_history<CR>',
         ['n|<Leader>fr'] = function() tbuiltin.live_grep({additional_args = _G.rg_options}) end,
