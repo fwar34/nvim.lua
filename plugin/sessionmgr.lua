@@ -30,7 +30,8 @@ local function session_load(session_name)
         futil.err('sessionmgr: session file(%s) not exist', session_path)
         return
     end
-    vim.cmd('silent source ' .. session_path)
+    -- silent加上!,会跳过错误信息
+    vim.cmd('silent! source ' .. session_path)
 
     if session_name ~= current_session then
         last_session = current_session
