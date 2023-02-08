@@ -419,6 +419,13 @@ function key_mappings:start()
     self.barbar = {
         ["n|<S-l>"] = "<CMD>BufferNext<CR>",
         ["n|<S-h>"] = "<CMD>BufferPrevious<CR>",
+        -- Alt + ,
+        ['n|<A-,>'] = '<CMD>BufferMovePrevious<CR>',
+        -- Alt + .
+        ['n|<A-.>'] = '<CMD>BufferMoveNext<CR>',
+        ['n|<A-P>'] = '<CMD>BufferPin<CR>',
+        ['n|<A-c>'] = '<CMD>BufferClose<CR>',
+        ['n|<C-p>'] = '<CMD>BufferPick<CR>',
     }
 
     -- vim-easymotion
