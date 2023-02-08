@@ -424,7 +424,6 @@ function key_mappings:start()
         -- Alt + .
         ['n|<A-.>'] = '<CMD>BufferMoveNext<CR>',
         ['n|<A-P>'] = '<CMD>BufferPin<CR>',
-        ['n|<A-c>'] = '<CMD>BufferClose<CR>',
         ['n|<C-p>'] = '<CMD>BufferPick<CR>',
     }
 
