@@ -25,7 +25,7 @@ return {
 
     n = {act = ck.cmd "tabnew"                            , desc = "new tab"},
     x = {act = ck.cmd "tabclose"                          , desc = "close tab"},
-    t = {act = ck.cmd "Telescope telescope-tabs list_tabs", desc = "list tabs"},
+    -- t = {act = ck.cmd "Telescope telescope-tabs list_tabs", desc = "list tabs"},
   },
 
   -- define buffer local keymaps
