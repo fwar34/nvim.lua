@@ -1,4 +1,4 @@
-## 会议分组需求 https://wiki.quanshi.com/pages/viewpage.action?pageId=74610394
+## [会议分组需求](https://wiki.quanshi.com/pages/viewpage.action?pageId=74610394)
 
 ## bms信令
 1. 开启分组
