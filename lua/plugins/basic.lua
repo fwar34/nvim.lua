@@ -35,7 +35,12 @@ return {
         end
     },
     -- Movement
-    'easymotion/vim-easymotion',
+    {
+        'easymotion/vim-easymotion',
+        config = function ()
+            vim.g.EasyMotion_smartcase = 1
+        end
+    },
     -- Do stuff like :sudowrite
     -- use 'lambdalisue/suda.vim'
     -- 提供一系列 shell 命令

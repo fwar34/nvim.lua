@@ -11,19 +11,28 @@
     GROUP_ITEM(OP, string, name);        \
     GROUP_ITEM(OP, string, extend);
 DefData(USER_GROUP_INFO);
-
-#define DATA_CONTENT_USER_GROUPS(OP) \
-    GROUP_ITEM(OP, USER_GROUP_INFO, userGroups);
-DefData(USER_GROUPS);
 ```
 
 ## bms
 1. 开启分组
 主持人发送打开分组请求
 bms 处理分组并广播开启分组成功的应答给所有客户端
+```
+#define DATA_CONTENT_BMS_CONF_USER_GROUP_START(OP) \
+    GROUP_ITEM(OP, uint32_t, confID);              \
+    GROUP_ITEM(OP, uint32_t, userID);
+DefBMSCommand(BMS_CONF_USER_GROUP_START)
+
+#define DATA_CONTENT_BMS_CONF_USER_GROUP_START_NOTIFY(OP) \
+    GROUP_ITEM(OP, uint32_t, statusCode);                 \
+    GROUP_ITEM(OP, uint32_t, confID);                     \
+    GROUP_ITEM(OP, uint32_t, userID);                     \
+    GROUP_ITEM(OP, vector<USER_GROUP_INFO>, userGroups);
+DefBMSCommand(BMS_CONF_USER_GROUP_START_NOTIFY)
+```
 
 2. 获取分组用户信息
-客户端入会后获取的会议信息后发现已经开启了用户分组（在 BMS_CONF_INFO_REQUEST_NOTIFY 最后添加一个 string 字段）
+客户端入会后获取的会议信息后发现已经开启了用户分组（在 `BMS_CONF_INFO_REQUEST_NOTIFY` 最后添加一个 string 字段）
 客户端发送请求分组信息到 bms
 bms 发送请求分组信息的成功应答给请求者（应答中包含了所有的分组信息列表）
 bms 发送用户的分组列表给请求者
