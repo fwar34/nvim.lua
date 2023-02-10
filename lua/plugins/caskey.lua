@@ -113,7 +113,7 @@ return {
                             _G.cwd = vim.fn.getcwd()
                             vim.cmd('ToggleTerm')
                         end,
-                        desc = 'toggle terminal', mode = 'n'
+                        desc = 'toggle terminal',
                     },
                     ['<C-j>'] = { act = function() vim.api.nvim_input('cd ' .. _G.cwd .. '<CR>') end, desc = 'jump to directory of buffer', mode = 't' }
                 },

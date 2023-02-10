@@ -113,8 +113,9 @@ return {
     },
     -- Async task
     {
-        'skywind3000/asynctasks.vim', after = 'asyncrun.vim',
-        requires = {'skywind3000/asyncrun.vim', event = 'VimEnter *'},
+        'skywind3000/asynctasks.vim',
+        event = 'VimEnter *',
+        dependencies = {'skywind3000/asyncrun.vim',},
         config = function()
             -- 告诉 asyncrun 运行时自动打开高度为 6 的 quickfix 窗口，不然你看不到任何输出
             vim.g.asyncrun_open = 6
