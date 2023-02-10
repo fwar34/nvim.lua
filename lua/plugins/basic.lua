@@ -67,13 +67,13 @@ return {
     },
 
     -- Highlight for stl
-    {
-        'octol/vim-cpp-enhanced-highlight', event = 'VimEnter *',
-        config = function()
-            vim.g.cpp_class_scope_highlight = 1
-            vim.g.cpp_class_decl_highlight = 1
-        end
-    },
+    -- {
+    --     'octol/vim-cpp-enhanced-highlight', event = 'VimEnter *',
+    --     config = function()
+    --         vim.g.cpp_class_scope_highlight = 1
+    --         vim.g.cpp_class_decl_highlight = 1
+    --     end
+    -- },
 
     -- Highlight whitespace and fix
     -- use {'bronson/vim-trailing-whitespace', event = 'VimEnter *'}

@@ -18,13 +18,10 @@ return {
             local hint = [[
   ^ ^        Options
   ^
-  _v_ %{ve} virtual edit
-  _i_ %{list} invisible characters  
-  _s_ %{spell} spell
-  _w_ %{wrap} wrap
-  _c_ %{cul} cursor line
-  _n_ %{nu} number
-  _r_ %{rnu} relative number
+  _v_ %{ve} virtual edit       _i_ %{list} invisible characters  
+  _s_ %{spell} spell           _w_ %{wrap} wrap
+  _c_ %{cul} cursor line       _n_ %{nu} number
+  _r_ %{rnu} relative number   ^ ^
   ^
   ^^^^                _<Esc>_
   ]]
@@ -37,7 +34,7 @@ return {
                     invoke_on_body = true,
                     hint = {
                         border = 'rounded',
-                        position = 'middle-right'
+                        position = 'bottom'
                     },
                 },
                 mode = {'n','x'},
