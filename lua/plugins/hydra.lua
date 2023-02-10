@@ -1,7 +1,7 @@
 return {
     {
         'anuvyklack/hydra.nvim',
-        config = function ()
+        config = function()
             local Hydra = require('hydra')
             Hydra({
                 name = 'Side scroll',
@@ -37,7 +37,7 @@ return {
                         position = 'bottom'
                     },
                 },
-                mode = {'n','x'},
+                mode = { 'n', 'x' },
                 body = '<leader>O',
                 heads = {
                     { 'n', function()
@@ -86,9 +86,9 @@ return {
                             -- screen under your previous position as in other editors. These
                             -- bindings fixes this.
                             vim.keymap.set('n', 'k', function() return vim.v.count > 0 and 'k' or 'gk' end,
-                            { expr = true, desc = 'k or gk' })
+                                { expr = true, desc = 'k or gk' })
                             vim.keymap.set('n', 'j', function() return vim.v.count > 0 and 'j' or 'gj' end,
-                            { expr = true, desc = 'j or gj' })
+                                { expr = true, desc = 'j or gj' })
                         else
                             vim.o.wrap = false
                             vim.keymap.del('n', 'k')
@@ -106,40 +106,52 @@ return {
                 }
             })
 
-local buffer_hydra = Hydra({
-   name = 'Barbar',
-   config = {
-      on_key = function()
-         -- Preserve animation
-         vim.wait(200, function() vim.cmd 'redraw' end, 30, false)
-      end,
-   },
-   heads = {
-      { 'h', function() vim.cmd('BufferPrevious') end, { on_key = false } },
-      { 'l', function() vim.cmd('BufferNext') end, { desc = 'choose', on_key = false } },
+            local buffer_hydra = Hydra({
+                name = 'Barbar',
+                config = {
+                    on_key = function()
+                        -- Preserve animation
+                        vim.wait(200, function() vim.cmd 'redraw' end, 30, false)
+                    end,
+                },
+                heads = {
+                    { 'h', function() vim.cmd('BufferPrevious') end, { on_key = false } },
+                    { 'l', function() vim.cmd('BufferNext') end, { desc = 'choose', on_key = false } },
 
-      { 'H', function() vim.cmd('BufferMovePrevious') end },
-      { 'L', function() vim.cmd('BufferMoveNext') end, { desc = 'move' } },
+                    { 'H', function() vim.cmd('BufferMovePrevious') end },
+                    { 'L', function() vim.cmd('BufferMoveNext') end, { desc = 'move' } },
 
-      { 'p', function() vim.cmd('BufferPin') end, { desc = 'pin' } },
+                    { 'p', function() vim.cmd('BufferPin') end, { desc = 'pin' } },
 
-      { 'd', function() vim.cmd('BufferClose') end, { desc = 'close' } },
-      { 'c', function() vim.cmd('BufferClose') end, { desc = false } },
+                    { 'd', function() vim.cmd('BufferClose') end, { desc = 'close' } },
+                    { 'c', function() vim.cmd('BufferClose') end, { desc = false } },
 
-      { 'od', function() vim.cmd('BufferOrderByDirectory') end, { desc = 'by directory' } },
-      { 'ol', function() vim.cmd('BufferOrderByLanguage') end,  { desc = 'by language' } },
-      { 'q', nil, { exit = true } },
-      { '<Esc>', nil, { exit = true, desc = 'quit' } }
-   }
-})
+                    { 'od', function() vim.cmd('BufferOrderByDirectory') end, { desc = 'by directory' } },
+                    { 'ol', function() vim.cmd('BufferOrderByLanguage') end, { desc = 'by language' } },
+                    { 'q', nil, { exit = true } },
+                    { '<Esc>', nil, { exit = true, desc = 'quit' } }
+                }
+            })
 
-local function choose_buffer()
-   if #vim.fn.getbufinfo({ buflisted = true }) > 1 then
-      buffer_hydra:activate()
-   end
-end
+            local function choose_buffer()
+                if #vim.fn.getbufinfo({ buflisted = true }) > 1 then
+                    buffer_hydra:activate()
+                end
+            end
 
-vim.keymap.set('n', 'gb', choose_buffer)
+            vim.keymap.set('n', 'gb', choose_buffer)
+
+            Hydra({
+                name = 'Terminal commands',
+                mode = 't',
+                body = ';',
+                heads = {
+                    { 'wi', '<Plug>(WinWin)' },
+                    { 'l', '5zl', { desc = '←/→' } },
+                    { 'H', 'zH' },
+                    { 'L', 'zL', { desc = 'half screen ←/→' } },
+                }
+            })
         end
     }
 }
