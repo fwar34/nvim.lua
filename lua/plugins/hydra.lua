@@ -16,9 +16,9 @@ return {
             })
 
             local hint = [[
-  ^ ^        Options
+  ^ ^        Options                                         ^^
   ^
-  _v_ %{ve} virtual edit       _i_ %{list} invisible characters  
+  _v_ %{ve} virtual edit       _i_ %{list} invisible characters
   _s_ %{spell} spell           _w_ %{wrap} wrap
   _c_ %{cul} cursor line       _n_ %{nu} number
   _r_ %{rnu} relative number   ^ ^
