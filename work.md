@@ -37,6 +37,20 @@ DefBMSCommand(BMS_CONF_USER_GROUP_START_NOTIFY)
 bms 发送请求分组信息的成功应答给请求者（应答中包含了所有的分组信息列表）
 bms 发送用户的分组列表给请求者
 
+```
+#define DATA_CONTENT_BMS_CONF_GET_USER_GROUP_INFO(OP) \
+    GROUP_ITEM(OP, uint32_t, confID);                 \
+    GROUP_ITEM(OP, uint32_t, userID);
+DefBMSCommand(BMS_CONF_GET_USER_GROUP_INFO)
+
+#define DATA_CONTENT_BMS_CONF_USER_GROUP_START_NOTIFY(OP) \
+    GROUP_ITEM(OP, uint32_t, statusCode);                 \
+    GROUP_ITEM(OP, uint32_t, confID);                     \
+    GROUP_ITEM(OP, uint32_t, userID);                     \
+    GROUP_ITEM(OP, vector<USER_GROUP_INFO>, userGroups);
+DefBMSCommand(BMS_CONF_USER_GROUP_START_NOTIFY)
+```
+
 3. 加入分组（切换分组）
 会中客户端拿到分组信息后发送加入分组请求到 bms 
 bms 找到对应客户端用户对象，设置分组信息
