@@ -75,8 +75,8 @@ function futil.display_function()
 end
 
 function futil.unmap(maps)
-    for _, v in ipairs(maps) do
-        vim.cmd [[ unmap .. v ]]
+    for _, _v in ipairs(maps) do
+        vim.cmd [[ unmap .. _v ]]
         print("yyyyy")
     end
 end
@@ -104,10 +104,10 @@ end
 function futil.dump_all_buffers()
     local buffers = api.nvim_list_bufs()
     for _, buf in ipairs(buffers) do
-        vim.pretty_print('buf num:' .. buf .. 
-        ' name:' .. api.nvim_buf_get_name(buf) .. 
-        ' is load:' .. (vim.api.nvim_buf_is_loaded(buf) and 1 or 0) .. 
-        ' ft:' .. api.nvim_buf_get_option(buf, 'filetype') .. 
+        vim.pretty_print('buf num:' .. buf ..
+        ' name:' .. api.nvim_buf_get_name(buf) ..
+        ' is load:' .. (vim.api.nvim_buf_is_loaded(buf) and 1 or 0) ..
+        ' ft:' .. api.nvim_buf_get_option(buf, 'filetype') ..
         ' valid:' .. (api.nvim_buf_is_valid(buf) and 1 or 0))
     end
 end
