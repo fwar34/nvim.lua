@@ -16,12 +16,15 @@ return {
             })
 
             local hint = [[
-  ^ ^        Options                                         ^^
+  ^ ^        Options
   ^
-  _v_ %{ve} virtual edit       _i_ %{list} invisible characters
-  _s_ %{spell} spell           _w_ %{wrap} wrap
-  _c_ %{cul} cursor line       _n_ %{nu} number
-  _r_ %{rnu} relative number   ^ ^
+  _v_ %{ve} virtual edit
+  _i_ %{list} invisible characters  ^
+  _s_ %{spell} spell
+  _w_ %{wrap} wrap
+  _c_ %{cul} cursor line
+  _n_ %{nu} number
+  _r_ %{rnu} relative number
   ^
   ^^^^                _<Esc>_
   ]]
@@ -140,18 +143,6 @@ return {
             end
 
             vim.keymap.set('n', 'gb', choose_buffer)
-
-            Hydra({
-                name = 'Terminal commands',
-                mode = 't',
-                body = ';',
-                heads = {
-                    { 'wi', '<Plug>(WinWin)' },
-                    { 'l', '5zl', { desc = '←/→' } },
-                    { 'H', 'zH' },
-                    { 'L', 'zL', { desc = 'half screen ←/→' } },
-                }
-            })
         end
     }
 }

@@ -116,11 +116,6 @@ return {
                         desc = 'toggle terminal',
                     },
                     ['<C-j>'] = { act = function() vim.api.nvim_input('cd ' .. _G.cwd .. '<CR>') end, desc = 'jump to directory of buffer', mode = 't' },
-                    ['<leader>wi'] = {
-                        act = function ()
-                            vim.cmd('<C-\\><C-N>')
-                        end,
-                        desc = 'jump to directory of buffer', mode = 't' }
                 },
             })
         end
