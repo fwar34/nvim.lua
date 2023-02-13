@@ -33,6 +33,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins")
+require('impatient')
 
 require("key_mappings")
 require("autocmd")
