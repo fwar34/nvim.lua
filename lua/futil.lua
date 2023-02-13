@@ -75,6 +75,10 @@ function futil.display_function()
     print(func_name)
 end
 
+function futil.find_previous_brace_in_first_column()
+
+end
+
 function futil.unmap(maps)
     for _, v in ipairs(maps) do
         vim.cmd [[ unmap .. v ]]
