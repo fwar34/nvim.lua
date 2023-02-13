@@ -63,20 +63,21 @@ function futil.display_function()
     if mark_s[2] ~= cur_pos[2] then
         vim.fn.setpos("'X", cur_pos)
     end
-    vim.cmd('normal H')
+    -- vim.cmd('normal H')
     -- get cursor info
     cur_pos = vim.fn.getcurpos()
     if mark_t[2] ~= cur_pos[2] then
         vim.fn.setpos("'Y", cur_pos)
     end
     vim.cmd('normal `X[[k')
-    print(vim.fn.getline('.'))
+    local func_name = vim.fn.getline('.')
     vim.cmd("normal 'Yzt`X")
+    print(func_name)
 end
 
 function futil.unmap(maps)
-    for _, _v in ipairs(maps) do
-        vim.cmd [[ unmap .. _v ]]
+    for _, v in ipairs(maps) do
+        vim.cmd [[ unmap .. v ]]
         print("yyyyy")
     end
 end
