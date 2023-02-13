@@ -81,14 +81,14 @@ function futil.find_previous_brace_in_first_column()
     repeat
         local current_line_array = api.nvim_buf_get_lines(0, line_num, line_num + 1, false) -- nvim_buf_get_lines 行数从0开始，左闭右开
         local current_line = current_line_array[1]
-        if string.sub(current_line, 1, 1) == '{' and line_num - 1 >= 0 then
+        if current_line ~= nil and string.sub(current_line, 1, 1) == '{' and line_num - 1 >= 0 then
             local ret_line = api.nvim_buf_get_lines(0, line_num - 1, line_num, false)
             print(ret_line[1])
             return
         end
         line_num = line_num - 1
     until line_num < 0
-    print('')
+    print('not found { in first column!')
 end
 
 function futil.unmap(maps)
