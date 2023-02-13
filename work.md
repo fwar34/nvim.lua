@@ -45,17 +45,19 @@ AUDIO_USER_SUBSCRIBE_IN_USER_GROUP
 bms 处理分组并广播开启分组成功的应答给所有客户端
 
 ```cpp
-#define DATA_CONTENT_BMS_CONF_USER_GROUP_START(OP)       \
-    GROUP_ITEM(OP, uint32_t, confID);                    \
-    GROUP_ITEM(OP, uint32_t, userID);                    \
-    GROUP_ITEM(OP, vector<USER_GROUP_INFO>, userGroups); \
+#define DATA_CONTENT_BMS_CONF_USER_GROUP_START(OP)            \
+    GROUP_ITEM(OP, uint32_t, confID);                         \
+    GROUP_ITEM(OP, uint32_t, userID);                         \
+    GROUP_ITEM(OP, vector<USER_GROUP_INFO>, userGroups);      \
+    GROUP_ITEM(OP, vector<USER_GROUP_ITEM>, userGroupOfUser);
 DefBMSCommand(BMS_CONF_USER_GROUP_START)
 
-#define DATA_CONTENT_BMS_CONF_USER_GROUP_START_NOTIFY(OP) \
-    GROUP_ITEM(OP, uint32_t, statusCode);                 \
-    GROUP_ITEM(OP, uint32_t, confID);                     \
-    GROUP_ITEM(OP, uint32_t, userID);                     \
-    GROUP_ITEM(OP, vector<USER_GROUP_INFO>, userGroups);
+#define DATA_CONTENT_BMS_CONF_USER_GROUP_START_NOTIFY(OP)     \
+    GROUP_ITEM(OP, uint32_t, statusCode);                     \
+    GROUP_ITEM(OP, uint32_t, confID);                         \
+    GROUP_ITEM(OP, uint32_t, userID);                         \
+    GROUP_ITEM(OP, vector<USER_GROUP_INFO>, userGroups);      \
+    GROUP_ITEM(OP, vector<USER_GROUP_ITEM>, userGroupOfUser);
 DefBMSCommand(BMS_CONF_USER_GROUP_START_NOTIFY)
 ```
 
@@ -127,9 +129,10 @@ cdts 处理对应逻辑
 
 ```cpp
 发送给 cdts
-#define DATA_CONTENT_AUDIO_USER_GROUP_STATE_TO_CDTS(OP)   \
-    GROUP_ITEM(OP, uint32_t, confID);                     \
-    GROUP_ITEM(OP, uint32_t, status);                     打开：1，关闭：0
+#define DATA_CONTENT_AUDIO_USER_GROUP_STATE_TO_CDTS(OP)       \
+    GROUP_ITEM(OP, uint32_t, confID);                         \
+    GROUP_ITEM(OP, uint32_t, status);                         \ 打开：1，关闭：0
+    GROUP_ITEM(OP, vector<USER_GROUP_ITEM>, userGroupOfUser);
 DefAudioCommand(AUDIO_USER_GROUP_STATE_TO_CDTS)
 ```
 

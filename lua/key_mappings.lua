@@ -150,7 +150,7 @@ function key_mappings:start()
         ['n|<Leader>dd'] = "d'a",
         ['n|<Leader>qf'] = '<CMD>copen<CR>',
         ['n|<Leader>mf'] = function() futil.make_fennel() end,
-        ['n|<LocalLeader>fn'] = function() futil.display_function() end,
+        ['n|<LocalLeader>fn'] = function() futil.find_previous_brace_in_first_column() end,
         ['n|<LocalLeader>do'] = function() futil.delete_buffers(true) end,
         ['n|<C-g>'] = '<C-c>',
         ['n|<Leader>md'] = '<CMD>m .+1<CR>', -- current line move up
