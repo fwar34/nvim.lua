@@ -83,6 +83,18 @@ local function map_find_q_quit()
     })
 end
 
+local function quit_code_runner()
+    api.nvim_create_autocmd('TermOpen', {
+        pattern = '*',
+        callback = function ()
+            if api.nvim_buf_get_name(0) == 'crunner_test' then
+                print('xxxxxxxxxxxxxxx')
+                vim.keymap.set('n', 'q', '<CMD>q<CR>', {noremap = true, silent = true})
+            end
+        end
+    })
+end
+
 local function disable_auto_comment()
     -- "禁止vim换行后自动添加的注释符号
     cmd [[ augroup Format-Options ]]
@@ -111,6 +123,7 @@ function autocmd.setup()
     map_fugitiv_q_2_quit()
     highlight_yank()
     -- golang_autocmd()
+    quit_code_runner()
 end
 
 autocmd.setup()
