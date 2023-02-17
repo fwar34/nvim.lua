@@ -8,6 +8,7 @@ local tbuiltin = require('telescope.builtin')
 
 local key_mappings = {}
 local key_map = {}
+local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
 
 function key_map:new()
     local instance = {
@@ -172,7 +173,13 @@ function key_mappings:start()
         -- ['n|]]'] = {'j0[[%/{<CR>'},
         -- ['n|[]'] = {'k$][%?}<CR>'},
         -- ['n|<Leader>cs'] = '<CMD>lua require("mylib").
-        ['n|<Leader>se'] = '<CMD>e ~/.config/nvim/lua/plugins/basic.lua<CR>',
+        ['n|<Leader>se'] = function ()
+            if is_windows then
+                vim.cmd('e ~/AppData/Local/nvim/lua/plugins/basic.lua')
+            else
+                vim.cmd('e ~/.config/nvim/lua/plugins/basic.lua')
+            end
+        end
     }
 
     self.visual = {
