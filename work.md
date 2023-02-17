@@ -118,6 +118,7 @@ DefBMSCommand(BMS_CONF_USER_GROUP_STOP_NOTIFY)
 audioserver 将主分组里面说话的声音继续使用 `JOIN_MIXER` 通知到mixer
 全体静音只处理主分组，其他分组的直接广播
 16路限制需要对主分组起作用
+主分组支持电话会议其他分组不支持
 
 ## audio
 
