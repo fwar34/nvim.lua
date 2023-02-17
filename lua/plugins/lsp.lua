@@ -1,7 +1,11 @@
 return {
     -- Lsp
     'neovim/nvim-lspconfig',
-    'williamboman/nvim-lsp-installer',
+    
+    {
+        'williamboman/nvim-lsp-installer',
+        config = true
+    },
 
     {
         'quangnguyen30192/cmp-nvim-tags',
