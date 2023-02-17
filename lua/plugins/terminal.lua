@@ -22,11 +22,12 @@ return {
     -- },
 
     {
-        'skywind3000/vim-terminal-help', event = 'VimEnter *',
+        'skywind3000/vim-terminal-help',
         config = function()
             vim.g.terminal_height = 20
             vim.g.terminal_list = 0 -- set to 0 to hide terminal buffer in the buffer list.
-        end
+        end,
+        ft = 'toggleterm'
     },
 
     {
