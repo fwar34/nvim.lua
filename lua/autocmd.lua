@@ -40,7 +40,7 @@ local function map_q_to_quit()
         pattern = {'help', 'qf', 'netrw', 'startuptime', 'git'},
         callback = function()
             -- api.nvim_buf_set_keymap(0, 'n', 'q', '<CMD>q<CR>', {noremap = true})
-            vim.keymap.set('n', 'q', '<CMD>q<CR>', {buffer = true})
+            vim.keymap.set('n', 'q', '<CMD>q<CR>', {buffer = true, silent = true})
         end
     })
 end
