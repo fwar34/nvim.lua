@@ -34,6 +34,7 @@ return {
         config = function()
             require('toggleterm').setup()
             vim.cmd([[
+" https://github.com/akinsho/toggleterm.nvim#setup
 " set
 autocmd TermEnter term://*toggleterm#*
       \ tnoremap <silent><C-\> <Cmd>exe v:count1 . "ToggleTerm"<CR>
