@@ -25,6 +25,9 @@ return {
                     -- override options
                     ["<C-d>"] = { act = "<Delete>", desc = "Delete next character", mode = { "i", "c" } },
                 },
+                {
+                    ['<leader>lz'] = { act = ck.cmd 'Lazy', desc = 'Lazy'}
+                },
 
                 -- structure your keymaps as a tree and define which-key prefixes
                 -- ["<leader>t"] = {
@@ -141,6 +144,15 @@ return {
                         end
                     }
                 },
+                {
+                    name = 'markdown',
+                    ['<leader>m'] = {
+                        t = {
+                            act = ck.cmd 'MarkdownPreviewToggle',
+                            desc = 'markdown preview toggle'
+                        }
+                    }
+                }
             })
         end
     }

@@ -496,10 +496,10 @@ function key_mappings:start()
     }
 
     -- nvim-tree
-    self.nvim_tree = {
-        ['n|<Leader>tt'] = '<CMD>NvimTreeToggle<CR>',
-        ['n|<Leader>tf'] = '<CMD>NvimTreeFocus<CR>',
-    }
+    -- self.nvim_tree = {
+    --     ['n|<Leader>tt'] = '<CMD>NvimTreeToggle<CR>',
+    --     ['n|<Leader>tf'] = '<CMD>NvimTreeFocus<CR>',
+    -- }
 
     -- vim-highlighter
     self.vim_highlighter = {

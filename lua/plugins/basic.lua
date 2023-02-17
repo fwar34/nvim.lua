@@ -14,7 +14,7 @@ return {
     },
     { 'tjdevries/colorbuddy.nvim' },
 
-    { 'junegunn/fzf',             build = './install --all', pin = true },
+    { 'junegunn/fzf', build = './install --all', pin = true, cmd = 'FZF'},
     {
         -- 需要使用最新版的 bat 来预览，可以直接在 release 页面下载
         'junegunn/fzf.vim', event = 'VimEnter *',
@@ -330,7 +330,8 @@ return {
                     cpp = "cd $dir && g++ -o $fileNameWithoutExt $fileName -lpthread && $dir/$fileNameWithoutExt"
                 },
             })
-        end
+        end,
+        cmd = {'RunCode', 'RunFile'}
     },
     {
         'lewis6991/impatient.nvim',

@@ -68,23 +68,30 @@ return {
                     undo = {
                         side_by_side = true,
                         layout_strategy = "horizontal",
-                        layout_config = {
-                            preview_height = 0.4,
-                        },
+                        -- layout_config = {
+                        --     preview_height = 0.4,
+                        -- },
                     }
                 }
             }
         end,
 
     },
+    -- {
+    --     'nvim-telescope/telescope-fzf-native.nvim', build = 'make',
+    --     config = function ()
+    --         -- To get fzf loaded and working with telescope, you need to call
+    --         -- load_extension, somewhere after setup function:
+    --         require('telescope').load_extension('fzf')
+    --     end,
+    --     enabled = not is_windows
+    -- },
     {
-        'nvim-telescope/telescope-fzf-native.nvim', build = 'make',
+        -- native telescope bindings to zf for sorting results
+        "natecraddock/telescope-zf-native.nvim",
         config = function ()
-            -- To get fzf loaded and working with telescope, you need to call
-            -- load_extension, somewhere after setup function:
-            require('telescope').load_extension('fzf')
-        end,
-        -- cond = not is_windows
+            require("telescope").load_extension("zf-native")
+        end
     },
     -- {
     --     -- need install sqlit
