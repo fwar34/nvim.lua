@@ -1,4 +1,4 @@
-local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
+local is_windows = require('futil').is_windows()
 if is_windows then
     vim.g.clipboard = {
         name = 'win32yank',
@@ -214,9 +214,7 @@ return {
         -- vim org-mode
         'jceb/vim-orgmode',
         ft = 'org',
-        cond = function()
-            return vim.loop.os_uname().sysname ~= 'Windows_NT'
-        end
+        enabled = not is_windows
     },
     {
         -- tabline plugin
@@ -324,7 +322,7 @@ return {
             require('orgmode').setup_ts_grammar()
             require('orgmode').setup()
         end,
-        cond = not is_windows
+        enabled = not is_windows
     },
     {
         -- code runner

@@ -1,4 +1,4 @@
-local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
+local is_windows = require('futil').is_windows()
 return {
     -- Coding
     'liuchengxu/vista.vim',
@@ -6,7 +6,7 @@ return {
     -- 提供 ctags/gtags 后台数据库自动更新功能
     {
         'ludovicchabant/vim-gutentags',
-        cond = not is_windows
+        enabled = not is_windows
     },
     -- 提供 GscopeFind 命令并自动处理好 gtags 数据库切换
     -- 支持光标移动到符号名上：<leader>cg 查看定义，<leader>cs 查看引用

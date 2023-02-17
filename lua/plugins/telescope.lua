@@ -1,4 +1,4 @@
-local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
+local is_windows = require('futil').is_windows()
 return {
     {
         'nvim-telescope/telescope.nvim',
@@ -85,17 +85,17 @@ return {
             -- load_extension, somewhere after setup function:
             require('telescope').load_extension('fzf')
         end,
-        cond = not is_windows
+        -- cond = not is_windows
     },
-    {
-        -- need install sqlit
-        "nvim-telescope/telescope-frecency.nvim",
-        config = function()
-            require("telescope").load_extension("frecency")
-        end,
-        dependencies = {"tami5/sqlite.lua"},
-        cond = not is_windows
-    },
+    -- {
+    --     -- need install sqlit
+    --     "nvim-telescope/telescope-frecency.nvim",
+    --     config = function()
+    --         require("telescope").load_extension("frecency")
+    --     end,
+    --     dependencies = {"tami5/sqlite.lua"},
+    --     cond = not is_windows
+    -- },
     {
         'nvim-telescope/telescope-live-grep-raw.nvim',
         config = function()

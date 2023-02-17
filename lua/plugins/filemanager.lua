@@ -1,4 +1,4 @@
-local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
+local is_windows = require('futil').is_windows()
 return {
     -- File manager
     -- pip3 install --user pynvim
@@ -52,7 +52,7 @@ return {
                 [ 'yw' ] = 'EmitRangerCwd',
             }
         end,
-        cond = not is_windows
+        enabled = not is_windows
     },
     -- Ranger
     -- use { -- nnn
