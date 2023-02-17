@@ -1,5 +1,6 @@
 -- :h lua-vim-options
 local opt = vim.opt
+local is_windows = require('futil').is_windows()
 
 -- dirvish 不能设置 autochdir
 opt.autochdir = true
@@ -23,7 +24,11 @@ opt.expandtab = true
 opt.autoindent = true
 -- 关闭自动换行
 opt.wrap = false
-opt.clipboard:append('unnamedplus')
+if not is_windows then
+    -- Windows 上面默认关闭系统剪贴板，F10 是触发快捷键
+    opt.clipboard:append('unnamedplus')
+    vim.g.IsWin32yankActive = false
+end
 opt.ignorecase = true
 opt.smartcase = true
 -- vim 自身命令行模式智能补全

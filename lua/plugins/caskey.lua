@@ -1,3 +1,4 @@
+local is_windows = require('futil').is_windows()
 return {
     {
         "Nexmean/caskey.nvim",
@@ -122,6 +123,21 @@ return {
                     ['<leader>rc'] = {
                         act = ck.cmd('RunCode'),
                         desc = 'RunCode'
+                    }
+                },
+                {
+                    name = 'toggle win32yank',
+                    ['<F10>'] = {
+                        act = function ()
+                            if is_windows then
+                                if vim.g.IsWin32yankActive then
+                                    vim.opt.clipboard:remove('unnamedplus')
+                                else
+                                    vim.opt.clipboard:append('unnamedplus')
+                                end
+                                vim.g.IsWin32yankActive = not vim.g.IsWin32yankActive
+                            end
+                        end
                     }
                 }
             })
