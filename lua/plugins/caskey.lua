@@ -117,6 +117,7 @@ return {
                         desc = 'toggle terminal',
                     },
                     ['<C-j>'] = { act = function() vim.api.nvim_input('cd ' .. vim.g.cwd .. '<CR>') end, desc = 'jump to directory of buffer', mode = 't' },
+                    -- ['<Esc>'] = { act = vim}
                 },
                 {
                     name = 'code_runner.nvim',

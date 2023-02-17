@@ -312,7 +312,9 @@ return {
     },
     {
         -- code runner
-        'michaelb/sniprun', build = 'bash install.sh'
+        'michaelb/sniprun',
+        build = 'bash install.sh',
+        enabled = not is_windows
     },
     {
         -- code runner
