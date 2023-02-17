@@ -50,7 +50,7 @@ local function map_fugitiv_q_2_quit()
         pattern = 'fugitive',
         callback = function()
             -- api.nvim_buf_set_keymap(0, 'n', 'q', 'gq', {})
-            vim.keymap.set('n', 'q', 'gq', {buffer = true, remap = true})
+            vim.keymap.set('n', 'q', 'gq', {buffer = true, remap = true, silent = true})
         end
     })
 end
