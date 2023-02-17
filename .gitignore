@@ -14,3 +14,5 @@
 **/sessionmgr
 **/lazy-lock.json
 **/.quicknote
+**/.luarc.json
+**/*.swp

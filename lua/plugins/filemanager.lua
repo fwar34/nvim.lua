@@ -1,3 +1,4 @@
+local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
 return {
     -- File manager
     -- pip3 install --user pynvim
@@ -50,7 +51,8 @@ return {
                 [ 'gw' ] = 'JumpNvimCwd',
                 [ 'yw' ] = 'EmitRangerCwd',
             }
-        end
+        end,
+        cond = not is_windows
     },
     -- Ranger
     -- use { -- nnn

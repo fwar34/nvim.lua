@@ -1,7 +1,22 @@
+local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
+if is_windows then
+    vim.g.clipboard = {
+        name = 'win32yank',
+        copy = {
+            ['+'] = 'win32yank.exe -i --crlf',
+            ['*'] = 'win32yank.exe -i --crlf',
+        },
+        paste = {
+            ['+'] = 'win32yank.exe -o --lf',
+            ['*'] = 'win32yank.exe -o --lf',
+        },
+        cache_enabled = 0
+    }
+end
 return {
     {
         "folke/which-key.nvim",
-        config = function ()
+        config = function()
             vim.o.timeout = true
             vim.o.timeoutlen = 300
             require("which-key").setup({
@@ -11,9 +26,9 @@ return {
             })
         end
     },
-    {'tjdevries/colorbuddy.nvim'},
+    { 'tjdevries/colorbuddy.nvim' },
 
-    {'junegunn/fzf', build = './install --all', pin = true},
+    { 'junegunn/fzf',             build = './install --all', pin = true },
     {
         -- 需要使用最新版的 bat 来预览，可以直接在 release 页面下载
         'junegunn/fzf.vim', event = 'VimEnter *',
@@ -30,14 +45,14 @@ return {
     -- Marks
     {
         'kshenoy/vim-signature',
-        config = function ()
+        config = function()
             vim.g.SignatureIncludeMarks = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVW'
         end
     },
     -- Movement
     {
         'easymotion/vim-easymotion',
-        config = function ()
+        config = function()
             vim.g.EasyMotion_smartcase = 1
         end
     },
@@ -46,7 +61,7 @@ return {
     -- 提供一系列 shell 命令
     'tpope/vim-eunuch',
     -- Profiling
-    {'dstein64/vim-startuptime', cmd = 'StartupTime'},
+    { 'dstein64/vim-startuptime', cmd = 'StartupTime' },
     -- vim-multiple-cursors
     {
         'terryma/vim-multiple-cursors',
@@ -81,13 +96,13 @@ return {
         'ntpeters/vim-better-whitespace',
         config = function()
             vim.g.better_whitespace_enabled = 0
-            vim.g.better_whitespace_filetypes_blacklist = {'gitcommit', 'unite', 'qf', 'help', 'markdown', 'packer',}
+            vim.g.better_whitespace_filetypes_blacklist = { 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'packer', }
             vim.cmd [[let g:show_spaces_that_precede_tabs = 1]]
         end
     },
 
     -- Improved Lua 5.3 syntax and indentation support for Vim.
-    {'tbastos/vim-lua', ft = 'lua'},
+    { 'tbastos/vim-lua',          ft = 'lua' },
 
     {
         'vim-python/python-syntax', ft = 'python',
@@ -115,11 +130,11 @@ return {
     {
         'skywind3000/asynctasks.vim',
         event = 'VimEnter *',
-        dependencies = {'skywind3000/asyncrun.vim',},
+        dependencies = { 'skywind3000/asyncrun.vim', },
         config = function()
             -- 告诉 asyncrun 运行时自动打开高度为 6 的 quickfix 窗口，不然你看不到任何输出
             vim.g.asyncrun_open = 6
-            vim.g.asyncrun_rootmarks = {'.svn', '.git', '.root', '.bzr', '_darcs', 'build.xml', "pom.xml"}
+            vim.g.asyncrun_rootmarks = { '.svn', '.git', '.root', '.bzr', '_darcs', 'build.xml', "pom.xml" }
         end
     },
 
@@ -132,7 +147,7 @@ return {
 
     -- switch file betten .cpp and .h
     {
-        'derekwyatt/vim-fswitch', ft = {'cpp', 'c'},
+        'derekwyatt/vim-fswitch', ft = { 'cpp', 'c' },
     },
 
     {
@@ -166,7 +181,7 @@ return {
     {
         'norcalli/nvim-colorizer.lua',
         config = function()
-            require'colorizer'.setup()
+            require 'colorizer'.setup()
         end
     },
 
@@ -197,14 +212,18 @@ return {
 
     {
         -- vim org-mode
-        'jceb/vim-orgmode', ft = 'org'
+        'jceb/vim-orgmode',
+        ft = 'org',
+        cond = function()
+            return vim.loop.os_uname().sysname ~= 'Windows_NT'
+        end
     },
     {
         -- tabline plugin
         'romgrk/barbar.nvim',
-        dependencies = {'kyazdani42/nvim-web-devicons'},
-        config = function ()
-            require'bufferline'.setup({
+        dependencies = { 'kyazdani42/nvim-web-devicons' },
+        config = function()
+            require 'bufferline'.setup({
                 -- Enable/disable animations
                 animation = true,
                 -- Enables/disable clickable tabs
@@ -230,7 +249,7 @@ return {
     -- TODO:
     {
         "folke/todo-comments.nvim",
-        dependencies = {'nvim-lua/plenary.nvim'},
+        dependencies = { 'nvim-lua/plenary.nvim' },
         config = function()
             require("todo-comments").setup {
                 -- your configuration comes here
@@ -249,7 +268,7 @@ return {
     -- A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing.
     {
         "folke/trouble.nvim",
-        dependencies = {'kyazdani42/nvim-web-devicons'},
+        dependencies = { 'kyazdani42/nvim-web-devicons' },
         config = function()
             require("trouble").setup {
                 -- your configuration comes here
@@ -274,7 +293,7 @@ return {
     {
         -- 注释
         'preservim/nerdcommenter',
-        config = function ()
+        config = function()
             -- Create default mappings
             vim.g.NERDCreateDefaultMappings = 1
             -- Add spaces after comment delimiters by default
@@ -297,14 +316,15 @@ return {
     },
     {
         "RutaTang/quicknote.nvim",
-        dependencies = { "nvim-lua/plenary.nvim"},
+        dependencies = { "nvim-lua/plenary.nvim" },
     },
     {
         'nvim-orgmode/orgmode',
         config = function()
             require('orgmode').setup_ts_grammar()
             require('orgmode').setup()
-        end
+        end,
+        cond = not is_windows
     },
     {
         -- code runner
@@ -313,7 +333,7 @@ return {
     {
         -- code runner
         'CRAG666/code_runner.nvim', dependencies = 'nvim-lua/plenary.nvim',
-        config = function ()
+        config = function()
             require('code_runner').setup({
                 -- put here the commands by filetype
                 filetype = {
@@ -328,7 +348,7 @@ return {
     },
     {
         'lewis6991/impatient.nvim',
-        config = function ()
+        config = function()
             -- require'impatient'.enable_profile()
         end
     }
