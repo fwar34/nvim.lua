@@ -15,6 +15,7 @@ local cmd = vim.cmd
 -- " 上一次退出文件时的位置
 -- [ 上一次修改的开始处
 -- ] 上一次修改的结尾处
+-- h: last-position-jump
 local function goto_last_position()
     api.nvim_create_autocmd('BufReadPost', {
         pattern = '*',
