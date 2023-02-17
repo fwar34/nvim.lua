@@ -25,9 +25,23 @@ opt.autoindent = true
 -- 关闭自动换行
 opt.wrap = false
 if not is_windows then
-    -- Windows 上面默认关闭系统剪贴板，F10 是触发快捷键
+    -- 非 Windows 上面才打开系统剪贴板，F10 是触发快捷键
     opt.clipboard:append('unnamedplus')
     vim.g.IsWin32yankActive = false
+else
+    -- Windows 上面设置 win32yank
+    vim.g.clipboard = {
+        name = 'win32yank',
+        copy = {
+            ['+'] = 'win32yank.exe -i --crlf',
+            ['*'] = 'win32yank.exe -i --crlf',
+        },
+        paste = {
+            ['+'] = 'win32yank.exe -o --lf',
+            ['*'] = 'win32yank.exe -o --lf',
+        },
+        cache_enabled = 0
+    }
 end
 opt.ignorecase = true
 opt.smartcase = true

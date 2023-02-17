@@ -5,7 +5,7 @@ local current_session = nil
 local last_session = nil
 
 local session_directory = vim.fn.expand(futil.is_windows() and '~/AppData/Local/nvim/sessionmgr/' or '~/.config/nvim/sessionmgr/')
-print(session_directory)
+-- print(session_directory)
 if vim.fn.isdirectory(session_directory) == 0 then
     vim.fn.mkdir(session_directory)
 end

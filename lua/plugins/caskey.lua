@@ -111,15 +111,15 @@ return {
                     },
                     ['<leader>tm'] = {
                         act = function()
-                            _G.cwd = vim.fn.getcwd()
+                            vim.g.cwd = vim.fn.getcwd()
                             vim.cmd('ToggleTerm')
                         end,
                         desc = 'toggle terminal',
                     },
-                    ['<C-j>'] = { act = function() vim.api.nvim_input('cd ' .. _G.cwd .. '<CR>') end, desc = 'jump to directory of buffer', mode = 't' },
+                    ['<C-j>'] = { act = function() vim.api.nvim_input('cd ' .. vim.g.cwd .. '<CR>') end, desc = 'jump to directory of buffer', mode = 't' },
                 },
                 {
-                    name = '*code_runner.nvim',
+                    name = 'code_runner.nvim',
                     ['<leader>rc'] = {
                         act = ck.cmd('RunCode'),
                         desc = 'RunCode'
@@ -139,7 +139,7 @@ return {
                             end
                         end
                     }
-                }
+                },
             })
         end
     }

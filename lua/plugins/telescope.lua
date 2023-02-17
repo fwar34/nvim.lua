@@ -1,4 +1,3 @@
-local is_windows = require('futil').is_windows()
 return {
     {
         'nvim-telescope/telescope.nvim',
