@@ -27,7 +27,7 @@ return {
                 -- }
             }
         end,
-        enabled = not require('futil').is_windows()
+        -- enabled = not require('futil').is_windows()
     },
     -- 'HiPhish/nvim-ts-rainbow2',
 }

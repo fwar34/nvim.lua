@@ -490,10 +490,10 @@ function key_mappings:start()
     -- }
 
     -- defx
-    self.defx = {
-        ['n|<Leader>dj'] = '<CMD>Defx<CR>',
-        ['n|<Leader>df'] = "<CMD>Defx `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>",
-    }
+    -- self.defx = {
+    --     ['n|<Leader>dj'] = '<CMD>Defx<CR>',
+    --     ['n|<Leader>df'] = "<CMD>Defx `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>",
+    -- }
 
     -- nvim-tree
     -- self.nvim_tree = {
