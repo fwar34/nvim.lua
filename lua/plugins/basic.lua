@@ -14,7 +14,7 @@ return {
     },
     { 'tjdevries/colorbuddy.nvim' },
 
-    { 'junegunn/fzf', build = './install --all', pin = true, cmd = 'FZF'},
+    { 'junegunn/fzf', build = './install --all', pin = true, cmd = 'FZF' },
     {
         -- 需要使用最新版的 bat 来预览，可以直接在 release 页面下载
         'junegunn/fzf.vim', event = 'VimEnter *',
@@ -83,12 +83,12 @@ return {
         config = function()
             vim.g.better_whitespace_enabled = 0
             vim.g.better_whitespace_filetypes_blacklist = { 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'packer', }
-            vim.cmd [[let g:show_spaces_that_precede_tabs = 1]]
+            vim.g.show_spaces_that_precede_tabs = 1
         end
     },
 
     -- Improved Lua 5.3 syntax and indentation support for Vim.
-    { 'tbastos/vim-lua',          ft = 'lua' },
+    { 'tbastos/vim-lua', ft = 'lua' },
 
     {
         'vim-python/python-syntax', ft = 'python',
@@ -331,7 +331,7 @@ return {
                 },
             })
         end,
-        cmd = {'RunCode', 'RunFile'}
+        cmd = { 'RunCode', 'RunFile' }
     },
     {
         'lewis6991/impatient.nvim',
