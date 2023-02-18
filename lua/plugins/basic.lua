@@ -128,7 +128,7 @@ return {
     -- 就连文件比较也会用到快速跳转到上/下一个差异处，unimpaired 插件帮你定义了一系列方括号开头的快捷键，
     -- 被称为官方 Vim 中丢失的快捷键。
     {
-        'tpope/vim-unimpaired', event = 'VimEnter *',
+        'tpope/vim-unimpaired', ft = 'quickfix',
     },
 
     -- switch file betten .cpp and .h
@@ -200,7 +200,7 @@ return {
         -- vim org-mode
         'jceb/vim-orgmode',
         ft = 'org',
-        enabled = not is_windows
+        -- enabled = not is_windows
     },
     {
         -- tabline plugin
