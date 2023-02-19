@@ -1,5 +1,4 @@
-return 
-{
+return {
     -- Status line
     {
         'ojroques/vim-scrollstatus',
@@ -13,13 +12,14 @@ return
     -- Status line
     {
         'itchyny/lightline.vim',
-        config = function ()
+        config = function()
             vim.g.lightline = {
                 colorscheme = 'wombat',
-                component = {charvaluehex = '0x%B'},
+                component = { charvaluehex = '0x%B' },
                 active = {
-                    left = {{'mode', 'sessionmgr', 'paste'}, {'gitbranch', 'gitstatus', 'readonly', 'filename', 'session_name', 'modified', 'method'}},
-                    right = {{'lineinfo'}, {'charvaluehex', 'scorestatus', 'fileformat', 'fileencoding', 'filetype'}},
+                    left = { { 'mode', 'sessionmgr', 'paste' },
+                        { 'gitbranch', 'gitstatus', 'readonly', 'filename', 'session_name', 'modified', 'method' } },
+                    right = { { 'lineinfo' }, { 'charvaluehex', 'scorestatus', 'fileformat', 'fileencoding', 'filetype' } },
                 },
                 component_function = {
                     sessionmgr = 'SessionMgrStatus',

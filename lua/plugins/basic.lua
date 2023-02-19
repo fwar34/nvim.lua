@@ -47,7 +47,7 @@ return {
     -- 提供一系列 shell 命令
     'tpope/vim-eunuch',
     -- Profiling
-    { 'dstein64/vim-startuptime', cmd = 'StartupTime' },
+    { 'dstein64/vim-startuptime' },
     -- vim-multiple-cursors
     {
         'terryma/vim-multiple-cursors',

@@ -113,5 +113,19 @@ return {
         config = function ()
             require("telescope").load_extension("undo")
         end
+    },
+    {
+        --[[ Mappings	Action
+        <C-o>   Open selected plugin repository in browser
+        <M-b>   Open selected plugin with file-browser
+        <C-f>   Open selected plugin with find files
+        <C-g>   Open selected plugin with live grep
+        <C-b>   Open lazy plugins picker, works only after having called first another action
+        <C-r>f  Open lazy root with find files
+        <C-r>g  Open lazy root with live grep ]]
+        'tsakirist/telescope-lazy.nvim',
+        config = function ()
+            require("telescope").load_extension "lazy"
+        end
     }
 }
