@@ -18,14 +18,14 @@
     GROUP_ITEM(OP, string, extend);
 DefData(USER_GROUP_INFO);
 
-每个用户所在的分组信息
-#define DATA_CONTENT_USER_GROUP_ITEM(OP)     \
-    GROUP_ITEM(OP, uint32_t, userID);        \
-    GROUP_ITEM(OP, uint32_t, userUmsID);     \
-    GROUP_ITEM(OP, uint32_t, userGroupId);   \
-    GROUP_ITEM(OP, uint32_t, privilege);     \ 用户在 userGroupId 中的权限, 可听：0x01 可说: 0x02
+每#define DATA_CONTENT_BREAKOUT_ROOM_USER_ITEM(OP)     \
+    GROUP_ITEM(OP, uint32_t, userId);                  \
+    GROUP_ITEM(OP, uint32_t, userUmsId);               \
+    GROUP_ITEM(OP, uint32_t, userPresetRoomId);        \ — 用户需要加入的组
+    GROUP_ITEM(OP, uint32_t, userCurrentRoomId);       \ — 用户当前真正加入的分组
+    GROUP_ITEM(OP, uint32_t, privilege);               \ 用户在 userGroupId 中的权限, 可听：0x01 可说: 0x02
     GROUP_ITEM(OP, string, extend);
-DefData(USER_GROUP_ITEM);
+DefData(BREAKOUT_ROOM_USER_ITEM);个用户所在的分组信息
 ```
 
 ## 服务器与客户端交互信令
@@ -45,32 +45,42 @@ AUDIO_USER_SUBSCRIBE_IN_USER_GROUP
 bms 处理分组并广播开启分组成功的应答给所有客户端
 
 ```cpp
-#define DATA_CONTENT_BMS_CONF_USER_GROUP_START(OP)            \
-    GROUP_ITEM(OP, uint32_t, confID);                         \
-    GROUP_ITEM(OP, uint32_t, userID);                         \
-    GROUP_ITEM(OP, vector<USER_GROUP_INFO>, userGroups);      \
-    GROUP_ITEM(OP, vector<USER_GROUP_ITEM>, userGroupOfUser);
-DefBMSCommand(BMS_CONF_USER_GROUP_START)
+#define DATA_CONTENT_BMS_CONF_BREAKOUT_ROOMS_START(OP)       \
+    GROUP_ITEM(OP, uint32_t, confID);                        \
+    GROUP_ITEM(OP, uint32_t, userID);                        \
+    GROUP_ITEM(OP, string, extend);                          \
+    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_INFO>, rooms);       \ – 组的信息
+    – 组内的成员，包含了没有入会的成员（userid=0，umsUserID!=0的用户），bms需要保存独立的列表，因为关闭分组后客户端还可能获取此列表重新编辑分组再开启分组
+    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, roomUsers); 
+DefBMSCommand(BMS_CONF_BREAKOUT_ROOMS_START)
 
-#define DATA_CONTENT_BMS_CONF_USER_GROUP_START_NOTIFY(OP)     \
-    GROUP_ITEM(OP, uint32_t, statusCode);                     \
-    GROUP_ITEM(OP, uint32_t, confID);                         \
-    GROUP_ITEM(OP, uint32_t, userID);                         \
-    GROUP_ITEM(OP, vector<USER_GROUP_INFO>, userGroups);      \
-    GROUP_ITEM(OP, vector<USER_GROUP_ITEM>, userGroupOfUser);
-DefBMSCommand(BMS_CONF_USER_GROUP_START_NOTIFY)
+
+#define DATA_CONTENT_BMS_CONF_BREAKOUT_ROOMS_START_NOTIFY(OP)       \
+    GROUP_ITEM(OP, uint32_t, statusCode);                           \
+    GROUP_ITEM(OP, uint32_t, confID);                               \
+    GROUP_ITEM(OP, uint32_t, userID);                               \
+    GROUP_ITEM(OP, string, extend);                                 \
+    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_INFO>, rooms);              \
+    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, roomUsers); 
+DefBMSCommand(BMS_CONF_BREAKOUT_ROOMS_START_NOTIFY)
 ```
 
 + 获取分组用户信息
-客户端发送获取会议信息请求 `BMS_CONF_INFO_REQUEST = 0x0101`
-bms 发送会议信息 `BMS_CONF_INFO_REQUEST_NOTIFY = 0x0102` 最后添加一个 `vector<USER_GROUP_INFO>` 字段，此字段包含了会议中的所有分组信息
-bms 发送所有用户的分组列表给请求者
+处理客户端发送获取会议信息请求 `BMS_CONF_INFO_REQUEST = 0x0101` 的时候 bms 发送所有用户的分组列表给请求者，
+分组启动则入会的时候在 `BMS_CONF_INFO_REQUEST` 的处理中bms主动发送这个信息给用户，否则客户端主动调用。
 
 ```cpp
-#define DATA_CONTENT_BMS_CONF_USER_GROUP_LIST_NOTIFY(OP)    \
-    GROUP_ITEM(OP, uint32_t, confID);                       \
-    GROUP_ITEM(OP, vector<USER_GROUP_ITEM>, userGroupList); 包含所有的用户
-DefBMSCommand(BMS_CONF_USER_GROUP_LIST_NOTIFY)
+#define DATA_CONTENT_BMS_CONF_GET_BREAKOUT_ROOMS_LIST(OP)    \
+    GROUP_ITEM(OP, uint32_t, confID);                        \
+    GROUP_ITEM(OP, uint32_t, userID);
+DefBMSCommand(BMS_CONF_GET_BREAKOUT_ROOMS_LIST)
+
+#define DATA_CONTENT_BMS_CONF_GET_BREAKOUT_ROOMS_LIST_NOTIFY(OP)    \
+    GROUP_ITEM(OP, uint32_t, confID);                               \
+    GROUP_ITEM(OP, string, extend);                                 \
+    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_INFO>, rooms);              \ – 组的信息
+    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, roomUsers);
+DefBMSCommand(BMS_CONF_GET_BREAKOUT_ROOMS_LIST_NOTIFY)
 ```
 
 + 加入分组/切换分组/退出分组 (用户加入某个分组默认就订阅此分组的声音)
@@ -80,19 +90,36 @@ bms 发送用户设置分组通知给 audioserver
 bms 广播设置分组成功应答
 
 ```cpp
-#define DATA_CONTENT_BMS_CONF_USER_SET_USER_GROUP(OP)     \
-    GROUP_ITEM(OP, uint32_t, confID);                     \
-    GROUP_ITEM(OP, uint32_t, userID);                     \
-    GROUP_ITEM(OP, uint32_t, userGroupId);
-DefBMSCommand(BMS_CONF_USER_SET_USER_GROUP)
+#define DATA_CONTENT_BMS_CONF_SET_USER_BREAKOUT_ROOM(OP)     \
+    GROUP_ITEM(OP, uint32_t, confID);                        \
+    GROUP_ITEM(OP, uint32_t, userID);                        \
+    GROUP_ITEM(OP, uint32_t, userGroupId);                   \
+    GROUP_ITEM(OP,BREAKOUT_ROOM_USER_ITEM, user)
+DefBMSCommand(BMS_CONF_SET_USER_BREAKOUT_ROOM)
 
-#define DATA_CONTENT_BMS_CONF_USER_SET_USER_GROUP_NOTIFY(OP)  \
-    GROUP_ITEM(OP, uint32_t, statusCode);                     \
-    GROUP_ITEM(OP, uint32_t, confID);                         \
-    GROUP_ITEM(OP, uint32_t, userID);                         \
-    GROUP_ITEM(OP, uint32_t, userGroupId);
-DefBMSCommand(BMS_CONF_USER_SET_USER_GROUP_NOTIFY)
+#define DATA_CONTENT_BMS_CONF_USER_SET_USER_BREAKOUT_ROOM_NOTIFY(OP)   \
+    GROUP_ITEM(OP, uint32_t, statusCode);                              \
+    GROUP_ITEM(OP, uint32_t, confID);                                  \
+    GROUP_ITEM(OP, uint32_t, userID);                                  \
+    GROUP_ITEM(OP, uint32_t, userGroupId);                             \
+    GROUP_ITEM(OP,BREAKOUT_ROOM_USER_ITEM, user)
+DefBMSCommand(BMS_CONF_USER_SET_USER_BREAKOUT_ROOM_NOTIFY)
+
 ```
+各项操作填充的有效参数：
+1.分配或者移动分组
+设置 userId/userUmsId，userPresetRoomId
+2.加入分组
+设置 userId/userUmsId，userPresetRoomId，userCurrentRoomId，而且 userPresetRoomId == userCurrentRoomId
+3.离开分组回到主会场
+设置 userId/userUmsId，userCurrentRoomId = 0
+用户加入分组的时候默认订阅此分组的声音（是否可听可说依据privilege）
+
+## 用户退会
+当用户退会时，server需要更新下 roomUsers，如果是有userUmsId的用户则，把userCurrentRoomId设置成0，如果是userId的用户，则删除该条记录。
+这个修改不需要通知到客户端，客户端本身会根据用户退会，做相同的处理。
+umsUserID为0则把用户从分组列表删除，否则只设置userCurrentRoomId为0，不用通知客户端
+
 
 + 关闭分组
 主持人发送关闭分组请求给 bms
@@ -100,17 +127,26 @@ bms 清楚分组信息
 bms 发送关闭分组通知给 audioserver
 bms 广播关闭分组成功应答
 
-```cpp
-#define DATA_CONTENT_BMS_CONF_USER_GROUP_STOP(OP)    \
-    GROUP_ITEM(OP, uint32_t, confID);                \
-    GROUP_ITEM(OP, uint32_t, userID);
-DefBMSCommand(BMS_CONF_USER_GROUP_STOP)
+当客户端发送stop指令时，会根据分组的设置，设置 delayTIme 参数。
+1.如果delayTime = 0，则server端马上结束分组，广播 stop_notify 消息到客户端，客户端判断delayTime=0，则马上回到主会场。
+2.如果delayTime > 0，则server需要启动延时定时器，广播 stop_notify  消息到客户端，客户端根据delayTime，显示退出分组的倒计时。
+server端当定时器到期或者没有任何人员在分组中，则再次广播 stop_notify 消息到客户端，这个时候的delayTime=0。
+server端从收到stop指令到分组真正的结束，期间用户不能加入分组。
+server端真正结束分组时，需要把用户音频回到主会场，设置分组状态为结束
 
-#define DATA_CONTENT_BMS_CONF_USER_GROUP_STOP_NOTIFY(OP)    \
-    GROUP_ITEM(OP, uint32_t, statusCode);                   \
-    GROUP_ITEM(OP, uint32_t, confID);                       \
-    GROUP_ITEM(OP, uint32_t, userID);
-DefBMSCommand(BMS_CONF_USER_GROUP_STOP_NOTIFY)
+```cpp
+#define DATA_CONTENT_BMS_CONF_BREAKOUT_ROOMS_STOP(OP)    \
+    GROUP_ITEM(OP, uint32_t, confID);                    \
+    GROUP_ITEM(OP, uint32_t, userID);                    \
+    GROUP_ITEM(OP, uint32_t, delayTime);                 \ – 关闭倒计时时间(秒）
+DefBMSCommand(BMS_CONF_BREAKOUT_ROOMS_STOP)
+
+#define DATA_CONTENT_BMS_CONF_BREAKOUT_ROOMS_STOP_NOTIFY(OP)    \
+    GROUP_ITEM(OP, uint32_t, statusCode);                       \
+    GROUP_ITEM(OP, uint32_t, confID);                           \
+    GROUP_ITEM(OP, uint32_t, userID);                           \
+    GROUP_ITEM(OP, uint32_t, delayTime);
+DefBMSCommand(BMS_CONF_BREAKOUT_ROOMS_STOP_NOTIFY)
 ```
 
 ## 特殊用户需要 mixer 混音的声
@@ -158,16 +194,17 @@ audisoerver 发送 `AUDIO_USER_SUBSCRIBE_USER_GROUP_TO_CDTS` 给 cdts
 audioserver 应答订阅成功应答给请求者
 
 ```cpp
-#define DATA_CONTENT_AUDIO_USER_SUBSCRIBE_IN_USER_GROUP(OP)           \
-    GROUP_ITEM(OP, uint32_t, confID);                                 \
-    GROUP_ITEM(OP, vector<USER_GROUP_ITEM>, subscribeUserGroupInfos); \
+#define DATA_CONTENT_AUDIO_USER_SUBSCRIBE_IN_USER_GROUP(OP)                   \
+    GROUP_ITEM(OP, uint32_t, confID);                                         \
+    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, subscribeUserGroupInfos);
 DefBMSCommand(AUDIO_USER_SUBSCRIBE_IN_USER_GROUP)
 
-#define DATA_CONTENT_AUDIO_USER_SUBSCRIBE_IN_USER_GROUP_NOTIFY(OP)    \
-    GROUP_ITEM(OP, uint32_t, statusCode);                             \
-    GROUP_ITEM(OP, uint32_t, confID);                                 \
-    GROUP_ITEM(OP, vector<USER_GROUP_ITEM>, subscribeUserGroupInfos); \
+#define DATA_CONTENT_AUDIO_USER_SUBSCRIBE_IN_USER_GROUP_NOTIFY(OP)            \
+    GROUP_ITEM(OP, uint32_t, statusCode);                                     \
+    GROUP_ITEM(OP, uint32_t, confID);                                         \
+    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, subscribeUserGroupInfos);
 DefBMSCommand(AUDIO_USER_SUBSCRIBE_IN_USER_GROUP_NOTIFY)
+-这个接口支持同时订阅多个组。
 ```
 
 ## cdts

@@ -142,7 +142,8 @@ return {
                                 end
                                 vim.g.IsWin32yankActive = not vim.g.IsWin32yankActive
                             end
-                        end
+                        end,
+                        mode = {'n', 'v', 'i'}
                     }
                 },
                 {
