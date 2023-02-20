@@ -1,3 +1,4 @@
+local is_windows = require('futil').is_windows()
 return {
     {
         "Nexmean/caskey.nvim",
@@ -23,6 +24,9 @@ return {
                     -- ["<C-b>"] = { act = "<Left>", desc = "Move back" },
                     -- override options
                     ["<C-d>"] = { act = "<Delete>", desc = "Delete next character", mode = { "i", "c" } },
+                },
+                {
+                    ['<leader>lz'] = { act = ck.cmd 'Lazy', desc = 'Lazy'}
                 },
 
                 -- structure your keymaps as a tree and define which-key prefixes
@@ -110,13 +114,45 @@ return {
                     },
                     ['<leader>tm'] = {
                         act = function()
-                            _G.cwd = vim.fn.getcwd()
+                            vim.g.cwd = vim.fn.getcwd()
                             vim.cmd('ToggleTerm')
                         end,
                         desc = 'toggle terminal',
                     },
-                    ['<C-j>'] = { act = function() vim.api.nvim_input('cd ' .. _G.cwd .. '<CR>') end, desc = 'jump to directory of buffer', mode = 't' },
+                    ['<C-j>'] = { act = function() vim.api.nvim_input('cd ' .. vim.g.cwd .. '<CR>') end, desc = 'jump to directory of buffer', mode = 't' },
+                    -- ['<Esc>'] = { act = vim}
                 },
+                {
+                    name = 'code_runner.nvim',
+                    ['<leader>rc'] = {
+                        act = ck.cmd('RunCode'),
+                        desc = 'RunCode'
+                    }
+                },
+                {
+                    name = 'toggle win32yank',
+                    ['<F10>'] = {
+                        act = function ()
+                            if is_windows then
+                                if vim.g.IsWin32yankActive then
+                                    vim.opt.clipboard:remove('unnamedplus')
+                                else
+                                    vim.opt.clipboard:append('unnamedplus')
+                                end
+                                vim.g.IsWin32yankActive = not vim.g.IsWin32yankActive
+                            end
+                        end
+                    }
+                },
+                {
+                    name = 'markdown',
+                    ['<leader>m'] = {
+                        t = {
+                            act = ck.cmd 'MarkdownPreviewToggle',
+                            desc = 'markdown preview toggle'
+                        }
+                    }
+                }
             })
         end
     }

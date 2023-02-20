@@ -3,14 +3,20 @@ local api = vim.api
 
 local current_session = nil
 local last_session = nil
-local session_directory = '~/.config/nvim/sessionmgr/'
+
+local session_directory = vim.fn.expand(futil.is_windows() and '~/AppData/Local/nvim/sessionmgr/' or '~/.config/nvim/sessionmgr/')
+-- print(session_directory)
+if vim.fn.isdirectory(session_directory) == 0 then
+    vim.fn.mkdir(session_directory)
+end
 
 local function check_file_exist(filename)
-    local file, err = io.open(vim.fn.expand(filename), 'r')
-    if file then
-        file:close()
-    end
-    return err == nil
+    -- local file, err = io.open(vim.fn.expand(filename), 'r')
+    -- if file then
+    --     file:close()
+    -- end
+    -- return err == nil
+    return vim.fn.filereadable(filename) == 1
 end
 
 local function gen_session_path(session_name)
@@ -42,12 +48,8 @@ end
 local function session_delete(session_name)
     local session_path = gen_session_path(session_name)
     if check_file_exist(session_path) then
-        os.remove(vim.fn.expand(session_path))
+        os.remove(session_path)
     end
-end
-
-if not check_file_exist(session_directory) then
-    os.execute('mkdir -p ' .. session_directory)
 end
 
 -- local function session_complete(arg, cmd_line)
@@ -55,7 +57,8 @@ local function session_complete(arg)
     -- futil.info('arg: %s', arg)
     -- futil.info('cmd_line: %s', cmd_line)
     local match = {}
-    local output = vim.fn.execute('!ls ' .. vim.fn.expand(session_directory))
+    -- local output = futil.is_windows() and vim.fn.execute('!dir ' .. session_directory) or vim.fn.execute('!ls ' .. session_directory)
+    local output = vim.fn.execute(futil.is_windows() and '!dir ' .. session_directory or '!ls ' .. session_directory)
     for line in string.gmatch(output, "(%w+).vim") do
         if string.match(line, arg) then
             table.insert(match, 1, line)

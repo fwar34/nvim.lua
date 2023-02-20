@@ -1,18 +1,18 @@
 return {
     {
         'nvim-treesitter/nvim-treesitter', build = ':TSUpdate',
-        config = function ()
+        config = function()
             require('nvim-treesitter.configs').setup {
                 ensure_installed = {
-                    'bash', 'c', 'cpp', 'lua', 'css', 'fennel', 'html', 'javascript', 'json', 'julia', 'go',
-                    'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure', 'fennel', 'org'
-                },     -- one of "all", "language", or a list of languages
+                    'bash', 'c', 'cpp', 'lua', 'css', 'fennel', 'html', 'javascript', 'json', 'julia', 'go', 'java',
+                    'commonlisp', 'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure', 'fennel', 'org'
+                }, -- one of "all", "language", or a list of languages
                 highlight = {
-                    enable = true,              -- false will disable the whole extension
+                    enable = true, -- false will disable the whole extension
                     -- disable = { "c", "rust" },  -- list of language that will be disabled
                     -- Required for spellcheck, some LaTex highlights and
                     -- code block highlights that do not have ts grammar
-                    additional_vim_regex_highlighting = {'org'},
+                    additional_vim_regex_highlighting = { 'org' },
                 },
                 -- rainbow = {
                 --     enable = true,
@@ -26,7 +26,8 @@ return {
                 --     max_file_lines = 3000
                 -- }
             }
-        end
+        end,
+        -- enabled = not require('futil').is_windows()
     },
     -- 'HiPhish/nvim-ts-rainbow2',
 }

@@ -1,10 +1,14 @@
+local is_windows = require('futil').is_windows()
 return {
     -- File manager
     -- pip3 install --user pynvim
-    {'Shougo/defx.nvim', build = ':UpdateRemotePlugins'},
     {
         'kyazdani42/nvim-tree.lua',
         version = 'nightly', -- optional, updated every week. (see issue #1193)
+        keys = {
+            {'<Leader>tt', '<CMD>NvimTreeToggle<CR>', 'nvim tree toggle'},
+            {'<Leader>tf', '<CMD>NvimTreeFindFileToggle<CR>', 'nvim tree find file toggle'},
+        },
         config = function()
             -- require("nvim-tree").setup()
             require("nvim-tree").setup({
@@ -50,7 +54,8 @@ return {
                 [ 'gw' ] = 'JumpNvimCwd',
                 [ 'yw' ] = 'EmitRangerCwd',
             }
-        end
+        end,
+        enabled = not is_windows
     },
     -- Ranger
     -- use { -- nnn

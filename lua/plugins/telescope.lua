@@ -68,31 +68,40 @@ return {
                     undo = {
                         side_by_side = true,
                         layout_strategy = "horizontal",
-                        layout_config = {
-                            preview_height = 0.4,
-                        },
+                        -- layout_config = {
+                        --     preview_height = 0.4,
+                        -- },
                     }
                 }
             }
         end,
 
     },
+    -- {
+    --     'nvim-telescope/telescope-fzf-native.nvim', build = 'make',
+    --     config = function ()
+    --         -- To get fzf loaded and working with telescope, you need to call
+    --         -- load_extension, somewhere after setup function:
+    --         require('telescope').load_extension('fzf')
+    --     end,
+    --     enabled = not is_windows
+    -- },
     {
-        'nvim-telescope/telescope-fzf-native.nvim', build = 'make',
+        -- native telescope bindings to zf for sorting results
+        "natecraddock/telescope-zf-native.nvim",
         config = function ()
-            -- To get fzf loaded and working with telescope, you need to call
-            -- load_extension, somewhere after setup function:
-            require('telescope').load_extension('fzf')
+            require("telescope").load_extension("zf-native")
         end
     },
-    {
-        -- need install sqlit
-        "nvim-telescope/telescope-frecency.nvim",
-        config = function()
-            require("telescope").load_extension("frecency")
-        end,
-        dependencies = {"tami5/sqlite.lua"}
-    },
+    -- {
+    --     -- need install sqlit
+    --     "nvim-telescope/telescope-frecency.nvim",
+    --     config = function()
+    --         require("telescope").load_extension("frecency")
+    --     end,
+    --     dependencies = {"tami5/sqlite.lua"},
+    --     cond = not is_windows
+    -- },
     {
         'nvim-telescope/telescope-live-grep-raw.nvim',
         config = function()
@@ -103,6 +112,20 @@ return {
         'debugloop/telescope-undo.nvim',
         config = function ()
             require("telescope").load_extension("undo")
+        end
+    },
+    {
+        --[[ Mappings	Action
+        <C-o>   Open selected plugin repository in browser
+        <M-b>   Open selected plugin with file-browser
+        <C-f>   Open selected plugin with find files
+        <C-g>   Open selected plugin with live grep
+        <C-b>   Open lazy plugins picker, works only after having called first another action
+        <C-r>f  Open lazy root with find files
+        <C-r>g  Open lazy root with live grep ]]
+        'tsakirist/telescope-lazy.nvim',
+        config = function ()
+            require("telescope").load_extension "lazy"
         end
     }
 }

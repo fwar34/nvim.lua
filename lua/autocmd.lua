@@ -15,6 +15,7 @@ local cmd = vim.cmd
 -- " 上一次退出文件时的位置
 -- [ 上一次修改的开始处
 -- ] 上一次修改的结尾处
+-- h: last-position-jump
 local function goto_last_position()
     api.nvim_create_autocmd('BufReadPost', {
         pattern = '*',
@@ -40,7 +41,7 @@ local function map_q_to_quit()
         pattern = {'help', 'qf', 'netrw', 'startuptime', 'git'},
         callback = function()
             -- api.nvim_buf_set_keymap(0, 'n', 'q', '<CMD>q<CR>', {noremap = true})
-            vim.keymap.set('n', 'q', '<CMD>q<CR>', {buffer = true})
+            vim.keymap.set('n', 'q', '<CMD>q<CR>', {buffer = true, silent = true})
         end
     })
 end
@@ -50,7 +51,7 @@ local function map_fugitiv_q_2_quit()
         pattern = 'fugitive',
         callback = function()
             -- api.nvim_buf_set_keymap(0, 'n', 'q', 'gq', {})
-            vim.keymap.set('n', 'q', 'gq', {buffer = true, remap = true})
+            vim.keymap.set('n', 'q', 'gq', {buffer = true, remap = true, silent = true})
         end
     })
 end
@@ -83,6 +84,18 @@ local function map_find_q_quit()
     })
 end
 
+local function quit_code_runner()
+    api.nvim_create_autocmd('TermOpen', {
+        pattern = '*',
+        callback = function ()
+            if api.nvim_buf_get_name(0) == 'crunner_test' then
+                print('xxxxxxxxxxxxxxx')
+                vim.keymap.set('n', 'q', '<CMD>q<CR>', {noremap = true, silent = true})
+            end
+        end
+    })
+end
+
 local function disable_auto_comment()
     -- "禁止vim换行后自动添加的注释符号
     cmd [[ augroup Format-Options ]]
@@ -111,6 +124,7 @@ function autocmd.setup()
     map_fugitiv_q_2_quit()
     highlight_yank()
     -- golang_autocmd()
+    quit_code_runner()
 end
 
 autocmd.setup()

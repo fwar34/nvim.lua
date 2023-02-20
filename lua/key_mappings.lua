@@ -8,6 +8,7 @@ local tbuiltin = require('telescope.builtin')
 
 local key_mappings = {}
 local key_map = {}
+local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
 
 function key_map:new()
     local instance = {
@@ -70,7 +71,7 @@ function key_mappings:process_keys()
     end
 end
 
-function _G.rg_options()
+function rg_options()
     -- return { "--glob !tags", "--glob !nvim/snippets/**", }
     return {
         "--iglob",
@@ -88,7 +89,7 @@ function _G.rg_options()
     }
 end
 
-function _G.search_word2()
+local function search_word2()
     vim.cmd('normal "kye')
     -- print(vim.fn.getreg('k'))
     return vim.fn.getreg('k')
@@ -172,7 +173,13 @@ function key_mappings:start()
         -- ['n|]]'] = {'j0[[%/{<CR>'},
         -- ['n|[]'] = {'k$][%?}<CR>'},
         -- ['n|<Leader>cs'] = '<CMD>lua require("mylib").
-        ['n|<Leader>se'] = '<CMD>e ~/.config/nvim/lua/plugins/basic.lua<CR>',
+        ['n|<Leader>se'] = function ()
+            if is_windows then
+                vim.cmd('e ~/AppData/Local/nvim/lua/plugins/basic.lua')
+            else
+                vim.cmd('e ~/.config/nvim/lua/plugins/basic.lua')
+            end
+        end
     }
 
     self.visual = {
@@ -302,22 +309,22 @@ function key_mappings:start()
         ['n|<Leader>cd'] = '<CMD>Telescope commands<CR>',
         ['n|<Leader>ch'] = '<CMD>Telescope command_history<CR>',
         ['n|<Leader>sh'] = '<CMD>Telescope search_history<CR>',
-        ['n|<Leader>fr'] = function() tbuiltin.live_grep({additional_args = _G.rg_options}) end,
-        ['n|<Leader>fa'] = function() telescope.extensions.live_grep_args.live_grep_args({additional_args = _G.rg_options}) end,
+        ['n|<Leader>fr'] = function() tbuiltin.live_grep({additional_args = rg_options}) end,
+        ['n|<Leader>fa'] = function() telescope.extensions.live_grep_args.live_grep_args({additional_args = rg_options}) end,
         ['n|<Leader>ff'] = function() tbuiltin.find_files({find_command = find_files_args,}) end,
         ['n|<Leader>pf'] = function() tbuiltin.find_files({cwd = require("find_root_dir").find_root_dir(), find_command = find_files_args,}) end,
         ['n|<Leader>cf'] = function() tbuiltin.find_files({cwd = '~/.config/nvim/lua', find_command = find_files_args,}) end,
         ['n|<Leader>fh'] = function() tbuiltin.find_files({cwd = '~'}) end,
-        ['n|<Leader>fw'] = function() tbuiltin.grep_string({additional_args = _G.rg_options}) end,
-        ['n|<Leader>fs'] = function() tbuiltin.grep_string({search = _G.search_word2()}) end,
+        ['n|<Leader>fw'] = function() tbuiltin.grep_string({additional_args = rg_options}) end,
+        ['n|<Leader>fs'] = function() tbuiltin.grep_string({search = search_word2()}) end,
         -- ['n|<Leader>fp'] = "<CMD>lua require'telescope'.extensions.project.project{}<CR>",
         ['n|<Leader>fp'] = "<CMD>Telescope projects<CR>",
         ['n|<Leader>pc'] = function() telescope.extensions.packer.packer() end,
         -- ['n|<Leader>fs'] = '<CMD>lua require("mylib")["search_word"]()<CR>',
         -- ['n|<Leader>ii'] = '<CMD>Clap function<CR>',
         ['n|<Leader>gf'] = '<CMD>Telescope git_files<CR>',
-        -- ['n|<Leader>rm'] = '<CMD>Telescope oldfiles<CR>',
-        ['n|<Leader>rm'] = '<CMD>Telescope frecency<CR>',
+        ['n|<Leader>rm'] = '<CMD>Telescope oldfiles<CR>',
+        -- ['n|<Leader>rm'] = '<CMD>Telescope frecency<CR>',
         ['n|<Leader>hp'] = '<CMD>Telescope help_tags<CR>',
         ['n|<Leader>jl'] = '<CMD>Telescope jumplist<CR>',
         ['n|<Leader>ma'] = '<CMD>Telescope marks<CR>',
@@ -483,16 +490,16 @@ function key_mappings:start()
     -- }
 
     -- defx
-    self.defx = {
-        ['n|<Leader>dj'] = '<CMD>Defx<CR>',
-        ['n|<Leader>df'] = "<CMD>Defx `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>",
-    }
+    -- self.defx = {
+    --     ['n|<Leader>dj'] = '<CMD>Defx<CR>',
+    --     ['n|<Leader>df'] = "<CMD>Defx `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>",
+    -- }
 
     -- nvim-tree
-    self.nvim_tree = {
-        ['n|<Leader>tt'] = '<CMD>NvimTreeToggle<CR>',
-        ['n|<Leader>tf'] = '<CMD>NvimTreeFocus<CR>',
-    }
+    -- self.nvim_tree = {
+    --     ['n|<Leader>tt'] = '<CMD>NvimTreeToggle<CR>',
+    --     ['n|<Leader>tf'] = '<CMD>NvimTreeFocus<CR>',
+    -- }
 
     -- vim-highlighter
     self.vim_highlighter = {

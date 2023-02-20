@@ -22,17 +22,48 @@ return {
     -- },
 
     {
-        'skywind3000/vim-terminal-help', event = 'VimEnter *',
+        'skywind3000/vim-terminal-help',
         config = function()
             vim.g.terminal_height = 20
             vim.g.terminal_list = 0 -- set to 0 to hide terminal buffer in the buffer list.
-        end
+        end,
+        ft = 'toggleterm'
     },
 
     {
         'akinsho/toggleterm.nvim',
         config = function()
             require('toggleterm').setup()
+            vim.cmd([[
+" https://github.com/akinsho/toggleterm.nvim#setup
+" set
+autocmd TermEnter term://*toggleterm#*
+      \ tnoremap <silent><C-\> <Cmd>exe v:count1 . "ToggleTerm"<CR>
+
+" By applying the mappings this way you can pass a count to your
+" mapping to open a specific window.
+" For example: 2<C-\> will open terminal 2
+nnoremap <silent><C-\> <Cmd>exe v:count1 . "ToggleTerm"<CR>
+inoremap <silent><C-\> <Esc><Cmd>exe v:count1 . "ToggleTerm"<CR>
+tnoremap <silent><Esc> <C-\><C-N>
+            ]])
+        end,
+        init = function()
+            if require('futil').is_windows() then
+                -- https://github.com/akinsho/toggleterm.nvim/wiki/Tips-and-Tricks#using-toggleterm-with-powershell
+                local powershell_options = {
+                    shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
+                    shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
+                    shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
+                    shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
+                    shellquote = "",
+                    shellxquote = "",
+                }
+
+                for option, value in pairs(powershell_options) do
+                    vim.opt[option] = value
+                end
+            end
         end
     },
 }
