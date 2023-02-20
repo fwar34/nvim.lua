@@ -176,8 +176,8 @@ return {
         'terryma/vim-expand-region',
         config = function()
             -- ALT_+/- 用于按分隔符扩大缩小 v 选区
-            vim.cmd [[map <m-=> <Plug>(expand_region_expand)]]
-            vim.cmd [[map <m--> <Plug>(expand_region_shrink)]]
+            vim.keymap.set('', '<m-=>', '<Plug>(expand_region_expand)')
+            vim.keymap.set('', '<m-->', '<Plug>(expand_region_shrink)')
         end
     },
 
