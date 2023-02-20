@@ -49,7 +49,7 @@ local function read_total_memory()
 end
 
 function global:load_variables()
-	self.is_mac = jit.os == 'OSX'
+	self.is_mac = jit.os == 'OSX' -- vim.loop.os_uname().sysname == 'Windows_NT'
 	self.is_windows = jit.os == 'Windows'
 	self.is_linux = jit.os == 'Linux'
 	self.vim_path = home .. path_sep .. '.config' .. path_sep .. 'nvim'

@@ -1,3 +1,4 @@
+-- local is_windows = require('global').is_windows
 return {
     {
         'nvim-telescope/telescope.nvim',

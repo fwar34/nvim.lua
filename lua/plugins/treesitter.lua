@@ -43,7 +43,7 @@ return {
                 end
             })
         end,
-        -- enabled = not require('futil').is_windows()
+        -- enabled = not require('global').is_windows
     },
     -- 'HiPhish/nvim-ts-rainbow2',
 }

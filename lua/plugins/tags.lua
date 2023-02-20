@@ -1,4 +1,4 @@
-local is_windows = require('futil').is_windows()
+local is_windows = require('global').is_windows
 return {
     -- Coding
     'liuchengxu/vista.vim',

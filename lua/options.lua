@@ -1,5 +1,5 @@
 -- :h lua-vim-options
-local global = require('global')
+local is_windows = require('global').is_windows
 local opt = vim.opt
 local cmd = vim.cmd
 
@@ -25,13 +25,13 @@ opt.expandtab = true
 opt.autoindent = true
 -- 关闭自动换行
 opt.wrap = false
-if not global.is_windows or global.hostname ~= 'A120325' then
+if not is_windows or hostname ~= 'A120325' then
     -- 非 Windows 上面才打开系统剪贴板，F10 是触发快捷键
     opt.clipboard:append('unnamedplus')
     vim.g.IsWin32yankActive = false
 end
 
-if global.is_windows then
+if is_windows then
     -- Windows 上面设置 win32yank
     vim.g.clipboard = {
         name = 'win32yank',

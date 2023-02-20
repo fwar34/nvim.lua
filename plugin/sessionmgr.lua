@@ -1,12 +1,12 @@
 local futil = require('futil')
-local global = require('global')
+local is_windows = require('global').is_windows
 local api = vim.api
 local cmd = vim.cmd
 
 local current_session = nil
 local last_session = nil
 
-local session_directory = vim.fn.expand(global.is_windows and '~/AppData/Local/nvim/sessionmgr/' or '~/.config/nvim/sessionmgr/')
+local session_directory = vim.fn.expand(is_windows and '~/AppData/Local/nvim/sessionmgr/' or '~/.config/nvim/sessionmgr/')
 -- print(session_directory)
 if vim.fn.isdirectory(session_directory) == 0 then
     vim.fn.mkdir(session_directory)
@@ -59,8 +59,8 @@ local function session_complete(arg)
     -- futil.info('arg: %s', arg)
     -- futil.info('cmd_line: %s', cmd_line)
     local match = {}
-    -- local output = global.is_windows and vim.fn.execute('!dir ' .. session_directory) or vim.fn.execute('!ls ' .. session_directory)
-    local output = vim.fn.execute(global.is_windows and '!dir ' .. session_directory or '!ls ' .. session_directory)
+    -- local output = is_windows and vim.fn.execute('!dir ' .. session_directory) or vim.fn.execute('!ls ' .. session_directory)
+    local output = vim.fn.execute(is_windows and '!dir ' .. session_directory or '!ls ' .. session_directory)
     for line in string.gmatch(output, "(%w+).vim") do
         if string.match(line, arg) then
             table.insert(match, 1, line)

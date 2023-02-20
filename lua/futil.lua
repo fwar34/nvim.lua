@@ -119,10 +119,6 @@ function futil.delete_buffers(exclude_current)
     end
 end
 
-function futil.is_windows()
-    return vim.loop.os_uname().sysname == 'Windows_NT'
-end
-
 function futil.dump_all_buffers()
     local buffers = api.nvim_list_bufs()
     for _, buf in ipairs(buffers) do

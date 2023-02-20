@@ -50,7 +50,7 @@ tnoremap <silent><Esc> <C-\><C-N>
             ]])
         end,
         init = function()
-            if require('futil').is_windows() then
+            if require('global').is_windows then
                 -- https://github.com/akinsho/toggleterm.nvim/wiki/Tips-and-Tricks#using-toggleterm-with-powershell
                 local powershell_options = {
                     shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",

@@ -1,5 +1,4 @@
 -- key_mappings
-local global = require('global')
 local vim = vim
 local api = vim.api
 local cmd = vim.cmd
@@ -174,7 +173,7 @@ function key_mappings:start()
         -- ['n|[]'] = {'k$][%?}<CR>'},
         -- ['n|<Leader>cs'] = '<CMD>lua require("mylib").
         ['n|<Leader>se'] = function ()
-            if global.is_windows then
+            if require('global').is_windows then
                 cmd('e ~/AppData/Local/nvim/lua/plugins/basic.lua')
             else
                 cmd('e ~/.config/nvim/lua/plugins/basic.lua')
