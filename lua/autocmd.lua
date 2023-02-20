@@ -4,7 +4,7 @@ local api = vim.api
 local cmd = vim.cmd
 
 -- local function goto_last_position()
-    -- vim.cmd [[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]
+    -- cmd [[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]
 -- end
 
 -- 特殊的 marks 可以看 :h marks
@@ -62,7 +62,7 @@ local function help_mouse()
 end
 
 -- local function map_wq_to_quit()
---     vim.cmd [[ autocmd! FileType gitcommit :nnoremap <buffer> q <CMD>wq<CR> ]]
+--     cmd [[ autocmd! FileType gitcommit :nnoremap <buffer> q <CMD>wq<CR> ]]
 -- end
 local function map_wq_to_quit()
     api.nvim_create_autocmd("FileType", {

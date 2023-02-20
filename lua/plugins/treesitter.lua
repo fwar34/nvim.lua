@@ -1,11 +1,14 @@
+local api = vim.api
 return {
     {
         'nvim-treesitter/nvim-treesitter', build = ':TSUpdate',
         config = function()
             require('nvim-treesitter.configs').setup {
                 ensure_installed = {
-                    'bash', 'c', 'cpp', 'lua', 'css', 'fennel', 'html', 'javascript', 'json', 'julia', 'go', 'java', 'thrift',
-                    'commonlisp', 'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure', 'fennel', 'org'
+                    'bash', 'c', 'cpp', 'lua', 'css', 'fennel', 'html', 'javascript', 'json', 'julia', 'go', 'java',
+                    'thrift',
+                    'commonlisp', 'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure', 'fennel',
+                    'org'
                 }, -- one of "all", "language", or a list of languages
                 highlight = {
                     enable = true, -- false will disable the whole extension
@@ -26,6 +29,19 @@ return {
                 --     max_file_lines = 3000
                 -- }
             }
+
+            -- 下面的代码高亮有问题，取消此文件的高亮
+            -- aui->isLiveInvitedWebRtcUser_ = (
+            --         strstr(custom_str, R"("sams_id":")") != nullptr
+            --     && 	strstr(custom_str, R"("sams_client_id":")") != nullptr
+            api.nvim_create_autocmd('FileType', {
+                pattern = 'cpp',
+                callback = function()
+                    if vim.fn.expand('%:t') == 'AudioSystem.cpp' then
+                        vim.treesitter.stop()
+                    end
+                end
+            })
         end,
         -- enabled = not require('futil').is_windows()
     },
