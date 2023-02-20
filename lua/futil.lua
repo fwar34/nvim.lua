@@ -107,7 +107,7 @@ function futil.delete_buffers(exclude_current)
     for _, buf in ipairs(buffers) do
         -- vim.pretty_print('buf:' .. api.nvim_buf_get_name(buf) .. ' is load:' .. (vim.api.nvim_buf_is_loaded(buf) and 1 or 0) .. ' ft:' .. api.nvim_buf_get_option(buf, 'filetype'))
         local ft = api.nvim_buf_get_option(buf, 'filetype')
-        if ft ~= 'floaterm' and ft ~= 'rnvimr' then
+        if ft ~= 'floaterm' and ft ~= 'rnvimr' and ft ~= 'toggleterm' then
             if exclude_current then
                 if buf ~= current then
                     api.nvim_buf_delete(buf, {})
