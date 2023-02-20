@@ -125,7 +125,7 @@ cmd('set sidescrolloff=5')
 -- 设置环境保存项
 -- 设置这个选项与 neovim-session-manager 冲突
 -- cmd('set sessionoptions=blank,globals,localoptions,tabpages,folds,help,options,resize,winpos,winsize,unix,slash')
-cmd('set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winsize,winpos')
+cmd('set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winsize,winpos,localoptions,globals,options,resize,slash,unix')
 -- cmd('set number')
 -- 允许折叠
 cmd('set foldenable')
