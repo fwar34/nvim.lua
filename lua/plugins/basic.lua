@@ -243,10 +243,16 @@ return {
         end
     },
 
+    {
     -- better quickfix
+    -- Press <Tab> or <S-Tab> to toggle the sign of item
+    -- Press zn or zN will create new quickfix list
+    -- Press zf in quickfix window will enter fzf mode.
+    -- input ^^ in fzf prompt will find all signed items, ctrl-o in fzf mode has bind toggle-all
     'kevinhwang91/nvim-bqf',
+    },
 
-    'solarnz/thrift.vim',
+    -- 'solarnz/thrift.vim',
     'ibhagwan/fzf-lua',
 
     -- A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing.
