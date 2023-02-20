@@ -1,6 +1,13 @@
 local is_windows = require('global').is_windows
 return {
     {
+        -- Improve startup time for Neovim
+        'lewis6991/impatient.nvim',
+        config = function()
+            -- require'impatient'.enable_profile()
+        end
+    },
+    {
         "folke/which-key.nvim",
         config = function()
             vim.o.timeout = true
@@ -49,7 +56,8 @@ return {
     -- Profiling
     { 'dstein64/vim-startuptime' },
     {
-        -- vim-multiple-cursors
+        -- multi cursor
+        -- https://github.com/mg979/vim-visual-multi/wiki/Mappings
         'mg979/vim-visual-multi',
     },
 
@@ -240,12 +248,12 @@ return {
     },
 
     {
-    -- better quickfix
-    -- Press <Tab> or <S-Tab> to toggle the sign of item
-    -- Press zn or zN will create new quickfix list
-    -- Press zf in quickfix window will enter fzf mode.
-    -- input ^^ in fzf prompt will find all signed items, ctrl-o in fzf mode has bind toggle-all
-    'kevinhwang91/nvim-bqf', ft = 'qf'
+        -- better quickfix
+        -- Press <Tab> or <S-Tab> to toggle the sign of item
+        -- Press zn or zN will create new quickfix list
+        -- Press zf in quickfix window will enter fzf mode.
+        -- input ^^ in fzf prompt will find all signed items, ctrl-o in fzf mode has bind toggle-all
+        'kevinhwang91/nvim-bqf', ft = 'qf'
     },
 
     -- 'solarnz/thrift.vim',
@@ -336,11 +344,4 @@ return {
         end,
         cmd = { 'RunCode', 'RunFile' }
     },
-    {
-        -- Improve startup time for Neovim
-        'lewis6991/impatient.nvim',
-        config = function()
-            -- require'impatient'.enable_profile()
-        end
-    }
 }
