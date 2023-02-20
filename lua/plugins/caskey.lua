@@ -1,4 +1,4 @@
-local is_windows = require('futil').is_windows()
+local global = require('global')
 local cmd = vim.cmd
 return {
     {
@@ -134,7 +134,7 @@ return {
                     name = 'toggle win32yank',
                     ['<F10>'] = {
                         act = function ()
-                            if is_windows then
+                            if global.is_windows then
                                 if vim.g.IsWin32yankActive then
                                     vim.opt.clipboard:remove('unnamedplus')
                                 else

@@ -1,6 +1,7 @@
 # 会议分组
 
 <https://wiki.quanshi.com/pages/viewpage.action?pageId=74610394>
+<https://wiki.quanshi.com/pages/viewpage.action?pageId=78583319>
 
 ## 数据结构
 
@@ -128,9 +129,9 @@ bms 发送关闭分组通知给 audioserver
 bms 广播关闭分组成功应答
 
 当客户端发送stop指令时，会根据分组的设置，设置 delayTIme 参数。
-1.如果delayTime = 0，则server端马上结束分组，广播 stop_notify 消息到客户端，客户端判断delayTime=0，则马上回到主会场。
-2.如果delayTime > 0，则server需要启动延时定时器，广播 stop_notify  消息到客户端，客户端根据delayTime，显示退出分组的倒计时。
-server端当定时器到期或者没有任何人员在分组中，则再次广播 stop_notify 消息到客户端，这个时候的delayTime=0。
+1.如果delayTime = 0，则server端马上结束分组，广播 `stop_notify` 消息到客户端，客户端判断delayTime=0，则马上回到主会场。
+2.如果delayTime > 0，则server需要启动延时定时器，广播 `stop_notify`  消息到客户端，客户端根据delayTime，显示退出分组的倒计时。
+server端当定时器到期或者没有任何人员在分组中，则再次广播 `stop_notify` 消息到客户端，这个时候的delayTime=0。
 server端从收到stop指令到分组真正的结束，期间用户不能加入分组。
 server端真正结束分组时，需要把用户音频回到主会场，设置分组状态为结束
 

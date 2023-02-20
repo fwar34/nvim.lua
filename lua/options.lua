@@ -1,7 +1,7 @@
 -- :h lua-vim-options
+local global = require('global')
 local opt = vim.opt
 local cmd = vim.cmd
-local is_windows = require('futil').is_windows()
 
 -- dirvish 不能设置 autochdir
 opt.autochdir = true
@@ -25,11 +25,13 @@ opt.expandtab = true
 opt.autoindent = true
 -- 关闭自动换行
 opt.wrap = false
-if not is_windows then
+if not global.is_windows or global.hostname ~= 'A120325' then
     -- 非 Windows 上面才打开系统剪贴板，F10 是触发快捷键
     opt.clipboard:append('unnamedplus')
     vim.g.IsWin32yankActive = false
-else
+end
+
+if global.is_windows then
     -- Windows 上面设置 win32yank
     vim.g.clipboard = {
         name = 'win32yank',
@@ -123,7 +125,7 @@ cmd('set sidescrolloff=5')
 -- 设置环境保存项
 -- 设置这个选项与 neovim-session-manager 冲突
 -- cmd('set sessionoptions=blank,globals,localoptions,tabpages,folds,help,options,resize,winpos,winsize,unix,slash')
-cmd('set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal')
+cmd('set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winsize,winpos')
 -- cmd('set number')
 -- 允许折叠
 cmd('set foldenable')

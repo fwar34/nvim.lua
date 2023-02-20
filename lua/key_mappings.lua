@@ -1,5 +1,5 @@
 -- key_mappings
--- local global = require('global')
+local global = require('global')
 local vim = vim
 local api = vim.api
 local cmd = vim.cmd
@@ -9,7 +9,6 @@ local tbuiltin = require('telescope.builtin')
 
 local key_mappings = {}
 local key_map = {}
-local is_windows = vim.loop.os_uname().sysname == 'Windows_NT'
 
 function key_map:new()
     local instance = {
@@ -175,7 +174,7 @@ function key_mappings:start()
         -- ['n|[]'] = {'k$][%?}<CR>'},
         -- ['n|<Leader>cs'] = '<CMD>lua require("mylib").
         ['n|<Leader>se'] = function ()
-            if is_windows then
+            if global.is_windows then
                 cmd('e ~/AppData/Local/nvim/lua/plugins/basic.lua')
             else
                 cmd('e ~/.config/nvim/lua/plugins/basic.lua')

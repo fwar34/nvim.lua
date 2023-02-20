@@ -128,7 +128,7 @@ return {
     -- 就连文件比较也会用到快速跳转到上/下一个差异处，unimpaired 插件帮你定义了一系列方括号开头的快捷键，
     -- 被称为官方 Vim 中丢失的快捷键。
     {
-        'tpope/vim-unimpaired', ft = 'quickfix',
+        'tpope/vim-unimpaired', ft = 'qf',
     },
 
     -- switch file betten .cpp and .h
@@ -249,7 +249,7 @@ return {
     -- Press zn or zN will create new quickfix list
     -- Press zf in quickfix window will enter fzf mode.
     -- input ^^ in fzf prompt will find all signed items, ctrl-o in fzf mode has bind toggle-all
-    'kevinhwang91/nvim-bqf',
+    'kevinhwang91/nvim-bqf', ft = 'qf'
     },
 
     -- 'solarnz/thrift.vim',
@@ -314,6 +314,7 @@ return {
             require('orgmode').setup_ts_grammar()
             require('orgmode').setup()
         end,
+        ft = 'org',
         enabled = not is_windows
     },
     {
@@ -340,6 +341,7 @@ return {
         cmd = { 'RunCode', 'RunFile' }
     },
     {
+        -- Improve startup time for Neovim
         'lewis6991/impatient.nvim',
         config = function()
             -- require'impatient'.enable_profile()
