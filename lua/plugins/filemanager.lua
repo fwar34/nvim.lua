@@ -1,4 +1,5 @@
 local is_windows = require('futil').is_windows()
+-- local cmd = vim.cmd
 return {
     -- File manager
     -- pip3 install --user pynvim
@@ -42,7 +43,7 @@ return {
             -- Make Neovim wipe the buffers corresponding to the files deleted by Ranger
             vim.g.rnvimr_enable_bw = 1
             -- Link CursorLine into RnvimrNormal highlight in the Floating window
-            -- vim.cmd [[ highlight link RnvimrNormal CursorLine ]]
+            -- cmd [[ highlight link RnvimrNormal CursorLine ]]
 
             -- if vim.fn.empty(vim.fn.glob(cheatsheets_path)) > 0 then
             -- end
@@ -62,10 +63,10 @@ return {
     --     'mcchrish/nnn.vim', cmd = {'NnnPicker', 'Np'},
     --     config = function()
     --         -- Disable default mappings
-    --         vim.cmd [[ let g:nnn#set_default_mappings = 0 ]]
+    --         cmd [[ let g:nnn#set_default_mappings = 0 ]]
     --         -- Floating window (neovim latest and vim with patch 8.2.191)
     --         -- vim.g['nnn#layout'] = { window = { width = 0.9, height = 0.6, highlight = 'Debug'}}
-    --         vim.cmd [[ let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } } ]]
+    --         cmd [[ let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } } ]]
     --     end
     -- }
 }

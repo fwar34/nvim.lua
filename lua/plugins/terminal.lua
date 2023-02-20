@@ -1,6 +1,7 @@
 -- If <C-\> is pressed, the next key is sent unless it is <C-N> or <C-O>.
 -- Use <C-\><C-N> to return to normal mode. |CTRL-\_CTRL-N|
 -- Use <C-\><C-O> to execute one normal mode command and then return to terminal mode.
+local cmd = vim.cmd
 return {
     -- Terminal
     -- {
@@ -34,7 +35,7 @@ return {
         'akinsho/toggleterm.nvim',
         config = function()
             require('toggleterm').setup()
-            vim.cmd([[
+            cmd([[
 " https://github.com/akinsho/toggleterm.nvim#setup
 " set
 autocmd TermEnter term://*toggleterm#*

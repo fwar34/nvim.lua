@@ -1,4 +1,5 @@
 local M = {}
+local cmd = vim.cmd
 
 local function find_go_mod()
     local output = vim.fn.execute('!ls')
@@ -14,25 +15,26 @@ function M.run()
     local switch = {
         go = function()
             if find_go_mod() then
-                vim.cmd [[AsyncRun go mod tidy && go run %]]
+                -- cmd [[AsyncRun go mod tidy && go run %]]
+                cmd('AsyncRun go mod tidy && go run %')
             else
-                vim.cmd [[AsyncRun go run %]]
+                cmd [[AsyncRun go run %]]
             end
         end,
         cpp = function()
-            vim.cmd [[AsyncRun g++ -std=c++11 -lpthread % && ./a.out]]
+            cmd [[AsyncRun g++ -std=c++11 -lpthread % && ./a.out]]
         end,
         lua = function()
-            vim.cmd [[AsyncRun lua %]]
+            cmd [[AsyncRun lua %]]
         end,
         c = function()
-            vim.cmd [[AsyncRun gcc % && ./a.out]]
+            cmd [[AsyncRun gcc % && ./a.out]]
         end,
         python = function()
-            vim.cmd [[AsyncRun python3 %]]
+            cmd [[AsyncRun python3 %]]
         end,
         rust = function()
-            vim.cmd [[AsyncRun cargo run]]
+            cmd [[AsyncRun cargo run]]
         end,
     }
 

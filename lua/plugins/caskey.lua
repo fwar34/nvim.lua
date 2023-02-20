@@ -1,4 +1,5 @@
 local is_windows = require('futil').is_windows()
+local cmd = vim.cmd
 return {
     {
         "Nexmean/caskey.nvim",
@@ -115,7 +116,7 @@ return {
                     ['<leader>tm'] = {
                         act = function()
                             vim.g.cwd = vim.fn.getcwd()
-                            vim.cmd('ToggleTerm')
+                            cmd('ToggleTerm')
                         end,
                         desc = 'toggle terminal',
                     },

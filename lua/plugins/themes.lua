@@ -1,3 +1,4 @@
+local cmd = vim.cmd
 return {
     -- A colorscheme helper for Neovim.
     'tjdevries/colorbuddy.nvim',
@@ -15,14 +16,14 @@ return {
         -- 'navarasu/onedark.nvim',
         -- 'olimorris/onedarkpro.nvim',
         config = function ()
-            vim.cmd [[ colorscheme onedark ]]
+            cmd [[ colorscheme onedark ]]
         end
     },
 
     -- Themes
     {
         'glepnir/oceanic-material', config = function ()
-            -- vim.cmd [[ colorscheme oceanic_material ]]
+            -- cmd [[ colorscheme oceanic_material ]]
         end
     },
     -- You can alias plugin names

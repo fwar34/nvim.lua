@@ -1,3 +1,4 @@
+local cmd = vim.cmd
 return {
     -- Lsp
     'neovim/nvim-lspconfig',
@@ -98,7 +99,7 @@ return {
                     ['<C-b>'] = function(fallback)
                         if cmp.visible() then
                             cmp.close()
-                            -- vim.cmd[[normal h]]
+                            -- cmd[[normal h]]
                             local row, col = unpack(vim.api.nvim_win_get_cursor(0))
                             vim.api.nvim_win_set_cursor(0, {row, col == 0 and 0 or col - 1})
                         else
@@ -108,7 +109,7 @@ return {
                     ['<C-f>'] = function(fallback)
                         if cmp.visible() then
                             cmp.close()
-                            -- vim.cmd[[normal l]]
+                            -- cmd[[normal l]]
                             local row, col = unpack(vim.api.nvim_win_get_cursor(0))
                             vim.api.nvim_win_set_cursor(0, {row, col + 1})
                         else
@@ -118,7 +119,7 @@ return {
                     ['<C-e>'] = function(fallback)
                         if cmp.visible() then
                             cmp.close()
-                            vim.cmd[[normal $]]
+                            cmd[[normal $]]
                             local position = vim.api.nvim_win_get_cursor(0)
                             -- local line, col = unpack(vim.api.nvim_win_get_cursor(0))
                             -- print(vim.inspect(position))
@@ -133,7 +134,7 @@ return {
                     ['<C-a>'] = function(fallback)
                         if cmp.visible() then
                             cmp.close()
-                            vim.cmd[[normal ^]]
+                            cmd[[normal ^]]
                         else
                             fallback()
                         end

@@ -1,5 +1,6 @@
 -- local terminal = setmetatable({}, {__index = {mouse_floaterm = '', mouse_terminal = ''}})
 local terminal = {mouse_floaterm = '', mouse_terminal = ''}
+local cmd = vim.cmd
 
 function terminal:set_mouse_for_floaterm()
     self.mouse_floaterm = vim.o.mouse
@@ -28,18 +29,18 @@ end
 
 function terminal.setup()
     -- floaterm mouse autocmd
-    vim.cmd [[ augroup floaterm_mouse ]]
-    vim.cmd [[   autocmd! ]]
-    -- vim.cmd [[   autocmd FileType floaterm lua require('terminal'):set_mouse_for_floaterm() ]]
-    vim.cmd [[   autocmd BufLeave * lua require('terminal'):restore_mouse_from_floaterm() ]]
-    vim.cmd [[ augroup END ]]
-
-    -- terminal mouse autocmd
-    vim.cmd [[ augroup terminal_mouse ]]
-    vim.cmd [[   autocmd! ]]
-    -- vim.cmd [[   autocmd BufEnter * lua require('terminal'):set_mouse_for_terminal() ]]
-    vim.cmd [[   autocmd BufLeave * lua require('terminal'):restore_mouse_from_terminal() ]]
-    vim.cmd [[ augroup END ]]
+    -- cmd [[ augroup floaterm_mouse ]]
+    -- cmd [[   autocmd! ]]
+    -- -- cmd [[   autocmd FileType floaterm lua require('terminal'):set_mouse_for_floaterm() ]]
+    -- cmd [[   autocmd BufLeave * lua require('terminal'):restore_mouse_from_floaterm() ]]
+    -- cmd [[ augroup END ]]
+    --
+    -- -- terminal mouse autocmd
+    -- cmd [[ augroup terminal_mouse ]]
+    -- cmd [[   autocmd! ]]
+    -- -- cmd [[   autocmd BufEnter * lua require('terminal'):set_mouse_for_terminal() ]]
+    -- cmd [[   autocmd BufLeave * lua require('terminal'):restore_mouse_from_terminal() ]]
+    -- cmd [[ augroup END ]]
 end
 
 return terminal

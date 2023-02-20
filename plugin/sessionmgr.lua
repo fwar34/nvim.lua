@@ -1,5 +1,6 @@
 local futil = require('futil')
 local api = vim.api
+local cmd = vim.cmd
 
 local current_session = nil
 local last_session = nil
@@ -26,7 +27,7 @@ end
 local function session_save(session_name)
     local session_path = gen_session_path(session_name)
     -- futil.info('save current:%s', session_path)
-    vim.cmd('silent mksession! ' .. session_path)
+    cmd('silent mksession! ' .. session_path)
     return check_file_exist(session_path)
 end
 
@@ -37,7 +38,7 @@ local function session_load(session_name)
         return
     end
     -- silent加上!,会跳过错误信息
-    vim.cmd('silent! source ' .. session_path)
+    cmd('silent! source ' .. session_path)
 
     if session_name ~= current_session then
         last_session = current_session

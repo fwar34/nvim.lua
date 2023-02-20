@@ -1,3 +1,4 @@
+local cmd = vim.cmd
 return {
     { 'guns/vim-sexp', ft = { 'fennel', 'clojure', 'lisp' } },
     { 'tpope/vim-sexp-mappings-for-regular-people', ft = { 'fennel', 'clojure', 'lisp' } },
@@ -7,9 +8,9 @@ return {
         pin = 'v4.9.0',
         ft = { 'fennel', 'clojure' },
         config = function()
-            vim.cmd('let g:conjure#mapping#prefix = ","')
-            vim.cmd('let g:conjure#log#hud#width = 0.8')
-            vim.cmd('let g:conjure#log#hud#height = 0.5')
+            cmd('let g:conjure#mapping#prefix = ","')
+            cmd('let g:conjure#log#hud#width = 0.8')
+            cmd('let g:conjure#log#hud#height = 0.5')
         end
     },
     { 'tpope/vim-dispatch', event = 'VimEnter *' },

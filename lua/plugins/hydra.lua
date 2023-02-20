@@ -1,3 +1,4 @@
+local cmd = vim.cmd
 return {
     {
         'anuvyklack/hydra.nvim',
@@ -114,23 +115,23 @@ return {
                 config = {
                     on_key = function()
                         -- Preserve animation
-                        vim.wait(200, function() vim.cmd 'redraw' end, 30, false)
+                        vim.wait(200, function() cmd 'redraw' end, 30, false)
                     end,
                 },
                 heads = {
-                    { 'h', function() vim.cmd('BufferPrevious') end, { on_key = false } },
-                    { 'l', function() vim.cmd('BufferNext') end, { desc = 'choose', on_key = false } },
+                    { 'h', function() cmd('BufferPrevious') end, { on_key = false } },
+                    { 'l', function() cmd('BufferNext') end, { desc = 'choose', on_key = false } },
 
-                    { 'H', function() vim.cmd('BufferMovePrevious') end },
-                    { 'L', function() vim.cmd('BufferMoveNext') end, { desc = 'move' } },
+                    { 'H', function() cmd('BufferMovePrevious') end },
+                    { 'L', function() cmd('BufferMoveNext') end, { desc = 'move' } },
 
-                    { 'p', function() vim.cmd('BufferPin') end, { desc = 'pin' } },
+                    { 'p', function() cmd('BufferPin') end, { desc = 'pin' } },
 
-                    { 'd', function() vim.cmd('BufferClose') end, { desc = 'close' } },
-                    { 'c', function() vim.cmd('BufferClose') end, { desc = false } },
+                    { 'd', function() cmd('BufferClose') end, { desc = 'close' } },
+                    { 'c', function() cmd('BufferClose') end, { desc = false } },
 
-                    { 'od', function() vim.cmd('BufferOrderByDirectory') end, { desc = 'by directory' } },
-                    { 'ol', function() vim.cmd('BufferOrderByLanguage') end, { desc = 'by language' } },
+                    { 'od', function() cmd('BufferOrderByDirectory') end, { desc = 'by directory' } },
+                    { 'ol', function() cmd('BufferOrderByLanguage') end, { desc = 'by language' } },
                     { 'q', nil, { exit = true } },
                     { '<Esc>', nil, { exit = true, desc = 'quit' } }
                 }

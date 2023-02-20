@@ -2,6 +2,7 @@
 -- local global = require('global')
 local vim = vim
 local api = vim.api
+local cmd = vim.cmd
 local futil = require('futil')
 local telescope = require('telescope')
 local tbuiltin = require('telescope.builtin')
@@ -90,7 +91,7 @@ function rg_options()
 end
 
 local function search_word2()
-    vim.cmd('normal "kye')
+    cmd('normal "kye')
     -- print(vim.fn.getreg('k'))
     return vim.fn.getreg('k')
 end
@@ -175,9 +176,9 @@ function key_mappings:start()
         -- ['n|<Leader>cs'] = '<CMD>lua require("mylib").
         ['n|<Leader>se'] = function ()
             if is_windows then
-                vim.cmd('e ~/AppData/Local/nvim/lua/plugins/basic.lua')
+                cmd('e ~/AppData/Local/nvim/lua/plugins/basic.lua')
             else
-                vim.cmd('e ~/.config/nvim/lua/plugins/basic.lua')
+                cmd('e ~/.config/nvim/lua/plugins/basic.lua')
             end
         end
     }

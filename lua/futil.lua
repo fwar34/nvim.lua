@@ -2,14 +2,15 @@ local global = require('global')
 local futil = {mouse_help = '', mouse_g = ''}
 local vim = vim
 local api = vim.api
+local cmd = vim.cmd
 
 function futil.toggle_line_number()
     if vim.wo.number then
-        vim.cmd('set nonumber')
-        -- vim.cmd('set norelativenumber')
+        cmd('set nonumber')
+        -- cmd('set norelativenumber')
     else
-        vim.cmd('set number')
-        -- vim.cmd('set relativenumber')
+        cmd('set number')
+        -- cmd('set relativenumber')
         global.dump(vim.bo.filetype)
     end
 end
@@ -39,14 +40,14 @@ end
 
 function futil.make_fennel()
     local cur_pwd = vim.fn.getcwd()
-    vim.cmd('tcd ~/.config/nvim/lua/')
+    cmd('tcd ~/.config/nvim/lua/')
     vim.fn.execute('!make', '')
-    vim.cmd('tcd ' .. cur_pwd)
+    cmd('tcd ' .. cur_pwd)
 end
 
 function futil.search_word()
-    vim.cmd('normal ye')
-    vim.cmd('Ag ' .. vim.fn.getreg('0'))
+    cmd('normal ye')
+    cmd('Ag ' .. vim.fn.getreg('0'))
 end
 
 function futil.coc_status()
@@ -63,15 +64,15 @@ function futil.display_function()
     if mark_s[2] ~= cur_pos[2] then
         vim.fn.setpos("'X", cur_pos)
     end
-    -- vim.cmd('normal H')
+    -- cmd('normal H')
     -- get cursor info
     cur_pos = vim.fn.getcurpos()
     if mark_t[2] ~= cur_pos[2] then
         vim.fn.setpos("'Y", cur_pos)
     end
-    vim.cmd('normal `X[[k')
+    cmd('normal `X[[k')
     local func_name = vim.fn.getline('.')
-    vim.cmd("normal 'Yzt`X")
+    cmd("normal 'Yzt`X")
     print(func_name)
 end
 
@@ -93,7 +94,7 @@ end
 
 function futil.unmap(maps)
     for _, v in ipairs(maps) do
-        vim.cmd [[ unmap .. v ]]
+        cmd [[ unmap .. v ]]
         print("yyyyy")
     end
 end

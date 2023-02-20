@@ -1,4 +1,5 @@
 local M = {}
+local cmd = vim.cmd
 local function find_in_table(data)
     local dest = {'.svn', '.git', '.root', '.bzr', '_darcs', 'build.xml', 'pom.xml'}
     for _, v in ipairs(dest) do
@@ -24,17 +25,17 @@ function M.find_root_dir()
                 -- ['n|<Leader>ff'] = '<CMD>lua require("telescope.builtin").find_files({find_command = find_files_args,})<CR>',
                 -- require("telescope.builtin").find_files({cwd = dir, find_command = find_files_args,})
                 if dir ~= org_pwd then
-                    vim.cmd('cd ' .. org_pwd)
+                    cmd('cd ' .. org_pwd)
                 end
                 return dir
             end
         end
 
-        vim.cmd('cd ..')
+        cmd('cd ..')
         dir = vim.fn.getcwd()
     end
 
-    vim.cmd('cd ' .. org_pwd)
+    cmd('cd ' .. org_pwd)
     return dir
 end
 
