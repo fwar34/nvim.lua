@@ -48,13 +48,9 @@ return {
     'tpope/vim-eunuch',
     -- Profiling
     { 'dstein64/vim-startuptime' },
-    -- vim-multiple-cursors
     {
-        'terryma/vim-multiple-cursors',
-        config = function()
-            -- If set to 0, insert mappings won't be supported in Insert mode anymore.
-            vim.g.multi_cursor_support_imap = 0
-        end
+        -- vim-multiple-cursors
+        'mg979/vim-visual-multi',
     },
 
     -- Surround
@@ -88,7 +84,7 @@ return {
     },
 
     -- Improved Lua 5.3 syntax and indentation support for Vim.
-    { 'tbastos/vim-lua', ft = 'lua' },
+    -- { 'tbastos/vim-lua', ft = 'lua' },
 
     {
         'vim-python/python-syntax', ft = 'python',

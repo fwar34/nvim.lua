@@ -21,11 +21,11 @@ if exists(':GuiFont')
     " for neovim-qt
     " Guifont! JetBrains\ Mono:h13
     " Guifont! JetBrainsMono\ Nerd\ Font:h13
-    if $MYHOSTNAME == "FL-Notebook"
+    if hostname() == "FL-Notebook"
         Guifont! Iosevka\ Curly\ Slab:h18
-    elseif $MYHOSTNAME == "ubuntu-awesome"
+    elseif hostname() == "ubuntu-awesome"
         Guifont! JetBrainsMono\ Nerd\ Font:h16
-    elseif $MYHOSTNAME == "archlinux-dell"
+    elseif hostname() == "archlinux-dell"
         if $XDG_SESSION_TYPE == 'x11'
             Guifont! Sarasa\ Mono\ SC\ Nerd:h14
         else

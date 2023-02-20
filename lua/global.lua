@@ -56,7 +56,7 @@ function global:load_variables()
 	self.cache_dir = home .. path_sep .. '.cache' .. path_sep .. 'vim' .. path_sep
 	self.path_sep = path_sep
 	self.home = home
-    self.hostname = vim.loop.os_gethostname()
+    self.hostname = vim.loop.os_gethostname() -- vim.fn.hostname()
 	self.memory_enough = read_total_memory()
 end
 
