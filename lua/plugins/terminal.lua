@@ -9,7 +9,7 @@ return {
     --     init = function()
     --         -- Type Number. The transparency of the floating terminal. Only works in neovim.
     --         vim.g.floaterm_winblend = 8
-    --         if vim.env.MYHOSTNAME == 'ubuntu-work' then
+    --         if require('global').hostname == 'ubuntu-work' then
     --             vim.g.floaterm_width = 0.9
     --         else
     --             vim.g.floaterm_width = 0.7

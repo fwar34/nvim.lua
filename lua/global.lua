@@ -1,7 +1,6 @@
 -- https://github.com/glepnir/nvim/blob/master/lua/domain/global.lua
 
 local global = {}
-local hostname = os.getenv("MYHOSTNAME")
 local home = vim.env.HOME
 local path_sep = global.is_windows and '\\' or '/'
 

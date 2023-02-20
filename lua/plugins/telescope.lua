@@ -6,7 +6,7 @@ return {
         },
         config = function ()
             local use_devicons = function ()
-                if vim.env.MYHOSTNAME == 'ubuntu-work' then
+                if require('global').hostname == 'ubuntu-work' then
                     return false
                 else
                     return true

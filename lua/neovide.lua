@@ -1,4 +1,4 @@
-local env = vim.env
+local hostname = require('global').hostname
 
 local function setup()
     -- vim.g.neovide_cursor_trail_legnth = 0
@@ -14,14 +14,14 @@ local function setup()
     -- vim.g.neovide_cursor_vfx_mode = "ripple"
     vim.g.neovide_no_idle = true
     -- local hostname = require('global').hostname
-    if env.MYHOSTNAME == 'archlinux' then -- pve-archlinux
+    if hostname == 'archlinux' then -- pve-archlinux
         -- https://github.com/laishulu/Sarasa-Mono-SC-Nerd
         vim.opt.guifont = 'Sarasa Mono SC Nerd:h13'
         -- vim.o.guifont = "Jetbrains Mono"
         -- vim.o.guifont = 'Sarasa Mono SC Nerd'
-    elseif env.MYHOSTNAME == 'ubuntu-work' then -- work
+    elseif hostname == 'ubuntu-work' then -- work
         vim.opt.guifont = 'Sarasa Mono SC Nerd:h12'
-    elseif env.MYHOSTNAME == 'desktop-archlinux' then -- taishi-archlinux
+    elseif hostname == 'desktop-archlinux' then -- taishi-archlinux
         vim.opt.guifont = 'Sarasa Mono SC Nerd:h14'
     end
 
