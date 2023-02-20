@@ -1,8 +1,11 @@
 require('lsp.python')
 require('lsp.go')
 require('lsp.rust')
--- require('lsp.lua')
-require('lsp.lua_ls')
+if require('futil').is_windows() then
+    require('lsp.lua_ls')
+else
+    require('lsp.lua')
+end
 require('lsp.js')
 require('lsp.json')
 
