@@ -119,18 +119,12 @@ cmd('set selection=exclusive')
 cmd('set selectmode=mouse,key')
 -- 通过使用: commands命令，告诉我们文件的哪一行被改变过
 cmd('set report=0')
--- 光标移动到buffer的顶部和底部时保持3行距离
+-- 光标移动到buffer的顶部和底部时保持1行距离
 cmd('set scrolloff=1')
 cmd('set sidescrolloff=5')
 -- 设置环境保存项
--- 设置这个选项与 neovim-session-manager 冲突
--- cmd('set sessionoptions=blank,globals,localoptions,tabpages,folds,help,options,resize,winpos,winsize,unix,slash')
-cmd('set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winsize,winpos,localoptions,globals,options,resize,slash,unix')
+cmd('set sessionoptions=blank,buffers,curdir,folds,globals,help,localoptions,options,resize,tabpages,winpos,winsize')
 -- cmd('set number')
--- 允许折叠
-cmd('set foldenable')
--- 手动折叠
-cmd('set foldmethod=manual')
 -- Tab键的宽度
 -- cmd('set tabstop=4')
 -- 统一缩进为4
@@ -173,7 +167,7 @@ cmd('set formatoptions+=B')
 -- 允许代码折叠
 cmd('set foldenable')
 -- 代码折叠默认使用缩进
-cmd('set fdm=indent')
+cmd('set foldmethod=indent')
 -- 默认打开所有缩进
 cmd('set foldlevel=99')
 
