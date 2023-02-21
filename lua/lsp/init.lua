@@ -4,6 +4,9 @@ require('lsp.rust')
 require('lsp.lua_ls')
 require('lsp.js')
 require('lsp.json')
+if require('global').hostname ~= 'ubuntu-work' then
+    require('lsp.cpp')
+end
 
 local function setup()
     -- LSP handlers configuration
