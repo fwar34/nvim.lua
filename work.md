@@ -13,11 +13,11 @@
 
 ```cpp
 每个分组的信息
-#define DATA_CONTENT_USER_GROUP_INFO(OP) \
+#define DATA_CONTENT_BREAKOUT_ROOM_INFO(OP) \
     GROUP_ITEM(OP, uint32_t, id);        \
     GROUP_ITEM(OP, string, name);        \
     GROUP_ITEM(OP, string, extend);
-DefData(USER_GROUP_INFO);
+DefData(BREAKOUT_ROOM_INFO);
 
 每#define DATA_CONTENT_BREAKOUT_ROOM_USER_ITEM(OP)     \
     GROUP_ITEM(OP, uint32_t, userId);                  \
@@ -103,7 +103,7 @@ DefBMSCommand(BMS_CONF_SET_USER_BREAKOUT_ROOM)
     GROUP_ITEM(OP, uint32_t, confID);                                  \
     GROUP_ITEM(OP, uint32_t, userID);                                  \
     GROUP_ITEM(OP, uint32_t, userGroupId);                             \
-    GROUP_ITEM(OP,BREAKOUT_ROOM_USER_ITEM, user)
+    GROUP_ITEM(OP, BREAKOUT_ROOM_USER_ITEM, user)
 DefBMSCommand(BMS_CONF_USER_SET_USER_BREAKOUT_ROOM_NOTIFY)
 
 ```
@@ -167,11 +167,11 @@ cdts 处理对应逻辑
 
 ```cpp
 发送给 cdts
-#define DATA_CONTENT_AUDIO_USER_GROUP_STATE_TO_CDTS(OP)       \
-    GROUP_ITEM(OP, uint32_t, confID);                         \
-    GROUP_ITEM(OP, uint32_t, status);                         \ 打开：1，关闭：0
-    GROUP_ITEM(OP, vector<USER_GROUP_ITEM>, userGroupOfUser);
-DefAudioCommand(AUDIO_USER_GROUP_STATE_TO_CDTS)
+#define DATA_CONTENT_AUDIO_BREAKOUT_ROOM_STATE_TO_CDTS(OP)       \
+    GROUP_ITEM(OP, uint32_t, confID);                            \
+    GROUP_ITEM(OP, uint32_t, status);                            \ 打开：1，关闭：0
+    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, userGroupOfUser);
+DefAudioCommand(AUDIO_BREAKOUT_ROOM_STATE_TO_CDTS)
 ```
 
 + 加入分组/切换分组/退出分组
@@ -182,29 +182,38 @@ cdts 处理对应的逻辑
 
 ```cpp
 发送给 cdts
-#define DATA_CONTENT_AUDIO_USER_SUBSCRIBE_USER_GROUP_TO_CDTS(OP)    \
-    GROUP_ITEM(OP, uint32_t, confID);                               \
-    GROUP_ITEM(OP, vector<USER_GROUP_ITEM>, userGroupInfos);
-DefAudioCommand(AUDIO_USER_SUBSCRIBE_USER_GROUP_TO_CDTS)
+#define DATA_CONTENT_AUDIO_USER_BREAKOUT_ROOM_USERS_ITEM_STATE_TO_CDTS(OP)    \
+    GROUP_ITEM(OP, uint32_t, confID);                                         \
+    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, userGroupInfos);
+DefAudioCommand(AUDIO_USER_BREAKOUT_ROOM_USERS_ITEM_STATE_TO_CDTS) 
+```
+ 
++ 关闭分组
+```cpp
+发送给 cdts
+#define DATA_CONTENT_AUDIO_BREAKOUT_ROOMS_STOP_TO_CDTS(OP)    \
+    GROUP_ITEM(OP, uint32_t, confID);                         \
+    GROUP_ITEM(OP, uint32_t, userID);
+DefAudioCommand(AUDIO_BREAKOUT_ROOMS_STOP_TO_CDTS) 
 ```
 
 + 用户单独订阅某些组的声音(老师在主分组的时候可以指定听某些分组的声音)
 用户发送订阅请求给 audioserver
 audioserver 更新用户的订阅列表
-audisoerver 发送 `AUDIO_USER_SUBSCRIBE_USER_GROUP_TO_CDTS` 给 cdts
+audisoerver 发送 `AUDIO_USER_BREAKOUT_ROOM_USERS_ITEM_STATE_TO_CDTS` 给 cdts
 audioserver 应答订阅成功应答给请求者
 
 ```cpp
-#define DATA_CONTENT_AUDIO_USER_SUBSCRIBE_IN_USER_GROUP(OP)                   \
-    GROUP_ITEM(OP, uint32_t, confID);                                         \
+#define DATA_CONTENT_AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM(OP)                   \
+    GROUP_ITEM(OP, uint32_t, confID);                                            \
     GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, subscribeUserGroupInfos);
-DefBMSCommand(AUDIO_USER_SUBSCRIBE_IN_USER_GROUP)
+DefBMSCommand(AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM)
 
-#define DATA_CONTENT_AUDIO_USER_SUBSCRIBE_IN_USER_GROUP_NOTIFY(OP)            \
-    GROUP_ITEM(OP, uint32_t, statusCode);                                     \
-    GROUP_ITEM(OP, uint32_t, confID);                                         \
+#define DATA_CONTENT_AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM_NOTIFY(OP)            \
+    GROUP_ITEM(OP, uint32_t, statusCode);                                        \
+    GROUP_ITEM(OP, uint32_t, confID);                                            \
     GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, subscribeUserGroupInfos);
-DefBMSCommand(AUDIO_USER_SUBSCRIBE_IN_USER_GROUP_NOTIFY)
+DefBMSCommand(AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM_NOTIFY)
 -这个接口支持同时订阅多个组。
 ```
 
@@ -217,8 +226,4 @@ cdts 切换的时候需要从 redis 加载用户分组列表（或者从 audiose
 
 用户的分组信息和用户的音频订阅信息需要分开存储
 用户的分组信息 bms 来存储，用户的音频订阅信息 audioserver 来存储
-
-## 问题
-
-+ 分组开启的过程中能否再修改分组？
-
+用户的分组信息需要独立存储而且不能删除（因为主持人再次开启分组的时候需要编辑老的列表）
