@@ -5,10 +5,8 @@ return {
         config = function()
             require('nvim-treesitter.configs').setup {
                 ensure_installed = {
-                    'bash', 'c', 'cpp', 'lua', 'css', 'fennel', 'html', 'javascript', 'json', 'julia', 'go', 'java',
-                    'thrift',
-                    'commonlisp', 'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure', 'fennel',
-                    'org'
+                    'bash', 'c', 'cpp', 'lua', 'css', 'fennel', 'html', 'javascript', 'json', 'julia', 'go', 'java', 'thrift',
+                    'commonlisp', 'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure', 'fennel', 'org'
                 }, -- one of "all", "language", or a list of languages
                 highlight = {
                     enable = true, -- false will disable the whole extension
