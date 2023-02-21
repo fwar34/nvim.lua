@@ -76,7 +76,7 @@ api.nvim_create_user_command('SSave', function (argument)
     argument.args = argument.args ~= '' and argument.args or current_session
     session_save(argument.args)
     current_session = argument.args
-end, { nargs = '?', bang = true })
+end, { nargs = '?', bang = true, complete = session_complete })
 
 api.nvim_create_user_command('SDelete', function (argument)
     session_delete(argument.args)
