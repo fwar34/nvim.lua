@@ -1,5 +1,11 @@
 local cmd = vim.cmd
 return {
+    {
+        'williamboman/mason.nvim',
+        config = function()
+            require("mason").setup()
+        end
+    },
     -- Lsp
     'neovim/nvim-lspconfig',
     {
