@@ -2,7 +2,6 @@ local cmd = vim.cmd
 return {
     -- Lsp
     'neovim/nvim-lspconfig',
-    
     {
         'williamboman/nvim-lsp-installer',
         config = true
@@ -26,12 +25,13 @@ return {
         config = function()
             local has_words_before = function()
                 local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-                return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+                return col ~= 0 and
+                    vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
             end
             local luasnip = require("luasnip")
 
             -- Setup nvim-cmp.
-            local cmp = require'cmp'
+            local cmp = require 'cmp'
             cmp.setup({
                 snippet = {
                     -- REQUIRED - you must specify a snippet engine
@@ -43,7 +43,9 @@ return {
                     end,
                 },
 
-                mapping = {
+                mapping = cmp.mapping.preset.insert({
+                    ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
+                    ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Down
                     ["<Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_next_item()
@@ -101,7 +103,7 @@ return {
                             cmp.close()
                             -- cmd[[normal h]]
                             local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-                            vim.api.nvim_win_set_cursor(0, {row, col == 0 and 0 or col - 1})
+                            vim.api.nvim_win_set_cursor(0, { row, col == 0 and 0 or col - 1 })
                         else
                             fallback()
                         end
@@ -111,7 +113,7 @@ return {
                             cmp.close()
                             -- cmd[[normal l]]
                             local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-                            vim.api.nvim_win_set_cursor(0, {row, col + 1})
+                            vim.api.nvim_win_set_cursor(0, { row, col + 1 })
                         else
                             fallback()
                         end
@@ -119,11 +121,11 @@ return {
                     ['<C-e>'] = function(fallback)
                         if cmp.visible() then
                             cmp.close()
-                            cmd[[normal $]]
+                            cmd [[normal $]]
                             local position = vim.api.nvim_win_get_cursor(0)
                             -- local line, col = unpack(vim.api.nvim_win_get_cursor(0))
                             -- print(vim.inspect(position))
-                            vim.api.nvim_win_set_cursor(0, {position[1], position[2] + 1})
+                            vim.api.nvim_win_set_cursor(0, { position[1], position[2] + 1 })
                             -- local position = vim.api.nvim_win_get_cursor(0)
                             -- print(vim.inspect(position))
                         else
@@ -134,12 +136,12 @@ return {
                     ['<C-a>'] = function(fallback)
                         if cmp.visible() then
                             cmp.close()
-                            cmd[[normal ^]]
+                            cmd [[normal ^]]
                         else
                             fallback()
                         end
                     end,
-                },
+                }),
                 -- sources = cmp.config.sources({
                 -- 	{ name = 'buffer' },
                 -- { name = 'tags' },
@@ -165,11 +167,11 @@ return {
                     -- { name = 'snippy' }, -- For snippy users.
                     { name = 'path' },
                 },
-                {
-                    { name = 'buffer' },
-                    { name = 'tags' },
-                    { name = 'orgmode' }
-                }
+                    {
+                        { name = 'buffer' },
+                        { name = 'tags' },
+                        { name = 'orgmode' }
+                    }
                 )
             })
 
