@@ -2,8 +2,12 @@ local cmd = vim.cmd
 return {
     {
         -- lsp installer
-        'williamboman/mason.nvim',
-        config = true
+        'williamboman/mason-lspconfig.nvim',
+        dependencies = { 'williamboman/mason.nvim' },
+        config = function ()
+            require('mason').setup()
+            require('mason-lspconfig').setup()
+        end
     },
     -- Lsp
     'neovim/nvim-lspconfig',
