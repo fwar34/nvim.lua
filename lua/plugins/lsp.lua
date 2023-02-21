@@ -1,18 +1,12 @@
 local cmd = vim.cmd
 return {
     {
+        -- lsp installer
         'williamboman/mason.nvim',
-        config = function()
-            require("mason").setup()
-        end
+        config = true
     },
     -- Lsp
     'neovim/nvim-lspconfig',
-    {
-        'williamboman/nvim-lsp-installer',
-        config = true
-    },
-
     {
         'quangnguyen30192/cmp-nvim-tags',
         -- if you want the sources is available for some file types
