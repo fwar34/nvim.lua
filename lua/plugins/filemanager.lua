@@ -6,9 +6,10 @@ return {
     {
         'kyazdani42/nvim-tree.lua',
         version = 'nightly', -- optional, updated every week. (see issue #1193)
+        cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle' },
         keys = {
-            {'<Leader>tt', '<CMD>NvimTreeToggle<CR>', 'nvim tree toggle'},
-            {'<Leader>tf', '<CMD>NvimTreeFindFileToggle<CR>', 'nvim tree find file toggle'},
+            { '<Leader>tt', '<CMD>NvimTreeToggle<CR>', 'nvim tree toggle' },
+            { '<Leader>tf', '<CMD>NvimTreeFindFileToggle<CR>', 'nvim tree find file toggle' },
         },
         config = function()
             -- require("nvim-tree").setup()
@@ -49,11 +50,11 @@ return {
             -- end
             -- Map Rnvimr action
             vim.g.rnvimr_action = {
-                [ '<C-t>' ] = 'NvimEdit tabedit',
-                [ '<C-x>' ] = 'NvimEdit split',
-                [ '<C-v>' ] = 'NvimEdit vsplit',
-                [ 'gw' ] = 'JumpNvimCwd',
-                [ 'yw' ] = 'EmitRangerCwd',
+                ['<C-t>'] = 'NvimEdit tabedit',
+                ['<C-x>'] = 'NvimEdit split',
+                ['<C-v>'] = 'NvimEdit vsplit',
+                ['gw'] = 'JumpNvimCwd',
+                ['yw'] = 'EmitRangerCwd',
             }
         end,
         enabled = not is_windows

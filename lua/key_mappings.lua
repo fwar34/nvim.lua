@@ -178,7 +178,7 @@ function key_mappings:start()
             else
                 cmd('e ~/.config/nvim/lua/plugins/basic.lua')
             end
-        end
+        end,
     }
 
     self.visual = {

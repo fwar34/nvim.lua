@@ -28,6 +28,9 @@ return {
                 {
                     ['<leader>lz'] = { act = ck.cmd 'Lazy', desc = 'Lazy'}
                 },
+                {
+                    ['<leader>tz'] = { act = ck.cmd 'Telescope lazy', desc = 'Telescope lazy'}
+                },
 
                 -- structure your keymaps as a tree and define which-key prefixes
                 -- ["<leader>t"] = {
