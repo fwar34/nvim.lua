@@ -331,16 +331,31 @@ return {
         -- code runner
         'CRAG666/code_runner.nvim', dependencies = 'nvim-lua/plenary.nvim',
         config = function()
-            require('code_runner').setup({
-                -- put here the commands by filetype
-                filetype = {
-                    java = "cd $dir && javac $fileName && java $fileNameWithoutExt",
-                    python = "python3 -u",
-                    typescript = "deno run",
-                    rust = "cd $dir && rustc $fileName && $dir/$fileNameWithoutExt",
-                    cpp = "cd $dir && g++ -o $fileNameWithoutExt $fileName -lpthread && $dir/$fileNameWithoutExt"
-                },
-            })
+            if is_windows then
+                require('code_runner').setup({
+                    -- put here the commands by filetype
+                    filetype = {
+                        java = "javac $fileName; if ($?) {java $fileNameWithoutExt}",
+                        python = "python3 -u",
+                        typescript = "deno run",
+                        javascript = "node run",
+                        rust = "rustc $fileName; if ($?) {./$fileNameWithoutExt}",
+                        cpp = "g++ -o $fileNameWithoutExt $fileName -lpthread ; if ($?) {./$fileNameWithoutExt}"
+                    },
+                })
+            else
+                require('code_runner').setup({
+                    -- put here the commands by filetype
+                    filetype = {
+                        java = "cd $dir && javac $fileName && java $fileNameWithoutExt",
+                        python = "python3 -u",
+                        typescript = "deno run",
+                        javascript = "node run",
+                        rust = "cd $dir && rustc $fileName && ./$fileNameWithoutExt",
+                        cpp = "cd $dir && g++ -o $fileNameWithoutExt $fileName -lpthread && ./$fileNameWithoutExt"
+                    },
+                })
+            end
         end,
         cmd = { 'RunCode', 'RunFile' }
     },

@@ -4,7 +4,7 @@ require('lsp.rust')
 require('lsp.lua_ls')
 require('lsp.js')
 require('lsp.json')
-if require('global').hostname ~= 'ubuntu-work' and not vim.fn.has('win32') then
+if require('global').hostname ~= 'ubuntu-work' then
     require('lsp.cpp')
 end
 
