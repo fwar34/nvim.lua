@@ -5,6 +5,7 @@ local cmd = vim.cmd
 local futil = require('futil')
 local telescope = require('telescope')
 local tbuiltin = require('telescope.builtin')
+local is_windows = require('global').is_windows
 
 local key_mappings = {}
 local key_map = {}
@@ -38,18 +39,10 @@ local function create_keymap(key, value)
         else
             keymap.rhs = value[1]
         end
-
-        if value['noremap'] ~= nil then
-            keymap.options.noremap = value['noremap']
-        end
-
-        if value['silent'] ~= nil then
-            keymap.options.silent = value['silent']
-        end
-
-        if value['expr'] ~= nil then
-            keymap.options.expr = value['expr']
-        end
+        keymap.options.noremap = value['noremap']
+        keymap.options.silent = value['silent']
+        keymap.options.expr = value['expr']
+        keymap.options.desc = value['desc']
     elseif (type(value) == 'function') then
         keymap.options.callback = value
     else
@@ -70,7 +63,7 @@ function key_mappings:process_keys()
     end
 end
 
-function rg_options()
+local function rg_options()
     -- return { "--glob !tags", "--glob !nvim/snippets/**", }
     return {
         "--iglob",
@@ -102,68 +95,65 @@ function _G.move_cursor(direction)
     else
         col = cursor[2] + 1
     end
-    api.nvim_win_set_cursor(0, {cursor[1], col})
+    api.nvim_win_set_cursor(0, { cursor[1], col })
 end
 
 local find_files_args = {
     "rg", "--ignore",
     "--hidden", "--files",
-    "--iglob","!*.svn",
-    "--iglob","!*.git",
-    "--iglob","!*.deps",
-    "--iglob","!*.o",
-    "--iglob","!*.a",
-    "--iglob","!*.pyc",
-    "--iglob","!*.lo",
-    "--iglob","!*.libs",
-    "--iglob","!*.la",
-    "--iglob","!*.sln",
-    "--iglob","!*.vcproj",
-    "--iglob","!*.tags",
-    "--iglob","!debian/tmp/",
+    "--iglob", "!*.svn",
+    "--iglob", "!*.git",
+    "--iglob", "!*.deps",
+    "--iglob", "!*.o",
+    "--iglob", "!*.a",
+    "--iglob", "!*.pyc",
+    "--iglob", "!*.lo",
+    "--iglob", "!*.libs",
+    "--iglob", "!*.la",
+    "--iglob", "!*.sln",
+    "--iglob", "!*.vcproj",
+    "--iglob", "!*.tags",
+    "--iglob", "!debian/tmp/",
 }
 
 function key_mappings:start()
     self.normal = {
         ['n|<Leader>zz'] = '<CMD>w<CR>',
         ['n|<Leader>fd'] = '<CMD>echo expand("%:p")<CR>',
-        ['n|<Leader>a'] = '^',
-        ['n|<Leader>e'] = '$',
+        ['n|<Leader>a'] = { '^', desc = 'first no blank column' },
+        ['n|<Leader>e'] = { '$', desc = 'end of line' },
         ['n|<Leader>xx'] = '<CMD>nohl<CR><CMD>Hi //<CR><CMD>Hi :clear<CR>',
         ['n|<Leader><TAB>'] = '<C-w><C-w>',
-        ['n|<Leader>do'] = '<CMD>on<CR>',
+        ['n|<Leader>do'] = { '<CMD>on<CR>', desc = 'delete other windows' },
         ['n|<Leader>dm'] = '<CMD>delmarks!<CR>',
-        ['n|<Leader>kb'] = function ()
-            api.nvim_buf_delete(0, {})
-        end,
-        ['n|<Space><Space>'] = function ()
-            vim.api.nvim_input(':')
-        end,
-        ['n|<Leader>bb'] = '<C-^>',
-        ['n|<LocalLeader>lm'] = function() futil.toggle_line_number() end,
+        ['n|<Leader>kb'] = { function() api.nvim_buf_delete(0, {}) end, desc = 'delete buffer' },
+        ['n|<Space><Space>'] = function() vim.api.nvim_input(':') end,
+        ['n|<Leader>bb'] = { '<C-^>', desc = 'last buffer' },
+        ['n|<LocalLeader>lm'] = { function() futil.toggle_line_number() end, desc = 'toggle line number' },
         ['n|<LocalLeader>qq'] = '<CMD>q<CR>',
         ['n|<LocalLeader>qa'] = '<CMD>qa<CR>',
         -- ['n|Y'] = 'y$', -- nvim 0.6 builtin
-        ['n|<F12>'] = function() futil.toggle_mouse() end,
-        ['n|<Leader>ia'] = 'm`A;<Esc>``',
-        ['n|<Leader>yy'] = "m`y'a``",
-        ['n|<Leader>dd'] = "d'a",
-        ['n|<Leader>qf'] = '<CMD>copen<CR>',
-        ['n|<Leader>mf'] = function() futil.make_fennel() end,
-        ['n|<LocalLeader>fn'] = function() futil.find_previous_brace_in_first_column() end,
-        ['n|<LocalLeader>do'] = function() futil.delete_buffers(true) end,
+        ['n|<F12>'] = { function() futil.toggle_mouse() end, desc = 'toggle mouse' },
+        ['n|<Leader>ia'] = { 'm`A;<Esc>``', desc = 'insert `;` at end of line' },
+        ['n|<Leader>yy'] = { "m`y'a``", desc = 'copy from mark `a` to current line' },
+        ['n|<Leader>dd'] = { "d'a", desc = 'delete from mark `a` to current line' },
+        ['n|<Leader>qf'] = { '<CMD>copen<CR>', desc = 'open quickfix window' },
+        ['n|<Leader>mf'] = { function() futil.make_fennel() end, desc = 'make fennel' },
+        ['n|<LocalLeader>fn'] = { function() futil.find_previous_brace_in_first_column() end,
+            desc = 'find previous brace in first column' },
+        ['n|<LocalLeader>do'] = { function() futil.delete_buffers(true) end, desc = 'delete other buffers' },
         ['n|<C-g>'] = '<C-c>',
-        ['n|<Leader>md'] = '<CMD>m .+1<CR>', -- current line move up
-        ['n|<Leader>mu'] = '<CMD>m .-2<CR>', -- current line move down
+        ['n|<Leader>md'] = { '<CMD>m .+1<CR>', desc = 'current line move up' },
+        ['n|<Leader>mu'] = { '<CMD>m .-2<CR>', desc = 'current line move down' },
         ['n|<Leader>mm'] = '%',
         ['n|<Leader>lf'] = '<CMD>luafile %<CR>',
         ['n|ge'] = 'G',
-        ['n|<Leader>qr'] = function() require('quickrun').run() end,
+        ['n|<Leader>qr'] = { function() require('quickrun').run() end, desc = 'quickrun' },
         ['n|<Leader>qt'] = '<CMD>AsyncStop<CR>',
         ['n|<Leader>x2'] = '<CMD>split<CR>',
         ['n|<Leader>x3'] = '<CMD>vsplit<CR>',
-        ['n|<LocalLeader>j'] = '<c-w>w3<c-e><c-w>w',
-        ['n|<LocalLeader>k'] = '<c-w>w3<c-y><c-w>w',
+        ['n|<LocalLeader>j'] = { '<c-w>w3<c-e><c-w>w', desc = 'scroll other window down' },
+        ['n|<LocalLeader>k'] = { '<c-w>w3<c-y><c-w>w', desc = 'scroll other window up' },
         -- help motion.txt
         -- If your '{' or '}' are not in the first column, and you would like to use "[["
         -- and "]]" anyway, try these mappings: >
@@ -172,13 +162,13 @@ function key_mappings:start()
         -- ['n|]]'] = {'j0[[%/{<CR>'},
         -- ['n|[]'] = {'k$][%?}<CR>'},
         -- ['n|<Leader>cs'] = '<CMD>lua require("mylib").
-        ['n|<Leader>se'] = function ()
+        ['n|<Leader>se'] = { function()
             if require('global').is_windows then
                 cmd('e ~/AppData/Local/nvim/lua/plugins/basic.lua')
             else
                 cmd('e ~/.config/nvim/lua/plugins/basic.lua')
             end
-        end,
+        end, desc = 'open basic.lua' },
     }
 
     self.visual = {
@@ -216,10 +206,10 @@ function key_mappings:start()
     self.command = {
         ['c|<C-g>'] = '<C-c>',
         -- 下面的四个必须有 silent，不能在echo中显示东西
-        ['c|<C-a>'] = {'<Home>', silent = false},
-        ['c|<C-e>'] = {'<End>', silent = false},
-        ['c|<C-b>'] = {'<Left>', silent = false},
-        ['c|<C-f>'] = {'<Right>', silent = false},
+        ['c|<C-a>'] = { '<Home>', silent = false },
+        ['c|<C-e>'] = { '<End>', silent = false },
+        ['c|<C-b>'] = { '<Left>', silent = false },
+        ['c|<C-f>'] = { '<Right>', silent = false },
     }
 
     -- fzf.vim key mappings
@@ -308,17 +298,49 @@ function key_mappings:start()
         ['n|<Leader>cd'] = '<CMD>Telescope commands<CR>',
         ['n|<Leader>ch'] = '<CMD>Telescope command_history<CR>',
         ['n|<Leader>sh'] = '<CMD>Telescope search_history<CR>',
-        ['n|<Leader>fr'] = function() tbuiltin.live_grep({additional_args = rg_options}) end,
-        ['n|<Leader>fa'] = function() telescope.extensions.live_grep_args.live_grep_args({additional_args = rg_options}) end,
-        ['n|<Leader>ff'] = function() tbuiltin.find_files({find_command = find_files_args,}) end,
-        ['n|<Leader>pf'] = function() tbuiltin.find_files({cwd = require("find_root_dir").find_root_dir(), find_command = find_files_args,}) end,
-        ['n|<Leader>cf'] = function() tbuiltin.find_files({cwd = '~/.config/nvim/lua', find_command = find_files_args,}) end,
-        ['n|<Leader>fh'] = function() tbuiltin.find_files({cwd = '~'}) end,
-        ['n|<Leader>fw'] = function() tbuiltin.grep_string({additional_args = rg_options}) end,
-        ['n|<Leader>fs'] = function() tbuiltin.grep_string({search = search_word2()}) end,
+        ['n|<Leader>fr'] = {
+            function()
+                tbuiltin.live_grep({ additional_args = rg_options })
+            end,
+            desc = 'telescope live_grep'
+        },
+        ['n|<Leader>fa'] = {
+            function()
+                telescope.extensions.live_grep_args.live_grep_args({ additional_args = rg_options })
+            end,
+            desc = 'telescope live_grep with options'
+        },
+        ['n|<Leader>ff'] = {
+            function()
+                tbuiltin.find_files({ find_command = find_files_args, })
+            end,
+            desc = 'telescope find_files with options'
+        },
+        ['n|<Leader>pf'] = {
+            function()
+                tbuiltin.find_files({ cwd = require("find_root_dir").find_root_dir(), find_command = find_files_args, })
+            end,
+            desc = 'find home directory'
+        },
+        ['n|<Leader>cf'] = {
+            function()
+                tbuiltin.find_files({ cwd = is_windows and '~/AppData/Local/nvim/lua' or
+                    '~/.config/nvim/lua', find_command = find_files_args, })
+            end,
+            desc = 'open nvim config lua directory'
+        },
+        ['n|<Leader>fh'] = { function() tbuiltin.find_files({ cwd = '~' }) end, desc = 'find_files in home directory' },
+        ['n|<Leader>fw'] = {
+            function() tbuiltin.grep_string({ additional_args = rg_options }) end,
+            desc = 'find word under cursor'
+        },
+        ['n|<Leader>fs'] = {
+            function() tbuiltin.grep_string({ search = search_word2() }) end,
+            desc = 'find string from cursor to word end'
+        },
         -- ['n|<Leader>fp'] = "<CMD>lua require'telescope'.extensions.project.project{}<CR>",
         ['n|<Leader>fp'] = "<CMD>Telescope projects<CR>",
-        ['n|<Leader>pc'] = function() telescope.extensions.packer.packer() end,
+        -- ['n|<Leader>pc'] = function() telescope.extensions.packer.packer() end,
         -- ['n|<Leader>fs'] = '<CMD>lua require("mylib")["search_word"]()<CR>',
         -- ['n|<Leader>ii'] = '<CMD>Clap function<CR>',
         ['n|<Leader>gf'] = '<CMD>Telescope git_files<CR>',
@@ -405,8 +427,8 @@ function key_mappings:start()
         ['n|<LocalLeader>df'] = '<CMD>SignifyDiff<CR>',
         ['n|<LocalLeader>du'] = '<CMD>SignifyHunkDiff<CR>',
         ['n|<LocalLeader>dr'] = '<CMD>SignifyHunkUndo<CR>',
-        ['n|<LocalLeader>dn'] = {'<plug>(signify-next-hunk)', noremap = false}, -- must noremap = false
-        ['n|<LocalLeader>dp'] = {'<plug>(signify-prev-hunk)', noremap = false}, -- must noremap = false
+        ['n|<LocalLeader>dn'] = { '<plug>(signify-next-hunk)', noremap = false }, -- must noremap = false
+        ['n|<LocalLeader>dp'] = { '<plug>(signify-prev-hunk)', noremap = false }, -- must noremap = false
     }
 
     -- vim-youdao-translater
@@ -435,10 +457,10 @@ function key_mappings:start()
 
     -- vim-easymotion
     self.easy_motion = {
-        ['n|<Leader>ms'] = {"<Plug>(easymotion-s2)", noremap = false},
-        ['n|<Leader>mr'] = {"<Plug>(easymotion-repeat)", noremap = false},
+        ['n|<Leader>ms'] = { "<Plug>(easymotion-s2)", noremap = false },
+        ['n|<Leader>mr'] = { "<Plug>(easymotion-repeat)", noremap = false },
         --  s{char}{char} to move to {char}{char}
-        ['n|s'] = {"<Plug>(easymotion-overwin-f2)"},
+        ['n|s'] = { "<Plug>(easymotion-overwin-f2)" },
     }
 
     -- vim-fswitch
@@ -461,13 +483,9 @@ function key_mappings:start()
     -- }
 
     self.sessionmgr = {
-        ['n|<LocalLeader>ww'] = function ()
-            vim.api.nvim_input(':SLoad ')
-        end,
-        ['n|<LocalLeader>ws'] = function ()
-            vim.api.nvim_input(':SSave ')
-        end,
-        ['n|<LocalLeader>bb'] = '<CMD>SPrevious<CR>',
+        ['n|<LocalLeader>ww'] = { function() vim.api.nvim_input(':SLoad ') end, desc = 'Load session' },
+        ['n|<LocalLeader>ws'] = { function() vim.api.nvim_input(':SSave ') end, desc = 'Save session' },
+        ['n|<LocalLeader>bb'] = { '<CMD>SPrevious<CR>', desc = 'Last session' },
     }
 
     -- session-lens
@@ -514,20 +532,20 @@ function key_mappings:start()
     }
 
     -- lsp-config
-    self.lsp_config = {
-        ['n|<LocalLeader>=='] = function()
-            if vim.lsp.buf.format then
-                vim.lsp.buf.format {async = true}
-            else
-                vim.lsp.buf.formatting()
-            end
-        end,
-        ['n|<LocalLeader>ca'] = function() vim.lsp.buf.code_action() end,
-        ['n|<LocalLeader>D'] = function() vim.lsp.buf.type_definition() end,
-        ['n|<LocalLeader>wa'] = function() vim.lsp.buf.add_workspace_folder() end,
-        ['n|<LocalLeader>wr'] = function() vim.lsp.buf.remove_workspace_folder() end,
-        ['n|<LocalLeader>wl'] = function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
-    }
+    -- self.lsp_config = {
+    --     ['n|<LocalLeader>=='] = function()
+    --         if vim.lsp.buf.format then
+    --             vim.lsp.buf.format {async = true}
+    --         else
+    --             vim.lsp.buf.formatting()
+    --         end
+    --     end,
+    --     ['n|<LocalLeader>ca'] = function() vim.lsp.buf.code_action() end,
+    --     ['n|<LocalLeader>D'] = function() vim.lsp.buf.type_definition() end,
+    --     ['n|<LocalLeader>wa'] = function() vim.lsp.buf.add_workspace_folder() end,
+    --     ['n|<LocalLeader>wr'] = function() vim.lsp.buf.remove_workspace_folder() end,
+    --     ['n|<LocalLeader>wl'] = function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
+    -- }
 
     -- trouble.nvim
     self.trouble_nvim = {
@@ -543,7 +561,6 @@ function key_mappings:start()
 
     self:process_keys()
 end
-
 
 function key_mappings.setup()
     key_mappings:start()
