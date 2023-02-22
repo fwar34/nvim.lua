@@ -162,13 +162,13 @@ audioserver 将主分组里面说话的声音继续使用 `JOIN_MIXER` 通知到
 
 ```cpp
 发送给 cdts
-#define DATA_CONTENT_BreatoutRoomUserInfo(OP)                       \
+#define DATA_CONTENT_BreatoutRoomUserInfo(OP)                   \
     GROUP_ITEM(OP, uint32_t, userID);                           \
     GROUP_ITEM(OP, uint32_t, privilege);                        \     cdts 来控制是否转发静音数据
     GROUP_ITEM(OP, ChannelID, dtsChannelID);                    \
 DefData(BreakoutRoomUserInfo);
 
-#define DATA_CONTENT_BreakoutRoomInfo(OP)                     \
+#define DATA_CONTENT_BreakoutRoomInfo(OP)                       \
     GROUP_ITEM(OP, uint32_t, roomID);                           \
     GROUP_ITEM(OP, vector<BreakoutRoomUserInfo>, userInfos);
 DefData(BreakoutRoomInfo);
@@ -290,7 +290,9 @@ cdts 切换的时候需要从 redis 加载用户分组列表（或者从 audiose
 用户的分组信息 bms 来存储，用户的音频订阅信息 audioserver 来存储
 用户的分组信息需要独立存储而且不能删除（因为主持人再次开启分组的时候需要编辑老的列表）
 800 用户需要跟随主持人进去的分组，需要客户端使用 `AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM` 来控制
+老的 mixer join 使用 `AUDIO_BREAKOUT_ROOM_STATE_TO_CDTS` 通知 mixer
 
 ## 问题
 用户静音的时候组内客户端混音，privilege 需要设置么，组内音频图标的显示依据什么信令
 添加一个客户端通知录制哪个分组的信令
+
