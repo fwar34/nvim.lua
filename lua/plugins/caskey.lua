@@ -156,6 +156,13 @@ return {
                             desc = 'markdown preview toggle'
                         }
                     }
+                },
+                {
+                    name = 'vim-highlighter',
+                    ['<leader>s'] = {
+                        s = { act = ck.cmd 'Hi save save.hl', desc = 'Hi save save.hl' },
+                        l = { act = ck.cmd 'Hi load save.hl', desc = 'Hi load save.hl' }
+                    }
                 }
             })
         end
