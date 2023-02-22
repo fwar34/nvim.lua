@@ -9,24 +9,25 @@
 2. 用户的分组信息的保存，两种方案
    + 保存在用户的 customStr 中，此方案下可以不用添加获取组信息的信令，获取的用户列表中就包含了用户所属分组的信息，但是和别的逻辑有冲突风险
    + 用户新添加字段来保存分组信息，此方案下则需要调用获取用户信息去获取会议中用户(可以是所有的用户也可以是指定分组用户)的分组信息
-3. 主分组 id 为 0
+3. 主分组 id 为 300
 
 ```cpp
 每个分组的信息
 #define DATA_CONTENT_BREAKOUT_ROOM_INFO(OP) \
-    GROUP_ITEM(OP, uint32_t, id);        \
-    GROUP_ITEM(OP, string, name);        \
+    GROUP_ITEM(OP, uint32_t, id);           \
+    GROUP_ITEM(OP, string, name);           \
+    GROUP_ITEM(OP, uint32_t, mixeMode);     \   change: 服务器混音还是客户端混音
     GROUP_ITEM(OP, string, extend);
 DefData(BREAKOUT_ROOM_INFO);
 
-每#define DATA_CONTENT_BREAKOUT_ROOM_USER_ITEM(OP)     \
+#define DATA_CONTENT_BREAKOUT_ROOM_USER_ITEM(OP)       \
     GROUP_ITEM(OP, uint32_t, userId);                  \
     GROUP_ITEM(OP, uint32_t, userUmsId);               \
-    GROUP_ITEM(OP, uint32_t, userPresetRoomId);        \ — 用户需要加入的组
+    GROUP_ITEM(OP, uint32_t, userPresetRoomId);        \ — 用户需要加入的组 300 主分组
     GROUP_ITEM(OP, uint32_t, userCurrentRoomId);       \ — 用户当前真正加入的分组
     GROUP_ITEM(OP, uint32_t, privilege);               \ 用户在 userGroupId 中的权限, 可听：0x01 可说: 0x02
     GROUP_ITEM(OP, string, extend);
-DefData(BREAKOUT_ROOM_USER_ITEM);个用户所在的分组信息
+DefData(BREAKOUT_ROOM_USER_ITEM);                        每个用户所在的分组信息
 ```
 
 ## 服务器与客户端交互信令
@@ -85,7 +86,7 @@ DefBMSCommand(BMS_CONF_GET_BREAKOUT_ROOMS_LIST_NOTIFY)
 ```
 
 + 加入分组/切换分组/退出分组 (用户加入某个分组默认就订阅此分组的声音)
-会中客户端拿到分组信息后发送设置分组请求到 bms (userGroupId: 退出分组->0，加入分组/切换分组->分组id)
+会中客户端拿到分组信息后发送设置分组请求到 bms (roomid: 退出分组->0，加入分组/切换分组->分组id)
 bms 找到对应客户端用户对象，设置分组信息
 bms 发送用户设置分组通知给 audioserver
 bms 广播设置分组成功应答
@@ -93,16 +94,12 @@ bms 广播设置分组成功应答
 ```cpp
 #define DATA_CONTENT_BMS_CONF_SET_USER_BREAKOUT_ROOM(OP)     \
     GROUP_ITEM(OP, uint32_t, confID);                        \
-    GROUP_ITEM(OP, uint32_t, userID);                        \
-    GROUP_ITEM(OP, uint32_t, userGroupId);                   \
-    GROUP_ITEM(OP,BREAKOUT_ROOM_USER_ITEM, user)
+    GROUP_ITEM(OP, BREAKOUT_ROOM_USER_ITEM, user)
 DefBMSCommand(BMS_CONF_SET_USER_BREAKOUT_ROOM)
 
 #define DATA_CONTENT_BMS_CONF_USER_SET_USER_BREAKOUT_ROOM_NOTIFY(OP)   \
     GROUP_ITEM(OP, uint32_t, statusCode);                              \
-    GROUP_ITEM(OP, uint32_t, confID);                                  \
-    GROUP_ITEM(OP, uint32_t, userID);                                  \
-    GROUP_ITEM(OP, uint32_t, userGroupId);                             \
+    GROUP_ITEM(OP, uint32_t, confID);
     GROUP_ITEM(OP, BREAKOUT_ROOM_USER_ITEM, user)
 DefBMSCommand(BMS_CONF_USER_SET_USER_BREAKOUT_ROOM_NOTIFY)
 
@@ -160,61 +157,126 @@ audioserver 将主分组里面说话的声音继续使用 `JOIN_MIXER` 通知到
 ## audio
 
 + 打开/关闭分组
-audioserver 收到 bms 发送的关闭分组通知
-audioserver 清除分组信息
-audioserver 发送关闭分组通知给 cdts
-cdts 处理对应逻辑
+1. 服务器混音的 breakout rooms 需要给 cdts 和 mixer（通知 mixer 的用户是在 breakout room 中可说的用户列表，现阶段可能所有的用户都是可听可说的） 都通知
+2. 客户端混音的 breakout rooms 只需要给 cdts 通知
 
 ```cpp
 发送给 cdts
-#define DATA_CONTENT_AUDIO_BREAKOUT_ROOM_STATE_TO_CDTS(OP)       \
-    GROUP_ITEM(OP, uint32_t, confID);                            \
-    GROUP_ITEM(OP, uint32_t, status);                            \ 打开：1，关闭：0
-    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, userGroupOfUser);
-DefAudioCommand(AUDIO_BREAKOUT_ROOM_STATE_TO_CDTS)
+#define DATA_CONTENT_BreatoutRoomUserInfo(OP)                       \
+    GROUP_ITEM(OP, uint32_t, userID);                           \
+    GROUP_ITEM(OP, uint32_t, privilege);                        \     cdts 来控制是否转发静音数据
+    GROUP_ITEM(OP, ChannelID, dtsChannelID);                    \
+DefData(BreakoutRoomUserInfo);
+
+#define DATA_CONTENT_BreakoutRoomInfo(OP)                     \
+    GROUP_ITEM(OP, uint32_t, roomID);                           \
+    GROUP_ITEM(OP, vector<BreakoutRoomUserInfo>, userInfos);
+DefData(BreakoutRoomInfo);
+
+#define DATA_CONTENT_AUDIO_BREAKOUT_ROOM_STATE_TO_CDTS(OP)              \
+    GROUP_ITEM(OP, ConfID, confID);                                     \
+    GROUP_ITEM(OP, uint32_t, status);                                   \ 打开：1，关闭：0
+    GROUP_ITEM(OP, vector<BreakoutRoomInfo>, roomInfos);
+DefPhoneCommand(AUDIO_BREAKOUT_ROOM_STATE_TO_CDTS);
+
+发送给 mixer
+#define DATA_CONTENT_AudioConfig_mixer_info(OP)     \
+    GROUP_ITEM(OP, UserID, user);                   \
+    GROUP_ITEM(OP, UINT32_t, privilege);            \     发送给 mixer 的都是可说的用户，所以此字段可以不用
+    GROUP_ITEM(OP, ChannelID, dtsChannelID);        \
+    GROUP_ITEM(OP, AudioConfig, config);            \
+    GROUP_ITEM(OP, UINT16_t, clientType);           \
+    GROUP_ITEM(OP, UINT16_t, role);                 \
+DefData(AudioConfig_mixer_info);
+
+#define DATA_CONTENT_BreakoutRoomUserInfoMixer(OP)              \
+    GROUP_ITEM(OP, UINT32_t, roomID);                           \
+    GROUP_ITEM(OP, vector<AudioConfig_mixer_info>, userInfos);
+DefData(BreakoutRoomUserInfoMixer);
+
+#define DATA_CONTENT_AUDIO_BREAKOUT_ROOM_STATE_TO_MIXER(OP)             \
+    GROUP_ITEM(OP, uint32_t, confID);                                   \
+    GROUP_ITEM(OP, uint32_t, status);                                   \ 打开：1，关闭：0
+    GROUP_ITEM(OP, vector<AudioConfig_mixer_info>, roomInfos);
+DefAudioCommand(AUDIO_BREAKOUT_ROOM_STATE_TO_MIXER)
 ```
 
-+ 加入分组/切换分组/退出分组
-audioserver 收到 bms 发送的用户设置分组通知
-audioserver 设置对应用户对象的分组信息
-audioserver 发送用户设置分组通知给 cdts
-cdts 处理对应的逻辑
++ 用户单独订阅某些组的声音(老师在主分组的时候可以指定听某些分组的声音，后续要改变用户在目标组的权限也是用此接口通知 cdts)
 
+1. 会中用户订阅新的语音的时候判断订阅的目标 breakout rooms 是服务器混音并且用户需要在目标 breakout rooms 中说话的时候通知 mixer，否则就只通知 cdts
 ```cpp
-发送给 cdts
-#define DATA_CONTENT_AUDIO_USER_BREAKOUT_ROOM_USERS_ITEM_STATE_TO_CDTS(OP)    \
-    GROUP_ITEM(OP, uint32_t, confID);                                         \
-    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, userGroupInfos);
-DefAudioCommand(AUDIO_USER_BREAKOUT_ROOM_USERS_ITEM_STATE_TO_CDTS) 
-```
- 
-+ 关闭分组
-```cpp
-发送给 cdts
-#define DATA_CONTENT_AUDIO_BREAKOUT_ROOMS_STOP_TO_CDTS(OP)    \
-    GROUP_ITEM(OP, uint32_t, confID);                         \
-    GROUP_ITEM(OP, uint32_t, userID);
-DefAudioCommand(AUDIO_BREAKOUT_ROOMS_STOP_TO_CDTS) 
-```
+此接口客户端使用，支持同时订阅多个组
+#define DATA_CONTENT_UserAudioSubscribeInfo(OP)     \
+    GROUP_ITEM(OP, UserID, roomID);                 \
+    GROUP_ITEM(OP, UINT32_t, privilege);            \     对录制的服务器混音来控制此用户是否需要混音输出的数据，可听或者可说（mixer 判断用户可说则加入混音引擎）
+DefData(BreakoutRoomSubscribeInfo);
 
-+ 用户单独订阅某些组的声音(老师在主分组的时候可以指定听某些分组的声音)
-用户发送订阅请求给 audioserver
-audioserver 更新用户的订阅列表
-audisoerver 发送 `AUDIO_USER_BREAKOUT_ROOM_USERS_ITEM_STATE_TO_CDTS` 给 cdts
-audioserver 应答订阅成功应答给请求者
+#define DATA_CONTENT_UserAudioSubscribeInfo(OP)     \
+    GROUP_ITEM(OP, UserID, user);                   \
+    GROUP_ITEM(OP, vector<BreakoutRoomSubscribeInfo>, subscribeInfos);
+DefData(UserAudioSubscribeInfo);
 
-```cpp
 #define DATA_CONTENT_AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM(OP)                   \
     GROUP_ITEM(OP, uint32_t, confID);                                            \
-    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, subscribeUserGroupInfos);
+    GROUP_ITEM(OP, vector<UserAudioSubscribeInfo>, userSubscribeInfos);
 DefBMSCommand(AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM)
 
 #define DATA_CONTENT_AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM_NOTIFY(OP)            \
     GROUP_ITEM(OP, uint32_t, statusCode);                                        \
     GROUP_ITEM(OP, uint32_t, confID);                                            \
-    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, subscribeUserGroupInfos);
+    GROUP_ITEM(OP, vector<UserAudioSubscribeInfo>, userSubscribeInfos);
 DefBMSCommand(AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM_NOTIFY)
--这个接口支持同时订阅多个组。
+--------------------------------------------------------
+发送给 cdts
+
+#define DATA_CONTENT_AUDIO_BREAKOUT_SUBSCRIBE_BREAKOUT_ROOMS_TO_CDTS(OP)         \
+    GROUP_ITEM(OP, uint32_t, confID);                                            \
+    GROUP_ITEM(OP, vector<UserAudioSubscribeInfo>, userSubscribeInfos);
+DefAudioCommand(AUDIO_BREAKOUT_SUBSCRIBE_BREAKOUT_ROOMS_TO_CDTS)
+
+发送给 mixer
+#define DATA_CONTENT_UserAudioSubscribeInfoMixer(OP)                             \
+    GROUP_ITEM(OP, uint32_t, roomID);                                            \
+    GROUP_ITEM(OP, AudioConfig_mixer_info, info);
+DefData(UserAudioSubscribeInfoMixer);
+
+#define DATA_CONTENT_AUDIO_BREAKOUT_SUBSCRIBE_BREAKOUT_ROOMS_TO_MIXER(OP)       \
+    GROUP_ITEM(OP, uint32_t, confID);                                           \
+    GROUP_ITEM(OP, vector<UserAudioSubscribeInfoMixer>, roomInfos);
+DefAudioCommand(AUDIO_BREAKOUT_SUBSCRIBE_BREAKOUT_ROOMS_TO_MIXER)
+```
+
++ 用户取消订阅某些组的声音
+
+```cpp
+此接口客户端使用，支持同时取消订阅多个组
+#define DATA_CONTENT_UserAudioUnsubscribeInfo(OP)     \
+    GROUP_ITEM(OP, UserID, user);                     \
+    GROUP_ITEM(OP, vector<uint32_t>, roomIDs);
+DefData(UserAudioUnsubscribeInfo);
+
+#define DATA_CONTENT_AUDIO_USER_UNSUBSCRIBE_IN_BREAKOUT_ROOM(OP)                 \
+    GROUP_ITEM(OP, uint32_t, confID);                                            \
+    GROUP_ITEM(OP, vector<UserAudioUnsubscribeInfo>, userUnsubscribeInfos);
+DefBMSCommand(AUDIO_USER_UNSUBSCRIBE_IN_BREAKOUT_ROOM)
+
+#define DATA_CONTENT_AUDIO_USER_UNSUBSCRIBE_IN_BREAKOUT_ROOM_NOTIFY(OP)          \
+    GROUP_ITEM(OP, uint32_t, statusCode);                                        \
+    GROUP_ITEM(OP, uint32_t, confID);                                            \
+    GROUP_ITEM(OP, vector<UserAudioUnsubscribeInfo>, userUnsubscribeInfos);
+DefBMSCommand(AUDIO_USER_UNSUBSCRIBE_IN_BREAKOUT_ROOM_NOTIFY)
+--------------------------------------------------------
+发送给 cdts
+#define DATA_CONTENT_AUDIO_BREAKOUT_ROOM_USER_STATE_TO_CDTS(OP)         \
+    GROUP_ITEM(OP, uint32_t, confID);                                   \
+    GROUP_ITEM(OP, vector<UserAudioUnsubscribeInfo>, userUnsubscribeInfos);
+DefAudioCommand(AUDIO_BREAKOUT_ROOM_USER_STATE_TO_CDTS)
+
+发送给 mixer
+#define DATA_CONTENT_AUDIO_BREAKOUT_ROOM_USER_STATE_TO_MIXER(OP)        \
+    GROUP_ITEM(OP, uint32_t, confID);                                   \
+    GROUP_ITEM(OP, vector<UserAudioUnsubscribeInfo>, userUnsubscribeInfos);
+DefAudioCommand(AUDIO_BREAKOUT_ROOM_USER_STATE_TO_MIXER)
 ```
 
 ## cdts
@@ -222,8 +284,13 @@ DefBMSCommand(AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM_NOTIFY)
 + 切换
 cdts 切换的时候需要从 redis 加载用户分组列表（或者从 audioserver 请求最新的用户分组列表）
 
-## redis
+## 注意
 
 用户的分组信息和用户的音频订阅信息需要分开存储
 用户的分组信息 bms 来存储，用户的音频订阅信息 audioserver 来存储
 用户的分组信息需要独立存储而且不能删除（因为主持人再次开启分组的时候需要编辑老的列表）
+800 用户需要跟随主持人进去的分组，需要客户端使用 `AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM` 来控制
+
+## 问题
+用户静音的时候组内客户端混音，privilege 需要设置么，组内音频图标的显示依据什么信令
+添加一个客户端通知录制哪个分组的信令
