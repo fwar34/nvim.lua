@@ -23,7 +23,7 @@ function M.custom_lsp_attach(_, bufnr)
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, vim.tbl_extend('force', bufopts, { desc = 'goto declaration' }))
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, vim.tbl_extend('force', bufopts, { desc = 'goto definition' }))
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, vim.tbl_extend('force', bufopts, { desc = 'lsp buffer hover' }))
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation,
+    vim.keymap.set('n', 'gm', vim.lsp.buf.implementation,
         vim.tbl_extend('force', bufopts,
             { desc = 'Lists all the implementations for the symbol under the cursor in the quickfix window.' }))
     vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
