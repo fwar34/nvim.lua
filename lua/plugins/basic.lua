@@ -94,12 +94,12 @@ return {
     -- Improved Lua 5.3 syntax and indentation support for Vim.
     -- { 'tbastos/vim-lua', ft = 'lua' },
 
-    {
-        'vim-python/python-syntax', ft = 'python',
-        config = function()
-            vim.g.python_highlight_all = 1
-        end
-    },
+    -- {
+    --     'vim-python/python-syntax', ft = 'python',
+    --     config = function()
+    --         vim.g.python_highlight_all = 1
+    --     end
+    -- },
 
     -- A Vim text editor plugin to swap delimited items.
     {
