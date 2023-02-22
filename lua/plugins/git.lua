@@ -1,9 +1,9 @@
 local cmd = vim.cmd
 return {
     -- Git
-    {'rhysd/git-messenger.vim', lazy = true, cmd = 'GitMessenger'},
-    {'tpope/vim-fugitive', event = 'VimEnter *',},
-	{
+    { 'rhysd/git-messenger.vim', lazy = true, cmd = 'GitMessenger' },
+    { 'tpope/vim-fugitive', cmd = 'Git' },
+    {
         'mhinz/vim-signify',
         config = function()
             -- hunk text object
@@ -21,6 +21,7 @@ return {
                     print(string.format('[Hunk %d/%d]', h.current_hunk, h.total_hunks))
                 end
             end
+
             cmd [[autocmd! User SignifyHunk lua _G.show_hunk()]]
         end
     },
