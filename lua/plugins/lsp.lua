@@ -10,7 +10,7 @@ return {
         end
     },
     -- Lsp
-    {'neovim/nvim-lspconfig', pin = 'v0.1.6'},
+    {'neovim/nvim-lspconfig'},
     {
         'quangnguyen30192/cmp-nvim-tags',
         -- if you want the sources is available for some file types
