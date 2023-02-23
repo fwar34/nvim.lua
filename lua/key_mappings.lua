@@ -87,7 +87,7 @@ local function search_word2()
     return vim.fn.getreg('k')
 end
 
-function _G.move_cursor(direction)
+local function move_cursor(direction)
     local cursor = api.nvim_win_get_cursor(0)
     local col
     if direction == 'left' then
@@ -143,8 +143,8 @@ function key_mappings:start()
             desc = 'find previous brace in first column' },
         ['n|<LocalLeader>do'] = { function() futil.delete_buffers(true) end, desc = 'delete other buffers' },
         ['n|<C-g>'] = '<C-c>',
-        ['n|<Leader>md'] = { '<CMD>m .+1<CR>', desc = 'current line move up' },
-        ['n|<Leader>mu'] = { '<CMD>m .-2<CR>', desc = 'current line move down' },
+        ['n|<A-j>'] = { '<CMD>m .+1<CR>', desc = 'current line move up' },
+        ['n|<A-k>'] = { '<CMD>m .-2<CR>', desc = 'current line move down' },
         ['n|<Leader>mm'] = '%',
         ['n|<Leader>lf'] = '<CMD>luafile %<CR>',
         ['n|ge'] = 'G',
@@ -162,13 +162,16 @@ function key_mappings:start()
         -- ['n|]]'] = {'j0[[%/{<CR>'},
         -- ['n|[]'] = {'k$][%?}<CR>'},
         -- ['n|<Leader>cs'] = '<CMD>lua require("mylib").
-        ['n|<Leader>se'] = { function()
-            if require('global').is_windows then
-                cmd('e ~/AppData/Local/nvim/lua/plugins/basic.lua')
-            else
-                cmd('e ~/.config/nvim/lua/plugins/basic.lua')
-            end
-        end, desc = 'open basic.lua' },
+        ['n|<Leader>se'] = {
+            function()
+                if require('global').is_windows then
+                    cmd('e ~/AppData/Local/nvim/lua/plugins/basic.lua')
+                else
+                    cmd('e ~/.config/nvim/lua/plugins/basic.lua')
+                end
+            end,
+            desc = 'open basic.lua'
+        },
     }
 
     self.visual = {
@@ -177,9 +180,11 @@ function key_mappings:start()
         ["v|>"] = ">gv",
         ["v|<"] = "<gv",
         -- Move selected line / block of text in visual mode
-        ["v|K"] = "<CMD>move '<-2<CR>gv-gv",
-        ["v|J"] = "<CMD>move '>+1<CR>gv-gv",
+        ["v|<A-k>"] = ":m .-2<CR>==",
+        ["v|<A-j>"] = ":m .+1<CR>==",
         ['v|<Leader>mm'] = '%',
+        ["x|<A-k>"] = ":move '<-2<CR>gv-gv",
+        ["x|<A-j>"] = ":move '>+1<CR>gv-gv",
     }
 
     self.insert = {
@@ -189,8 +194,8 @@ function key_mappings:start()
         ['i|<Leader>zz'] = '<Esc><CMD>w<CR>a',
         -- ['i|<C-b>'] = '<Left>',
         -- ['i|<C-f>'] = '<Right>',
-        ['i|<C-b>'] = function() _G.move_cursor('left') end,
-        ['i|<C-f>'] = function() _G.move_cursor('right') end,
+        ['i|<C-b>'] = function() move_cursor('left') end,
+        ['i|<C-f>'] = function() move_cursor('right') end,
         ['i|<C-a>'] = '<Esc>I',
         ['i|<C-e>'] = '<End>',
         -- ['i|<C-g>'] = '<C-c>',
