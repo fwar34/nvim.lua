@@ -16,46 +16,37 @@
 #define DATA_CONTENT_BREAKOUT_ROOM_INFO(OP) \
     GROUP_ITEM(OP, uint32_t, id);           \
     GROUP_ITEM(OP, string, name);           \
-    GROUP_ITEM(OP, uint32_t, mixeMode);     \   change: 服务器混音还是客户端混音
+    GROUP_ITEM(OP, uint32_t, mixerMode);    \   服务器混音还是客户端混音
     GROUP_ITEM(OP, string, extend);
 DefData(BREAKOUT_ROOM_INFO);
 
 #define DATA_CONTENT_BREAKOUT_ROOM_USER_ITEM(OP)       \
     GROUP_ITEM(OP, uint32_t, userId);                  \
     GROUP_ITEM(OP, uint32_t, userUmsId);               \
-    GROUP_ITEM(OP, uint32_t, userPresetRoomId);        \ — 用户需要加入的组 300 主分组
-    GROUP_ITEM(OP, uint32_t, userCurrentRoomId);       \ — 用户当前真正加入的分组
+    GROUP_ITEM(OP, uint32_t, userPresetRoomId);        \ 用户需要加入的组
+    GROUP_ITEM(OP, uint32_t, userCurrentRoomId);       \ 用户当前真正加入的分组
     GROUP_ITEM(OP, uint32_t, privilege);               \ 用户在 userGroupId 中的权限, 可听：0x01 可说: 0x02
     GROUP_ITEM(OP, string, extend);
 DefData(BREAKOUT_ROOM_USER_ITEM);                        每个用户所在的分组信息
 ```
 
-## 服务器与客户端交互信令
-
-```cpp
-BMS_CONF_USER_GROUP_START
-BMS_CONF_USER_GROUP_LIST_NOTIFY
-BMS_CONF_USER_SET_USER_GROUP
-BMS_CONF_USER_GROUP_STOP
-AUDIO_USER_SUBSCRIBE_IN_USER_GROUP
-```
 
 ## bms
 
-1. 开启分组 (会前会设置分组，服务器不用解析，服务器以打开分组里面的分组信息为准)
++ 开启分组 (会前会设置分组，服务器不用解析，服务器以打开分组里面的分组信息为准)
 主持人发送打开分组请求
 bms 处理分组并广播开启分组成功的应答给所有客户端
 
 ```cpp
+客户端使用
 #define DATA_CONTENT_BMS_CONF_BREAKOUT_ROOMS_START(OP)       \
     GROUP_ITEM(OP, uint32_t, confID);                        \
     GROUP_ITEM(OP, uint32_t, userID);                        \
     GROUP_ITEM(OP, string, extend);                          \
-    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_INFO>, rooms);       \ – 组的信息
-    – 组内的成员，包含了没有入会的成员（userid=0，umsUserID!=0的用户），bms需要保存独立的列表，因为关闭分组后客户端还可能获取此列表重新编辑分组再开启分组
+    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_INFO>, rooms);       \ 组的信息
+    组内的成员，包含了没有入会的成员（userid=0，umsUserID!=0的用户），bms需要保存独立的列表，因为关闭分组后客户端还可能获取此列表重新编辑分组再开启分组
     GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, roomUsers); 
 DefBMSCommand(BMS_CONF_BREAKOUT_ROOMS_START)
-
 
 #define DATA_CONTENT_BMS_CONF_BREAKOUT_ROOMS_START_NOTIFY(OP)       \
     GROUP_ITEM(OP, uint32_t, statusCode);                           \
@@ -72,6 +63,7 @@ DefBMSCommand(BMS_CONF_BREAKOUT_ROOMS_START_NOTIFY)
 分组启动则入会的时候在 `BMS_CONF_INFO_REQUEST` 的处理中bms主动发送这个信息给用户，否则客户端主动调用。
 
 ```cpp
+客户端使用
 #define DATA_CONTENT_BMS_CONF_GET_BREAKOUT_ROOMS_LIST(OP)    \
     GROUP_ITEM(OP, uint32_t, confID);                        \
     GROUP_ITEM(OP, uint32_t, userID);
@@ -80,7 +72,7 @@ DefBMSCommand(BMS_CONF_GET_BREAKOUT_ROOMS_LIST)
 #define DATA_CONTENT_BMS_CONF_GET_BREAKOUT_ROOMS_LIST_NOTIFY(OP)    \
     GROUP_ITEM(OP, uint32_t, confID);                               \
     GROUP_ITEM(OP, string, extend);                                 \
-    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_INFO>, rooms);              \ – 组的信息
+    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_INFO>, rooms);              \ 组的信息
     GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, roomUsers);
 DefBMSCommand(BMS_CONF_GET_BREAKOUT_ROOMS_LIST_NOTIFY)
 ```
@@ -92,6 +84,7 @@ bms 发送用户设置分组通知给 audioserver
 bms 广播设置分组成功应答
 
 ```cpp
+客户端使用
 #define DATA_CONTENT_BMS_CONF_SET_USER_BREAKOUT_ROOM(OP)     \
     GROUP_ITEM(OP, uint32_t, confID);                        \
     GROUP_ITEM(OP, BREAKOUT_ROOM_USER_ITEM, user)
@@ -102,22 +95,7 @@ DefBMSCommand(BMS_CONF_SET_USER_BREAKOUT_ROOM)
     GROUP_ITEM(OP, uint32_t, confID);
     GROUP_ITEM(OP, BREAKOUT_ROOM_USER_ITEM, user)
 DefBMSCommand(BMS_CONF_USER_SET_USER_BREAKOUT_ROOM_NOTIFY)
-
 ```
-各项操作填充的有效参数：
-1.分配或者移动分组
-设置 userId/userUmsId，userPresetRoomId
-2.加入分组
-设置 userId/userUmsId，userPresetRoomId，userCurrentRoomId，而且 userPresetRoomId == userCurrentRoomId
-3.离开分组回到主会场
-设置 userId/userUmsId，userCurrentRoomId = 0
-用户加入分组的时候默认订阅此分组的声音（是否可听可说依据privilege）
-
-## 用户退会
-当用户退会时，server需要更新下 roomUsers，如果是有userUmsId的用户则，把userCurrentRoomId设置成0，如果是userId的用户，则删除该条记录。
-这个修改不需要通知到客户端，客户端本身会根据用户退会，做相同的处理。
-umsUserID为0则把用户从分组列表删除，否则只设置userCurrentRoomId为0，不用通知客户端
-
 
 + 关闭分组
 主持人发送关闭分组请求给 bms
@@ -133,6 +111,7 @@ server端从收到stop指令到分组真正的结束，期间用户不能加入�
 server端真正结束分组时，需要把用户音频回到主会场，设置分组状态为结束
 
 ```cpp
+客户端使用
 #define DATA_CONTENT_BMS_CONF_BREAKOUT_ROOMS_STOP(OP)    \
     GROUP_ITEM(OP, uint32_t, confID);                    \
     GROUP_ITEM(OP, uint32_t, userID);                    \
@@ -146,6 +125,26 @@ DefBMSCommand(BMS_CONF_BREAKOUT_ROOMS_STOP)
     GROUP_ITEM(OP, uint32_t, delayTime);
 DefBMSCommand(BMS_CONF_BREAKOUT_ROOMS_STOP_NOTIFY)
 ```
+
++ 客户端通知录制哪个分组的信令
+```cpp
+客户端使用
+#define DATA_CONTENT_AUDIO_RECORD_BREAKOUT_ROOM(OP)      \
+    GROUP_ITEM(OP, uint32_t, confID);                    \
+    GROUP_ITEM(OP, uint32_t, roomID);
+DefAudioCommand(AUDIO_RECORD_BREAKOUT_ROOM)
+
+#define DATA_CONTENT_AUDIO_RECORD_BREAKOUT_ROOM_NOTIFY(OP)      \
+    GROUP_ITEM(OP, uint32_t, statusCode);                       \
+    GROUP_ITEM(OP, uint32_t, confID);                           \
+    GROUP_ITEM(OP, uint32_t, roomID);
+DefAudioCommand(AUDIO_RECORD_BREAKOUT_ROOM_NOTIFY)
+```
+
+## 用户退会
+当用户退会时，server需要更新下 roomUsers，如果是有userUmsId的用户则，把userCurrentRoomId设置成0，如果是userId的用户，则删除该条记录。
+这个修改不需要通知到客户端，客户端本身会根据用户退会，做相同的处理。
+umsUserID为0则把用户从分组列表删除，否则只设置userCurrentRoomId为0，不用通知客户端
 
 ## 特殊用户需要 mixer 混音的声
 
@@ -170,6 +169,7 @@ DefData(BreakoutRoomUserInfo);
 
 #define DATA_CONTENT_BreakoutRoomInfo(OP)                       \
     GROUP_ITEM(OP, uint32_t, roomID);                           \
+    GROUP_ITEM(OP, uint32_t, mixerMode);                        \
     GROUP_ITEM(OP, vector<BreakoutRoomUserInfo>, userInfos);
 DefData(BreakoutRoomInfo);
 
@@ -216,16 +216,17 @@ DefData(BreakoutRoomSubscribeInfo);
     GROUP_ITEM(OP, vector<BreakoutRoomSubscribeInfo>, subscribeInfos);
 DefData(UserAudioSubscribeInfo);
 
+客户端使用
 #define DATA_CONTENT_AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM(OP)                   \
     GROUP_ITEM(OP, uint32_t, confID);                                            \
     GROUP_ITEM(OP, vector<UserAudioSubscribeInfo>, userSubscribeInfos);
-DefBMSCommand(AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM)
+DefAudioCommand(AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM)
 
 #define DATA_CONTENT_AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM_NOTIFY(OP)            \
     GROUP_ITEM(OP, uint32_t, statusCode);                                        \
     GROUP_ITEM(OP, uint32_t, confID);                                            \
     GROUP_ITEM(OP, vector<UserAudioSubscribeInfo>, userSubscribeInfos);
-DefBMSCommand(AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM_NOTIFY)
+DefAuidoCommand(AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM_NOTIFY)
 --------------------------------------------------------
 发送给 cdts
 
@@ -237,6 +238,7 @@ DefAudioCommand(AUDIO_BREAKOUT_SUBSCRIBE_BREAKOUT_ROOMS_TO_CDTS)
 发送给 mixer
 #define DATA_CONTENT_UserAudioSubscribeInfoMixer(OP)                             \
     GROUP_ITEM(OP, uint32_t, roomID);                                            \
+    GROUP_ITEM(OP, uint32_t, mixerMode);                                         \
     GROUP_ITEM(OP, AudioConfig_mixer_info, info);
 DefData(UserAudioSubscribeInfoMixer);
 
@@ -249,12 +251,12 @@ DefAudioCommand(AUDIO_BREAKOUT_SUBSCRIBE_BREAKOUT_ROOMS_TO_MIXER)
 + 用户取消订阅某些组的声音
 
 ```cpp
-此接口客户端使用，支持同时取消订阅多个组
 #define DATA_CONTENT_UserAudioUnsubscribeInfo(OP)     \
     GROUP_ITEM(OP, UserID, user);                     \
     GROUP_ITEM(OP, vector<uint32_t>, roomIDs);
 DefData(UserAudioUnsubscribeInfo);
 
+客户端使用，支持同时取消订阅多个组
 #define DATA_CONTENT_AUDIO_USER_UNSUBSCRIBE_IN_BREAKOUT_ROOM(OP)                 \
     GROUP_ITEM(OP, uint32_t, confID);                                            \
     GROUP_ITEM(OP, vector<UserAudioUnsubscribeInfo>, userUnsubscribeInfos);
@@ -286,13 +288,13 @@ cdts 切换的时候需要从 redis 加载用户分组列表（或者从 audiose
 
 ## 注意
 
-用户的分组信息和用户的音频订阅信息需要分开存储
-用户的分组信息 bms 来存储，用户的音频订阅信息 audioserver 来存储
-用户的分组信息需要独立存储而且不能删除（因为主持人再次开启分组的时候需要编辑老的列表）
-800 用户需要跟随主持人进去的分组，需要客户端使用 `AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM` 来控制
-老的 mixer join 使用 `AUDIO_BREAKOUT_ROOM_STATE_TO_CDTS` 通知 mixer
++ 用户的分组信息和用户的音频订阅信息需要分开存储
++ 用户的分组信息 bms 来存储，用户的音频订阅信息 audioserver 来存储
++ 用户的分组信息需要独立存储而且不能删除（因为主持人再次开启分组的时候需要编辑老的列表）
++ 800 用户需要跟随主持人进去的分组，需要客户端使用 `AUDIO_RECORD_BREAKOUT_ROOM` 来控制
++ 老的 mixer join 使用新的接口发给 mixer，信令中只有一个分组，分组中包含了所有的需要混音的用户
++ 关闭分组的时候需要重新通知给 mixer 当前的分组信息
++ 用户的 audioState 和 用户在每个分组的 privilege 共同决定了用户在此分组的传输权限
++ 静音接口的 mode 添加两个模式：组内全体静音和解除静音，此两种模式下 groupID 赋值 roomID
 
 ## 问题
-用户静音的时候组内客户端混音，privilege 需要设置么，组内音频图标的显示依据什么信令
-添加一个客户端通知录制哪个分组的信令
-
