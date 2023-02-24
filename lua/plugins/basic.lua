@@ -225,6 +225,7 @@ return {
     -- TODO:
     {
         "folke/todo-comments.nvim",
+        version = 'v1.0.0',
         dependencies = { 'nvim-lua/plenary.nvim' },
         config = function()
             require("todo-comments").setup {
@@ -349,6 +350,7 @@ return {
     },
     {
         "folke/which-key.nvim",
+        version = 'v1.1.1',
         config = function()
             vim.o.timeout = true
             vim.o.timeoutlen = 300
