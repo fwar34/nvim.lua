@@ -106,6 +106,7 @@ return {
                             vim.o.cursorline = true
                         end
                     end, { desc = 'cursor line' } },
+                    { 'q', nil, { exit = true } },
                     { '<Esc>', nil, { exit = true } }
                 }
             })
@@ -143,7 +144,7 @@ return {
                 end
             end
 
-            vim.keymap.set('n', 'gb', choose_buffer)
+            vim.keymap.set('n', 'gb', choose_buffer, { desc = 'Barbar' })
         end
     }
 }
