@@ -327,7 +327,7 @@ return {
                         java = "javac $fileName; if ($?) {java $fileNameWithoutExt}",
                         python = "python3 -u",
                         typescript = "deno run",
-                        javascript = "node run",
+                        javascript = "node",
                         rust = "rustc $fileName; if ($?) {./$fileNameWithoutExt}",
                         cpp = "g++ -o $fileNameWithoutExt $fileName -lpthread ; if ($?) {./$fileNameWithoutExt}"
                     },
@@ -339,7 +339,7 @@ return {
                         java = "cd $dir && javac $fileName && java $fileNameWithoutExt",
                         python = "python3 -u",
                         typescript = "deno run",
-                        javascript = "node run",
+                        javascript = "noden",
                         rust = "cd $dir && rustc $fileName && ./$fileNameWithoutExt",
                         cpp = "cd $dir && g++ -o $fileNameWithoutExt $fileName -lpthread && ./$fileNameWithoutExt"
                     },
