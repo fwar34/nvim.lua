@@ -339,7 +339,7 @@ return {
                         java = "cd $dir && javac $fileName && java $fileNameWithoutExt",
                         python = "python3 -u",
                         typescript = "deno run",
-                        javascript = "noden",
+                        javascript = "node",
                         rust = "cd $dir && rustc $fileName && ./$fileNameWithoutExt",
                         cpp = "cd $dir && g++ -o $fileNameWithoutExt $fileName -lpthread && ./$fileNameWithoutExt"
                     },
