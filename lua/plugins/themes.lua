@@ -13,6 +13,8 @@ return {
     {
         -- "joshdick/onedark.vim",
         'ii14/onedark.nvim',
+        lazy = false,
+        priority = 1000,
         -- 'navarasu/onedark.nvim',
         -- 'olimorris/onedarkpro.nvim',
         config = function ()

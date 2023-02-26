@@ -26,6 +26,7 @@ return {
   _c_ %{cul} cursor line
   _n_ %{nu} number
   _r_ %{rnu} relative number
+  _q_ quit
   ^
   ^^^^                _<Esc>_
   ]]
