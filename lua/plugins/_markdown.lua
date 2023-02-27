@@ -5,4 +5,9 @@ return {
         build = 'cd app && yarn install',
         ft = 'markdown',
     },
+    {
+        'toppair/peek.nvim',
+        build = 'deno task --quiet build:fast',
+        ft = 'markdown'
+    }
 }
