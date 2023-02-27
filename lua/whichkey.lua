@@ -14,6 +14,18 @@ function M.config_whichkey()
         ['<C-j>'] = { function() vim.api.nvim_input('cd ' .. vim.g.cwd .. '<CR>') end, 'jump to directory of buffer', mode = 't' },
         ['<leader>rc'] = { '<CMD>RunCode<CR>', 'code_runner.nvim' },
         ['<leader>mt'] = { '<CMD>MarkdownPreviewToggle<CR>', 'markdown preview toggle' },
+        ['<leader>mt'] = { function ()
+            if require('global').is_windows then
+                cmd('MarkdownPreviewToggle')
+            else
+                local peek = require('peek')
+                if peek.is_open() then
+                    peek.close()
+                else
+                    pee.open()
+                end
+            end
+        end, 'markdown preview toggle' },
         ['<leader>s'] = {
             s = { '<CMD>Hi save save.hl<CR>', 'Hi save save.hl' },
             l = { '<CMD>Hi load save.hl<CR>', 'Hi load save.hl' },
