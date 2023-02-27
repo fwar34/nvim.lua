@@ -127,7 +127,7 @@ cmd('set report=0')
 cmd('set scrolloff=1')
 cmd('set sidescrolloff=5')
 -- 设置环境保存项
-cmd('set sessionoptions=blank,buffers,curdir,folds,globals,help,localoptions,options,resize,tabpages,winpos,winsize')
+-- cmd('set sessionoptions=blank,buffers,curdir,folds,globals,help,localoptions,options,resize,tabpages,winpos,winsize')
 -- cmd('set number')
 -- Tab键的宽度
 -- cmd('set tabstop=4')
