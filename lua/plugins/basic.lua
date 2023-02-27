@@ -223,18 +223,18 @@ return {
     'gcmt/wildfire.vim',
     'azabiong/vim-highlighter',
     -- TODO:
-    {
-        "folke/todo-comments.nvim",
-        version = 'v1.0.0',
-        dependencies = { 'nvim-lua/plenary.nvim' },
-        config = function()
-            require("todo-comments").setup {
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
-            }
-        end
-    },
+    -- {
+    --     "folke/todo-comments.nvim",
+    --     version = 'v1.0.0',
+    --     dependencies = { 'nvim-lua/plenary.nvim' },
+    --     config = function()
+    --         require("todo-comments").setup {
+    --             -- your configuration comes here
+    --             -- or leave it empty to use the default settings
+    --             -- refer to the configuration section below
+    --         }
+    --     end
+    -- },
 
     {
         -- better quickfix
@@ -355,6 +355,7 @@ return {
             vim.o.timeout = true
             vim.o.timeoutlen = 300
             require("which-key").setup()
+            require('whichkey').config_whichkey()
         end
     },
 }

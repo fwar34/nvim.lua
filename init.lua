@@ -37,7 +37,5 @@ require("lazy").setup("plugins")
 require('impatient')
 
 require("autocmd")
--- require("terminal").setup()
 require("lsp")
 require("key_mappings")
-require('whichkey')

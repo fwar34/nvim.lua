@@ -3,8 +3,8 @@ local vim = vim
 local api = vim.api
 local cmd = vim.cmd
 local futil = require('futil')
-local telescope = require('telescope')
-local tbuiltin = require('telescope.builtin')
+-- local telescope = require('telescope')
+-- local tbuiltin = require('telescope.builtin')
 local is_windows = require('global').is_windows
 
 local key_mappings = {}
@@ -305,42 +305,42 @@ function key_mappings:start()
         ['n|<Leader>sh'] = '<CMD>Telescope search_history<CR>',
         ['n|<Leader>fr'] = {
             function()
-                tbuiltin.live_grep({ additional_args = rg_options })
+                require('telescope.builtin').live_grep({ additional_args = rg_options })
             end,
             desc = 'telescope live_grep'
         },
         ['n|<Leader>fa'] = {
             function()
-                telescope.extensions.live_grep_args.live_grep_args({ additional_args = rg_options })
+                require('telescope').extensions.live_grep_args.live_grep_args({ additional_args = rg_options })
             end,
             desc = 'telescope live_grep with options'
         },
         ['n|<Leader>ff'] = {
             function()
-                tbuiltin.find_files({ find_command = find_files_args, })
+                require('telescope.builtin').find_files({ find_command = find_files_args, })
             end,
             desc = 'telescope find_files with options'
         },
         ['n|<Leader>pf'] = {
             function()
-                tbuiltin.find_files({ cwd = require("find_root_dir").find_root_dir(), find_command = find_files_args, })
+                require('telescope.builtin').find_files({ cwd = require("find_root_dir").find_root_dir(), find_command = find_files_args, })
             end,
             desc = 'find home directory'
         },
         ['n|<Leader>cf'] = {
             function()
-                tbuiltin.find_files({ cwd = is_windows and '~/AppData/Local/nvim/lua' or
+                require('telescope.builtin').find_files({ cwd = is_windows and '~/AppData/Local/nvim/lua' or
                     '~/.config/nvim/lua', find_command = find_files_args, })
             end,
             desc = 'open nvim config lua directory'
         },
-        ['n|<Leader>fh'] = { function() tbuiltin.find_files({ cwd = '~' }) end, desc = 'find_files in home directory' },
+        ['n|<Leader>fh'] = { function() require('telescope.builtin').find_files({ cwd = '~' }) end, desc = 'find_files in home directory' },
         ['n|<Leader>fw'] = {
-            function() tbuiltin.grep_string({ additional_args = rg_options }) end,
+            function() require('telescope.builtin').grep_string({ additional_args = rg_options }) end,
             desc = 'find word under cursor'
         },
         ['n|<Leader>fs'] = {
-            function() tbuiltin.grep_string({ search = search_word2() }) end,
+            function() require('telescope.builtin').grep_string({ search = search_word2() }) end,
             desc = 'find string from cursor to word end'
         },
         -- ['n|<Leader>fp'] = "<CMD>lua require'telescope'.extensions.project.project{}<CR>",
