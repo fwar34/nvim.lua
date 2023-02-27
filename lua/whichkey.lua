@@ -21,7 +21,7 @@ function M.config_whichkey()
                 if peek.is_open() then
                     peek.close()
                 else
-                    pee.open()
+                    peek.open()
                 end
             end
         end, 'markdown preview toggle' },
