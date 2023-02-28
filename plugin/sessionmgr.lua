@@ -144,4 +144,8 @@ function CurrentSession()
     return current_session and current_session or ''
 end
 
-cmd([[ function! SessionMgrStatus() return v:lua.CurrentSession() endfunction ]])
+cmd([[ 
+function! SessionMgrStatus()
+return v:lua.CurrentSession()
+endfunction 
+]])
