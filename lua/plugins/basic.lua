@@ -349,15 +349,4 @@ return {
         end,
         cmd = { 'RunCode', 'RunFile' }
     },
-    {
-        "folke/which-key.nvim",
-        event = 'VeryLazy',
-        -- version = 'v1.1.1',
-        config = function()
-            vim.o.timeout = true
-            vim.o.timeoutlen = 300
-            require("which-key").setup()
-            require('whichkey').config_whichkey()
-        end
-    },
 }
