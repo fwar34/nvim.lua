@@ -28,16 +28,14 @@ return {
                     dotfiles = true,
                 },
             }
-            if is_windows then
-                print('xxxxxxxxxxxx')
-                vim.tbl_deep_extend('error', args, {
+            if is_windows or vim.g.neovide then
+                args = vim.tbl_deep_extend('error', args, {
                     renderer = {
                         group_empty = true,
                     },
                 })
             else
-                print('yyyyyyyyy')
-                vim.tbl_deep_extend('error', args, {
+                args = vim.tbl_deep_extend('error', args, {
                     renderer = {
                         group_empty = true,
                         icons = {
@@ -48,7 +46,6 @@ return {
                     },
                 })
             end
-            vim.pretty_print(args)
             require("nvim-tree").setup(args)
 
             local Hydra = require('hydra')
