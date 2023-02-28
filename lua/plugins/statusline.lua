@@ -23,7 +23,7 @@ return {
                 },
                 component_function = {
                     sessionmgr = 'SessionMgrStatus',
-                    method = 'NearestMethodOrFunction',
+                    -- method = 'NearestMethodOrFunction',
                     gitbranch = 'FugitiveStatusline',
                     scorestatus = 'ScrollStatus',
                     gitstatus = 'sy#repo#get_stats_decorated',
