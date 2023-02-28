@@ -3,6 +3,8 @@ return {
     {
         -- Improve startup time for Neovim
         'lewis6991/impatient.nvim',
+        lazy = false,
+        priority = 900,
         config = function()
             -- require'impatient'.enable_profile()
         end
