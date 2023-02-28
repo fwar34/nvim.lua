@@ -1,7 +1,5 @@
 local is_windows = require('global').is_windows
 local api = vim.api
-local set = vim.keymap.set
-local cmd = vim.cmd
 return {
     -- File manager
     -- pip3 install --user pynvim
