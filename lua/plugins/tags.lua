@@ -1,4 +1,4 @@
-local is_windows = require('global').is_windows
+local set = vim.keymap.set
 return {
     -- Coding
     'liuchengxu/vista.vim',
@@ -6,7 +6,6 @@ return {
     -- 提供 ctags/gtags 后台数据库自动更新功能
     {
         'ludovicchabant/vim-gutentags',
-        -- enabled = not is_windows
         config = function()
             -- " 设定项目目录标志：不在 git/svn 内的项目，需要在项目根目录 touch 一个空的 .root/.project 等文件
             vim.g.gutentags_project_root = { '.root', '.svn', '.git', '.hg', '.project' }
@@ -20,7 +19,7 @@ return {
             vim.g.gutentags_ctags_exclude = { '*/debian/*', '*.am', '*.sh', 'makefile', 'Makefile', '*.html', '*.thrift' }
 
             if vim.fn.executable('gtags-cscope') and vim.fn.executable('gtags') then
-                vim.g.gutentags_modules = {'ctags', 'gtags_cscope'}
+                vim.g.gutentags_modules = { 'ctags', 'gtags_cscope' }
             end
 
             -- " 如果使用 universal ctags 需要增加下面两行
@@ -45,16 +44,16 @@ return {
 
             -- "输出trace信息
             -- vim.g.gutentags_trace = 1
-            vim.api.nvim_create_user_command('GutentagsToggleTrace', function ()
+            vim.api.nvim_create_user_command('GutentagsToggleTrace', function()
                 vim.g.gutentags_trace = not vim.g.gutentags_trace
             end, {})
         end
     },
     {
-    -- 提供 GscopeFind 命令并自动处理好 gtags 数据库切换
-    -- 支持光标移动到符号名上：<leader>cg 查看定义，<leader>cs 查看引用
+        -- 提供 GscopeFind 命令并自动处理好 gtags 数据库切换
+        -- 支持光标移动到符号名上：<leader>cg 查看定义，<leader>cs 查看引用
         'skywind3000/gutentags_plus',
-        config = function ()
+        config = function()
             vim.g.gutentags_plus_nomap = 1
             -- " and define your new maps:
             -- " 0 or s: Find this symbol
@@ -68,18 +67,16 @@ return {
             -- " 9 or a: Find places where this symbol is assigned a value
             -- " z: Find current word in ctags database
             -- " You can disable the default keymaps by:
-            vim.cmd [[
-                noremap <silent> <Leader>hs :GscopeFind s <C-R><C-W><cr>
-                noremap <silent> <Leader>hg :GscopeFind g <C-R><C-W><cr>
-                noremap <silent> <Leader>hc :GscopeFind c <C-R><C-W><cr>
-                noremap <silent> <Leader>ht :GscopeFind t <C-R><C-W><cr>
-                noremap <silent> <Leader>he :GscopeFind e <C-R><C-W><cr>
-                noremap <silent> <Leader>hf :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
-                noremap <silent> <Leader>hi :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
-                noremap <silent> <Leader>hd :GscopeFind d <C-R><C-W><cr>
-                noremap <silent> <Leader>ha :GscopeFind a <C-R><C-W><cr>
-                noremap <silent> <leader>hz :GscopeFind z <C-R><C-W><cr>
-            ]]
+            set({ 'n', 'v' }, '<Leader>hs', ':GscopeFind s <C-R><C-W><CR>', { desc = 'Find this symbol' })
+            set({ 'n', 'v' }, '<Leader>hg', ':GscopeFind g <C-R><C-W><CR>', { desc = 'Find this definition' })
+            set({ 'n', 'v' }, '<Leader>hc', ':GscopeFind c <C-R><C-W><CR>', { desc = 'Find functions calling this function' })
+            set({ 'n', 'v' }, '<Leader>ht', ':GscopeFind t <C-R><C-W><CR>', { desc = 'Find this text string' })
+            set({ 'n', 'v' }, '<Leader>he', ':GscopeFind e <C-R><C-W><CR>', { desc = 'Find this egrep pattern' })
+            set({ 'n', 'v' }, '<Leader>hf', ':GscopeFind f <C-R>=expand("<cfile>")<CR><CR>', { desc = 'Find this file' })
+            set({ 'n', 'v' }, '<Leader>hi', ':GscopeFind i <C-R>=expand("<cfile>")<CR><CR>', { desc = 'Find files #including this file' })
+            set({ 'n', 'v' }, '<Leader>hd', ':GscopeFind d <C-R><C-W><CR>', { desc = 'Find functions called by this function' })
+            set({ 'n', 'v' }, '<Leader>ha', ':GscopeFind a <C-R><C-W><CR>', { desc = 'Find places where this symbol is assigned a value' })
+            set({ 'n', 'v' }, '<Leader>hz', ':GscopeFind z <C-R><C-W><CR>', { desc = 'Find current word in ctags database' })
         end
     },
 }

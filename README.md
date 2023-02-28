@@ -3,7 +3,7 @@
 ## windows
 ```ps1
 scoop install ag bat diffutils fd fzf gcc less lua-language-server(lua_ls) \
-    neovide neovim python ripgrep universal-ctags win32yank unxutils yarn lua rust-analyzer
+    neovide neovim python ripgrep universal-ctags win32yank unxutils yarn lua rust-analyzer global deno
 pip3 install neovim
 ```
 
