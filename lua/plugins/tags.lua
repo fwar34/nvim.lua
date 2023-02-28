@@ -19,6 +19,10 @@ return {
             -- let g:gutentags_exclude_project_root = [expand('~/.vim')]
             vim.g.gutentags_ctags_exclude = { '*/debian/*', '*.am', '*.sh', 'makefile', 'Makefile', '*.html', '*.thrift' }
 
+            if vim.fn.executable('gtags-cscope') and vim.fn.executable('gtags') then
+                vim.g.gutentags_modules = {'ctags', 'gtags_cscope'}
+            end
+
             -- " 如果使用 universal ctags 需要增加下面两行
             -- " Universal Ctags support Wildcard in options.
             -- vim.g.gutentags_ctags_extra_args = { '--fields=*', '--extras=*', '--kinds-all=*', '--output-format=e-ctags' }
@@ -38,10 +42,12 @@ return {
             -- "然后保存一下当前文件，触发 gtags 数据库更新，接下来你应该能看到一些讨厌的日志输出，
             -- "这里不够的话，~/.cache/tags 目录下还有对应项目名字的 log 文件，
             -- "ægs 具体输出了什么，然后进行相应的处理。
-            vim.g.gutentags_define_advanced_commands = 1
 
             -- "输出trace信息
             -- vim.g.gutentags_trace = 1
+            vim.api.nvim_create_user_command('GutentagsToggleTrace', function ()
+                vim.g.gutentags_trace = not vim.g.gutentags_trace
+            end, {})
         end
     },
     {
@@ -49,6 +55,8 @@ return {
     -- 支持光标移动到符号名上：<leader>cg 查看定义，<leader>cs 查看引用
         'skywind3000/gutentags_plus',
         config = function ()
+            vim.g.gutentags_plus_nomap = 1
+            -- " and define your new maps:
             -- " 0 or s: Find this symbol
             -- " 1 or g: Find this definition
             -- " 2 or d: Find functions called by this function
@@ -58,9 +66,8 @@ return {
             -- " 7 or f: Find this file
             -- " 8 or i: Find files #including this file
             -- " 9 or a: Find places where this symbol is assigned a value
+            -- " z: Find current word in ctags database
             -- " You can disable the default keymaps by:
-            vim.g.gutentags_plus_nomap = 1
-            -- " and define your new maps:
             vim.cmd [[
                 noremap <silent> <Leader>hs :GscopeFind s <C-R><C-W><cr>
                 noremap <silent> <Leader>hg :GscopeFind g <C-R><C-W><cr>
@@ -71,6 +78,7 @@ return {
                 noremap <silent> <Leader>hi :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
                 noremap <silent> <Leader>hd :GscopeFind d <C-R><C-W><cr>
                 noremap <silent> <Leader>ha :GscopeFind a <C-R><C-W><cr>
+                noremap <silent> <leader>hz :GscopeFind z <C-R><C-W><cr>
             ]]
         end
     },
