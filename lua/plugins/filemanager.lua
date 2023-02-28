@@ -1,5 +1,7 @@
 local is_windows = require('global').is_windows
--- local cmd = vim.cmd
+local api = vim.api
+local set = vim.keymap.set
+local cmd = vim.cmd
 return {
     -- File manager
     -- pip3 install --user pynvim
@@ -8,7 +10,7 @@ return {
         version = 'nightly', -- optional, updated every week. (see issue #1193)
         cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle' },
         keys = {
-            { '<Leader>tf', '<CMD>NvimTreeToggle<CR>', 'nvim tree toggle' },
+            { '<Leader>tf', '<CMD>NvimTreeToggle<CR>',          'nvim tree toggle' },
             { '<Leader>tt', '<CMD>NvimTreeFindFileToggle!<CR>', 'nvim tree find file toggle' },
         },
         config = function()
@@ -31,6 +33,28 @@ return {
                 filters = {
                     dotfiles = true,
                 },
+            })
+
+            local Hydra = require('hydra')
+            local buffer_hydra = Hydra({
+                name = 'nvim-tree',
+                config = {
+                    exit = true,
+                },
+                heads = {
+                    { 's',     require('nvim-tree.api').marks.navigate.select, { desc = 'select mark' } },
+                    { 'n',     require('nvim-tree.api').marks.navigate.next,   { desc = 'next mark' } },
+                    { 'p',     require('nvim-tree.api').marks.navigate.prev,   { desc = 'prev mark' } },
+                    { 'q',     nil,                                            { exit = true } },
+                    { '<Esc>', nil,                                            { exit = true, desc = 'quit' } }
+                }
+            })
+
+            api.nvim_create_autocmd("FileType", {
+                pattern = 'NvimTree',
+                callback = function()
+                    vim.keymap.set('n', '<Leader>tn', function () buffer_hydra:activate() end, { desc = 'nvim-tree', buffer = true })
+                end
             })
         end
     },
