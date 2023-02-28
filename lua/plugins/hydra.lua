@@ -146,6 +146,31 @@ return {
             end
 
             vim.keymap.set('n', 'gb', choose_buffer, { desc = 'Barbar' })
+
+            Hydra({
+                name = 'vim-highlighter',
+                config = {
+                    color = 'amaranth',
+                    invoke_on_body = true,
+                    hint = {
+                        border = 'rounded',
+                        position = 'bottom'
+                    },
+                },
+                mode = { 'n', 'x' },
+                body = '<leader>so',
+                heads = {
+                    { 'n', function() cmd('Hi>') end, { desc = 'Next' } },
+                    { 'p', function() cmd('Hi<') end, { desc = 'Previous' } },
+                    { ']', function() cmd('Hi}') end, { desc = 'Next' } },
+                    { '[', function() cmd('Hi{') end, { desc = 'Previous' } },
+                    { 's', function() cmd('Hi save') end, { desc = 'Save', exit = true } },
+                    { 'l', function() cmd('Hi load') end, { desc = 'Load', exit = true } },
+                    { 'c', function() cmd('Hi clear') end, { desc = 'Clear all', exit = true } },
+                    { 'q', nil, { exit = true } },
+                    { '<Esc>', nil, { exit = true, desc = 'quit' } }
+                }
+            })
         end
     }
 }

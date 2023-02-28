@@ -529,11 +529,11 @@ function key_mappings:start()
         -- :nn <silent>_  :<C-U> Hi/previous<CR>
         -- :nn f<Left>    :<C-U> Hi/older<CR>
         -- :nn f<Right>   :<C-U> Hi/newer<CR>
-        ['n|-'] = ':<C-U> Hi/next<CR>',
-        ['n|_'] = ':<C-U> Hi/previous<CR>',
+        -- ['n|-'] = ':<C-U> Hi/next<CR>',
+        -- ['n|_'] = ':<C-U> Hi/previous<CR>',
         ['n|f<Left>'] = ':<C-U> Hi/older<CR>',
         ['n|f<Right>'] = ':<C-U> Hi/newer<CR>',
-        ['n|<Leader>so'] = '<CMD>Hi +<CR>',
+        -- ['n|<Leader>so'] = '<CMD>Hi +<CR>',
     }
 
     -- lsp-config

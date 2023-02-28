@@ -9,7 +9,11 @@ return {
     },
     { 'tjdevries/colorbuddy.nvim' },
 
-    { 'junegunn/fzf', build = './install --all', pin = true },
+    {
+        'junegunn/fzf',
+        build = './install --all',
+        pin = true
+    },
     {
         -- 需要使用最新版的 bat 来预览，可以直接在 release 页面下载
         'junegunn/fzf.vim', event = 'VimEnter *',
@@ -221,7 +225,26 @@ return {
     },
 
     'gcmt/wildfire.vim',
-    'azabiong/vim-highlighter',
+    {
+        'azabiong/vim-highlighter',
+        config = function()
+            -- The following example defines the `-` `_` and `f-` keys to execute the **Hi** command while
+            -- the **Find** window is visible, otherwise execute the original function.
+            vim.cmd([[
+            nn -   <Cmd>call v:lua.hi_optional('next', '-')<CR>
+            nn _   <Cmd>call v:lua.hi_optional('previous', '_')<CR>
+            nn f-  <Cmd>call v:lua.hi_optional('close', 'f-')<CR>
+            ]])
+
+            function _G.hi_optional(cmd, key)
+                if vim.fn.HiFind() == 1 then
+                    vim.cmd('Hi ' .. cmd)
+                else
+                    vim.cmd('normal! ' .. key)
+                end
+            end
+        end
+    },
     -- TODO:
     {
         "folke/todo-comments.nvim",
