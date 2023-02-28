@@ -145,7 +145,7 @@ function key_mappings:start()
         ['n|<C-g>'] = '<C-c>',
         ['n|<A-j>'] = { '<CMD>m .+1<CR>', desc = 'current line move up' },
         ['n|<A-k>'] = { '<CMD>m .-2<CR>', desc = 'current line move down' },
-        ['n|<Leader>mm'] = '%',
+        ['n|<Leader>mm'] = '<Plug>(MatchitNormalForward)',
         ['n|<Leader>lf'] = '<CMD>luafile %<CR>',
         ['n|ge'] = 'G',
         ['n|<Leader>qr'] = { function() require('quickrun').run() end, desc = 'quickrun' },
@@ -182,7 +182,7 @@ function key_mappings:start()
         -- Move selected line / block of text in visual mode
         ["v|<A-k>"] = ":m .-2<CR>==",
         ["v|<A-j>"] = ":m .+1<CR>==",
-        ['v|<Leader>mm'] = '%',
+        ['v|<Leader>mm'] = '<Plug>(MatchitVisualForward)',
         ["x|<A-k>"] = ":move '<-2<CR>gv-gv",
         ["x|<A-j>"] = ":move '>+1<CR>gv-gv",
     }
