@@ -8,8 +8,8 @@ return {
         version = 'nightly', -- optional, updated every week. (see issue #1193)
         cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle' },
         keys = {
-            { '<Leader>tt', '<CMD>NvimTreeToggle<CR>', 'nvim tree toggle' },
-            { '<Leader>tf', '<CMD>NvimTreeFindFileToggle<CR>', 'nvim tree find file toggle' },
+            { '<Leader>tf', '<CMD>NvimTreeToggle<CR>', 'nvim tree toggle' },
+            { '<Leader>tt', '<CMD>NvimTreeFindFileToggle!<CR>', 'nvim tree find file toggle' },
         },
         config = function()
             -- require("nvim-tree").setup()
