@@ -11,7 +11,7 @@ return {
             vim.g.gutentags_project_root = { '.root', '.svn', '.git', '.hg', '.project' }
             local tags_cache_dir = vim.fn.expand('~/.cache/tags')
             if vim.fn.isdirectory(tags_cache_dir) == 0 then
-                vim.fn.mkdir(tags_cache_dir)
+                vim.fn.mkdir(tags_cache_dir, 'p')
             end
             vim.g.gutentags_cache_dir = tags_cache_dir
             vim.g.gutentags_ctags_tagfile = '.tags'

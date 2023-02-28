@@ -9,7 +9,7 @@ local last_session = nil
 local session_directory = vim.fn.expand(is_windows and '~/AppData/Local/nvim/sessionmgr/' or '~/.config/nvim/sessionmgr/')
 -- print(session_directory)
 if vim.fn.isdirectory(session_directory) == 0 then
-    vim.fn.mkdir(session_directory)
+    vim.fn.mkdir(session_directory, 'p')
 end
 
 local function check_file_exist(filename)
