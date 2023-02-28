@@ -160,6 +160,8 @@ return {
                 mode = { 'n', 'x' },
                 body = '<leader>so',
                 heads = {
+                    { 't', function() cmd('Hi+') end, { desc = 'HiSet' } },
+                    { 'e', function() cmd('Hi-') end, { desc = 'HiErase' } },
                     { 'n', function() cmd('Hi>') end, { desc = 'Next' } },
                     { 'p', function() cmd('Hi<') end, { desc = 'Previous' } },
                     { ']', function() cmd('Hi}') end, { desc = 'Next' } },

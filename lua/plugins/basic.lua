@@ -227,6 +227,11 @@ return {
     'gcmt/wildfire.vim',
     {
         'azabiong/vim-highlighter',
+        init = function ()
+            -- Sometimes, when you want to apply highlighting only to a Specific Line, `HiSetSL` key mapping can be useful.
+            -- Highlighting is limited to a specific line, and **Jump** commands are also available.
+            vim.g.HiSetSL = 't<CR>'
+        end,
         config = function()
             -- The following example defines the `-` `_` and `f-` keys to execute the **Hi** command while
             -- the **Find** window is visible, otherwise execute the original function.
