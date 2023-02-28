@@ -28,6 +28,10 @@ end
 local function session_save(session_name)
     local session_path = gen_session_path(session_name)
     -- futil.info('save current:%s', session_path)
+    local view = require('nvim-tree.view')
+    if view.is_visible() then
+        cmd('NvimTreeToggle')
+    end
     cmd('silent mksession! ' .. session_path)
     return check_file_exist(session_path)
 end
@@ -72,17 +76,17 @@ local function session_complete(arg)
     return match
 end
 
-api.nvim_create_user_command('SSave', function (argument)
+api.nvim_create_user_command('SSave', function(argument)
     argument.args = argument.args ~= '' and argument.args or current_session
     session_save(argument.args)
     current_session = argument.args
 end, { nargs = '?', bang = true, complete = session_complete })
 
-api.nvim_create_user_command('SDelete', function (argument)
+api.nvim_create_user_command('SDelete', function(argument)
     session_delete(argument.args)
 end, { nargs = 1, complete = session_complete })
 
-api.nvim_create_user_command('SLoad', function (argument)
+api.nvim_create_user_command('SLoad', function(argument)
     if not check_file_exist(gen_session_path(argument.args)) then
         futil.info('session %s not exist', argument.args)
         return
@@ -97,7 +101,7 @@ api.nvim_create_user_command('SLoad', function (argument)
     -- futil.info('current:%s, last:%s', current_session, last_session)
 end, { nargs = 1, complete = session_complete })
 
-api.nvim_create_user_command('SSwitch', function (argument)
+api.nvim_create_user_command('SSwitch', function(argument)
     if session_save(current_session) then
         futil.delete_buffers(false)
         if not check_file_exist(gen_session_path(argument.args)) then
@@ -111,7 +115,7 @@ api.nvim_create_user_command('SSwitch', function (argument)
     end
 end, { nargs = 1, complete = session_complete })
 
-api.nvim_create_user_command('SPrevious', function ()
+api.nvim_create_user_command('SPrevious', function()
     if not last_session then
         futil.info('last_session is empty!')
         return
@@ -123,19 +127,21 @@ api.nvim_create_user_command('SPrevious', function ()
     end
 end, {})
 
-api.nvim_create_user_command('SPrint', function ()
+api.nvim_create_user_command('SPrint', function()
     futil.info('current:%s, last:%s', current_session, last_session)
     session_complete()
 end, {})
 
 api.nvim_create_autocmd({ 'VimLeavePre' }, {
-  callback = function ()
-     if current_session then
-         session_save(current_session)
-     end
-  end,
+    callback = function()
+        if current_session then
+            session_save(current_session)
+        end
+    end,
 })
 
 function CurrentSession()
     return current_session and current_session or ''
 end
+
+cmd([[ function! SessionMgrStatus() return v:lua.CurrentSession() endfunction ]])
