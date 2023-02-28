@@ -87,11 +87,11 @@ noremap <silent> <Leader>hd :GscopeFind d <C-R><C-W><cr>
 noremap <silent> <Leader>ha :GscopeFind a <C-R><C-W><cr>
 
 "gutentags.txt
-" augroup MyGutentagsStatusLineRefresher
-"     autocmd!
-"     autocmd User GutentagsUpdating call lightline#update()
-"     autocmd User GutentagsUpdated call lightline#update()
-" augroup END
+augroup MyGutentagsStatusLineRefresher
+    autocmd!
+    autocmd User GutentagsUpdating call lightline#update()
+    autocmd User GutentagsUpdated call lightline#update()
+augroup END
 
 
 "--------------------------------------------------------------------------
