@@ -283,6 +283,8 @@ DefAudioCommand(AUDIO_BREAKOUT_ROOM_USER_STATE_TO_CDTS)
 DefAudioCommand(AUDIO_BREAKOUT_ROOM_USER_STATE_TO_MIXER)
 ```
 
++ audioserver 还少一组获取分组音频信息的信令
+
 ## cdts
 
 + 切换

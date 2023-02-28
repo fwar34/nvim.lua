@@ -53,8 +53,10 @@ return {
         -- 提供 GscopeFind 命令并自动处理好 gtags 数据库切换
         -- 支持光标移动到符号名上：<leader>cg 查看定义，<leader>cs 查看引用
         'skywind3000/gutentags_plus',
-        config = function()
+        init = function ()
             vim.g.gutentags_plus_nomap = 1
+        end,
+        config = function()
             -- " and define your new maps:
             -- " 0 or s: Find this symbol
             -- " 1 or g: Find this definition
