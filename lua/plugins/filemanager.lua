@@ -12,8 +12,7 @@ return {
             { '<Leader>tt', '<CMD>NvimTreeFindFileToggle!<CR>', 'nvim tree find file toggle' },
         },
         config = function()
-            -- require("nvim-tree").setup()
-            require("nvim-tree").setup({
+            local args = {
                 sort_by = "case_sensitive",
                 view = {
                     adaptive_size = true,
@@ -25,13 +24,32 @@ return {
                         },
                     },
                 },
-                renderer = {
-                    group_empty = true,
-                },
                 filters = {
                     dotfiles = true,
                 },
-            })
+            }
+            if is_windows then
+                print('xxxxxxxxxxxx')
+                vim.tbl_deep_extend('error', args, {
+                    renderer = {
+                        group_empty = true,
+                    },
+                })
+            else
+                print('yyyyyyyyy')
+                vim.tbl_deep_extend('error', args, {
+                    renderer = {
+                        group_empty = true,
+                        icons = {
+                            glyphs = {
+                                bookmark = '*',
+                            }
+                        }
+                    },
+                })
+            end
+            vim.pretty_print(args)
+            require("nvim-tree").setup(args)
 
             local Hydra = require('hydra')
             local buffer_hydra = Hydra({
