@@ -14,9 +14,10 @@ require("options")
 local function set_leader()
     vim.g.mapleader = ";"
     vim.g.maplocalleader = " "
-    api.nvim_set_keymap('n', ' ', '', {noremap = true})
-    api.nvim_set_keymap('x', ' ', '', {noremap = true})
+    api.nvim_set_keymap('n', ' ', '', { noremap = true })
+    api.nvim_set_keymap('x', ' ', '', { noremap = true })
 end
+
 set_leader()
 
 -- lazy.nvim bootstrap
