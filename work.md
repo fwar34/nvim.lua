@@ -30,7 +30,6 @@ DefData(BREAKOUT_ROOM_INFO);
 DefData(BREAKOUT_ROOM_USER_ITEM);                        每个用户所在的分组信息
 ```
 
-
 ## bms
 
 + 开启分组 (会前会设置分组，服务器不用解析，服务器以打开分组里面的分组信息为准)
@@ -39,22 +38,23 @@ bms 处理分组并广播开启分组成功的应答给所有客户端
 
 ```cpp
 客户端使用
-#define DATA_CONTENT_BMS_CONF_BREAKOUT_ROOMS_START(OP)       \
-    GROUP_ITEM(OP, uint32_t, confID);                        \
-    GROUP_ITEM(OP, uint32_t, userID);                        \
-    GROUP_ITEM(OP, string, extend);                          \
-    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_INFO>, rooms);       \ 组的信息
-    组内的成员，包含了没有入会的成员（userid=0，umsUserID!=0的用户），bms需要保存独立的列表，因为关闭分组后客户端还可能获取此列表重新编辑分组再开启分组
-    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, roomUsers); 
+组内的成员 roomUsers，包含了没有入会的成员（userid=0，umsUserID!=0的用户），bms需要保存独立的列表，因为关闭分组后客户端还可能获取此列表重新编辑分组再开启分组
+#define DATA_CONTENT_BMS_CONF_BREAKOUT_ROOMS_START(OP)              \
+    GROUP_ITEM(OP, uint32_t, confID);                               \
+    GROUP_ITEM(OP, uint32_t, userID);                               \
+    GROUP_ITEM(OP, string, extend);                                 \
+    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_INFO>, rooms);              \ 组的信息
+    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, roomUsers);
 DefBMSCommand(BMS_CONF_BREAKOUT_ROOMS_START)
 
 #define DATA_CONTENT_BMS_CONF_BREAKOUT_ROOMS_START_NOTIFY(OP)       \
     GROUP_ITEM(OP, uint32_t, statusCode);                           \
+    GROUP_ITEM(OP, uint64_t, timestamp);                            \ 当前服务器时间戳，单位为秒
     GROUP_ITEM(OP, uint32_t, confID);                               \
     GROUP_ITEM(OP, uint32_t, userID);                               \
     GROUP_ITEM(OP, string, extend);                                 \
     GROUP_ITEM(OP, vector<BREAKOUT_ROOM_INFO>, rooms);              \
-    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, roomUsers); 
+    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, roomUsers);
 DefBMSCommand(BMS_CONF_BREAKOUT_ROOMS_START_NOTIFY)
 ```
 
@@ -87,13 +87,15 @@ bms 广播设置分组成功应答
 客户端使用
 #define DATA_CONTENT_BMS_CONF_SET_USER_BREAKOUT_ROOM(OP)     \
     GROUP_ITEM(OP, uint32_t, confID);                        \
-    GROUP_ITEM(OP, BREAKOUT_ROOM_USER_ITEM, user)
+    GROUP_ITEM(OP, uint32_t, operatorID);                    \
+    GROUP_ITEM(OP, BREAKOUT_ROOM_USER_ITEM, destItem)
 DefBMSCommand(BMS_CONF_SET_USER_BREAKOUT_ROOM)
 
-#define DATA_CONTENT_BMS_CONF_USER_SET_USER_BREAKOUT_ROOM_NOTIFY(OP)   \
-    GROUP_ITEM(OP, uint32_t, statusCode);                              \
-    GROUP_ITEM(OP, uint32_t, confID);
-    GROUP_ITEM(OP, BREAKOUT_ROOM_USER_ITEM, user)
+#define DATA_CONTENT_BMS_CONF_USER_SET_USER_BREAKOUT_ROOM_NOTIFY(OP)    \
+    GROUP_ITEM(OP, uint32_t, statusCode);                               \
+    GROUP_ITEM(OP, uint32_t, confID);                                   \
+    GROUP_ITEM(OP, uint32_t, operatorID);                               \
+    GROUP_ITEM(OP, BREAKOUT_ROOM_USER_ITEM, destItem)
 DefBMSCommand(BMS_CONF_USER_SET_USER_BREAKOUT_ROOM_NOTIFY)
 ```
 
@@ -115,7 +117,7 @@ server端真正结束分组时，需要把用户音频回到主会场，设置�
 #define DATA_CONTENT_BMS_CONF_BREAKOUT_ROOMS_STOP(OP)    \
     GROUP_ITEM(OP, uint32_t, confID);                    \
     GROUP_ITEM(OP, uint32_t, userID);                    \
-    GROUP_ITEM(OP, uint32_t, delayTime);                 \ – 关闭倒计时时间(秒）
+    GROUP_ITEM(OP, uint32_t, delayTime);                 \ 关闭倒计时时间(秒）
 DefBMSCommand(BMS_CONF_BREAKOUT_ROOMS_STOP)
 
 #define DATA_CONTENT_BMS_CONF_BREAKOUT_ROOMS_STOP_NOTIFY(OP)    \
@@ -291,10 +293,24 @@ cdts 切换的时候需要从 redis 加载用户分组列表（或者从 audiose
 + 用户的分组信息和用户的音频订阅信息需要分开存储
 + 用户的分组信息 bms 来存储，用户的音频订阅信息 audioserver 来存储
 + 用户的分组信息需要独立存储而且不能删除（因为主持人再次开启分组的时候需要编辑老的列表）
-+ 800 用户需要跟随主持人进去的分组，需要客户端使用 `AUDIO_RECORD_BREAKOUT_ROOM` 来控制
++ 800 用户需要跟随主持人进去的分组，需要客户端使用 `AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM` 来控制
 + 老的 mixer join 使用新的接口发给 mixer，信令中只有一个分组，分组中包含了所有的需要混音的用户
 + 关闭分组的时候需要重新通知给 mixer 当前的分组信息
 + 用户的 audioState 和 用户在每个分组的 privilege 共同决定了用户在此分组的传输权限
 + 静音接口的 mode 添加两个模式：组内全体静音和解除静音，此两种模式下 groupID 赋值 roomID
 
 ## 问题
+
+## 编码测试计划
++ bms
+会议用户添加相关字段，添加分组结构添加新的分组信令 -- 4天
++ business
+添加分组对应信息 -- 1天
++ audioserver
+添加分组结构，调整现有的静音接口，添加分组对应的逻辑，添加和mixer的接口 -- 5天
++ tang-cache
+添加分组对应的数据结构和接口 -- 3天
++ libacctrans
+添加分组对应的接口和切换接口 -- 2天
+
+纯编码14天，联调时间3月23日
