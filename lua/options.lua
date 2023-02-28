@@ -147,7 +147,7 @@ cmd("set winaltkeys=no")
 -- 打开功能键超时检测（终端下功能键为一串 ESC 开头的字符串）
 cmd('set ttimeout')
 -- 功能键超时检测 50 毫秒
-cmd('set ttimeoutlen=50')
+-- cmd('set ttimeoutlen=50')
 -- 允许 Vim 自带脚本根据文件类型自动设置缩进等
 cmd('filetype plugin indent on')
 -- 语法高亮设置
@@ -156,7 +156,7 @@ cmd('syntax on')
 -- 显示最后一行
 cmd('set display=lastline')
 -- 延迟绘制（提升性能）
-cmd('set lazyredraw')
+-- cmd('set lazyredraw')
 -- 错误格式
 cmd('set errorformat+=[%f:%l]\\ ->\\ %m,[%f:%l]:%m')
 -- 设置分隔符可视
