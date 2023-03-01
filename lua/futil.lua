@@ -131,6 +131,7 @@ function futil.dump_all_buffers()
 end
 
 api.nvim_create_user_command('DumpBuffers', futil.dump_all_buffers, {})
+cmd('ca db DumpBuffers')
 
 function futil.info(...)
     vim.notify(string.format(...), vim.log.levels.INFO)

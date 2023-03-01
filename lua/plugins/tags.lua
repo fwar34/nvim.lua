@@ -16,7 +16,7 @@ return {
             vim.g.gutentags_cache_dir = tags_cache_dir
             vim.g.gutentags_ctags_tagfile = '.tags'
             -- let g:gutentags_exclude_project_root = [expand('~/.vim')]
-            vim.g.gutentags_ctags_exclude = { '*/debian/*', '*.am', '*.sh', 'makefile', 'Makefile', '*.html', '*.thrift' }
+            vim.g.gutentags_ctags_exclude = { '*/debian/*', '*.am', '*.sh', 'makefile', 'Makefile', '*.html', '*.thrift', '*/doxygen-doc/*' }
 
             if vim.fn.executable('gtags-cscope') and vim.fn.executable('gtags') then
                 vim.g.gutentags_modules = { 'ctags', 'gtags_cscope' }
@@ -53,6 +53,7 @@ return {
         -- 提供 GscopeFind 命令并自动处理好 gtags 数据库切换
         -- 支持光标移动到符号名上：<leader>cg 查看定义，<leader>cs 查看引用
         'skywind3000/gutentags_plus',
+        enabled = false,
         init = function ()
             vim.g.gutentags_plus_nomap = 1
         end,
