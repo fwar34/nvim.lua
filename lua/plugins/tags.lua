@@ -1,7 +1,20 @@
 local set = vim.keymap.set
+vim.g.f_exclude_files = { '*/debian/*', '*.am', '*.sh', 'makefile', 'Makefile', '*.html', '*.thrift', '*/doxygen-doc/*' }
 return {
-    -- Coding
-    'liuchengxu/vista.vim',
+    {
+        'liuchengxu/vista.vim',
+        config = function ()
+            -- local custom_cmd = 'ctags --exclude=' .. table.concat(exclude_files, ' --exclude=')
+            -- print('xxxxx:' .. custom_cmd)
+            -- " Declare the command including the executable and options used to generate ctags output
+            -- " for some certain filetypes.The file path will be appened to your custom command.
+            -- " For example:
+            -- vim.g.vista_ctags_cmd = {
+            --     -- haskell = 'hasktags -x -o - -c',
+            --     cpp = custom_cmd
+            -- }
+        end
+    },
     -- use {'jsfaint/gen_tags.vim', event = 'VimEnter *',}
     -- 提供 ctags/gtags 后台数据库自动更新功能
     {
@@ -16,7 +29,7 @@ return {
             vim.g.gutentags_cache_dir = tags_cache_dir
             vim.g.gutentags_ctags_tagfile = '.tags'
             -- let g:gutentags_exclude_project_root = [expand('~/.vim')]
-            vim.g.gutentags_ctags_exclude = { '*/debian/*', '*.am', '*.sh', 'makefile', 'Makefile', '*.html', '*.thrift', '*/doxygen-doc/*' }
+            vim.g.gutentags_ctags_exclude = vim.g.f_exclude_files
 
             -- if vim.fn.executable('gtags-cscope') and vim.fn.executable('gtags') then
             --     vim.g.gutentags_modules = { 'ctags', 'gtags_cscope' }
