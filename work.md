@@ -16,7 +16,7 @@
 #define DATA_CONTENT_BREAKOUT_ROOM_INFO(OP) \
     GROUP_ITEM(OP, uint32_t, id);           \
     GROUP_ITEM(OP, string, name);           \
-    GROUP_ITEM(OP, uint32_t, mixerMode);    \   服务器混音还是客户端混音
+    GROUP_ITEM(OP, uint32_t, mixerMode);    \   服务器混音还是客户端混音 1：客户端混音 0：服务器混音
     GROUP_ITEM(OP, string, extend);
 DefData(BREAKOUT_ROOM_INFO);
 
