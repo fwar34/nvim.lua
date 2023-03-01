@@ -84,6 +84,10 @@ local function rg_options()
         "!*.tags",
         "--iglob",
         "!*doxygen-doc/*",
+        "--iglob",
+        "!*.vcxproj",
+        "--iglob",
+        "!*.vcxproj.filters",
     }
 end
 

@@ -18,9 +18,9 @@ return {
             -- let g:gutentags_exclude_project_root = [expand('~/.vim')]
             vim.g.gutentags_ctags_exclude = { '*/debian/*', '*.am', '*.sh', 'makefile', 'Makefile', '*.html', '*.thrift', '*/doxygen-doc/*' }
 
-            if vim.fn.executable('gtags-cscope') and vim.fn.executable('gtags') then
-                vim.g.gutentags_modules = { 'ctags', 'gtags_cscope' }
-            end
+            -- if vim.fn.executable('gtags-cscope') and vim.fn.executable('gtags') then
+            --     vim.g.gutentags_modules = { 'ctags', 'gtags_cscope' }
+            -- end
 
             -- " 如果使用 universal ctags 需要增加下面两行
             -- " Universal Ctags support Wildcard in options.
