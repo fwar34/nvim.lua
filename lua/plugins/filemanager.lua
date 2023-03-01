@@ -1,5 +1,6 @@
 local is_windows = require('global').is_windows
 local api = vim.api
+local set = vim.keymap.set
 return {
     -- File manager
     -- pip3 install --user pynvim
@@ -54,6 +55,7 @@ return {
                 config = {
                     exit = true,
                 },
+                body = '<Leader>t',
                 heads = {
                     { 's',     require('nvim-tree.api').marks.navigate.select, { desc = 'select mark' } },
                     { 'n',     require('nvim-tree.api').marks.navigate.next,   { desc = 'next mark' } },
@@ -66,9 +68,11 @@ return {
             api.nvim_create_autocmd("FileType", {
                 pattern = 'NvimTree',
                 callback = function()
-                    vim.keymap.set('n', '<Leader>tn', function () buffer_hydra:activate() end, { desc = 'nvim-tree', buffer = true })
+                    -- set('n', '<Leader>tn', function () buffer_hydra:activate() end, { desc = 'nvim-tree', buffer = true })
+                    buffer_hydra:activate()
                 end
             })
+            set({'n', 'v'}, '<Leader>ts', require('nvim-tree.api').marks.navigate.select, {desc = 'nvim-tree bookmark select'})
         end
     },
     {
