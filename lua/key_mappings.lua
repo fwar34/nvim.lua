@@ -78,6 +78,10 @@ local function rg_options()
         "!*.svn/*",
         "--iglob",
         "!*.git/*",
+        "--iglob",
+        "!.tag",
+        "--iglob",
+        "!.tags",
     }
 end
 

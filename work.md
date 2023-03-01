@@ -91,12 +91,12 @@ bms 广播设置分组成功应答
     GROUP_ITEM(OP, BREAKOUT_ROOM_USER_ITEM, destItem)
 DefBMSCommand(BMS_CONF_SET_USER_BREAKOUT_ROOM)
 
-#define DATA_CONTENT_BMS_CONF_USER_SET_USER_BREAKOUT_ROOM_NOTIFY(OP)    \
+#define DATA_CONTENT_BMS_CONF_SET_USER_BREAKOUT_ROOM_NOTIFY(OP)         \
     GROUP_ITEM(OP, uint32_t, statusCode);                               \
     GROUP_ITEM(OP, uint32_t, confID);                                   \
     GROUP_ITEM(OP, uint32_t, operatorID);                               \
     GROUP_ITEM(OP, BREAKOUT_ROOM_USER_ITEM, destItem)
-DefBMSCommand(BMS_CONF_USER_SET_USER_BREAKOUT_ROOM_NOTIFY)
+DefBMSCommand(BMS_CONF_SET_USER_BREAKOUT_ROOM_NOTIFY)
 ```
 
 + 关闭分组

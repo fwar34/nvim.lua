@@ -49,27 +49,28 @@ return {
             end
             require("nvim-tree").setup(args)
 
-            local Hydra = require('hydra')
-            local buffer_hydra = Hydra({
-                name = 'nvim-tree',
-                config = {
-                    exit = true,
-                },
-                body = '<Leader>t',
-                heads = {
-                    { 's',     require('nvim-tree.api').marks.navigate.select, { desc = 'select mark' } },
-                    { 'n',     require('nvim-tree.api').marks.navigate.next,   { desc = 'next mark' } },
-                    { 'p',     require('nvim-tree.api').marks.navigate.prev,   { desc = 'prev mark' } },
-                    { 'q',     nil,                                            { exit = true } },
-                    { '<Esc>', nil,                                            { exit = true, desc = 'quit' } }
-                }
-            })
 
             api.nvim_create_autocmd("FileType", {
                 pattern = 'NvimTree',
                 callback = function()
                     -- set('n', '<Leader>tn', function () buffer_hydra:activate() end, { desc = 'nvim-tree', buffer = true })
-                    buffer_hydra:activate()
+                    -- buffer_hydra:activate()
+                    local Hydra = require('hydra')
+                    Hydra({
+                        name = 'nvim-tree',
+                        config = {
+                            -- exit = true,
+                            color = 'amaranth',
+                        },
+                        body = '<Leader>t',
+                        heads = {
+                            { 's',     require('nvim-tree.api').marks.navigate.select, { desc = 'select mark', exit = true } },
+                            { 'n',     require('nvim-tree.api').marks.navigate.next,   { desc = 'next mark' } },
+                            { 'p',     require('nvim-tree.api').marks.navigate.prev,   { desc = 'prev mark' } },
+                            { 'q',     nil,                                            { exit = true } },
+                            { '<Esc>', nil,                                            { exit = true, desc = 'quit' } }
+                        }
+                    })
                 end
             })
             set({'n', 'v'}, '<Leader>ts', require('nvim-tree.api').marks.navigate.select, {desc = 'nvim-tree bookmark select'})
