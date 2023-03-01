@@ -79,9 +79,11 @@ local function rg_options()
         "--iglob",
         "!*.git/*",
         "--iglob",
-        "!.tag",
+        "!*.tag",
         "--iglob",
-        "!.tags",
+        "!*.tags",
+        "--iglob",
+        "!*doxygen-doc/*",
     }
 end
 
