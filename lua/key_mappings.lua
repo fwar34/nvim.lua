@@ -3,12 +3,7 @@ local vim = vim
 local api = vim.api
 local cmd = vim.cmd
 local futil = require('futil')
--- local telescope = require('telescope')
--- local tbuiltin = require('telescope.builtin')
 local is_windows = require('global').is_windows
-
-local vista_find_custom = 'Vista finder "fzf:ctags --exclude="' .. table.concat(vim.g.f_exclude_files, '" --exclude="') .. '" -R ."'
--- print('vista_find_custom:' .. vista_find_custom)
 
 local key_mappings = {}
 local key_map = {}
@@ -403,7 +398,7 @@ function key_mappings:start()
         -- ['n|<Leader>tl'] = '<CMD>Vista finder!<CR>',
         ['n|<Leader>tl'] = { function ()
             if vim.bo.filetype == 'cpp' then
-                cmd(vista_find_custom)
+                cmd('Vista finder "fzf:ctags --exclude="' .. table.concat(vim.g.f_exclude_files, '" --exclude="') .. '" -R ."')
             else
                 cmd('Vista finder!')
             end
