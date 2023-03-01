@@ -17,19 +17,19 @@ return {
             })
 
             local hint = [[
-                ^ ^        Options
-                ^
-                _v_ %{ve} virtual edit
-                _i_ %{list} invisible characters  ^
-                _s_ %{spell} spell
-                _w_ %{wrap} wrap
-                _c_ %{cul} cursor line
-                _n_ %{nu} number
-                _r_ %{rnu} relative number
-                _q_ quit
-                ^
-                ^^^^                _<Esc>_
-            ]]
+  ^ ^        Options
+  ^
+  _v_ %{ve} virtual edit
+  _i_ %{list} invisible characters  ^
+  _s_ %{spell} spell
+  _w_ %{wrap} wrap
+  _c_ %{cul} cursor line
+  _n_ %{nu} number
+  _r_ %{rnu} relative number
+  _q_ quit
+  ^
+  ^^^^                _<Esc>_
+]]
 
             Hydra({
                 name = 'Options',
