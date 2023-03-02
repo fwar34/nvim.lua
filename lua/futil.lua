@@ -84,7 +84,8 @@ function futil.find_previous_brace_in_first_column()
         local current_line = current_line_array[1]
         if current_line ~= nil and string.sub(current_line, 1, 1) == '{' and line_num - 1 >= 0 then
             local ret_line = api.nvim_buf_get_lines(0, line_num - 1, line_num, false)
-            print(ret_line[1])
+            -- print(ret_line[1])
+            vim.cmd('echohl String| echo "' .. ret_line[1] .. '" | echohl None')
             return
         end
         line_num = line_num - 1
