@@ -20,7 +20,7 @@ local function check_file_exist(filename)
 end
 
 local function gen_group_path(group_name)
-    return group_directory .. group_name .. '.gp'
+    return group_directory .. group_name .. '.group'
 end
 
 local function is_exclude(buf)
@@ -151,7 +151,7 @@ local function group_complete(arg)
     local match = {}
     -- local output = is_windows and vim.fn.execute('!dir ' .. group_directory) or vim.fn.execute('!ls ' .. group_directory)
     local output = vim.fn.execute(is_windows and '!dir ' .. group_directory or '!ls ' .. group_directory)
-    for line in string.gmatch(output, "(%w+).gp") do
+    for line in string.gmatch(output, "(%w+)%.group") do
         if string.match(line, arg) then
             table.insert(match, 1, line)
         else
