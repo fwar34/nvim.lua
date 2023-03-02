@@ -129,6 +129,7 @@ function futil.dump_all_buffers()
         vim.pretty_print('buf num:' .. buf ..
         ' name:' .. api.nvim_buf_get_name(buf) ..
         ' is load:' .. (vim.api.nvim_buf_is_loaded(buf) and 1 or 0) ..
+        ' buflisted:' .. (api.nvim_buf_get_option(buf, 'buflisted') and 1 or 0) ..
         ' ft:' .. api.nvim_buf_get_option(buf, 'filetype') ..
         ' valid:' .. (api.nvim_buf_is_valid(buf) and 1 or 0))
     end
