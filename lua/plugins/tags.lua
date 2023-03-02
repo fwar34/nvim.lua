@@ -9,7 +9,7 @@ return {
                 pattern = 'cpp',
                 callback = function ()
                     vim.g.vista_ctags_project_opts = '--exclude="' .. table.concat(vim.g.f_exclude_files, '" --exclude="') .. '"'
-                    print(vim.g.vista_ctags_project_opts)
+                    -- print(vim.g.vista_ctags_project_opts)
                 end
             })
         end
