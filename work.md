@@ -199,7 +199,7 @@ DefData(BreakoutRoomUserInfoMixer);
 #define DATA_CONTENT_AUDIO_BREAKOUT_ROOM_STATE_TO_MIXER(OP)             \
     GROUP_ITEM(OP, uint32_t, confID);                                   \
     GROUP_ITEM(OP, uint32_t, status);                                   \ 打开：1，关闭：0
-    GROUP_ITEM(OP, vector<AudioConfig_mixer_info>, roomInfos);
+    GROUP_ITEM(OP, vector<BreakoutRoomUserInfoMixer>, roomInfos);
 DefAudioCommand(AUDIO_BREAKOUT_ROOM_STATE_TO_MIXER)
 ```
 
