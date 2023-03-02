@@ -1,17 +1,10 @@
 local set = vim.keymap.set
-vim.g.f_exclude_files = { 'debian', '*.am', '*.sh', 'makefile', 'Makefile', '*.html', '*.thrift', 'doxygen-doc', 'Makefile.in' }
+vim.g.f_exclude_files = { 'debian', '*.am', '*.sh', 'makefile', 'Makefile', '*.html', '*.thrift', 'doxygen-doc', 'Makefile.in', 'configure', 'config.status', 'libtool', 'auxdir', 'configure.ac' }
 return {
     {
         'liuchengxu/vista.vim',
         init = function ()
-            vim.api.nvim_create_autocmd('FileType',
-            {
-                pattern = 'cpp',
-                callback = function ()
-                    vim.g.vista_ctags_project_opts = '--exclude="' .. table.concat(vim.g.f_exclude_files, '" --exclude="') .. '"'
-                    -- print(vim.g.vista_ctags_project_opts)
-                end
-            })
+            vim.g.vista_ctags_project_opts = '--exclude="' .. table.concat(vim.g.f_exclude_files, '" --exclude="') .. '"'
         end
     },
     -- use {'jsfaint/gen_tags.vim', event = 'VimEnter *',}
