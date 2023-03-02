@@ -12,6 +12,7 @@
 **/core
 **/nohup.out
 **/sessionmgr
+**/groupmgr
 **/lazy-lock.json
 **/.quicknote
 **/.luarc.json

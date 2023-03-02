@@ -105,15 +105,18 @@ function futil.delete_buffers(exclude_current)
     -- print("list:", vim.inspect(buffers), "current:", current)
 
     for _, buf in ipairs(buffers) do
-        -- vim.pretty_print('buf:' .. api.nvim_buf_get_name(buf) .. ' is load:' .. (vim.api.nvim_buf_is_loaded(buf) and 1 or 0) .. ' ft:' .. api.nvim_buf_get_option(buf, 'filetype'))
-        local ft = api.nvim_buf_get_option(buf, 'filetype')
-        if ft ~= 'floaterm' and ft ~= 'rnvimr' and ft ~= 'toggleterm' and api.nvim_buf_is_valid(buf) and string.len(api.nvim_buf_get_name(buf)) ~= 0 then
-            if exclude_current then
-                if buf ~= current then
+        if api.nvim_buf_is_valid(buf) and api.nvim_buf_get_option(buf, 'buflisted') then
+            -- vim.pretty_print('buf:' .. api.nvim_buf_get_name(buf) .. ' is load:' .. (vim.api.nvim_buf_is_loaded(buf) and 1 or 0) .. ' ft:' .. api.nvim_buf_get_option(buf, 'filetype'))
+            local ft = api.nvim_buf_get_option(buf, 'filetype')
+            -- local buf_name_len = string.len(api.nvim_buf_get_name(buf))
+            if ft ~= 'floaterm' and ft ~= 'rnvimr' and ft ~= 'toggleterm' then
+                if exclude_current then
+                    if buf ~= current then
+                        api.nvim_buf_delete(buf, {})
+                    end
+                else
                     api.nvim_buf_delete(buf, {})
                 end
-            else
-                api.nvim_buf_delete(buf, {})
             end
         end
     end
