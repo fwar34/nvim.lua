@@ -38,7 +38,7 @@ end
 
 local function map_q_to_quit()
     api.nvim_create_autocmd("FileType", {
-        pattern = {'help', 'qf', 'netrw', 'startuptime', 'git'},
+        pattern = {'help', 'qf', 'netrw', 'startuptime', 'git', 'notify'},
         callback = function()
             -- api.nvim_buf_set_keymap(0, 'n', 'q', '<CMD>q<CR>', {noremap = true})
             vim.keymap.set('n', 'q', '<CMD>q<CR>', {buffer = true, silent = true})

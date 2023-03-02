@@ -29,7 +29,8 @@ local function is_exclude(buf)
     end
 
     local ft = api.nvim_buf_get_option(buf, 'filetype')
-    if ft == 'floaterm' or ft == 'rnvimr' or ft == 'toggleterm' or ft == '' or ft == 'help' or ft == 'qf' or string.len(api.nvim_buf_get_name(buf)) == 0 then
+    if ft == 'floaterm' or ft == 'rnvimr' or ft == 'toggleterm' or ft == '' or ft == 'help' or ft == 'qf' or
+        string.len(api.nvim_buf_get_name(buf)) == 0 then
         return true
     end
     return false
@@ -61,10 +62,13 @@ local function group_save(group_name)
     end
     local buffers = api.nvim_list_bufs()
     for _, buf in ipairs(buffers) do
-        -- print('buf------------------- : ' .. buf .. ' name: ' .. api.nvim_buf_get_name(buf))
-        -- print('is_exclude:' .. (is_exclude(buf) and 1 or 0) .. ' buflisted: ' .. (api.nvim_buf_get_option(buf, 'buflisted') and 1 or 0))
-        -- print('is_valid:' .. (api.nvim_buf_is_valid(buf) and 1 or 0) .. ' name len:' .. string.len(api.nvim_buf_get_name(buf)))
-        -- print('filetype: ' .. api.nvim_buf_get_option(buf, 'filetype'))
+        futil.info('group_load',
+            'buf-------------------(%u) name(%s) is_exclude(%u) buflisted(%u) is_valid(%u) name length(%u) filetype(%s)',
+            buf, api.nvim_buf_get_name(buf), (is_exclude(buf) and 1 or 0),
+            (api.nvim_buf_get_option(buf, 'buflisted') and 1 or 0),
+            (api.nvim_buf_is_valid(buf) and 1 or 0), string.len(api.nvim_buf_get_name(buf)),
+            api.nvim_buf_get_option(buf, 'filetype'))
+
         if not is_exclude(buf) and api.nvim_buf_get_option(buf, 'buflisted') and buf ~= current_buf then
             f:write(api.nvim_buf_get_name(buf) .. '\n')
             table.insert(ret, buf)
@@ -174,12 +178,12 @@ end, { nargs = 1, complete = group_complete })
 
 api.nvim_create_user_command('GLoad', function(argument)
     if not check_file_exist(gen_group_path(argument.args)) then
-        futil.info('group %s not exist', argument.args)
+        futil.warn('group %s not exist', argument.args)
         return
     end
 
     if argument.args == current_group then
-        futil.info('target group %s is equal to current group', argument.args)
+        futil.warn('target group %s is equal to current group', argument.args)
         return
     end
 
@@ -200,7 +204,7 @@ end, { nargs = 1, complete = group_complete })
 
 api.nvim_create_user_command('GSwitch', function(argument)
     if argument.args == current_group then
-        futil.info('target group %s is equal to current group', argument.args)
+        futil.warn('target group %s is equal to current group', argument.args)
         return
     end
 
@@ -218,7 +222,7 @@ end, { nargs = 1, complete = group_complete })
 
 api.nvim_create_user_command('GPrevious', function()
     if not last_group then
-        futil.info('last_group is empty!')
+        futil.warn('last_group is empty!')
         return
     end
 

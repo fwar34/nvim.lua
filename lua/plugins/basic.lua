@@ -328,10 +328,10 @@ return {
             vim.g.NERDToggleCheckAllLines = 1
         end
     },
-    {
-        "RutaTang/quicknote.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" },
-    },
+    -- {
+    --     "RutaTang/quicknote.nvim",
+    --     dependencies = { "nvim-lua/plenary.nvim" },
+    -- },
     {
         'nvim-orgmode/orgmode',
         config = function()

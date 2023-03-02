@@ -138,16 +138,20 @@ end
 api.nvim_create_user_command('DumpBuffers', futil.dump_all_buffers, {})
 cmd('ca db DumpBuffers')
 
-function futil.info(...)
-    vim.notify(string.format(...), vim.log.levels.INFO)
+function futil.info(title, ...)
+    vim.notify(string.format(...), vim.log.levels.INFO, { title = ' ' .. title })
 end
 
-function futil.warn(...)
-    vim.notify(string.format(...), vim.log.levels.WARN)
+function futil.warn(title, ...)
+    vim.notify(string.format(...), vim.log.levels.WARN, { title = ' ' .. title })
 end
 
-function futil.err(...)
-    vim.notify(string.format(...), vim.log.levels.ERROR)
+function futil.err(title, ...)
+    vim.notify(string.format(...), vim.log.levels.ERROR, { title = ' ' .. title })
+end
+
+function futil.debug(title, ...)
+    vim.notify(string.format(...), vim.log.levels.DEBUG, { title = ' ' .. title })
 end
 
 function futil.put(...)

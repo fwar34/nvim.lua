@@ -331,7 +331,8 @@ function key_mappings:start()
         },
         ['n|<Leader>pf'] = {
             function()
-                require('telescope.builtin').find_files({ cwd = require("find_root_dir").find_root_dir(), find_command = find_files_args, })
+                require('telescope.builtin').find_files({ cwd = require("find_root_dir").find_root_dir(),
+                    find_command = find_files_args, })
             end,
             desc = 'find home directory'
         },
@@ -342,7 +343,8 @@ function key_mappings:start()
             end,
             desc = 'open nvim config lua directory'
         },
-        ['n|<Leader>fh'] = { function() require('telescope.builtin').find_files({ cwd = '~' }) end, desc = 'find_files in home directory' },
+        ['n|<Leader>fh'] = { function() require('telescope.builtin').find_files({ cwd = '~' }) end,
+            desc = 'find_files in home directory' },
         ['n|<Leader>fw'] = {
             function() require('telescope.builtin').grep_string({ additional_args = rg_options }) end,
             desc = 'find word under cursor'
@@ -378,6 +380,14 @@ function key_mappings:start()
         -- ['n|<Leader>dj'] = '<CMD>Telescope file_browser<CR>',
     }
 
+    -- rcarriga/notify
+    self.notify = {
+        ['|<Leader>nh'] = { '<CMD>Telescope notify<CR>', desc = 'notify history' },
+        ['|<Leader>ns'] = { function()
+            require('notify').dismiss({ pending = true, silent = true })
+        end, desc = 'stop display notify' },
+    }
+
     -- self.Commentary = {
     --     ['n|<Leader>ci'] = '<CMD>Commentary<CR>',
     -- }
@@ -395,7 +405,7 @@ function key_mappings:start()
     --symotion-prefix) Vista
     self.vista = {
         ['n|<Leader>ii'] = '<CMD>Vista finder<CR>',
-        ['n|<Leader>tl'] = {'<CMD>Vista finder!<CR>', desc = 'Find tags'},
+        ['n|<Leader>tl'] = { '<CMD>Vista finder!<CR>', desc = 'Find tags' },
         ['n|<Leader>jj'] = '<CMD>Vista!!<CR>',
     }
 
