@@ -1,5 +1,5 @@
 local set = vim.keymap.set
-vim.g.f_exclude_files = { '*/debian/*', '*.am', '*.sh', 'makefile', 'Makefile', '*.html', '*.thrift', '*/doxygen-doc/*', 'Makefile.am', 'Makefile.in' }
+vim.g.f_exclude_files = { 'debian', '*.am', '*.sh', 'makefile', 'Makefile', '*.html', '*.thrift', 'doxygen-doc', 'Makefile.in' }
 return {
     {
         'liuchengxu/vista.vim',

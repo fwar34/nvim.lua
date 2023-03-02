@@ -395,17 +395,7 @@ function key_mappings:start()
     --symotion-prefix) Vista
     self.vista = {
         ['n|<Leader>ii'] = '<CMD>Vista finder<CR>',
-        ['n|<Leader>tl'] = '<CMD>Vista finder!<CR>',
-        -- ['n|<Leader>tl'] = { function ()
-        --     if vim.bo.filetype == 'cpp' then
-        --         cmd('Vista finder! "fzf:ctags --exclude="' .. table.concat(vim.g.f_exclude_files, '" --exclude="') .. '" ."')
-        --         -- print('Vista finder "fzf:ctags --exclude="' .. table.concat(vim.g.f_exclude_files, '" --exclude="') .. '" -R ."')
-        --         -- cmd('Vista finder! "fzf:ctags . -R"')
-        --     else
-        --         cmd('Vista finder!')
-        --     end
-        -- end,
-        -- desc = 'Find tags'},
+        ['n|<Leader>tl'] = {'<CMD>Vista finder!<CR>', desc = 'Find tags'},
         ['n|<Leader>jj'] = '<CMD>Vista!!<CR>',
     }
 
