@@ -3,7 +3,7 @@ local cmd = vim.cmd
 return {
     {
         "folke/which-key.nvim",
-        event = 'VeryLazy',
+        -- event = 'VeryLazy',
         -- version = 'v1.1.1',
         config = function()
             vim.o.timeout = true

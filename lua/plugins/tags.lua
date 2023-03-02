@@ -1,18 +1,17 @@
 local set = vim.keymap.set
-vim.g.f_exclude_files = { '*/debian/*', '*.am', '*.sh', 'makefile', 'Makefile', '*.html', '*.thrift', '*/doxygen-doc/*' }
+vim.g.f_exclude_files = { '*/debian/*', '*.am', '*.sh', 'makefile', 'Makefile', '*.html', '*.thrift', '*/doxygen-doc/*', 'Makefile.am', 'Makefile.in' }
 return {
     {
         'liuchengxu/vista.vim',
-        config = function ()
-            -- local custom_cmd = 'ctags --exclude=' .. table.concat(exclude_files, ' --exclude=')
-            -- print('xxxxx:' .. custom_cmd)
-            -- " Declare the command including the executable and options used to generate ctags output
-            -- " for some certain filetypes.The file path will be appened to your custom command.
-            -- " For example:
-            -- vim.g.vista_ctags_cmd = {
-            --     -- haskell = 'hasktags -x -o - -c',
-            --     cpp = custom_cmd
-            -- }
+        init = function ()
+            vim.api.nvim_create_autocmd('FileType',
+            {
+                pattern = 'cpp',
+                callback = function ()
+                    vim.g.vista_ctags_project_opts = '--exclude="' .. table.concat(vim.g.f_exclude_files, '" --exclude="') .. '"'
+                    print(vim.g.vista_ctags_project_opts)
+                end
+            })
         end
     },
     -- use {'jsfaint/gen_tags.vim', event = 'VimEnter *',}
