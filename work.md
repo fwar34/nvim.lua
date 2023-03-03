@@ -13,13 +13,6 @@
 
 ```cpp
 每个分组的信息
-#define DATA_CONTENT_BREAKOUT_ROOM_INFO(OP) \
-    GROUP_ITEM(OP, uint32_t, id);           \
-    GROUP_ITEM(OP, string, name);           \
-    GROUP_ITEM(OP, uint32_t, mixerMode);    \   服务器混音还是客户端混音 1：客户端混音 0：服务器混音
-    GROUP_ITEM(OP, string, extend);
-DefData(BREAKOUT_ROOM_INFO);
-
 #define DATA_CONTENT_BREAKOUT_ROOM_USER_ITEM(OP)       \
     GROUP_ITEM(OP, uint32_t, userId);                  \
     GROUP_ITEM(OP, uint32_t, userUmsId);               \
@@ -28,6 +21,14 @@ DefData(BREAKOUT_ROOM_INFO);
     GROUP_ITEM(OP, uint32_t, privilege);               \ 用户在 userGroupId 中的权限, 可听：0x01 可说: 0x02
     GROUP_ITEM(OP, string, extend);
 DefData(BREAKOUT_ROOM_USER_ITEM);                        每个用户所在的分组信息
+
+#define DATA_CONTENT_BREAKOUT_ROOM_INFO(OP)                         \
+    GROUP_ITEM(OP, uint32_t, roomID);                               \
+    GROUP_ITEM(OP, string, name);                                   \
+    GROUP_ITEM(OP, uint32_t, mixerMode);                            \   服务器混音还是客户端混音 1：客户端混音 0：服务器混音
+    GROUP_ITEM(OP, string, extend);                                 \
+    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, userItems);
+DefData(BREAKOUT_ROOM_INFO);
 ```
 
 ## bms
@@ -43,8 +44,7 @@ bms 处理分组并广播开启分组成功的应答给所有客户端
     GROUP_ITEM(OP, uint32_t, confID);                               \
     GROUP_ITEM(OP, uint32_t, userID);                               \
     GROUP_ITEM(OP, string, extend);                                 \
-    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_INFO>, rooms);              \ 组的信息
-    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, roomUsers);
+    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_INFO>, roomInfos);
 DefBMSCommand(BMS_CONF_BREAKOUT_ROOMS_START)
 
 #define DATA_CONTENT_BMS_CONF_BREAKOUT_ROOMS_START_NOTIFY(OP)       \
@@ -53,8 +53,7 @@ DefBMSCommand(BMS_CONF_BREAKOUT_ROOMS_START)
     GROUP_ITEM(OP, uint32_t, confID);                               \
     GROUP_ITEM(OP, uint32_t, userID);                               \
     GROUP_ITEM(OP, string, extend);                                 \
-    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_INFO>, rooms);              \
-    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, roomUsers);
+    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_INFO>, roomInfos);
 DefBMSCommand(BMS_CONF_BREAKOUT_ROOMS_START_NOTIFY)
 ```
 
@@ -72,8 +71,7 @@ DefBMSCommand(BMS_CONF_GET_BREAKOUT_ROOMS_LIST)
 #define DATA_CONTENT_BMS_CONF_GET_BREAKOUT_ROOMS_LIST_NOTIFY(OP)    \
     GROUP_ITEM(OP, uint32_t, confID);                               \
     GROUP_ITEM(OP, string, extend);                                 \
-    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_INFO>, rooms);              \ 组的信息
-    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, roomUsers);
+    GROUP_ITEM(OP, vector<BREAKOUT_ROOM_INFO>, roomInfos);
 DefBMSCommand(BMS_CONF_GET_BREAKOUT_ROOMS_LIST_NOTIFY)
 ```
 
