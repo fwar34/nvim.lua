@@ -235,7 +235,6 @@ end, {})
 
 api.nvim_create_user_command('GPrint', function()
     futil.info({title = 'GPrint'}, 'current(%s), last(%s)', current_group, last_group)
-    group_complete()
 end, {})
 
 api.nvim_create_autocmd('VimLeavePre', {
