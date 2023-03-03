@@ -69,7 +69,7 @@ return {
                         }
                     },
 
-                    layout_strategy = 'vertical',
+                    -- layout_strategy = 'vertical',
                     -- layout_config = { height = 0.95 },
                     color_devicons = use_devicons(),
                 },

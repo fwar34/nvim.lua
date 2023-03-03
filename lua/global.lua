@@ -64,5 +64,9 @@ function global.get_time_ms()
     return require('socket').gettime()
 end
 
+function global.check_file_exist(filename)
+    return vim.fn.filereadable(filename) == 1
+end
+
 global:load_variables()
 return global
