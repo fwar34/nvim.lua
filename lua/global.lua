@@ -60,5 +60,9 @@ function global:load_variables()
 	self.memory_enough = read_total_memory()
 end
 
+function global.get_time_ms()
+    return require('socket').gettime()
+end
+
 global:load_variables()
 return global

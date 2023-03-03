@@ -62,12 +62,12 @@ local function group_save(group_name)
     end
     local buffers = api.nvim_list_bufs()
     for _, buf in ipairs(buffers) do
-        futil.debug({ title = 'group_load', timeout = 0 },
-            'buf-------------------(%u) name(%s) is_exclude(%u) buflisted(%u) is_valid(%u) name length(%u) filetype(%s)',
-            buf, api.nvim_buf_get_name(buf), (is_exclude(buf) and 1 or 0),
-            (api.nvim_buf_get_option(buf, 'buflisted') and 1 or 0),
-            (api.nvim_buf_is_valid(buf) and 1 or 0), string.len(api.nvim_buf_get_name(buf)),
-            api.nvim_buf_get_option(buf, 'filetype'))
+        -- futil.debug({ title = 'group_load', timeout = 0 },
+        --     'buf-------------------(%u) name(%s) is_exclude(%u) buflisted(%u) is_valid(%u) name length(%u) filetype(%s)',
+        --     buf, api.nvim_buf_get_name(buf), (is_exclude(buf) and 1 or 0),
+        --     (api.nvim_buf_get_option(buf, 'buflisted') and 1 or 0),
+        --     (api.nvim_buf_is_valid(buf) and 1 or 0), string.len(api.nvim_buf_get_name(buf)),
+        --     api.nvim_buf_get_option(buf, 'filetype'))
 
         if not is_exclude(buf) and api.nvim_buf_get_option(buf, 'buflisted') and buf ~= current_buf then
             f:write(api.nvim_buf_get_name(buf) .. '\n')
@@ -76,7 +76,6 @@ local function group_save(group_name)
     end
 
     f:close()
-    -- print('current_buf:' .. current_buf)
     -- vim.pretty_print(ret)
     return ret
 end
@@ -225,11 +224,17 @@ api.nvim_create_user_command('GPrevious', function()
         futil.warn({title = 'GPrevious'}, 'last_group is empty!')
         return
     end
-
+    local start_time = require('global').get_time_ms()
     local previous_buffers = group_save(current_group)
+    local current = require('global').get_time_ms()
+    print('save time ms:' .. (current - start_time) * 1000)
+
+    start_time = require('global').get_time_ms()
     if previous_buffers then
         group_hide(previous_buffers)
         group_load(last_group)
+        current = require('global').get_time_ms()
+        print('load time ms:' .. (current - start_time) * 1000)
     end
 end, {})
 
