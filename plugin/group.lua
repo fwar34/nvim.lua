@@ -237,6 +237,13 @@ api.nvim_create_user_command('GPrint', function()
     futil.info({title = 'GPrint'}, 'current(%s), last(%s)', current_group, last_group)
 end, {})
 
+api.nvim_create_user_command('GClear', function ()
+    if current_group then
+        group_save(current_group)
+    end
+    current_group = nil
+end, {})
+
 api.nvim_create_autocmd('VimLeavePre', {
     callback = function()
         if current_group then
@@ -246,7 +253,7 @@ api.nvim_create_autocmd('VimLeavePre', {
 })
 
 function CurrentGroup()
-    return current_group and current_group or ''
+    return current_group or ''
 end
 
 cmd([[
