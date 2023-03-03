@@ -203,6 +203,7 @@ return {
     {
         -- tabline plugin
         'romgrk/barbar.nvim',
+        enabled = false,
         dependencies = { 'kyazdani42/nvim-web-devicons' },
         config = function()
             require 'bufferline'.setup({
@@ -220,7 +221,7 @@ return {
                 -- Enable/disable icons
                 -- if set to 'numbers', will show buffer index in the tabline
                 -- if set to 'both', will show buffer index and icons in the tabline
-                -- icons = true,
+                icons = require('global').hostname == 'ubuntu-work' and false or true,
                 icon_pinned = '車',
             })
         end

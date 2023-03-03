@@ -50,7 +50,7 @@ return {
             -- "输出trace信息
             -- vim.g.gutentags_trace = 1
             vim.api.nvim_create_user_command('GutentagsToggleTrace', function()
-                vim.g.gutentags_trace = not vim.g.gutentags_trace
+                vim.g.gutentags_trace = vim.g.gutentags_trace == 1 and 0 or 1
             end, {})
         end
     },

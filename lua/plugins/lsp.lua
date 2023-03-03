@@ -4,13 +4,13 @@ return {
         -- lsp installer
         'williamboman/mason-lspconfig.nvim',
         dependencies = { 'williamboman/mason.nvim' },
-        config = function ()
+        config = function()
             require('mason').setup()
             require('mason-lspconfig').setup()
         end
     },
     -- Lsp
-    {'neovim/nvim-lspconfig'},
+    { 'neovim/nvim-lspconfig' },
     {
         'quangnguyen30192/cmp-nvim-tags',
         -- if you want the sources is available for some file types
@@ -46,9 +46,8 @@ return {
                         -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
                     end,
                 },
-
                 mapping = cmp.mapping.preset.insert({
-                    ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
+                    ['<C-u>'] = cmp.mapping.scroll_docs( -4), -- Up
                     ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Down
                     ["<Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
@@ -65,8 +64,8 @@ return {
                     ["<S-Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_prev_item()
-                        elseif luasnip.jumpable(-1) then
-                            luasnip.jump(-1)
+                        elseif luasnip.jumpable( -1) then
+                            luasnip.jump( -1)
                         else
                             fallback()
                         end
@@ -86,8 +85,8 @@ return {
                     ["<C-p>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_prev_item()
-                        elseif luasnip.jumpable(-1) then
-                            luasnip.jump(-1)
+                        elseif luasnip.jumpable( -1) then
+                            luasnip.jump( -1)
                         else
                             fallback()
                         end
@@ -162,15 +161,16 @@ return {
                 -- -- }
                 -- )
 
-                sources = cmp.config.sources({
-                    { name = 'nvim_lsp' },
-                    { name = 'nvim_lsp_signature_help' },
-                    -- { name = 'vsnip' }, -- For vsnip users.
-                    { name = 'luasnip' }, -- For luasnip users.
-                    -- { name = 'ultisnips' }, -- For ultisnips users.
-                    -- { name = 'snippy' }, -- For snippy users.
-                    { name = 'path' },
-                },
+                sources = cmp.config.sources(
+                    {
+                        { name = 'nvim_lsp' },
+                        { name = 'nvim_lsp_signature_help' },
+                        -- { name = 'vsnip' }, -- For vsnip users.
+                        { name = 'luasnip' }, -- For luasnip users.
+                        -- { name = 'ultisnips' }, -- For ultisnips users.
+                        -- { name = 'snippy' }, -- For snippy users.
+                        { name = 'path' },
+                    },
                     {
                         { name = 'buffer' },
                         { name = 'tags' },
