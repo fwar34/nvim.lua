@@ -7,7 +7,7 @@ return {
     {
         'kyazdani42/nvim-tree.lua',
         version = 'nightly', -- optional, updated every week. (see issue #1193)
-        cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle' },
+        -- cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle' },
         keys = {
             { '<Leader>tf', '<CMD>NvimTreeToggle<CR>',          'nvim tree toggle' },
             { '<Leader>tt', '<CMD>NvimTreeFindFileToggle!<CR>', 'nvim tree find file toggle' },

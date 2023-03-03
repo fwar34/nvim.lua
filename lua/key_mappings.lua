@@ -151,8 +151,8 @@ function key_mappings:start()
             desc = 'find previous brace in first column' },
         ['n|<LocalLeader>do'] = { function() futil.delete_buffers(true) end, desc = 'delete other buffers' },
         ['n|<C-g>'] = '<C-c>',
-        ['n|<A-j>'] = { '<CMD>m .+1<CR>', desc = 'current line move up' },
-        ['n|<A-k>'] = { '<CMD>m .-2<CR>', desc = 'current line move down' },
+        ['n|<A-p>'] = { '<CMD>m .-2<CR>', desc = 'current line move up' },
+        ['n|<A-n>'] = { '<CMD>m .+1<CR>', desc = 'current line move down' },
         ['n|<Leader>mm'] = '<Plug>(MatchitNormalForward)',
         ['n|<Leader>lf'] = '<CMD>luafile %<CR>',
         ['n|ge'] = 'G',
@@ -187,12 +187,12 @@ function key_mappings:start()
         ['v|<C-g>'] = '<C-c>',
         ["v|>"] = ">gv",
         ["v|<"] = "<gv",
-        -- Move selected line / block of text in visual mode
-        ["v|<A-k>"] = ":m .-2<CR>==",
-        ["v|<A-j>"] = ":m .+1<CR>==",
         ['v|<Leader>mm'] = '<Plug>(MatchitVisualForward)',
-        ["x|<A-k>"] = ":move '<-2<CR>gv-gv",
-        ["x|<A-j>"] = ":move '>+1<CR>gv-gv",
+        -- Move selected line / block of text in visual mode
+        ["v|<A-p>"] = { ":m .-2<CR>==", desc = 'move selected line / block up' },
+        ["v|<A-n>"] = { ":m .+1<CR>==", desc = 'move selected line / block down' },
+        ["x|<A-p>"] = ":move '<-2<CR>gv-gv",
+        ["x|<A-n>"] = ":move '>+1<CR>gv-gv",
     }
 
     self.insert = {
@@ -331,15 +331,20 @@ function key_mappings:start()
         },
         ['n|<Leader>pf'] = {
             function()
-                require('telescope.builtin').find_files({ cwd = require("find_root_dir").find_root_dir(),
-                    find_command = find_files_args, })
+                require('telescope.builtin').find_files({
+                    cwd = require("find_root_dir").find_root_dir(),
+                    find_command = find_files_args,
+                })
             end,
             desc = 'find home directory'
         },
         ['n|<Leader>cf'] = {
             function()
-                require('telescope.builtin').find_files({ cwd = is_windows and '~/AppData/Local/nvim/lua' or
-                    '~/.config/nvim/lua', find_command = find_files_args, })
+                require('telescope.builtin').find_files({
+                    cwd = is_windows and '~/AppData/Local/nvim/lua' or
+                    '~/.config/nvim/lua',
+                    find_command = find_files_args,
+                })
             end,
             desc = 'open nvim config lua directory'
         },
@@ -439,7 +444,6 @@ function key_mappings:start()
     --[[ self.nnn_vim = { ]]
     --[[     ['n|<Leader>nn'] = '<CMD>NnnPicker<CR>', ]]
     --[[ } ]]
-
     -- floaterm
     -- self.floaterm = {
     --     ['n|<Leader>ff'] = '<CMD>FloatermNew lf<CR>',

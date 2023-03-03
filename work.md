@@ -207,7 +207,7 @@ DefAudioCommand(AUDIO_BREAKOUT_ROOM_STATE_TO_MIXER)
 
 1. 会中用户订阅新的语音的时候判断订阅的目标 breakout rooms 是服务器混音并且用户需要在目标 breakout rooms 中说话的时候通知 mixer，否则就只通知 cdts
 ```cpp
-此接口客户端使用，支持同时订阅多个组，全量更新
+此接口客户端使用，支持同时订阅多个组，全量更新（用户所在的组不用订阅）
 #define DATA_CONTENT_UserAudioSubscribeInfo(OP)     \
     GROUP_ITEM(OP, UserID, roomID);                 \
     GROUP_ITEM(OP, UINT32_t, privilege);            \     对录制的服务器混音来控制此用户是否需要混音输出的数据，可听或者可说（mixer 判断用户可说则加入混音引擎）
