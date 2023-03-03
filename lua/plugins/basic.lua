@@ -203,7 +203,7 @@ return {
     {
         -- tabline plugin
         'romgrk/barbar.nvim',
-        enabled = false,
+        enabled = is_windows,
         dependencies = { 'kyazdani42/nvim-web-devicons' },
         config = function()
             require 'bufferline'.setup({
