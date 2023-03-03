@@ -40,7 +40,7 @@ local function group_save(group_name)
     local group_path = gen_group_path(group_name)
     local f = io.open(group_path, 'w+')
     if not f then
-        futil.err('failed to open file(%s)', group_path)
+        futil.err({title = 'group_save'}, 'failed to open file(%s)', group_path)
         return nil
     end
 
@@ -51,7 +51,7 @@ local function group_save(group_name)
 
     local current_buf = api.nvim_get_current_buf()
     if not api.nvim_buf_is_valid(current_buf) then
-        futil.err('failed to get current_buf')
+        futil.err({title = 'group_save'}, 'failed to get current_buf')
         return nil
     end
 
@@ -62,7 +62,7 @@ local function group_save(group_name)
     end
     local buffers = api.nvim_list_bufs()
     for _, buf in ipairs(buffers) do
-        futil.info('group_load',
+        futil.debug({ title = 'group_load', timeout = 0 },
             'buf-------------------(%u) name(%s) is_exclude(%u) buflisted(%u) is_valid(%u) name length(%u) filetype(%s)',
             buf, api.nvim_buf_get_name(buf), (is_exclude(buf) and 1 or 0),
             (api.nvim_buf_get_option(buf, 'buflisted') and 1 or 0),
@@ -84,13 +84,13 @@ end
 local function group_load(group_name)
     local group_path = gen_group_path(group_name)
     if not check_file_exist(group_path) then
-        futil.err('groupmgr: group file(%s) not exist', group_path)
+        futil.err({title = 'group_load'}, 'groupmgr: group file(%s) not exist', group_path)
         return
     end
 
     local f = io.open(group_path, 'r')
     if not f then
-        futil.err('open file(%s) failed', group_path)
+        futil.err({title = 'group_load'}, 'open file(%s) failed', group_path)
         return
     end
 
@@ -116,7 +116,7 @@ local function group_load(group_name)
     f:close()
 
     if table.maxn(buffers) == 0 then
-        futil.err('file(%s) content empty', group_path)
+        futil.err({title = 'group_load'}, 'file(%s) content empty', group_path)
         return
     end
 
@@ -178,12 +178,12 @@ end, { nargs = 1, complete = group_complete })
 
 api.nvim_create_user_command('GLoad', function(argument)
     if not check_file_exist(gen_group_path(argument.args)) then
-        futil.warn('group %s not exist', argument.args)
+        futil.warn({title = 'GLoad'}, 'group(%s) not exist', argument.args)
         return
     end
 
     if argument.args == current_group then
-        futil.warn('target group %s is equal to current group', argument.args)
+        futil.warn({title = 'GLoad'}, 'target group(%s) is equal to current group', argument.args)
         return
     end
 
@@ -204,12 +204,12 @@ end, { nargs = 1, complete = group_complete })
 
 api.nvim_create_user_command('GSwitch', function(argument)
     if argument.args == current_group then
-        futil.warn('target group %s is equal to current group', argument.args)
+        futil.warn({title = 'GSwitch'}, 'target group(%s) is equal to current group', argument.args)
         return
     end
 
     if not check_file_exist(gen_group_path(argument.args)) then
-        futil.err('target group %s not exist', argument.args)
+        futil.err({title = 'GSwitch'}, 'target group(%s) not exist', argument.args)
         return
     end
 
@@ -222,7 +222,7 @@ end, { nargs = 1, complete = group_complete })
 
 api.nvim_create_user_command('GPrevious', function()
     if not last_group then
-        futil.warn('last_group is empty!')
+        futil.warn({title = 'GPrevious'}, 'last_group is empty!')
         return
     end
 
@@ -234,7 +234,7 @@ api.nvim_create_user_command('GPrevious', function()
 end, {})
 
 api.nvim_create_user_command('GPrint', function()
-    futil.info('current:%s, last:%s', current_group, last_group)
+    futil.info({title = 'GPrint'}, 'current(%s), last(%s)', current_group, last_group)
     group_complete()
 end, {})
 

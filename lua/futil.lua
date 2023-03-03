@@ -138,20 +138,36 @@ end
 api.nvim_create_user_command('DumpBuffers', futil.dump_all_buffers, {})
 cmd('ca db DumpBuffers')
 
-function futil.info(title, ...)
-    vim.notify(string.format(...), vim.log.levels.INFO, { title = ' ' .. title })
+function futil.info(opts, ...)
+    if type(opts) == "table" then
+        vim.notify(string.format(...), vim.log.levels.INFO, opts)
+    else
+        vim.notify(string.format(opts, ...), vim.log.levels.INFO)
+    end
 end
 
-function futil.warn(title, ...)
-    vim.notify(string.format(...), vim.log.levels.WARN, { title = ' ' .. title })
+function futil.warn(opts, ...)
+    if type(opts) == "table" then
+        vim.notify(string.format(...), vim.log.levels.WARN, opts)
+    else
+        vim.notify(string.format(opts, ...), vim.log.levels.WARN)
+    end
 end
 
-function futil.err(title, ...)
-    vim.notify(string.format(...), vim.log.levels.ERROR, { title = ' ' .. title })
+function futil.err(opts, ...)
+    if type(opts) == "table" then
+        vim.notify(string.format(...), vim.log.levels.ERROR, opts)
+    else
+        vim.notify(string.format(opts, ...), vim.log.levels.ERROR)
+    end
 end
 
-function futil.debug(title, ...)
-    vim.notify(string.format(...), vim.log.levels.DEBUG, { title = ' ' .. title })
+function futil.debug(opts, ...)
+    if type(opts) == "table" then
+        vim.notify(string.format(...), vim.log.levels.DEBUG, opts)
+    else
+        vim.notify(string.format(opts, ...), vim.log.levels.DEBUG)
+    end
 end
 
 function futil.put(...)
