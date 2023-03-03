@@ -229,7 +229,7 @@ return {
     'gcmt/wildfire.vim',
     {
         'azabiong/vim-highlighter',
-        init = function ()
+        init = function()
             -- Sometimes, when you want to apply highlighting only to a Specific Line, `HiSetSL` key mapping can be useful.
             -- Highlighting is limited to a specific line, and **Jump** commands are also available.
             vim.g.HiSetSL = 't<CR>'
@@ -264,6 +264,20 @@ return {
                 -- or leave it empty to use the default settings
                 -- refer to the configuration section below
             }
+            vim.keymap.set("n", "]t", function()
+                require("todo-comments").jump_next()
+            end, { desc = "Next todo comment" })
+
+            vim.keymap.set("n", "[t", function()
+                require("todo-comments").jump_prev()
+            end, { desc = "Previous todo comment" })
+
+            vim.keymap.set('n', '<Leader>td', '<CMD>TodoTelescope<CR>', { desc = 'TodoTelescope' })
+
+            -- You can also specify a list of valid jump keywords
+            -- vim.keymap.set("n", "]t", function()
+            --     require("todo-comments").jump_next({keywords = { "ERROR", "WARNING" }})
+            -- end, { desc = "Next error/warning todo comment" })
         end
     },
 
@@ -381,7 +395,7 @@ return {
     },
     {
         'rcarriga/nvim-notify',
-        config = function ()
+        config = function()
             vim.notify = require('notify')
         end
     }
