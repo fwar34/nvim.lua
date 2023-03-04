@@ -12,16 +12,16 @@ local view = require('nvim-tree.view')
 
 local last_group = nil
 local current_group = nil
-local groups = {}
+-- local loaded_groups = {}
 local M = {}
 
-local group_directory = fn.expand(is_windows and '~/AppData/Local/nvim/groupmgr/' or '~/.config/nvim/groupmgr/')
+local group_directory = fn.expand(is_windows and '~/AppData/Local/nvim/sessionmgr/' or '~/.config/nvim/sessionmgr/')
 if fn.isdirectory(group_directory) == 0 then
     fn.mkdir(group_directory, 'p')
 end
 
 local function gen_group_path(group_name)
-    return group_directory .. group_name .. '.group'
+    return group_directory .. group_name .. '.session'
 end
 
 function M.is_buf_exclude(bufnr)
@@ -48,19 +48,19 @@ local function update_buffer_var(bufnr, group_name)
     end
 end
 
-local function clear_buffer_var()
+local function clear_all_buffer_var()
     for _, bufnr in ipairs(api.nvim_list_bufs()) do
-        if M.is_buf_exclude(bufnr) then
+        if not M.is_buf_exclude(bufnr) then
             api.nvim_buf_set_var(bufnr, 'buffer_groups', nil)
         end
     end
 end
 
-local function update_groups(group_name)
-    if not vim.tbl_contains(groups, group_name) then
-        table.insert(groups, group_name)
-    end
-end
+-- local function update_groups(group_name)
+--     if not vim.tbl_contains(loaded_groups, group_name) then
+--         table.insert(loaded_groups, group_name)
+--     end
+-- end
 
 local function group_save(group_name)
     local group_path = gen_group_path(group_name)
@@ -75,18 +75,14 @@ local function group_save(group_name)
     end
 
     local current_bufnr = api.nvim_get_current_buf()
-    if not api.nvim_buf_is_valid(current_bufnr) then
-        futil.err({ title = 'group_save' }, 'failed to get current_buf')
-        return nil
-    end
-
-    local ret = {}
-    local current_buf_name = api.nvim_buf_get_name(current_bufnr)
-    if string.len(current_buf_name) ~= 0 then
+    if not M.is_buf_exclude(current_bufnr) then
+        local current_buf_name = api.nvim_buf_get_name(current_bufnr)
         f:write(current_buf_name .. '\n') -- 第一行保存 current_buf_name
         table.insert(ret, current_bufnr)
         update_buffer_var(current_bufnr, group_name)
     end
+
+    local ret = {}
     local buffers = api.nvim_list_bufs()
     for _, bufnr in ipairs(buffers) do
         -- futil.debug({ title = 'group_load', timeout = 0 },
@@ -99,7 +95,7 @@ local function group_save(group_name)
         if not M.is_buf_exclude(bufnr)
             and api.nvim_buf_get_option(bufnr, 'buflisted')
             and bufnr ~= current_bufnr
-            and (not buffer_groups or vim.tbl_contains(buffer_groups, current_group)) then
+            and (not current_group or not buffer_groups or vim.tbl_contains(buffer_groups, current_group)) then
             f:write(api.nvim_buf_get_name(bufnr) .. '\n')
             table.insert(ret, bufnr)
             update_buffer_var(bufnr, group_name)
@@ -107,15 +103,24 @@ local function group_save(group_name)
     end
 
     f:close()
-    update_groups(group_name)
+    -- update_groups(group_name)
     -- vim.pretty_print(ret)
     return ret
+end
+
+local function open_buffer(buffer_name)
+    local bufnr = fn.bufnr(buffer_name)
+    if bufnr == -1 then
+        vim.cmd('silent! e ' .. buffer_name)
+        bufnr = fn.bufnr(buffer_name)
+    end
+    return bufnr
 end
 
 local function group_load(group_name)
     local group_path = gen_group_path(group_name)
     if not check_file_exist(group_path) then
-        futil.err({ title = 'group_load' }, 'groupmgr: group file(%s) not exist', group_path)
+        futil.err({ title = 'group_load' }, 'sessionmgr: group file(%s) not exist', group_path)
         return
     end
 
@@ -127,23 +132,18 @@ local function group_load(group_name)
 
     local buffers = {}
     local current_bufnr = nil
-    local is_group_loaded = vim.tbl_contains(groups, group_name)
+    -- local is_group_loaded = vim.tbl_contains(loaded_groups, group_name)
     for line in f:lines() do
-        if not is_group_loaded then
-            vim.cmd('silent! e ' .. line)
-        end
-        if not current_bufnr then -- 第一行是 current_buf_name
-            local tmp_current = fn.bufnr(line, true)
-            if api.nvim_buf_is_valid(tmp_current) then
-                table.insert(buffers, tmp_current)
-                current_bufnr = tmp_current
-                update_buffer_var(current_bufnr, group_name)
-            end
-        else
-            local bufnr = fn.bufnr(line, true)
-            if api.nvim_buf_is_valid(bufnr) then
-                table.insert(buffers, bufnr)
-                update_buffer_var(bufnr, group_name)
+        -- if not is_group_loaded then
+            -- vim.cmd('silent! e ' .. line)
+        -- end
+
+        local bufnr = open_buffer(line)
+        if api.nvim_buf_is_valid(bufnr) then
+            table.insert(buffers, bufnr)
+            update_buffer_var(bufnr, group_name)
+            if not current_bufnr then -- 第一行是 current_buf_name
+                api.nvim_set_current_buf(bufnr)
             end
         end
     end
@@ -154,32 +154,17 @@ local function group_load(group_name)
         return
     end
 
-    if current_bufnr then
-        api.nvim_set_current_buf(current_bufnr)
-    end
-
     if group_name ~= current_group then
         last_group = current_group
     end
     current_group = group_name
-    update_groups(group_name)
+    -- update_groups(group_name)
 end
 
 local function group_delete(group_name)
     local group_path = gen_group_path(group_name)
     if check_file_exist(group_path) then
         os.remove(group_path)
-    end
-    if group_name == current_group then
-        current_group = nil
-    end
-    if groups then
-        for i, v in ipairs(groups) do
-            if v == group_name then
-                table.remove(groups, i)
-                break
-            end
-        end
     end
 
     for _, bufnr in ipairs(api.nvim_list_bufs()) do
@@ -190,6 +175,20 @@ local function group_delete(group_name)
             end
         end
     end
+
+    if group_name == current_group then
+        current_group = nil
+        -- TODO: need switch to another session file
+    end
+    -- if loaded_groups then
+    --     for i, v in ipairs(loaded_groups) do
+    --         if v == group_name then
+    --             table.remove(loaded_groups, i)
+    --             break
+    --         end
+    --     end
+    -- end
+
 end
 
 -- local function group_hide(buffers)
@@ -222,7 +221,7 @@ local function group_complete(arg)
     local match = {}
     -- local output = is_windows and fn.execute('!dir ' .. group_directory) or fn.execute('!ls ' .. group_directory)
     local output = fn.execute(is_windows and '!dir ' .. group_directory or '!ls ' .. group_directory)
-    for line in string.gmatch(output, "(%w+)%.group") do
+    for line in string.gmatch(output, "(%w+)%.session") do
         if string.match(line, arg) then
             table.insert(match, 1, line)
         else
@@ -233,29 +232,30 @@ local function group_complete(arg)
     return match
 end
 
-api.nvim_create_user_command('GSave', function(argument)
+api.nvim_create_user_command('SSave', function(argument)
     argument.args = argument.args ~= '' and argument.args or current_group
     group_save(argument.args)
     current_group = argument.args
     update_bufferline()
 end, { nargs = '?', bang = true, complete = group_complete })
 
-api.nvim_create_user_command('GDelete', function(argument)
+api.nvim_create_user_command('SDelete', function(argument)
     group_delete(argument.args)
-    if not current_group and groups[1] then
-        group_load(groups[1])
-    end
+    -- TODO: need switch to another session file
+    -- if not current_group and loaded_groups[1] then
+    --     group_load(loaded_groups[1])
+    -- end
     update_bufferline()
 end, { nargs = 1, complete = group_complete })
 
-api.nvim_create_user_command('GLoad', function(argument)
+api.nvim_create_user_command('SLoad', function(argument)
     if not check_file_exist(gen_group_path(argument.args)) then
-        futil.warn({ title = 'GLoad' }, 'group(%s) not exist', argument.args)
+        futil.warn({ title = 'SLoad' }, 'group(%s) not exist', argument.args)
         return
     end
 
     if argument.args == current_group then
-        futil.warn({ title = 'GLoad' }, 'target group(%s) is equal to current group', argument.args)
+        futil.warn({ title = 'SLoad' }, 'target group(%s) is equal to current group', argument.args)
         return
     end
 
@@ -271,14 +271,14 @@ api.nvim_create_user_command('GLoad', function(argument)
     -- futil.info('current:%s, last:%s', current_group, last_group)
 end, { nargs = 1, complete = group_complete })
 
-api.nvim_create_user_command('GSwitch', function(argument)
+api.nvim_create_user_command('SSwitch', function(argument)
     if argument.args == current_group then
-        futil.warn({ title = 'GSwitch' }, 'target group(%s) is equal to current group', argument.args)
+        futil.warn({ title = 'SSwitch' }, 'target group(%s) is equal to current group', argument.args)
         return
     end
 
     if not check_file_exist(gen_group_path(argument.args)) then
-        futil.err({ title = 'GSwitch' }, 'target group(%s) not exist', argument.args)
+        futil.err({ title = 'SSwitch' }, 'target group(%s) not exist', argument.args)
         return
     end
 
@@ -287,9 +287,9 @@ api.nvim_create_user_command('GSwitch', function(argument)
     update_bufferline()
 end, { nargs = 1, complete = group_complete })
 
-api.nvim_create_user_command('GPrevious', function()
+api.nvim_create_user_command('SPrevious', function()
     if not last_group then
-        futil.warn({ title = 'GPrevious' }, 'last_group is empty!')
+        futil.warn({ title = 'SPrevious' }, 'last_group is empty!')
         return
     end
     local start_time = require('global').get_time_ms()
@@ -304,17 +304,17 @@ api.nvim_create_user_command('GPrevious', function()
     print('load time ms:' .. (current - start_time) * 1000)
 end, {})
 
-api.nvim_create_user_command('GPrint', function()
-    futil.info({ title = 'GPrint' }, 'current(%s), last(%s)', current_group, last_group)
+api.nvim_create_user_command('SPrint', function()
+    futil.info({ title = 'SPrint' }, 'current(%s), last(%s)', current_group, last_group)
 end, {})
 
-api.nvim_create_user_command('GClear', function()
+api.nvim_create_user_command('SClear', function()
     if current_group then
         group_save(current_group)
     end
-    clear_buffer_var()
+    clear_all_buffer_var()
     current_group = nil
-    groups = nil
+    -- loaded_groups = nil
 end, {})
 
 api.nvim_create_autocmd('VimLeavePre', {
@@ -325,13 +325,22 @@ api.nvim_create_autocmd('VimLeavePre', {
     end,
 })
 
-function CurrentGroup()
+api.nvim_create_autocmd('BufEnter', {
+    pattern = '*',
+    callback = function (arg)
+        if current_group and not M.is_buf_exclude(arg.buf) then
+            update_buffer_var(arg.buf, current_group)
+        end
+    end
+})
+
+function SessionMgrGroup()
     return current_group or ''
 end
 
 cmd([[
-function! GroupMgrStatus()
-return v:lua.CurrentGroup()
+function! SessionMgrStatus()
+return v:lua.SessionMgrGroup()
 endfunction
 ]])
 

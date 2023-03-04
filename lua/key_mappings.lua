@@ -510,9 +510,9 @@ function key_mappings:start()
     -- }
 
     self.sessionmgr = {
-        ['n|<LocalLeader>ww'] = { function() vim.api.nvim_input(':GLoad ') end, desc = 'Load group' },
-        ['n|<LocalLeader>ws'] = { function() vim.api.nvim_input(':GSave ') end, desc = 'Save group' },
-        ['n|<LocalLeader>bb'] = { '<CMD>GPrevious<CR>', desc = 'Last group' },
+        ['n|<LocalLeader>ww'] = { function() vim.api.nvim_input(':SLoad ') end, desc = 'Load group' },
+        ['n|<LocalLeader>ws'] = { function() vim.api.nvim_input(':SSave ') end, desc = 'Save group' },
+        ['n|<LocalLeader>bb'] = { '<CMD>SPrevious<CR>', desc = 'Last group' },
     }
 
     -- session-lens
