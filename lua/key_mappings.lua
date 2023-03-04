@@ -306,7 +306,7 @@ function key_mappings:start()
 
     self.telescope = {
         ['n|<Leader>li'] = '<CMD>Telescope current_buffer_fuzzy_find<CR>',
-        ['n|<Leader>bs'] = '<CMD>Telescope buffers<CR>',
+        ['n|<Leader>bs'] = { '<CMD>SessionBuffers<CR>', desc = 'my session buffers picker' },
         ['n|<Leader>co'] = '<CMD>Telescope colorscheme<CR>',
         ['n|<Leader>cd'] = '<CMD>Telescope commands<CR>',
         ['n|<Leader>ch'] = '<CMD>Telescope command_history<CR>',
@@ -342,7 +342,7 @@ function key_mappings:start()
             function()
                 require('telescope.builtin').find_files({
                     cwd = is_windows and '~/AppData/Local/nvim/lua' or
-                    '~/.config/nvim/lua',
+                        '~/.config/nvim/lua',
                     find_command = find_files_args,
                 })
             end,

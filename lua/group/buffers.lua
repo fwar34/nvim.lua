@@ -1,5 +1,4 @@
 -- reference from https://github.com/nvim-telescope/telescope.nvim/blob/master/lua/telescope/builtin/__internal.lua
-local api = vim.api
 local pickers = require('telescope.pickers')
 local make_entry = require "telescope.make_entry"
 local finders = require('telescope.finders')
@@ -10,29 +9,32 @@ local buffers = function(opts)
     opts = opts or {}
     local bufnrs = vim.tbl_filter(function(b)
         if 1 ~= vim.fn.buflisted(b) then
+            -- require('futil').info('bufnr:%u buffer_name:%s not buflisted', b, vim.api.nvim_buf_get_name(b))
             return false
         end
         -- only hide unloaded buffers if opts.show_all_buffers is false, keep them listed if true or nil
         if opts.show_all_buffers == false and not vim.api.nvim_buf_is_loaded(b) then
+            -- require('futil').info('show_all_buffers')
             return false
         end
         if opts.ignore_current_buffer and b == vim.api.nvim_get_current_buf() then
+            -- require('futil').info('ignore_current_buffer')
             return false
         end
         if opts.cwd_only and not string.find(vim.api.nvim_buf_get_name(b), vim.loop.cwd(), 1, true) then
+            -- require('futil').info('cwd_only')
             return false
         end
         if not opts.cwd_only and opts.cwd and not string.find(vim.api.nvim_buf_get_name(b), opts.cwd, 1, true) then
+            -- require('futil').info('cwd_only opts.cwd')
             return false
         end
 
-        if manager.is_buf_exclude(b) then
+        if manager.is_buf_exclude(b) or manager.is_buf_hide(b) then
+            require('futil').info('hide bufnr:%u current_group:%s buffer_name:%s', b, manager.current_group(), vim.api.nvim_buf_get_name(b))
             return false
-        end
-
-        local buffer_groups = api.nvim_buf_get_var(b, 'buffer_group')
-        if buffer_groups and not vim.tbl_contains(buffer_groups, manager.current_group()) then
-            return false
+        else
+            require('futil').info('show bufnr:%u current_group:%s buffer_name:%s', b, manager.current_group(), vim.api.nvim_buf_get_name(b))
         end
 
         return true
@@ -75,17 +77,21 @@ local buffers = function(opts)
     end
 
     pickers
-    .new(opts, {
-        prompt_title = "Buffers",
-        finder = finders.new_table {
-            results = buffers,
-            entry_maker = opts.entry_maker or make_entry.gen_from_buffer(opts),
-        },
-        previewer = conf.grep_previewer(opts),
-        sorter = conf.generic_sorter(opts),
-        default_selection_index = default_selection_idx,
-    })
-    :find()
+        .new(opts, {
+            prompt_title = "Session Buffers",
+            finder = finders.new_table {
+                results = buffers,
+                entry_maker = opts.entry_maker or make_entry.gen_from_buffer(opts),
+            },
+            previewer = conf.grep_previewer(opts),
+            sorter = conf.generic_sorter(opts),
+            default_selection_index = default_selection_idx,
+        })
+        :find()
 end
 
-buffers()
+vim.api.nvim_create_user_command('SessionBuffers', function ()
+    require('futil').warn('--------------------------------------------------------')
+    buffers()
+    require('futil').warn('--------------------------------------------------------')
+end, {})

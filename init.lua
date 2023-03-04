@@ -41,5 +41,5 @@ require("autocmd")
 require("lsp")
 require("key_mappings")
 
-require('group.buffers')
 require('group.manager')
+require('group.buffers')
