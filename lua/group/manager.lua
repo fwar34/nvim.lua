@@ -74,6 +74,7 @@ local function group_save(group_name)
         cmd('NvimTreeToggle')
     end
 
+    local ret = {}
     local current_bufnr = api.nvim_get_current_buf()
     if not M.is_buf_exclude(current_bufnr) then
         local current_buf_name = api.nvim_buf_get_name(current_bufnr)
@@ -82,7 +83,6 @@ local function group_save(group_name)
         update_buffer_var(current_bufnr, group_name)
     end
 
-    local ret = {}
     local buffers = api.nvim_list_bufs()
     for _, bufnr in ipairs(buffers) do
         -- futil.debug({ title = 'group_load', timeout = 0 },

@@ -22,7 +22,7 @@ return {
                     right = { { 'lineinfo' }, { 'charvaluehex', 'scorestatus', 'fileformat', 'fileencoding', 'filetype' } },
                 },
                 component_function = {
-                    sessionmgr = 'GroupMgrStatus',
+                    sessionmgr = 'SessionMgrStatus',
                     -- method = 'NearestMethodOrFunction',
                     gitbranch = 'FugitiveStatusline',
                     scorestatus = 'ScrollStatus',
