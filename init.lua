@@ -43,3 +43,5 @@ require("key_mappings")
 
 -- require('group.manager')
 -- require('group.buffers')
+require('sessionmgr.sessionmgr')
+require('sessionmgr.picker')
