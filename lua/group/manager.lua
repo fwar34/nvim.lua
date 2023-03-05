@@ -7,8 +7,6 @@ local fn = vim.fn
 local futil = require('futil')
 local is_windows = require('global').is_windows
 local check_file_exist = require('global').check_file_exist
-local render = require('bufferline.render')
-local view = require('nvim-tree.view')
 
 local last_group = nil
 local current_group = nil
@@ -86,7 +84,7 @@ local function delete_buffer_content(bufnr)
     buffer_contents[bufnr] = nil
 end
 
-local function clear_all_buffer_var()
+local function clear_all_buffer_contents()
     buffer_contents = {}
 end
 
@@ -112,7 +110,7 @@ local function group_save(group_name)
         return nil
     end
 
-    if view.is_visible() then
+    if require('nvim-tree.view').is_visible() then
         cmd('NvimTreeToggle')
     end
 
@@ -120,8 +118,8 @@ local function group_save(group_name)
     if not M.is_buf_exclude(current_bufnr) then
         local current_buf_name = api.nvim_buf_get_name(current_bufnr)
         f:write(current_buf_name .. '\n') -- 第一行保存 current_buf_name
-        -- print('save bufnr:' .. current_bufnr .. ' current_group:' .. current_group)
-        -- update_buffer_content(current_bufnr, group_name)
+        print('save bufnr:' .. current_bufnr .. ' current_group:' .. current_group .. ' name:' .. current_buf_name)
+        update_buffer_content(current_bufnr, group_name)
     end
 
     local buffers = api.nvim_list_bufs()
@@ -138,7 +136,7 @@ local function group_save(group_name)
             and bufnr ~= current_bufnr
             and (not current_group or not buffer_groups or vim.tbl_contains(buffer_groups, current_group)) then
             f:write(api.nvim_buf_get_name(bufnr) .. '\n')
-            -- print('save bufnr:' .. bufnr .. ' current_group:' .. current_group)
+            print('save bufnr:' .. bufnr .. ' current_group:' .. current_group)
             update_buffer_content(bufnr, group_name)
         end
     end
@@ -171,12 +169,12 @@ local function group_load(group_name)
     local current_bufnr = nil
     for line in f:lines() do
         local bufnr = open_buffer(line)
-        -- futil.info('load bufnr:%d buffer name:%s group_name:%s', bufnr, line, group_name)
         if api.nvim_buf_is_valid(bufnr) then
             if not current_bufnr then -- 第一行是 current_buf_name
                 current_bufnr = bufnr
             end
-            -- vim.pretty_print(buffer_contents[bufnr] and buffer_contents[bufnr].buffer_groups or '------ nil -----------')
+            futil.info('load bufnr:%d buffer name:%s group_name:%s', bufnr, line, group_name)
+            vim.pretty_print(buffer_contents[bufnr] and buffer_contents[bufnr].buffer_groups or '------ nil -----------')
             update_buffer_content(bufnr, group_name)
         end
     end
@@ -205,24 +203,11 @@ local function group_delete(group_name)
         current_group = nil
         -- TODO: need switch to another session file
     end
-    -- if loaded_groups then
-    --     for i, v in ipairs(loaded_groups) do
-    --         if v == group_name then
-    --             table.remove(loaded_groups, i)
-    --             break
-    --         end
-    --     end
-    -- end
 
+    if group_name == last_group then
+        last_group = nil
+    end
 end
-
--- local function group_hide(buffers)
---     for _, buf in ipairs(buffers) do
---         if not M.is_buf_exclude(buf) then
---             api.nvim_buf_set_option(buf, 'buflisted', false)
---         end
---     end
--- end
 
 local function update_bufferline()
     local exclude_name = {}
@@ -237,7 +222,9 @@ local function update_bufferline()
         end
     end
     api.nvim_set_var('bufferline', { exclude_name = exclude_name })
-    render.update()
+    require('bufferline.render').update()
+    futil.info('update_bufferline exclude_name:')
+    vim.pretty_print(exclude_name)
 end
 
 -- local function group_complete(arg, cmd_line)
@@ -259,9 +246,9 @@ local function group_complete(arg)
 end
 
 api.nvim_create_user_command('SSave', function(argument)
-    argument.args = argument.args ~= '' and argument.args or current_group
+    argument.args = argument.args or current_group
     group_save(argument.args)
-    current_group = argument.args
+    update_group_state(argument.args)
     update_bufferline()
 end, { nargs = '?', bang = true, complete = group_complete })
 
@@ -322,8 +309,11 @@ api.nvim_create_user_command('SPrevious', function()
         return
     end
 
+    futil.info('SPrevious current:%s, last_group:%s', current_group, last_group)
     group_save(current_group)
+    print('---------------------------------------')
     update_group_state(last_group)
+    print('---------------------------------------')
     group_load(last_group)
     update_bufferline()
 end, {})
@@ -337,10 +327,9 @@ api.nvim_create_user_command('SClear', function()
     if current_group then
         group_save(current_group)
     end
-    clear_all_buffer_var()
+    clear_all_buffer_contents()
     current_group = nil
     last_group = nil
-    -- loaded_groups = nil
 end, {})
 
 api.nvim_create_autocmd('VimLeavePre', {
