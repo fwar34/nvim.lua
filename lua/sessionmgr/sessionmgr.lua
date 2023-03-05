@@ -30,7 +30,7 @@ local function update_session_state(group_name)
     current_session = group_name
 end
 
-local session_dirctory = fn.expand(is_windows and '~/AppData/Local/nvim/sessions/' or '~/.config/nvim/sessions/')
+local session_dirctory = fn.expand(is_windows and '~/.sessions/' or '~/.sessions/')
 if fn.isdirectory(session_dirctory) == 0 then
     fn.mkdir(session_dirctory, 'p')
 end
