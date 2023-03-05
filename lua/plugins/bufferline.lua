@@ -45,7 +45,13 @@ return {
                         text = "File Explorer",
                         highlight = "Directory",
                         text_align = "left"
-                    } }
+                    } },
+                    custom_filter = function (buf)
+                        if require('sessionmgr.sessionmgr').is_buf_hide(buf) then
+                            return false
+                        end
+                        return true;
+                    end
                 }
             }
         end
@@ -59,5 +65,5 @@ return {
         config = function()
             require('cokeline').setup()
         end
-    }
+    },
 }
