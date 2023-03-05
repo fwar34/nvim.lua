@@ -14,6 +14,8 @@ local function test_tbl_contains()
     print('---------------------')
     local tb = {a = {'1.cpp', '2.cpp'}}
     print(vim.tbl_contains(tb['b'], '1.cpp'))
+    tb['a'] = {}
+    vim.pretty_print(tb)
     print('---------------------')
 end
 

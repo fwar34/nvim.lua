@@ -23,11 +23,18 @@ local current_session = nil
 sessions = {}
 local M = {}
 
-local function update_session_state(group_name)
-    if group_name ~= current_session then
+local function insert_session(session, bufnr)
+    local buffer_name = api.nvim_buf_get_name(bufnr)
+    if not vim.tbl_contains(sessions[session], buffer_name) then
+        table.insert(sessions[session], buffer_name)
+    end
+end
+
+local function update_session_state(session)
+    if session ~= current_session then
         last_session = current_session
     end
-    current_session = group_name
+    current_session = session
 end
 
 local session_dirctory = fn.expand(is_windows and '~/.sessions/' or '~/.sessions/')
@@ -82,21 +89,21 @@ local function session_save(session)
 
     local current_bufnr = api.nvim_get_current_buf()
     if not sessions[session] then
-        print('111')
+        futil.info('session_save current(%s) last(%s)', current_session, last_session)
         sessions[session] = {}
         if not M.is_buf_exclude(current_bufnr) then
             -- 索引 1 是 current 文件 buffer
-            table.insert(sessions[session], api.nvim_buf_get_name(current_bufnr))
+            insert_session(session, current_bufnr)
         end
 
-        for _, bufnr in ipairs(api.nvim_list_bufs()) do
+        for _, bufnr in pairs(api.nvim_list_bufs()) do
             if not M.is_buf_exclude(bufnr) and bufnr ~= current_bufnr then
-                table.insert(sessions[session], api.nvim_buf_get_name(bufnr))
+                insert_session(session, bufnr)
             end
         end
     end
 
-    for _, buffer_name in ipairs(sessions[session]) do
+    for _, buffer_name in pairs(sessions[session]) do
         f:write(buffer_name .. '\n')
     end
     f:close()
@@ -127,12 +134,14 @@ local function session_load(session)
     sessions[session] = {}
     local current_bufnr = nil
     for line in f:lines() do
+        futil.info('read file(%s) line(%s) current(%s) last(%s)', session_path, line, current_session, last_session)
         local bufnr = open_buffer(line)
         if api.nvim_buf_is_valid(bufnr) then
+            futil.info('load bufer(%s) current(%s) last(%s) current_bufnr', line, current_session, last_session, current_bufnr)
             if not current_bufnr then -- 第一行是 current_buf_name
                 current_bufnr = bufnr
             end
-            table.insert(sessions[session], api.nvim_buf_get_name(current_bufnr))
+            insert_session(session, bufnr)
         end
     end
     f:close()
@@ -160,7 +169,7 @@ end
 local function update_bufferline()
     if current_session and sessions[current_session] then
         local exclude_name = {}
-        for _, bufnr in ipairs(api.nvim_list_bufs()) do
+        for _, bufnr in pairs(api.nvim_list_bufs()) do
             if api.nvim_buf_is_valid(bufnr) and api.nvim_buf_get_option(bufnr, 'buflisted') then
                 local buffer_name = api.nvim_buf_get_name(bufnr)
                 if string.len(buffer_name) ~= 0 and (not vim.tbl_contains(sessions[current_session], buffer_name)) then
@@ -221,8 +230,12 @@ api.nvim_create_user_command('SLoad', function(argument)
     -- futil.info('current:%s, last:%s', current_session, last_session)
     if current_session then
         session_save(current_session)
+        vim.pretty_print(sessions)
+        print('SLoad:complete save------------------------')
         update_session_state(argument.args)
         session_load(argument.args)
+        vim.pretty_print(sessions)
+        print('SLoad:complete load------------------------')
     else
         futil.delete_buffers(false)
         session_load(argument.args)
@@ -255,12 +268,15 @@ api.nvim_create_user_command('SPrevious', function()
         return
     end
 
+    local previous_session = last_session
     futil.info('SPrevious current:%s, last_session:%s', current_session, last_session)
     session_save(current_session)
-    print('---------------------------------------')
-    update_session_state(last_session)
-    print('---------------------------------------')
-    session_load(last_session)
+    vim.pretty_print(sessions)
+    print('SPrevious:complete save------------------------')
+    update_session_state(previous_session)
+    session_load(previous_session)
+    vim.pretty_print(sessions)
+    print('SPrevious:complete load------------------------')
     update_bufferline()
 end, {})
 
@@ -292,11 +308,8 @@ api.nvim_create_autocmd('BufEnter', {
     callback = function(arg)
         if current_session and sessions[current_session] and not M.is_buf_exclude(arg.buf) then
             -- futil.info('BufEnter -> bufnr:%u name(%s) current_session(%s) last_session(%s)', arg.buf, arg.file, current_session, last_session)
-            local buffer_name = api.nvim_buf_get_name(arg.buf)
-            if not vim.tbl_contains(sessions[current_session], buffer_name) then
-                table.insert(sessions[current_session], buffer_name)
-                update_bufferline()
-            end
+            insert_session(current_session, arg.buf)
+            update_bufferline()
         end
     end
 })
@@ -307,7 +320,7 @@ api.nvim_create_autocmd('BufDelete', {
         if current_session and sessions[current_session] and not M.is_buf_exclude(arg.buf) then
             -- futil.info('BufDelete -> bufnr:%u name(%s) current_session(%s) last_session(%s)', arg.buf, arg.file, current_session, last_session)
             local buffer_name = api.nvim_buf_get_name(arg.buf)
-            for i, v in ipairs(sessions[current_session]) do
+            for i, v in pairs(sessions[current_session]) do
                 if v == buffer_name then
                     table.remove(sessions[current_session], i)
                     break
