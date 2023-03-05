@@ -155,7 +155,7 @@ local function session_delete(session)
         os.remove(session_path)
     end
 
-    sessions[session_name] = nil
+    sessions[session] = nil
 
     if session == current_session then
         current_session = nil
@@ -167,19 +167,21 @@ local function session_delete(session)
 end
 
 local function update_bufferline()
-    if current_session and sessions[current_session] then
-        local exclude_name = {}
-        for _, bufnr in pairs(api.nvim_list_bufs()) do
-            if api.nvim_buf_is_valid(bufnr) and api.nvim_buf_get_option(bufnr, 'buflisted') then
-                local buffer_name = api.nvim_buf_get_name(bufnr)
-                if string.len(buffer_name) ~= 0 and (not vim.tbl_contains(sessions[current_session], buffer_name)) then
-                    table.insert(exclude_name, vim.fs.basename(buffer_name))
-                end
-            end
-        end
-        api.nvim_set_var('bufferline', { exclude_name = exclude_name })
-    end
-    require('bufferline.render').update()
+    -- if current_session and sessions[current_session] then
+    --     local exclude_name = {}
+    --     for _, bufnr in pairs(api.nvim_list_bufs()) do
+    --         if api.nvim_buf_is_valid(bufnr) and api.nvim_buf_get_option(bufnr, 'buflisted') then
+    --             local buffer_name = api.nvim_buf_get_name(bufnr)
+    --             if string.len(buffer_name) ~= 0 and (not vim.tbl_contains(sessions[current_session], buffer_name)) then
+    --                 table.insert(exclude_name, require('bufferline.utils').basename(buffer_name, true))
+    --             end
+    --         end
+    --     end
+    --     api.nvim_set_var('bufferline', { exclude_name = exclude_name })
+    --     futil.warn('current(%s) exclude:', current_session)
+    --     vim.pretty_print(exclude_name)
+    -- end
+    -- require('bufferline.render').update()
 end
 
 -- local function group_complete(arg, cmd_line)
@@ -230,12 +232,12 @@ api.nvim_create_user_command('SLoad', function(argument)
     -- futil.info('current:%s, last:%s', current_session, last_session)
     if current_session then
         session_save(current_session)
-        vim.pretty_print(sessions)
-        print('SLoad:complete save------------------------')
+        -- vim.pretty_print(sessions)
+        futil.info('SLoad:complete save------------------------')
         update_session_state(argument.args)
         session_load(argument.args)
-        vim.pretty_print(sessions)
-        print('SLoad:complete load------------------------')
+        -- vim.pretty_print(sessions)
+        futil.info('SLoad:complete load------------------------')
     else
         futil.delete_buffers(false)
         session_load(argument.args)
@@ -271,12 +273,12 @@ api.nvim_create_user_command('SPrevious', function()
     local previous_session = last_session
     futil.info('SPrevious current:%s, last_session:%s', current_session, last_session)
     session_save(current_session)
-    vim.pretty_print(sessions)
-    print('SPrevious:complete save------------------------')
+    -- vim.pretty_print(sessions)
+    futil.info('SPrevious:complete save------------------------')
     update_session_state(previous_session)
     session_load(previous_session)
-    vim.pretty_print(sessions)
-    print('SPrevious:complete load------------------------')
+    -- vim.pretty_print(sessions)
+    futil.info('SPrevious:complete load------------------------')
     update_bufferline()
 end, {})
 
@@ -292,7 +294,7 @@ api.nvim_create_user_command('SClear', function()
     sessions = {}
     current_session = nil
     last_session = nil
-    require('bufferline.render').update()
+    -- require('bufferline.render').update()
 end, {})
 
 api.nvim_create_autocmd('VimLeavePre', {
@@ -309,7 +311,7 @@ api.nvim_create_autocmd('BufEnter', {
         if current_session and sessions[current_session] and not M.is_buf_exclude(arg.buf) then
             -- futil.info('BufEnter -> bufnr:%u name(%s) current_session(%s) last_session(%s)', arg.buf, arg.file, current_session, last_session)
             insert_session(current_session, arg.buf)
-            update_bufferline()
+            -- update_bufferline()
         end
     end
 })
@@ -326,7 +328,7 @@ api.nvim_create_autocmd('BufDelete', {
                     break
                 end
             end
-            update_bufferline()
+            -- update_bufferline()
         end
     end
 })

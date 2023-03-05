@@ -13,22 +13,22 @@ local buffers = function(opts)
             return false
         end
         -- only hide unloaded buffers if opts.show_all_buffers is false, keep them listed if true or nil
-        if opts.show_all_buffers == false and not vim.api.nvim_buf_is_loaded(b) then
-            -- require('futil').info('show_all_buffers')
-            return false
-        end
+        -- if opts.show_all_buffers == false and not vim.api.nvim_buf_is_loaded(b) then
+        --     -- require('futil').info('show_all_buffers')
+        --     return false
+        -- end
         if opts.ignore_current_buffer and b == vim.api.nvim_get_current_buf() then
             -- require('futil').info('ignore_current_buffer')
             return false
         end
-        if opts.cwd_only and not string.find(vim.api.nvim_buf_get_name(b), vim.loop.cwd(), 1, true) then
-            -- require('futil').info('cwd_only')
-            return false
-        end
-        if not opts.cwd_only and opts.cwd and not string.find(vim.api.nvim_buf_get_name(b), opts.cwd, 1, true) then
-            -- require('futil').info('cwd_only opts.cwd')
-            return false
-        end
+        -- if opts.cwd_only and not string.find(vim.api.nvim_buf_get_name(b), vim.loop.cwd(), 1, true) then
+        --     -- require('futil').info('cwd_only')
+        --     return false
+        -- end
+        -- if not opts.cwd_only and opts.cwd and not string.find(vim.api.nvim_buf_get_name(b), opts.cwd, 1, true) then
+        --     -- require('futil').info('cwd_only opts.cwd')
+        --     return false
+        -- end
 
         if manager.is_buf_exclude(b) or manager.is_buf_hide(b) then
             require('futil').info('hide bufnr:%u current_group:%s buffer_name:%s', b, manager.current_session(), vim.api.nvim_buf_get_name(b))

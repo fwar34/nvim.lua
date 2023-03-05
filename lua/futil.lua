@@ -139,11 +139,11 @@ api.nvim_create_user_command('DumpBuffers', futil.dump_all_buffers, {})
 cmd('ca db DumpBuffers')
 
 function futil.info(opts, ...)
-    if type(opts) == "table" then
-        vim.notify(string.format(...), vim.log.levels.INFO, opts)
-    else
-        vim.notify(string.format(opts, ...), vim.log.levels.INFO)
-    end
+    -- if type(opts) == "table" then
+    --     vim.notify(string.format(...), vim.log.levels.INFO, opts)
+    -- else
+    --     vim.notify(string.format(opts, ...), vim.log.levels.INFO)
+    -- end
 end
 
 function futil.warn(opts, ...)
