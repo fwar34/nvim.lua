@@ -200,33 +200,6 @@ return {
         ft = 'org',
         -- enabled = not is_windows
     },
-    {
-        -- tabline plugin
-        'romgrk/barbar.nvim',
-        enabled = false,
-        dependencies = { 'kyazdani42/nvim-web-devicons' },
-        config = function()
-            require 'bufferline'.setup({
-                -- Enable/disable animations
-                animation = true,
-                -- Enables/disable clickable tabs
-                --  - left-click: go to buffer
-                --  - middle-click: delete buffer
-                clickable = true,
-                -- Excludes buffers from the tabline
-                -- exclude_ft = {'javascript'},
-                -- exclude_name = {'package.json'},
-                -- Hide inactive buffers and file extensions. Other options are `alternate`, `current`, and `visible`.
-                -- hide = {extensions = true, inactive = true},
-                -- Enable/disable icons
-                -- if set to 'numbers', will show buffer index in the tabline
-                -- if set to 'both', will show buffer index and icons in the tabline
-                icons = require('global').hostname == 'ubuntu-work' and false or true,
-                icon_pinned = '車',
-            })
-        end
-    },
-
     'gcmt/wildfire.vim',
     {
         'azabiong/vim-highlighter',
@@ -399,5 +372,20 @@ return {
         config = function()
             -- vim.notify = require('notify')
         end
-    }
+    },
+    {
+        -- https://github.com/noib3/nvim-cokeline#wrench-configuration
+        -- https://github.com/rafcamlet/tabline-framework.nvim
+        'akinsho/bufferline.nvim',
+        -- version = 'v3.5.0',
+        config = function ()
+            require('bufferline').setup()
+        end
+    },
+    -- {
+    --     'noib3/nvim-cokeline',
+    --     config = function ()
+    --         require('cokeline').setup()
+    --     end
+    -- }
 }
