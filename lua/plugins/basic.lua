@@ -270,7 +270,8 @@ return {
     -- A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing.
     {
         "folke/trouble.nvim",
-        dependencies = { 'kyazdani42/nvim-web-devicons' },
+        -- dependencies = { 'kyazdani42/nvim-web-devicons' },
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
         config = function()
             require("trouble").setup {
                 -- your configuration comes here
@@ -373,19 +374,25 @@ return {
             -- vim.notify = require('notify')
         end
     },
-    {
-        -- https://github.com/noib3/nvim-cokeline#wrench-configuration
-        -- https://github.com/rafcamlet/tabline-framework.nvim
-        'akinsho/bufferline.nvim',
-        -- version = 'v3.5.0',
-        config = function ()
-            require('bufferline').setup()
-        end
-    },
     -- {
-    --     'noib3/nvim-cokeline',
+    --     -- https://github.com/noib3/nvim-cokeline#wrench-configuration
+    --     -- https://github.com/rafcamlet/tabline-framework.nvim
+    --     'akinsho/bufferline.nvim',
+    --     dependencies = {
+    --         'nvim-tree/nvim-web-devicons'
+    --     },
+    --     version = 'v3.5.0',
     --     config = function ()
-    --         require('cokeline').setup()
+    --         require('bufferline').setup({})
     --     end
-    -- }
+    -- },
+    {
+        'noib3/nvim-cokeline',
+        dependencies = {
+            'nvim-tree/nvim-web-devicons'
+        },
+        config = function ()
+            require('cokeline').setup()
+        end
+    }
 }
