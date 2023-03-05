@@ -3,7 +3,7 @@ local pickers = require('telescope.pickers')
 local make_entry = require "telescope.make_entry"
 local finders = require('telescope.finders')
 local conf = require('telescope.config').values
-local manager = require('group.manager')
+local manager = require('sessionmgr.sessionmgr')
 
 local buffers = function(opts)
     opts = opts or {}
@@ -31,11 +31,10 @@ local buffers = function(opts)
         end
 
         if manager.is_buf_exclude(b) or manager.is_buf_hide(b) then
-            require('futil').info('hide bufnr:%u current_group:%s buffer_name:%s', b, manager.current_group(), vim.api.nvim_buf_get_name(b))
-            vim.pretty_print((buffer_contents and buffer_contents[b]) and buffer_contents[b].buffer_groups or '------------------nil--------------------')
+            require('futil').info('hide bufnr:%u current_group:%s buffer_name:%s', b, manager.current_session(), vim.api.nvim_buf_get_name(b))
             return false
         else
-            require('futil').info('show bufnr:%u current_group:%s buffer_name:%s', b, manager.current_group(), vim.api.nvim_buf_get_name(b))
+            require('futil').info('show bufnr:%u current_group:%s buffer_name:%s', b, manager.current_session(), vim.api.nvim_buf_get_name(b))
         end
 
         return true

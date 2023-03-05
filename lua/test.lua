@@ -11,6 +11,10 @@ local function test_tbl_contains()
         print('k:' .. k .. ' ')
         vim.pretty_print(v)
     end
+    print('---------------------')
+    local tb = {a = {'1.cpp', '2.cpp'}}
+    print(vim.tbl_contains(tb['b'], '1.cpp'))
+    print('---------------------')
 end
 
 local function test_autocmd()
