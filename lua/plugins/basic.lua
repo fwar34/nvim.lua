@@ -138,7 +138,7 @@ return {
         'skywind3000/awesome-cheatsheets', event = 'VimEnter *',
     },
 
-    { 'ianva/vim-youdao-translater', event = 'VimEnter *', },
+    { 'ianva/vim-youdao-translater', cmd = {'Ydc', 'Ydv', 'Yde'}},
     -- 调颜色插件
     -- Provides command :XtermColorTable, as well as variants for different splits
     -- Xterm numbers on the left, equivalent RGB values on the right
@@ -374,25 +374,4 @@ return {
             -- vim.notify = require('notify')
         end
     },
-    -- {
-    --     -- https://github.com/noib3/nvim-cokeline#wrench-configuration
-    --     -- https://github.com/rafcamlet/tabline-framework.nvim
-    --     'akinsho/bufferline.nvim',
-    --     dependencies = {
-    --         'nvim-tree/nvim-web-devicons'
-    --     },
-    --     version = 'v3.5.0',
-    --     config = function ()
-    --         require('bufferline').setup({})
-    --     end
-    -- },
-    {
-        'noib3/nvim-cokeline',
-        dependencies = {
-            'nvim-tree/nvim-web-devicons'
-        },
-        config = function ()
-            require('cokeline').setup()
-        end
-    }
 }
