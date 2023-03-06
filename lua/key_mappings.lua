@@ -470,16 +470,16 @@ function key_mappings:start()
     --     ['n|<Leader>tb'] = '<CMD>TagbarToggle<CR>',
     -- }
 
-    -- barbar.nvim
-    self.barbar = {
-        ["n|<S-l>"] = "<CMD>BufferNext<CR>",
-        ["n|<S-h>"] = "<CMD>BufferPrevious<CR>",
+    -- bufferline.nvim
+    self.bufferline = {
+        ["n|<S-l>"] = "<CMD>BufferLineCycleNext<CR>",
+        ["n|<S-h>"] = "<CMD>BufferLineCyclePrev<CR>",
         -- Alt + ,
-        ['n|<A-,>'] = '<CMD>BufferMovePrevious<CR>',
+        ['n|<A-,>'] = '<CMD>BufferLineMovePrev<CR>',
         -- Alt + .
-        ['n|<A-.>'] = '<CMD>BufferMoveNext<CR>',
-        ['n|<A-P>'] = '<CMD>BufferPin<CR>',
-        ['n|<C-p>'] = '<CMD>BufferPick<CR>',
+        ['n|<A-.>'] = '<CMD>BufferLineMoveNext<CR>',
+        ['n|<A-P>'] = '<CMD>BufferLineTogglePin<CR>',
+        ['n|<C-p>'] = '<CMD>BufferLinePick<CR>',
     }
 
     -- vim-easymotion

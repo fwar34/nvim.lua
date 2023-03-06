@@ -181,24 +181,8 @@ end
 
 local function update_bufferline()
     if sessions[current_session] then
-        -- local exclude_name = {}
-        -- for _, bufnr in pairs(api.nvim_list_bufs()) do
-        --     if api.nvim_buf_is_valid(bufnr) and api.nvim_buf_get_option(bufnr, 'buflisted') then
-        --         local buffer_name = api.nvim_buf_get_name(bufnr)
-        --         if string.len(buffer_name) ~= 0 and (not vim.tbl_contains(sessions[current_session], buffer_name)) then
-        --             table.insert(exclude_name, require('bufferline.utils').basename(buffer_name, true))
-        --         end
-        --     end
-        -- end
-        -- api.nvim_set_var('bufferline', { exclude_name = exclude_name })
-        -- futil.warn('current(%s) exclude:', current_session)
-        -- vim.pretty_print(exclude_name)
-        local current_bufnr = api.nvim_get_current_buf()
-        api.nvim_buf_set_option(current_bufnr, 'buflisted', false)
-        api.nvim_buf_set_option(current_bufnr, 'buflisted', true)
-        api.nvim_set_current_buf(current_bufnr)
+        vim.cmd('redrawtabline')
     end
-    -- require('bufferline.render').update()
 end
 
 -- local function group_complete(arg, cmd_line)
@@ -311,7 +295,7 @@ api.nvim_create_user_command('SClear', function()
     sessions = {}
     current_session = nil
     last_session = nil
-    -- require('bufferline.render').update()
+    update_bufferline()
 end, {})
 
 api.nvim_create_autocmd('VimLeavePre', {

@@ -107,7 +107,7 @@ return {
                             vim.o.cursorline = true
                         end
                     end, { desc = 'cursor line' } },
-                    { 'q', nil, { exit = true } },
+                    { 'q', nil, { exit = true, desc = false  } },
                     { '<Esc>', nil, { exit = true } }
                 }
             })
@@ -121,20 +121,20 @@ return {
                     end,
                 },
                 heads = {
-                    { 'h', function() cmd('BufferPrevious') end, { on_key = false } },
-                    { 'l', function() cmd('BufferNext') end, { desc = 'choose', on_key = false } },
+                    { 'h', function() cmd('BufferLinePrevious') end, { on_key = false } },
+                    { 'l', function() cmd('BufferLineNext') end, { desc = 'choose', on_key = false } },
 
-                    { 'H', function() cmd('BufferMovePrevious') end },
-                    { 'L', function() cmd('BufferMoveNext') end, { desc = 'move' } },
+                    { 'H', function() cmd('BufferLineMovePrevious') end },
+                    { 'L', function() cmd('BufferLineMoveNext') end, { desc = 'move' } },
 
-                    { 'p', function() cmd('BufferPin') end, { desc = 'pin' } },
+                    { 'p', function() cmd('BufferLinePin') end, { desc = 'pin' } },
 
-                    { 'd', function() cmd('BufferClose') end, { desc = 'close' } },
-                    { 'c', function() cmd('BufferClose') end, { desc = false } },
+                    { 'd', function() cmd('BufferLineClose') end, { desc = 'close' } },
+                    { 'c', function() cmd('BufferLineClose') end, { desc = false } },
 
-                    { 'od', function() cmd('BufferOrderByDirectory') end, { desc = 'by directory' } },
-                    { 'ol', function() cmd('BufferOrderByLanguage') end, { desc = 'by language' } },
-                    { 'q', nil, { exit = true } },
+                    { 'od', function() cmd('BufferSortByDirectory') end, { desc = 'by directory' } },
+                    { 'oe', function() cmd('BufferLineSortByExtension') end, { desc = 'by extension' } },
+                    { 'q', nil, { exit = true, desc = false } },
                     { '<Esc>', nil, { exit = true, desc = 'quit' } }
                 }
             })
@@ -169,7 +169,7 @@ return {
                     { 's', function() cmd('Hi save') end, { desc = 'Save', exit = true } },
                     { 'l', function() cmd('Hi load') end, { desc = 'Load', exit = true } },
                     { 'c', function() cmd('Hi clear') end, { desc = 'Clear all', exit = true } },
-                    { 'q', nil, { exit = true } },
+                    { 'q', nil, { exit = true, desc = false } },
                     { '<Esc>', nil, { exit = true, desc = 'quit' } }
                 }
             })
