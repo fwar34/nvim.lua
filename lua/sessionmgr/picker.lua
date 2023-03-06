@@ -31,10 +31,10 @@ local buffers = function(opts)
         -- end
 
         if manager.is_buf_exclude(b) or manager.is_buf_hide(b) then
-            require('futil').info('hide bufnr:%u current_group:%s buffer_name:%s', b, manager.current_session(), vim.api.nvim_buf_get_name(b))
+            -- require('futil').info('hide bufnr:%u current_group:%s buffer_name:%s', b, manager.current_session(), vim.api.nvim_buf_get_name(b))
             return false
         else
-            require('futil').info('show bufnr:%u current_group:%s buffer_name:%s', b, manager.current_session(), vim.api.nvim_buf_get_name(b))
+            -- require('futil').info('show bufnr:%u current_group:%s buffer_name:%s', b, manager.current_session(), vim.api.nvim_buf_get_name(b))
         end
 
         return true

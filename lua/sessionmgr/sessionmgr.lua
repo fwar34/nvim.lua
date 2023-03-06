@@ -70,10 +70,10 @@ end
 -- TODO:
 function M.is_buf_hide(bufnr)
     if sessions[current_session] and not vim.tbl_contains(sessions[current_session], api.nvim_buf_get_name(bufnr)) then
-        futil.warn('current(%s) last(%s) hide buf(%s)', current_session, last_session, api.nvim_buf_get_name(bufnr))
+        -- futil.warn('current(%s) last(%s) hide buf(%s)', current_session, last_session, api.nvim_buf_get_name(bufnr))
         return true
     end
-    futil.warn('current(%s) last(%s) show buf(%s)', current_session, last_session, api.nvim_buf_get_name(bufnr))
+    -- futil.warn('current(%s) last(%s) show buf(%s)', current_session, last_session, api.nvim_buf_get_name(bufnr))
     return false
 end
 
@@ -102,7 +102,7 @@ local function session_save(session)
             table.insert(sessions[session], 1, api.nvim_buf_get_name(current_bufnr))
         end
     else
-        futil.info('session_save current(%s) last(%s)', current_session, last_session)
+        -- futil.info('session_save current(%s) last(%s)', current_session, last_session)
         sessions[session] = {}
         if not M.is_buf_exclude(current_bufnr) then
             -- 索引 1 是 current 文件 buffer
@@ -147,10 +147,10 @@ local function session_load(session)
     sessions[session] = {}
     local current_bufnr = nil
     for line in f:lines() do
-        futil.info('read file(%s) line(%s) current(%s) last(%s)', session_path, line, current_session, last_session)
+        -- futil.info('read file(%s) line(%s) current(%s) last(%s)', session_path, line, current_session, last_session)
         local bufnr = open_buffer(line)
         if api.nvim_buf_is_valid(bufnr) then
-            futil.info('load bufer(%s) current(%s) last(%s) current_bufnr', line, current_session, last_session, current_bufnr)
+            -- futil.info('load bufer(%s) current(%s) last(%s) current_bufnr', line, current_session, last_session, current_bufnr)
             if not current_bufnr then -- 第一行是 current_buf_name
                 current_bufnr = bufnr
             end
@@ -234,11 +234,11 @@ api.nvim_create_user_command('SLoad', function(argument)
     if current_session then
         session_save(current_session)
         -- vim.pretty_print(sessions)
-        futil.info('SLoad:complete save------------------------')
+        -- futil.info('SLoad:complete save------------------------')
         update_session_state(argument.args)
         session_load(argument.args)
         -- vim.pretty_print(sessions)
-        futil.info('SLoad:complete load------------------------')
+        -- futil.info('SLoad:complete load------------------------')
     else
         futil.delete_buffers(false)
         session_load(argument.args)
@@ -272,14 +272,14 @@ api.nvim_create_user_command('SPrevious', function()
     end
 
     local previous_session = last_session
-    futil.info('SPrevious current:%s, last_session:%s', current_session, last_session)
+    -- futil.info('SPrevious current:%s, last_session:%s', current_session, last_session)
     session_save(current_session)
     -- vim.pretty_print(sessions)
-    futil.info('SPrevious:complete save------------------------')
+    -- futil.info('SPrevious:complete save------------------------')
     update_session_state(previous_session)
     session_load(previous_session)
     -- vim.pretty_print(sessions)
-    futil.info('SPrevious:complete load------------------------')
+    -- futil.info('SPrevious:complete load------------------------')
     update_bufferline()
 end, {})
 
