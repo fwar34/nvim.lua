@@ -147,11 +147,11 @@ function futil.info(opts, ...)
 end
 
 function futil.warn(opts, ...)
-    if type(opts) == "table" then
-        vim.notify(string.format(...), vim.log.levels.WARN, opts)
-    else
-        vim.notify(string.format(opts, ...), vim.log.levels.WARN)
-    end
+    -- if type(opts) == "table" then
+    --     vim.notify(string.format(...), vim.log.levels.WARN, opts)
+    -- else
+    --     vim.notify(string.format(opts, ...), vim.log.levels.WARN)
+    -- end
 end
 
 function futil.err(opts, ...)

@@ -39,9 +39,31 @@ local function test_insert()
     vim.pretty_print(tb)
 end
 
-test_tbl_contains()
-test_autocmd()
-test_insert()
+local function test_tabpage()
+    vim.pretty_print(vim.fn.tabpagebuflist())
+    -- local current_bufnr = vim.api.nvim_get_current_buf()
+    -- vim.api.nvim_buf_delete(current_bufnr, {})
+    vim.api.nvim_create_user_command('TK', function ()
+        test_tabpage()
+    end, {})
+end
+
+local function test_winbar()
+    vim.wo.winbar = 'test.cpp test.lua'
+    print(vim.api.nvim_buf_get_option(vim.api.nvim_get_current_buf(), 'filetype'))
+    if vim.api.nvim_buf_get_option(vim.api.nvim_get_current_buf(), 'filetype') == 'toggleterm' then
+        vim.wo.winbar = 'toggleterm'
+        print('xxxxxxxxx')
+    end
+    vim.cmd('redraws')
+end
+vim.api.nvim_create_user_command('TW', function ()
+    test_winbar()
+end, {})
+
+-- test_tbl_contains()
+-- test_autocmd()
+-- test_insert()
 
 for _, v in pairs({'2.cpp', '1.lua'}) do
     print(v)
