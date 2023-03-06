@@ -160,8 +160,8 @@ function key_mappings:start()
         ['n|<Leader>qt'] = '<CMD>AsyncStop<CR>',
         ['n|<Leader>x2'] = '<CMD>split<CR>',
         ['n|<Leader>x3'] = '<CMD>vsplit<CR>',
-        ['n|<LocalLeader>j'] = { '<c-w>w3<c-e><c-w>w', desc = 'scroll other window down' },
-        ['n|<LocalLeader>k'] = { '<c-w>w3<c-y><c-w>w', desc = 'scroll other window up' },
+        ['n|<A-j>'] = { '<c-w>w3<c-e><c-w>w', desc = 'scroll other window down' },
+        ['n|<A-k>'] = { '<c-w>w3<c-y><c-w>w', desc = 'scroll other window up' },
         -- help motion.txt
         -- If your '{' or '}' are not in the first column, and you would like to use "[["
         -- and "]]" anyway, try these mappings: >
@@ -460,8 +460,8 @@ function key_mappings:start()
 
     -- vim-youdao-translater
     self.vim_youdao_translater = {
-        ['v|<C-y>'] = '<CMD>Ydv<CR>',
-        ['n|<C-y>'] = '<CMD>Ydc<CR>',
+        ['v|<M-y>'] = '<CMD>Ydv<CR>',
+        ['n|<M-y>'] = '<CMD>Ydc<CR>',
         ['|<Leader>yd'] = ':<C-u>Yde<CR>',
     }
 
