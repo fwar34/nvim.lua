@@ -121,18 +121,18 @@ return {
                     end,
                 },
                 heads = {
-                    { 'h', function() cmd('BufferLinePrevious') end, { on_key = false } },
-                    { 'l', function() cmd('BufferLineNext') end, { desc = 'choose', on_key = false } },
+                    { 'h', function() cmd('BufferLineCyclePrev') end, { on_key = false } },
+                    { 'l', function() cmd('BufferLineCycleNext') end, { desc = 'choose', on_key = false } },
 
-                    { 'H', function() cmd('BufferLineMovePrevious') end },
+                    { 'H', function() cmd('BufferLineMovePrev') end },
                     { 'L', function() cmd('BufferLineMoveNext') end, { desc = 'move' } },
 
                     { 'p', function() cmd('BufferLineTogglePin') end, { desc = 'pin' } },
+                    { '<C-p>', function() cmd('BufferLinePick') end, { desc = 'pick' } },
 
-                    { 'd', function() cmd('BufferLineClose') end, { desc = 'close' } },
-                    { 'c', function() cmd('BufferLineClose') end, { desc = false } },
+                    { 'c', function() cmd('BufferLinePickClose') end, { desc = 'pick close' } },
 
-                    { 'od', function() cmd('BufferSortByDirectory') end, { desc = 'by directory' } },
+                    { 'od', function() cmd('BufferLineSortByDirectory') end, { desc = 'by directory' } },
                     { 'oe', function() cmd('BufferLineSortByExtension') end, { desc = 'by extension' } },
                     { 'q', nil, { exit = true, desc = false } },
                     { '<Esc>', nil, { exit = true, desc = 'quit' } }
