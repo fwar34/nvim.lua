@@ -14,7 +14,15 @@ return {
                 require("bufferline").setup {
                     options = {
                         -- 使用 nvim 内置lsp
-                        -- diagnostics = "nvim_lsp",
+                        diagnostics = "nvim_lsp",
+                        offsets = {
+                            {
+                                filetype = "NvimTree",
+                                text = "File Explorer",
+                                text_align = "left",
+                                separator = true
+                            }
+                        },
                         custom_filter = function(buf)
                             if require('sessionmgr.sessionmgr').is_buf_hide(buf) then
                                 return false

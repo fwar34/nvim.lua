@@ -127,7 +127,7 @@ return {
                     { 'H', function() cmd('BufferLineMovePrevious') end },
                     { 'L', function() cmd('BufferLineMoveNext') end, { desc = 'move' } },
 
-                    { 'p', function() cmd('BufferLinePin') end, { desc = 'pin' } },
+                    { 'p', function() cmd('BufferLineTogglePin') end, { desc = 'pin' } },
 
                     { 'd', function() cmd('BufferLineClose') end, { desc = 'close' } },
                     { 'c', function() cmd('BufferLineClose') end, { desc = false } },
