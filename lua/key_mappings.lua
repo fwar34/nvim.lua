@@ -136,7 +136,8 @@ function key_mappings:start()
         ['n|<Leader>dm'] = '<CMD>delmarks!<CR>',
         ['n|<Leader>kb'] = { function() api.nvim_buf_delete(0, {}) end, desc = 'delete buffer' },
         ['n|<Space><Space>'] = function() vim.api.nvim_input(':') end,
-        ['n|<Leader>bb'] = { '<C-^>', desc = 'last buffer' },
+        -- ['n|<Leader>bb'] = { '<C-^>', desc = 'last buffer' },
+        ['n|<Leader>bb'] = { '<CMD>silent e #<CR>', desc = 'last buffer' }, -- :h CTRL-^
         ['n|<LocalLeader>lm'] = { function() futil.toggle_line_number() end, desc = 'toggle line number' },
         ['n|<LocalLeader>qq'] = '<CMD>q<CR>',
         ['n|<LocalLeader>qa'] = '<CMD>qa<CR>',

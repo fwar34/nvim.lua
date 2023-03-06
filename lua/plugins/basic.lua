@@ -108,6 +108,22 @@ return {
     {
         'dstein64/vim-win', event = 'VimEnter *',
         config = function()
+            vim.keymap.set({ 'n', 'v' }, '<C-BS>', '<Plug>WinWin', { desc = 'vim-win' })
+            vim.g.win_ext_command_map = {
+                c = 'wincmd c',
+                C = 'close!',
+                V = 'wincmd v',
+                S = 'wincmd s',
+                n = 'bnext',
+                N = 'bnext!',
+                p = 'bprevious',
+                P = 'bprevious!',
+                ['<c-n>'] = 'tabnext',
+                ['<c-p>'] = 'tabprevious',
+                ['='] = 'wincmd =',
+                t = 'tabnew',
+                q = 'Win#exit'
+            }
         end
     },
     -- Async task
@@ -138,7 +154,7 @@ return {
         'skywind3000/awesome-cheatsheets', event = 'VimEnter *',
     },
 
-    { 'ianva/vim-youdao-translater', cmd = {'Ydc', 'Ydv', 'Yde'}},
+    { 'ianva/vim-youdao-translater', cmd = { 'Ydc', 'Ydv', 'Yde' } },
     -- 调颜色插件
     -- Provides command :XtermColorTable, as well as variants for different splits
     -- Xterm numbers on the left, equivalent RGB values on the right
