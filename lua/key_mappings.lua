@@ -330,13 +330,13 @@ function key_mappings:start()
       end,
       desc = 'telescope live_grep with options'
     },
-    ['n|<Leader>ff'] = {
+    ['n|<Leader>pf'] = {
       function()
         require('telescope.builtin').find_files({ find_command = find_files_args, })
       end,
       desc = 'telescope find_files with options'
     },
-    ['n|<Leader>pf'] = {
+    ['n|<Leader>ff'] = {
       function()
         require('telescope.builtin').find_files({
           cwd = require("find_root_dir").find_root_dir(),
