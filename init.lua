@@ -2,6 +2,9 @@ local vim = vim
 local api = vim.api
 local cmd = vim.cmd
 
+require('core.fload')
+require('core.startup')
+
 -- https://github.com/nvim-tree/nvim-tree.lua
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
@@ -34,8 +37,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+
 require("lazy").setup("plugins")
-require('impatient')
 
 require("autocmd")
 require("lsp")

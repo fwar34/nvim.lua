@@ -82,4 +82,9 @@ end
 
 M.config()
 
+local xx = {'abc', c = 'cde'}
+print(xx[1], xx.c)
+xx = {'11', '22'}
+vim.pretty_print(xx)
+
 

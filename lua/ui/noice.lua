@@ -8,7 +8,7 @@ Fload({
     --   If not available, we use `mini` as the fallback
     'rcarriga/nvim-notify',
   },
-  config = function ()
+  config = function()
     require("noice").setup({
       routes = {
         {
@@ -20,27 +20,26 @@ Fload({
           opts = { skip = true },
         },
       },
-      -- views = {
-      --     cmdline_output = {
-      --         position = {
-      --             row = '80%',
-      --             col = '20%',
-      --         }
-      --     },
-      --     notify = {
-      --         position = {
-      --             row = '80%',
-      --             col = '20%',
-      --         }
-      --     },
-      --     cmdline_popup = {
-      --         position = {
-      --             row = '80%',
-      --             col = '20%',
-      --         }
-      --     },
-      -- },
-
+      views = {
+        -- cmdline_output = {
+        --   position = {
+        --     row = '80%',
+        --     col = '20%',
+        --   }
+        -- },
+        -- notify = {
+        --   position = {
+        --     row = '80%',
+        --     col = '20%',
+        --   }
+        -- },
+        cmdline_popup = {
+          position = {
+            row = '80%',
+            col = '20%',
+          }
+        },
+      },
       lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {
