@@ -5,17 +5,15 @@ return {
         {
             "MunifTanjim/nui.nvim",
             config = function ()
-                -- override the default split view to always enter the split when it opens
-                require("noice").setup({
-                    relative = "win",
-                    size = {
-                        width = 80,
-                        height = 40,
-                    },
-                    position = {
-                        row = 30,
-                        col = 20,
-                    },
+                require('noice').setup({
+                    -- views = {
+                    --     cmdline_popup = {
+                    --         position = {
+                    --             row = '80%',
+                    --             col = '20%',
+                    --         }
+                    --     },
+                    -- },
                 })
             end
         },
