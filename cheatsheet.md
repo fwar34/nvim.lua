@@ -9,6 +9,7 @@ lua vim.api.nvim_call_function('ExecuteFile', {})
 ```
 
 |前缀/后缀|作用模式                    |命令格式         |命令缩写        |
+|---------|----------------------------|-----------------|----------------|
 |<Space>  |普通、可视、选择和操作符等待|:map {lhs} {rhs} |                |
 |n        |普通                        |:nmap {lhs} {rhs}|:nm {lhs} {rhs} |
 |v        |可视和选择                  |:vmap {lhs} {rhs}|:vm {lhs} {rhs} |
