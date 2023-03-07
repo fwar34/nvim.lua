@@ -92,6 +92,8 @@ end
 
 vim.api.nvim_create_user_command('SessionBuffers', function ()
     -- require('futil').warn('--------------------------------------------------------')
-    buffers()
+    buffers({
+        sort_mru = true,
+    })
     -- require('futil').warn('--------------------------------------------------------')
 end, {})
