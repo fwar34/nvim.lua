@@ -128,11 +128,20 @@ function futil.dump_all_buffers()
     for _, buf in ipairs(buffers) do
         vim.pretty_print('buf num:' .. buf ..
         ' name:' .. api.nvim_buf_get_name(buf) ..
-        ' is load:' .. (vim.api.nvim_buf_is_loaded(buf) and 1 or 0) ..
+        ' is load:' .. (api.nvim_buf_is_loaded(buf) and 1 or 0) ..
         ' buflisted:' .. (api.nvim_buf_get_option(buf, 'buflisted') and 1 or 0) ..
         ' ft:' .. api.nvim_buf_get_option(buf, 'filetype') ..
         ' valid:' .. (api.nvim_buf_is_valid(buf) and 1 or 0))
     end
+end
+
+function futil.is_filetype_buffer_listed(filetype)
+    for _, bufnr in ipairs(api.nvim_list_bufs()) do
+        if api.nvim_buf_get_option(bufnr, 'filetype') == filetype and api.nvim_buf_get_option(bufnr, 'buflisted') then
+            return true
+        end
+    end
+    return false
 end
 
 api.nvim_create_user_command('DumpBuffers', futil.dump_all_buffers, {})

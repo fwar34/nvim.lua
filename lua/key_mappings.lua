@@ -146,7 +146,13 @@ function key_mappings:start()
         ['n|<Leader>ia'] = { 'm`A;<Esc>``', desc = 'insert `;` at end of line' },
         ['n|<Leader>yy'] = { "m`y'a``", desc = 'copy from mark `a` to current line' },
         ['n|<Leader>dd'] = { "d'a", desc = 'delete from mark `a` to current line' },
-        ['n|<Leader>qf'] = { '<CMD>copen<CR>', desc = 'open quickfix window' },
+        ['n|<Leader>qf'] = { function ()
+            if futil.is_filetype_buffer_listed('qf') then
+                vim.cmd('cclose')
+            else
+                vim.cmd('copen')
+            end
+        end, desc = 'toggle quickfix window' },
         ['n|<Leader>mf'] = { function() futil.make_fennel() end, desc = 'make fennel' },
         ['n|<LocalLeader>fn'] = { function() futil.find_previous_brace_in_first_column() end,
             desc = 'find previous brace in first column' },
