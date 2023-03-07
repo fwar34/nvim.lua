@@ -7,3 +7,15 @@
 ```lua
 lua vim.api.nvim_call_function('ExecuteFile', {})
 ```
+
+|前缀/后缀|作用模式                    |命令格式         |命令缩写        |
+|<Space>  |普通、可视、选择和操作符等待|:map {lhs} {rhs} |                |
+|n        |普通                        |:nmap {lhs} {rhs}|:nm {lhs} {rhs} |
+|v        |可视和选择                  |:vmap {lhs} {rhs}|:vm {lhs} {rhs} |
+|s        |选择                        |:smap {lhs} {rhs}|                |
+|x        |可视                        |:xmap {lhs} {rhs}|:xm {lhs} {rhs} |
+|o        |操作符等待                  |:omap {lhs} {rhs}|:om {lhs} {rhs} |
+|!        |插入和命令行                |:map! {lhs} {rhs}|                |
+|i        |插入                        |:imap {lhs} {rhs}|:im {lhs} {rhs} |
+|l        |插入、命令行和 Lang-Arg 模式|:lmap {lhs} {rhs}|:lm {lhs} {rhs} |
+|c        |命令行                      |:cmap {lhs} {rhs}|:cm {lhs} {rhs} |
