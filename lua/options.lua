@@ -134,7 +134,7 @@ cmd('set sidescrolloff=5')
 -- 统一缩进为4
 -- cmd('set softtabstop=4')
 -- cmd('set shiftwidth=4')
-cmd('set cmdheight=2')
+-- cmd('set cmdheight=2')
 
 cmd('set updatetime=300')
 
