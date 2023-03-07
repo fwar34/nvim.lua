@@ -4,7 +4,7 @@ return {
         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
         {
             "MunifTanjim/nui.nvim",
-            config = function ()
+            config = function()
                 require('noice').setup({
                     -- views = {
                     --     cmdline_popup = {
@@ -14,6 +14,16 @@ return {
                     --         }
                     --     },
                     -- },
+                    routes = {
+                        {
+                            filter = {
+                                event = "msg_show",
+                                kind = "",
+                                find = "lines",
+                            },
+                            opts = { skip = true },
+                        },
+                    },
                 })
             end
         },
