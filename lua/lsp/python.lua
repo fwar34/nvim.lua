@@ -7,6 +7,6 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 -- }
 -- 需要去 zshenv 添加 path 环境变量
 require('lspconfig')['jedi_language_server'].setup {
-    capabilities = capabilities,
-    on_attach = require'lsp.common'.custom_lsp_attach,
+  capabilities = capabilities,
+  on_attach = require 'lsp.common'.custom_lsp_attach,
 }

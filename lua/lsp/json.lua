@@ -2,6 +2,6 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 require 'lspconfig'.jsonls.setup {
-    capabilities = capabilities,
-    on_attach = require'lsp.common'.custom_lsp_attach,
+  capabilities = capabilities,
+  on_attach = require 'lsp.common'.custom_lsp_attach,
 }

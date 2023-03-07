@@ -7,44 +7,44 @@ local M = {}
 local results = {}
 
 local function onread(err, data)
-    if err then
-        return
-    end
-    if data then
-        table.insert(results, data)
-    end
+  if err then
+    return
+  end
+  if data then
+    table.insert(results, data)
+  end
 end
 
 function M.asyncGrep(term)
-    local stdout = loop.new_pipe(false)
-    local stderr = loop.new_pipe(false)
-    local function setQF()
-        vim.fn.setqflist({}, 'r', {title = 'Search Results', lines = results})
-        api.nvim_command('cwindow')
-        local count = #results
-        for i = 0, count do -- clear the table for next search
-            results[i] = nil
-        end
+  local stdout = loop.new_pipe(false)
+  local stderr = loop.new_pipe(false)
+  local function setQF()
+    vim.fn.setqflist({}, 'r', { title = 'Search Results', lines = results })
+    api.nvim_command('cwindow')
+    local count = #results
+    for i = 0, count do -- clear the table for next search
+      results[i] = nil
     end
+  end
 
-    Handle = loop.spawn('rg', {
-        args = {term, '--vimgrep', '--smart-case'},
-        stdio = {nil, stdout, stderr}
-    },
-    vim.schedule_wrap(function ()
-        stdout:read_stop()
-        stderr:read_stop()
-        stdout:close()
-        stderr:close()
-        Handle:close()
-        setQF()
+  Handle = loop.spawn('rg', {
+    args = { term, '--vimgrep', '--smart-case' },
+    stdio = { nil, stdout, stderr }
+  },
+    vim.schedule_wrap(function()
+      stdout:read_stop()
+      stderr:read_stop()
+      stdout:close()
+      stderr:close()
+      Handle:close()
+      setQF()
     end))
-    loop.read_start(stdout, onread)
-    loop.read_start(stderr, onread)
+  loop.read_start(stdout, onread)
+  loop.read_start(stderr, onread)
 end
 
-api.nvim_create_user_command('MGrep', function (argument)
-    M.asyncGrep(argument.args)
-end, {nargs = 1})
+api.nvim_create_user_command('MGrep', function(argument)
+  M.asyncGrep(argument.args)
+end, { nargs = 1 })
 
 return M

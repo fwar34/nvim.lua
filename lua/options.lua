@@ -26,29 +26,29 @@ opt.autoindent = true
 -- 关闭自动换行
 opt.wrap = false
 if not global.is_windows or global.hostname ~= 'A120325' then
-    -- 非 Windows 上面才打开系统剪贴板，F10 是触发快捷键
-    opt.clipboard:append('unnamedplus')
-    vim.g.IsWin32yankActive = true
+  -- 非 Windows 上面才打开系统剪贴板，F10 是触发快捷键
+  opt.clipboard:append('unnamedplus')
+  vim.g.IsWin32yankActive = true
 end
 
 if global.is_windows then
-    -- Windows 上面设置 win32yank
-    vim.g.clipboard = {
-        name = 'win32yank',
-        copy = {
-            ['+'] = 'win32yank.exe -i --crlf',
-            ['*'] = 'win32yank.exe -i --crlf',
-        },
-        paste = {
-            ['+'] = 'win32yank.exe -o --lf',
-            ['*'] = 'win32yank.exe -o --lf',
-        },
-        cache_enabled = 0
-    }
+  -- Windows 上面设置 win32yank
+  vim.g.clipboard = {
+    name = 'win32yank',
+    copy = {
+      ['+'] = 'win32yank.exe -i --crlf',
+      ['*'] = 'win32yank.exe -i --crlf',
+    },
+    paste = {
+      ['+'] = 'win32yank.exe -o --lf',
+      ['*'] = 'win32yank.exe -o --lf',
+    },
+    cache_enabled = 0
+  }
 
-    if global.hostname == 'A120325' then
-        vim.g.IsWin32yankActive = false
-    end
+  if global.hostname == 'A120325' then
+    vim.g.IsWin32yankActive = false
+  end
 end
 opt.ignorecase = true
 opt.smartcase = true
@@ -63,8 +63,8 @@ opt.pastetoggle = '<F9>'
 opt.hidden = true
 -- 打开这个在非 tmux 中背景是蓝色的，所以只在 tmux 中设置
 if vim.env.TMUX ~= nil or vim.env.ALACRITTY_LOG ~= nil then
-    -- cmd('set termguicolors')
-    opt.termguicolors = true
+  -- cmd('set termguicolors')
+  opt.termguicolors = true
 end
 opt.signcolumn = 'yes'
 opt.shortmess = 'atcI'

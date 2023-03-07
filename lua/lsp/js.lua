@@ -11,7 +11,6 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- end
 
 require 'lspconfig'.tsserver.setup {
-    capabilities = capabilities,
-    on_attach = require'lsp.common'.custom_lsp_attach,
+  capabilities = capabilities,
+  on_attach = require 'lsp.common'.custom_lsp_attach,
 }
-
