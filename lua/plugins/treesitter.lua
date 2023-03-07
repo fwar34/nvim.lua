@@ -6,7 +6,7 @@ return {
         config = function()
             require('nvim-treesitter.configs').setup {
                 ensure_installed = {
-                    'bash', 'c', 'cpp', 'lua', 'css', 'html', 'javascript', 'json', 'julia', 'go', 'java', 'thrift', 'vim',
+                    'bash', 'c', 'cpp', 'lua', 'css', 'html', 'javascript', 'json', 'julia', 'go', 'java', 'thrift', 'vim', 'markdown', 'regex',
                     'commonlisp', 'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure', 'fennel', 'org'
                 }, -- one of "all", "language", or a list of languages
                 highlight = {
