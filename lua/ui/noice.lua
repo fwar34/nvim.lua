@@ -1,6 +1,5 @@
-return {
+Fload({
   'folke/noice.nvim',
-  enabled = false,
   dependencies = {
     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
     'MunifTanjim/nui.nvim',
@@ -9,7 +8,7 @@ return {
     --   If not available, we use `mini` as the fallback
     'rcarriga/nvim-notify',
   },
-  config = function()
+  config = function ()
     require("noice").setup({
       routes = {
         {
@@ -77,5 +76,5 @@ return {
         return "<c-b>"
       end
     end, { silent = true, expr = true })
-  end,
-}
+  end
+})

@@ -68,3 +68,18 @@ end, {})
 for _, v in pairs({ '2.cpp', '1.lua' }) do
   print(v)
 end
+
+local test = 'fwar34/fload.nvim'
+print(string.find(test, '/'))
+print(string.gsub(test, '%w+/(%w+)', '%1'))
+local x = string.gsub(test, '%w+/(%w+)', '%1')
+print(x)
+
+local M = {}
+M.config = function()
+  print('wait_call')
+end
+
+M.config()
+
+

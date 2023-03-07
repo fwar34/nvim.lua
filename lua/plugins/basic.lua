@@ -384,4 +384,7 @@ return {
     end,
     cmd = { 'RunCode', 'RunFile' }
   },
+  {
+    'yianwillis/vimcdoc'
+  }
 }
