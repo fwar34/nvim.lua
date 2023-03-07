@@ -16,7 +16,7 @@ return {
           filter = {
             event = "msg_show",
             kind = "",
-            find = "lines --",
+            find = "lines",
           },
           opts = { skip = true },
         },

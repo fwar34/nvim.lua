@@ -5,13 +5,25 @@ local cmd = vim.cmd
 require('core.fload')
 require('core.startup')
 
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
+end
+
+ensure_packer()
+
 -- https://github.com/nvim-tree/nvim-tree.lua
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 cmd('set termguicolors')
-
 require("options")
 
 local function set_leader()
@@ -48,4 +60,3 @@ require("key_mappings")
 -- require('group.buffers')
 require('sessionmgr.sessionmgr')
 require('sessionmgr.picker')
-require('ui.noice')
