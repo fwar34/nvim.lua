@@ -20,7 +20,7 @@ local current_session = nil
         '/home/xxx/manager.el',
     },
 } ]]
-sessions = {}
+local sessions = {}
 local M = {}
 
 local function insert_session(session, bufnr)
@@ -56,7 +56,7 @@ function M.is_buf_exclude(bufnr)
     end
 
     local ft = api.nvim_buf_get_option(bufnr, 'filetype')
-    if ft == 'floaterm' or ft == 'rnvimr' or ft == 'toggleterm' or ft == '' or ft == 'help' or ft == 'qf' or
+    if ft == 'floaterm' or ft == 'rnvimr' or ft == 'toggleterm' or ft == '' or ft == 'help' or ft == 'qf' or ft == 'NvimTree' or
         string.len(api.nvim_buf_get_name(bufnr)) == 0 then
         return true
     end
@@ -85,9 +85,9 @@ local function session_save(session)
         return nil
     end
 
-    if require('nvim-tree.view').is_visible() then
-        cmd('NvimTreeToggle')
-    end
+    -- if require('nvim-tree.view').is_visible() then
+        -- cmd('NvimTreeToggle')
+    -- end
 
     local current_bufnr = api.nvim_get_current_buf()
     local current_buf_name = api.nvim_buf_get_name(current_bufnr)
