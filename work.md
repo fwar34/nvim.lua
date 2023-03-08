@@ -75,7 +75,9 @@ DefBMSCommand(BMS_CONF_BREAKOUT_ROOMS_START_NOTIFY)
 DefBMSCommand(BMS_CONF_GET_BREAKOUT_ROOMS_LIST)
 
 #define DATA_CONTENT_BMS_CONF_GET_BREAKOUT_ROOMS_LIST_NOTIFY(OP)    \
+    GROUP_ITEM(OP, uint32_t, statusCode);                           \
     GROUP_ITEM(OP, uint32_t, confID);                               \
+    GROUP_ITEM(OP, uint32_t, userID);                               \
     GROUP_ITEM(OP, string, extend);                                 \
     GROUP_ITEM(OP, vector<BREAKOUT_ROOM_INFO>, roomInfos);
 DefBMSCommand(BMS_CONF_GET_BREAKOUT_ROOMS_LIST_NOTIFY)
