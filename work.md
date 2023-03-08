@@ -43,7 +43,8 @@ bms 处理分组并广播开启分组成功的应答给所有客户端
 
 ```cpp
 客户端使用
-组内的成员 roomUsers，包含了没有入会的成员（userid=0，umsUserID!=0的用户），bms需要保存独立的列表，因为关闭分组后客户端还可能获取此列表重新编辑分组再开启分组
+// 组内的成员 roomUsers，包含了没有入会的成员（userid=0，umsUserID!=0的用户），
+// bms需要保存独立的列表，因为关闭分组后客户端还可能获取此列表重新编辑分组再开启分组
 #define DATA_CONTENT_BMS_CONF_BREAKOUT_ROOMS_START(OP)              \
     GROUP_ITEM(OP, uint32_t, confID);                               \
     GROUP_ITEM(OP, uint32_t, userID);                               \
@@ -216,11 +217,11 @@ DefAudioCommand(AUDIO_BREAKOUT_ROOM_STATE_TO_MIXER)
 1. 会中用户订阅新的语音的时候判断订阅的目标 breakout rooms 是服务器混音并且用户需要在目标 breakout rooms 中说话的时候通知 mixer，否则就只通知 cdts
 ```cpp
 此接口客户端使用，支持同时订阅多个组，全量更新（用户所在的组不用订阅）
-#define DATA_CONTENT_UserAudioSubscribeInfo(OP)                     \
-    GROUP_ITEM(OP, UserID, roomID);                                 \
-    /* 对录制的服务器混音来控制此用户是否需要混音输出的数据，       \
-    可听或者可说（mixer 判断用户可说则加入混音引擎）*/              \
-    GROUP_ITEM(OP, UINT32_t, privilege);                            \
+#define DATA_CONTENT_UserAudioSubscribeInfo(OP)                                 \
+    GROUP_ITEM(OP, UserID, roomID);                                             \
+    /* 对录制的服务器混音来控制此用户是否需要混音输出的数据，                   \
+    可听或者可说（mixer 判断用户可说则加入混音引擎）*/                          \
+    GROUP_ITEM(OP, UINT32_t, privilege);                                        \
 DefData(BreakoutRoomSubscribeInfo);
 
 客户端使用
@@ -236,22 +237,22 @@ DefAudioCommand(AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM)
     GROUP_ITEM(OP, UserID, user);                                               \
     GROUP_ITEM(OP, vector<BreakoutRoomSubscribeInfo>, subscribeInfos);
 DefAuidoCommand(AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM_NOTIFY)
---------------------------------------------------------
-#define DATA_CONTENT_UserAudioSubscribeInfo(OP)     \
-    GROUP_ITEM(OP, UserID, user);                   \
+// ----------------------------------------------------------------
+#define DATA_CONTENT_UserAudioSubscribeInfo(OP)                                 \
+    GROUP_ITEM(OP, UserID, user);                                               \
     GROUP_ITEM(OP, vector<BreakoutRoomSubscribeInfo>, subscribeInfos);
 DefData(UserAudioSubscribeInfo);
 
 发送给 cdts
 #define DATA_CONTENT_AUDIO_BREAKOUT_SUBSCRIBE_BREAKOUT_ROOMS_TO_CDTS(OP)        \
     GROUP_ITEM(OP, uint32_t, confID);                                           \
+    GROUP_ITEM(OP, uint32_t, groupID);                                          \
     GROUP_ITEM(OP, vector<UserAudioSubscribeInfo>, userSubscribeInfos);
 DefAudioCommand(AUDIO_BREAKOUT_SUBSCRIBE_BREAKOUT_ROOMS_TO_CDTS)
 
 发送给 mixer
-#define DATA_CONTENT_UserAudioSubscribeInfoMixer(OP)                             \
-    GROUP_ITEM(OP, uint32_t, roomID);                                            \
-    GROUP_ITEM(OP, uint32_t, mixerMode);                                         \
+#define DATA_CONTENT_UserAudioSubscribeInfoMixer(OP)                            \
+    GROUP_ITEM(OP, uint32_t, roomID);                                           \
     GROUP_ITEM(OP, AudioConfig_mixer_info, info);
 DefData(UserAudioSubscribeInfoMixer);
 
