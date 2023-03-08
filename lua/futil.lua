@@ -190,4 +190,21 @@ function futil.put(...)
   return ...
 end
 
+function futil.delete_other_window(excludes)
+  for _, winnr in ipairs(api.nvim_list_wins()) do
+    if winnr ~= api.nvim_get_current_win() then
+      local bufnr = api.nvim_win_get_buf(winnr)
+      if api.nvim_buf_get_option(bufnr, 'buflisted') and string.len(api.nvim_buf_get_name(bufnr)) ~= 0 then
+        if not excludes then
+          api.nvim_win_close(winnr, false)
+        else
+          if not vim.tbl_contains(excludes, api.nvim_buf_get_option(bufnr, 'filetype')) then
+            api.nvim_win_close(winnr, false)
+          end
+        end
+      end
+    end
+  end
+end
+
 return futil
