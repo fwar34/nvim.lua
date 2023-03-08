@@ -11,39 +11,8 @@ return {
   },
   config = function()
     require("noice").setup({
-      routes = {
-        {
-          filter = {
-            event = "msg_show",
-            kind = "",
-            find = "lines",
-          },
-          opts = { skip = true },
-        },
-      },
-      -- views = {
-      --     cmdline_output = {
-      --         position = {
-      --             row = '80%',
-      --             col = '20%',
-      --         }
-      --     },
-      --     notify = {
-      --         position = {
-      --             row = '80%',
-      --             col = '20%',
-      --         }
-      --     },
-      --     cmdline_popup = {
-      --         position = {
-      --             row = '80%',
-      --             col = '20%',
-      --         }
-      --     },
-      -- },
-
       lsp = {
-        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+        -- override markdown rendering so that cmp and other plugins use Treesitter
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
@@ -58,24 +27,53 @@ return {
         inc_rename = false, -- enables an input dialog for inc-rename.nvim
         lsp_doc_border = false, -- add a border to hover docs and signature help
       },
+      -- routes = {
+      -- {
+      -- view = "notify",
+      -- filter = { event = "msg_showmode" },
+      -- },
+      -- },
+      -- views = {
+      --   cmdline_popup = {
+      --     position = {
+      --       row = 5,
+      --       col = "50%",
+      --     },
+      --     size = {
+      --       width = 60,
+      --       height = "auto",
+      --     },
+      --   },
+      --   popupmenu = {
+      --     relative = "editor",
+      --     position = {
+      --       row = 8,
+      --       col = "50%",
+      --     },
+      --     size = {
+      --       width = 60,
+      --       height = 10,
+      --     },
+      --     border = {
+      --       style = "rounded",
+      --       padding = { 0, 1 },
+      --     },
+      --     win_options = {
+      --       winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
+      --     },
+      --   },
+      -- },
+      routes = {
+        {
+          filter = {
+            event = "msg_show",
+            kind = "",
+            find = " lines --"
+          },
+          opts = { skip = true },
+        },
+      },
     })
-
     require("telescope").load_extension("noice")
-
-    vim.keymap.set("c", "<S-Enter>", function()
-      require("noice").redirect(vim.fn.getcmdline())
-    end, { desc = "Redirect Cmdline" })
-
-    vim.keymap.set({ "n", "i", "s" }, "<c-f>", function()
-      if not require("noice.lsp").scroll(4) then
-        return "<c-f>"
-      end
-    end, { silent = true, expr = true })
-
-    vim.keymap.set({ "n", "i", "s" }, "<c-b>", function()
-      if not require("noice.lsp").scroll( -4) then
-        return "<c-b>"
-      end
-    end, { silent = true, expr = true })
-  end,
+  end
 }
