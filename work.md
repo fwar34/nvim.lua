@@ -13,19 +13,23 @@
 
 ```cpp
 每个分组的信息
-#define DATA_CONTENT_BREAKOUT_ROOM_USER_ITEM(OP)       \
-    GROUP_ITEM(OP, uint32_t, userId);                  \
-    GROUP_ITEM(OP, uint32_t, userUmsId);               \
-    GROUP_ITEM(OP, uint32_t, userPresetRoomId);        \ 用户需要加入的组
-    GROUP_ITEM(OP, uint32_t, userCurrentRoomId);       \ 用户当前真正加入的分组
-    GROUP_ITEM(OP, uint32_t, privilege);               \ 用户在 userGroupId 中的权限, 可听：0x01 可说: 0x02
+#define DATA_CONTENT_BREAKOUT_ROOM_USER_ITEM(OP)                    \
+    GROUP_ITEM(OP, uint32_t, userId);                               \
+    GROUP_ITEM(OP, uint32_t, userUmsId);                            \
+    /* 用户需要加入的组 */                                          \
+    GROUP_ITEM(OP, uint32_t, userPresetRoomId);                     \
+    /* 用户当前真正加入的分组 */                                    \
+    GROUP_ITEM(OP, uint32_t, userCurrentRoomId);                    \
+    /* 用户在 userGroupId 中的权限, 可听：0x01 可说: 0x02 */        \
+    GROUP_ITEM(OP, uint32_t, privilege);                            \
     GROUP_ITEM(OP, string, extend);
-DefData(BREAKOUT_ROOM_USER_ITEM);                        每个用户所在的分组信息
+DefData(BREAKOUT_ROOM_USER_ITEM);
 
 #define DATA_CONTENT_BREAKOUT_ROOM_INFO(OP)                         \
     GROUP_ITEM(OP, uint32_t, roomID);                               \
     GROUP_ITEM(OP, string, name);                                   \
-    GROUP_ITEM(OP, uint32_t, mixerMode);                            \   服务器混音还是客户端混音 1：客户端混音 0：服务器混音
+    /*服务器混音还是客户端混音 1：客户端混音 0：服务器混音*/        \
+    GROUP_ITEM(OP, uint32_t, mixerMode);                            \
     GROUP_ITEM(OP, string, extend);                                 \
     GROUP_ITEM(OP, vector<BREAKOUT_ROOM_USER_ITEM>, userItems);
 DefData(BREAKOUT_ROOM_INFO);
@@ -49,7 +53,8 @@ DefBMSCommand(BMS_CONF_BREAKOUT_ROOMS_START)
 
 #define DATA_CONTENT_BMS_CONF_BREAKOUT_ROOMS_START_NOTIFY(OP)       \
     GROUP_ITEM(OP, uint32_t, statusCode);                           \
-    GROUP_ITEM(OP, uint64_t, timestamp);                            \ 当前服务器时间戳，单位为秒
+    /* 当前服务器时间戳，单位为秒 */                                \
+    GROUP_ITEM(OP, uint64_t, timestamp);                            \
     GROUP_ITEM(OP, uint32_t, confID);                               \
     GROUP_ITEM(OP, uint32_t, userID);                               \
     GROUP_ITEM(OP, string, extend);                                 \
@@ -115,7 +120,8 @@ server端真正结束分组时，需要把用户音频回到主会场，设置�
 #define DATA_CONTENT_BMS_CONF_BREAKOUT_ROOMS_STOP(OP)    \
     GROUP_ITEM(OP, uint32_t, confID);                    \
     GROUP_ITEM(OP, uint32_t, userID);                    \
-    GROUP_ITEM(OP, uint32_t, delayTime);                 \ 关闭倒计时时间(秒）
+    /* 关闭倒计时时间(秒）*/                             \
+    GROUP_ITEM(OP, uint32_t, delayTime);
 DefBMSCommand(BMS_CONF_BREAKOUT_ROOMS_STOP)
 
 #define DATA_CONTENT_BMS_CONF_BREAKOUT_ROOMS_STOP_NOTIFY(OP)    \
@@ -163,8 +169,9 @@ audioserver 将主分组里面说话的声音继续使用 `JOIN_MIXER` 通知到
 发送给 cdts
 #define DATA_CONTENT_BreatoutRoomUserInfo(OP)                   \
     GROUP_ITEM(OP, uint32_t, userID);                           \
-    GROUP_ITEM(OP, uint32_t, privilege);                        \     cdts 来控制是否转发静音数据
-    GROUP_ITEM(OP, ChannelID, dtsChannelID);                    \
+    /* cdts 来控制是否转发静音数据 */                           \
+    GROUP_ITEM(OP, uint32_t, privilege);                        \
+    GROUP_ITEM(OP, ChannelID, dtsChannelID);
 DefData(BreakoutRoomUserInfo);
 
 #define DATA_CONTENT_BreakoutRoomInfo(OP)                       \
@@ -175,18 +182,20 @@ DefData(BreakoutRoomInfo);
 
 #define DATA_CONTENT_AUDIO_BREAKOUT_ROOM_STATE_TO_CDTS(OP)              \
     GROUP_ITEM(OP, ConfID, confID);                                     \
-    GROUP_ITEM(OP, uint32_t, status);                                   \ 打开：1，关闭：0
+    /* 打开：1，关闭：0 */                                              \
+    GROUP_ITEM(OP, uint32_t, status);                                   \
     GROUP_ITEM(OP, vector<BreakoutRoomInfo>, roomInfos);
 DefPhoneCommand(AUDIO_BREAKOUT_ROOM_STATE_TO_CDTS);
 
 发送给 mixer
-#define DATA_CONTENT_AudioConfig_mixer_info(OP)     \
-    GROUP_ITEM(OP, UserID, user);                   \
-    GROUP_ITEM(OP, UINT32_t, privilege);            \     发送给 mixer 的都是可说的用户，所以此字段可以不用
-    GROUP_ITEM(OP, ChannelID, dtsChannelID);        \
-    GROUP_ITEM(OP, AudioConfig, config);            \
-    GROUP_ITEM(OP, UINT16_t, clientType);           \
-    GROUP_ITEM(OP, UINT16_t, role);                 \
+#define DATA_CONTENT_AudioConfig_mixer_info(OP)                 \
+    GROUP_ITEM(OP, UserID, user);                               \
+    /* 发送给 mixer 的都是可说的用户，所以此字段可以不用 */     \
+    GROUP_ITEM(OP, UINT32_t, privilege);                        \
+    GROUP_ITEM(OP, ChannelID, dtsChannelID);                    \
+    GROUP_ITEM(OP, AudioConfig, config);                        \
+    GROUP_ITEM(OP, UINT16_t, clientType);                       \
+    GROUP_ITEM(OP, UINT16_t, role);
 DefData(AudioConfig_mixer_info);
 
 #define DATA_CONTENT_BreakoutRoomUserInfoMixer(OP)              \
@@ -196,7 +205,8 @@ DefData(BreakoutRoomUserInfoMixer);
 
 #define DATA_CONTENT_AUDIO_BREAKOUT_ROOM_STATE_TO_MIXER(OP)             \
     GROUP_ITEM(OP, uint32_t, confID);                                   \
-    GROUP_ITEM(OP, uint32_t, status);                                   \ 打开：1，关闭：0
+    /* 打开：1，关闭：0 */                                              \
+    GROUP_ITEM(OP, uint32_t, status);                                   \
     GROUP_ITEM(OP, vector<BreakoutRoomUserInfoMixer>, roomInfos);
 DefAudioCommand(AUDIO_BREAKOUT_ROOM_STATE_TO_MIXER)
 ```
@@ -206,9 +216,11 @@ DefAudioCommand(AUDIO_BREAKOUT_ROOM_STATE_TO_MIXER)
 1. 会中用户订阅新的语音的时候判断订阅的目标 breakout rooms 是服务器混音并且用户需要在目标 breakout rooms 中说话的时候通知 mixer，否则就只通知 cdts
 ```cpp
 此接口客户端使用，支持同时订阅多个组，全量更新（用户所在的组不用订阅）
-#define DATA_CONTENT_UserAudioSubscribeInfo(OP)     \
-    GROUP_ITEM(OP, UserID, roomID);                 \
-    GROUP_ITEM(OP, UINT32_t, privilege);            \     对录制的服务器混音来控制此用户是否需要混音输出的数据，可听或者可说（mixer 判断用户可说则加入混音引擎）
+#define DATA_CONTENT_UserAudioSubscribeInfo(OP)                     \
+    GROUP_ITEM(OP, UserID, roomID);                                 \
+    /* 对录制的服务器混音来控制此用户是否需要混音输出的数据，       \
+    可听或者可说（mixer 判断用户可说则加入混音引擎）*/              \
+    GROUP_ITEM(OP, UINT32_t, privilege);                            \
 DefData(BreakoutRoomSubscribeInfo);
 
 客户端使用
