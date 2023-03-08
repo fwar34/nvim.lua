@@ -1,5 +1,10 @@
 return {
   {
+    'preservim/vim-markdown',
+    ft = 'markdown',
+    dependencies = 'godlygeek/tabular'
+  },
+  {
     'iamcco/markdown-preview.nvim',
     enabled = require('global').is_windows,
     -- 在 windows 上面可能安装失败，需要手动去目录里面安装
