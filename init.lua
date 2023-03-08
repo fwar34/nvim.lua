@@ -5,18 +5,21 @@ local cmd = vim.cmd
 require('core.fload')
 require('core.startup')
 
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
-end
-
-ensure_packer()
+require('packer.startup2')
+-- local ensure_packer = function()
+--   local fn = vim.fn
+--   local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+--   if fn.empty(fn.glob(install_path)) > 0 then
+--     fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+--     vim.cmd [[packadd packer.nvim]]
+--     print('xxxxxxxxlskdjf')
+--     return true
+--   end
+--   return false
+-- end
+--
+-- ensure_packer()
+-- require('packer.startup')
 
 -- https://github.com/nvim-tree/nvim-tree.lua
 -- disable netrw at the very start of your init.lua (strongly advised)
@@ -48,7 +51,6 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
-
 
 require("lazy").setup("plugins")
 
