@@ -67,7 +67,9 @@ if vim.env.TMUX ~= nil or vim.env.ALACRITTY_LOG ~= nil then
   opt.termguicolors = true
 end
 opt.signcolumn = 'yes'
-opt.shortmess = 'atcI'
+-- opt.shortmess = 'atcI'
+opt.shortmess = 'IfilnxtToOF'
+-- opt.shortmess:append('I')
 
 -- 输入的命令显示出来，看的清楚些
 -- cmd('set showcmd')
