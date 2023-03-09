@@ -27,12 +27,6 @@ return {
         inc_rename = false, -- enables an input dialog for inc-rename.nvim
         lsp_doc_border = false, -- add a border to hover docs and signature help
       },
-      -- routes = {
-      -- {
-      -- view = "notify",
-      -- filter = { event = "msg_showmode" },
-      -- },
-      -- },
       -- views = {
       --   cmdline_popup = {
       --     position = {
@@ -63,16 +57,16 @@ return {
       --     },
       --   },
       -- },
-      routes = {
-        {
-          filter = {
-            event = "msg_show",
-            kind = "",
-            find = " lines --"
-          },
-          opts = { skip = true },
-        },
-      },
+      -- routes = {
+      --   {
+      --     filter = {
+      --       event = "msg_show",
+      --       kind = "",
+      --       find = " lines --"
+      --     },
+      --     opts = { skip = true },
+      --   },
+      -- },
     })
     require("telescope").load_extension("noice")
   end
