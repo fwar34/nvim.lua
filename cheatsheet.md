@@ -30,11 +30,10 @@ lua vim.api.nvim_call_function('ExecuteFile', {})
 |un|取消 :map 绑定的 {lhs}|:unmap {lhs}| 
 |clear|取消所有 :map 绑定的 {lhs}，慎用|:mapclear| 
 
->
-1. 修改 SPC fn
-2. 从别的窗口退出的时候判断是 nvim-tree，并且不只一个窗口的时候跳到别的窗口
-3. 测试 noice cmdheight 改变
-4. cmp 补全失效重启
-5. 给 sessionmgr 创建选择 picker
-6. hydra 根据 noice 状态设置成浮动或者 message 位置
-7. neovide 禁用 noice 只使用 notify
+> 1. 修改 SPC fn
+> 2. 从别的窗口退出的时候判断是 nvim-tree，并且不只一个窗口的时候跳到别的窗口
+> 3. 测试 noice cmdheight 改变
+> 4. cmp 补全失效重启
+> 5. 给 sessionmgr 创建选择 picker
+> 6. hydra 根据 noice 状态设置成浮动或者 message 位置
+> 7. neovide 禁用 noice 只使用 notify

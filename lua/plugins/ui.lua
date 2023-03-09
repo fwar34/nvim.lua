@@ -1,5 +1,14 @@
 return {
+  {
+    'rcarriga/nvim-notify',
+    enabled = vim.g.neovide,
+    config = function ()
+      vim.notify = require('notify')
+    end
+  },
+  {
   'folke/noice.nvim',
+  enabled = not vim.g.neovide,
   -- enabled = false,
   dependencies = {
     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
@@ -27,36 +36,36 @@ return {
         inc_rename = false, -- enables an input dialog for inc-rename.nvim
         lsp_doc_border = false, -- add a border to hover docs and signature help
       },
-      -- views = {
-      --   cmdline_popup = {
-      --     position = {
-      --       row = 5,
-      --       col = "50%",
-      --     },
-      --     size = {
-      --       width = 60,
-      --       height = "auto",
-      --     },
-      --   },
-      --   popupmenu = {
-      --     relative = "editor",
-      --     position = {
-      --       row = 8,
-      --       col = "50%",
-      --     },
-      --     size = {
-      --       width = 60,
-      --       height = 10,
-      --     },
-      --     border = {
-      --       style = "rounded",
-      --       padding = { 0, 1 },
-      --     },
-      --     win_options = {
-      --       winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
-      --     },
-      --   },
-      -- },
+      views = {
+        cmdline_popup = {
+          position = {
+            row = 5,
+            col = "50%",
+          },
+          size = {
+            width = 60,
+            height = "auto",
+          },
+        },
+        popupmenu = {
+          relative = "editor",
+          position = {
+            row = 8,
+            col = "50%",
+          },
+          size = {
+            width = 60,
+            height = 10,
+          },
+          border = {
+            style = "rounded",
+            padding = { 0, 1 },
+          },
+          win_options = {
+            winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
+          },
+        },
+      },
       -- routes = {
       --   {
       --     filter = {
@@ -70,4 +79,5 @@ return {
     })
     require("telescope").load_extension("noice")
   end
+  }
 }
