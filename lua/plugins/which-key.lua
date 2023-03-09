@@ -10,7 +10,10 @@ return {
       vim.o.timeout = true
       vim.o.timeoutlen = 300
       local wk = require('which-key')
-      wk.setup()
+      wk.setup({
+        show_help = false,
+        show_keys = false,
+      })
       -------------------------------------------------------------------------------------
       wk.register({
         ['<leader>lz'] = { '<CMD>Lazy<CR>', 'Lazy' },
