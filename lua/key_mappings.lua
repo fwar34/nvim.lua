@@ -126,7 +126,7 @@ function key_mappings:start()
     ['n|<Leader>xx'] = '<CMD>nohl<CR><CMD>Hi //<CR><CMD>Hi :clear<CR>',
     ['n|<Leader><TAB>'] = '<C-w><C-w>',
     -- ['n|<Leader>do'] = { '<CMD>on<CR>', desc = 'delete other windows' },
-    ['n|<Leader>do'] = { function() require('futil').delete_other_window({'NvimTree'}) end, desc = 'delete other windows' },
+    ['n|<Leader>do'] = { function() require('futil').delete_other_window({'NvimTree'}, {'qf'}) end, desc = 'delete other windows' },
     ['n|<Leader>dm'] = '<CMD>delmarks!<CR>',
     ['n|<Leader>kb'] = { function() api.nvim_buf_delete(0, {}) end, desc = 'delete buffer' },
     ['n|<Space><Space>'] = function() vim.api.nvim_input(':') end,
@@ -140,7 +140,7 @@ function key_mappings:start()
     ['n|<Leader>ia'] = { 'm`A;<Esc>``', desc = 'insert `;` at end of line' },
     ['n|<Leader>yy'] = { "m`y'a``", desc = 'copy from mark `a` to current line' },
     ['n|<Leader>dd'] = { "d'a", desc = 'delete from mark `a` to current line' },
-    ['|<Leader>qf'] = { function()
+    ['|<Leader>qx'] = { function()
       if futil.is_filetype_buffer_listed('qf') then
         vim.cmd('cclose')
       else

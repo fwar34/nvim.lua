@@ -197,11 +197,11 @@ function futil.put(...)
   return ...
 end
 
-function futil.delete_other_window(excludes)
+function futil.delete_other_window(excludes, includes)
   for _, winnr in ipairs(api.nvim_list_wins()) do
     if winnr ~= api.nvim_get_current_win() then
       local bufnr = api.nvim_win_get_buf(winnr)
-      if api.nvim_buf_get_option(bufnr, 'buflisted') and string.len(api.nvim_buf_get_name(bufnr)) ~= 0 then
+      if string.len(api.nvim_buf_get_name(bufnr)) ~= 0 then
         if not excludes then
           api.nvim_win_close(winnr, false)
         else
@@ -209,9 +209,27 @@ function futil.delete_other_window(excludes)
             api.nvim_win_close(winnr, false)
           end
         end
+      else
+        if includes and vim.tbl_contains(includes, api.nvim_buf_get_option(bufnr, 'filetype')) then
+          api.nvim_win_close(winnr, false)
+        end
       end
     end
   end
 end
+
+local function dump_win_bufs()
+  local winnrs = vim.api.nvim_list_wins()
+  for _, winnr in ipairs(winnrs) do
+    local bufnr = vim.api.nvim_win_get_buf(winnr)
+    vim.pretty_print('bufnr num:' .. bufnr ..
+    ' name:' .. api.nvim_buf_get_name(bufnr) ..
+    ' is load:' .. (api.nvim_buf_is_loaded(bufnr) and 1 or 0) ..
+    ' buflisted:' .. (api.nvim_buf_get_option(bufnr, 'buflisted') and 1 or 0) ..
+    ' ft:' .. api.nvim_buf_get_option(bufnr, 'filetype') ..
+    ' valid:' .. (api.nvim_buf_is_valid(bufnr) and 1 or 0))
+  end
+end
+api.nvim_create_user_command('DumpWins', dump_win_bufs, {})
 
 return futil
