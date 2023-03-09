@@ -457,6 +457,7 @@ function key_mappings:start()
     ['n|<LocalLeader>dr'] = '<CMD>SignifyHunkUndo<CR>',
     ['n|<LocalLeader>dn'] = { '<plug>(signify-next-hunk)', noremap = false }, -- must noremap = false
     ['n|<LocalLeader>dp'] = { '<plug>(signify-prev-hunk)', noremap = false }, -- must noremap = false
+    ['n|<LocalLeader>dR'] = { '<CMD>SignifyRefresh<CR>', noremap = false, desc = 'SignifyRefresh' },
   }
 
   -- vim-youdao-translater

@@ -124,6 +124,8 @@ function futil.delete_buffers(exclude_current)
 end
 
 function futil.dump_all_buffers()
+  local total_len = 0
+  local listed_len = 0
   local buffers = api.nvim_list_bufs()
   for _, buf in ipairs(buffers) do
     vim.pretty_print('buf num:' .. buf ..
@@ -132,7 +134,12 @@ function futil.dump_all_buffers()
     ' buflisted:' .. (api.nvim_buf_get_option(buf, 'buflisted') and 1 or 0) ..
     ' ft:' .. api.nvim_buf_get_option(buf, 'filetype') ..
     ' valid:' .. (api.nvim_buf_is_valid(buf) and 1 or 0))
+    if api.nvim_buf_get_option(buf, 'buflisted') then
+      listed_len = listed_len + 1
+    end
+    total_len = total_len + 1
   end
+  vim.notify(string.format('total buffers len(%u) listed buffers len(%u)', total_len, listed_len))
 end
 
 function futil.is_filetype_buffer_listed(filetype)
