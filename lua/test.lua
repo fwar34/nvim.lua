@@ -1,3 +1,4 @@
+local api = vim.api
 local function test_tbl_contains()
   local buffer_contents = { [3] = { buffer_name = '~/test.lua', buffer_groups = { 'dev', 'trunk' } } }
   vim.pretty_print(vim.tbl_get(buffer_contents, 3))
@@ -81,6 +82,7 @@ M.config = function()
 end
 
 M.config()
+
 
 local xx = {'abc', c = 'cde'}
 print(xx[1], xx.c)

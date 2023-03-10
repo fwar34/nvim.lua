@@ -38,3 +38,4 @@ lua vim.api.nvim_call_function('ExecuteFile', {})
 > 6. hydra 根据 noice 状态设置成浮动或者 message 位置
 > 7. neovide 禁用 noice 只使用 notify
 > 8. SPC ss 判断当前激活才去保存
+> 9. 找到函数参数提示的插件，取消参数的文档提示，只保留 lsp 的提示
