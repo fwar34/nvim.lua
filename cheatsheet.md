@@ -37,3 +37,4 @@ lua vim.api.nvim_call_function('ExecuteFile', {})
 > 5. 给 sessionmgr 创建选择 picker
 > 6. hydra 根据 noice 状态设置成浮动或者 message 位置
 > 7. neovide 禁用 noice 只使用 notify
+> 8. SPC ss 判断当前激活才去保存

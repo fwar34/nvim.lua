@@ -169,7 +169,6 @@ audioserver 将主分组里面说话的声音继续使用 `JOIN_MIXER` 通知到
 2. 客户端混音的 breakout rooms 只需要给 cdts 通知
 
 ```cpp
-发送给 cdts
 #define DATA_CONTENT_BreatoutRoomUserInfo(OP)                   \
     GROUP_ITEM(OP, uint32_t, userID);                           \
     /* cdts 来控制是否转发静音数据 */                           \
@@ -190,10 +189,9 @@ DefData(BreakoutRoomInfo);
     GROUP_ITEM(OP, vector<BreakoutRoomInfo>, roomInfos);
 DefPhoneCommand(AUDIO_BREAKOUT_ROOM_STATE_TO_CDTS);
 
-发送给 mixer
 #define DATA_CONTENT_AudioConfig_mixer_info(OP)                 \
     GROUP_ITEM(OP, UserID, user);                               \
-    /* 发送给 mixer 的都是可说的用户，所以此字段可以不用 */     \
+    /* 发送到 mixer 的都是可说的用户，所以此字段可以不用 */     \
     GROUP_ITEM(OP, UINT32_t, privilege);                        \
     GROUP_ITEM(OP, ChannelID, dtsChannelID);                    \
     GROUP_ITEM(OP, AudioConfig, config);                        \
@@ -206,6 +204,7 @@ DefData(AudioConfig_mixer_info);
     GROUP_ITEM(OP, vector<AudioConfig_mixer_info>, userInfos);
 DefData(BreakoutRoomUserInfoMixer);
 
+发送给 mixer
 #define DATA_CONTENT_AUDIO_BREAKOUT_ROOM_STATE_TO_MIXER(OP)             \
     GROUP_ITEM(OP, uint32_t, confID);                                   \
     /* 打开：1，关闭：0 */                                              \
