@@ -147,6 +147,13 @@ function key_mappings:start()
         vim.cmd('copen')
       end
     end, desc = 'toggle quickfix window' },
+    ['|<C-\\>'] = { function()
+      if futil.is_filetype_buffer_listed('qf') then
+        vim.cmd('cclose')
+      else
+        vim.cmd('copen')
+      end
+    end, desc = 'toggle quickfix window' },
     ['n|<Leader>mf'] = { function() futil.make_fennel() end, desc = 'make fennel' },
     ['n|<LocalLeader>fn'] = { function() futil.find_previous_brace_in_first_column() end,
       desc = 'find previous brace in first column' },

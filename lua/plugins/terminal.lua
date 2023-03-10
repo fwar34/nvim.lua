@@ -39,13 +39,13 @@ return {
 " https://github.com/akinsho/toggleterm.nvim#setup
 " set
 autocmd TermEnter term://*toggleterm#*
-      \ tnoremap <silent><C-\> <Cmd>exe v:count1 . "ToggleTerm"<CR>
+      \ tnoremap <silent><A-\> <Cmd>exe v:count1 . "ToggleTerm"<CR>
 
 " By applying the mappings this way you can pass a count to your
 " mapping to open a specific window.
-" For example: 2<C-\> will open terminal 2
-nnoremap <silent><C-\> <Cmd>exe v:count1 . "ToggleTerm"<CR>
-inoremap <silent><C-\> <Esc><Cmd>exe v:count1 . "ToggleTerm"<CR>
+" For example: 2<A-\> will open terminal 2
+nnoremap <silent><A-\> <Cmd>exe v:count1 . "ToggleTerm"<CR>
+inoremap <silent><A-\> <Esc><Cmd>exe v:count1 . "ToggleTerm"<CR>
 tnoremap <silent><Esc> <C-\><C-N>
             ]])
     end,
