@@ -40,3 +40,4 @@ lua vim.api.nvim_call_function('ExecuteFile', {})
 > 8. SPC ss 判断当前激活才去保存
 > 9. 找到函数参数提示的插件，取消参数的文档提示，只保留 lsp 的提示
 > 10. code_runner 设置 q 退出
+> 11. 改进 ;fw ;fa 才项目根目录开始搜索
