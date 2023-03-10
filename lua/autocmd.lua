@@ -115,28 +115,34 @@ local function highlight_yank()
 end
 
 local function skip_nvimtree()
-  api.nvim_create_autocmd('WinEnter',
-  {
+  local includes = { 'qf', 'fugitive', 'help', }
+  api.nvim_create_autocmd('WinEnter', {
     pattern = '*',
     callback = function(arg)
-      if api.nvim_buf_get_option(arg.buf, 'filetype') == 'NvimTree' and vim.g.skip_nvimtree then
-        local winnrs = api.nvim_list_wins()
-        for _, winnr in ipairs(winnrs) do
-          local bufnr = api.nvim_win_get_buf(winnr)
-          if string.len(api.nvim_buf_get_name(bufnr)) ~= 0 and api.nvim_buf_get_option(bufnr, 'buflisted') then
-            api.nvim_set_current_win(winnr)
-            print('xxxxxxxxxxxxxxxxx')
+      local last_win_buf = vim.g.last_win_buf
+      if api.nvim_buf_get_option(arg.buf, 'filetype') == 'NvimTree' then
+        if last_win_buf and vim.tbl_contains(includes, last_win_buf.filetype) then
+          local winnrs = api.nvim_list_wins()
+          for _, winnr in ipairs(winnrs) do
+            local bufnr = api.nvim_win_get_buf(winnr)
+            if string.len(api.nvim_buf_get_name(bufnr)) ~= 0 and api.nvim_buf_get_option(bufnr, 'buflisted') then
+              api.nvim_set_current_win(winnr)
+            end
           end
         end
+      else
+        vim.g.last_win_buf = nil
       end
-      vim.g.skip_nvimtree = nil
     end
   })
-  api.nvim_create_autocmd('WinLeave',
-  {
+
+  vim.api.nvim_create_autocmd('WinLeave', {
     pattern = '*',
     callback = function(arg)
-      vim.g.skip_nvimtree = true
+      vim.g.last_win_buf = {
+        bufnr = arg.buf,
+        filetype = vim.bo.filetype,
+      }
     end
   })
 end

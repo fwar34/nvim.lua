@@ -93,13 +93,6 @@ function futil.find_previous_brace_in_first_column()
   print('not found { in first column!')
 end
 
-function futil.unmap(maps)
-  for _, v in ipairs(maps) do
-    cmd [[ unmap .. v ]]
-    print("yyyyy")
-  end
-end
-
 function futil.delete_buffers(exclude_current)
   local buffers = api.nvim_list_bufs()
   local current = api.nvim_get_current_buf()
@@ -222,7 +215,8 @@ local function dump_win_bufs()
   local winnrs = vim.api.nvim_list_wins()
   for _, winnr in ipairs(winnrs) do
     local bufnr = vim.api.nvim_win_get_buf(winnr)
-    vim.pretty_print('bufnr num:' .. bufnr ..
+    vim.pretty_print('winnr num:' .. winnr ..
+    ' bufnr num:' .. bufnr ..
     ' name:' .. api.nvim_buf_get_name(bufnr) ..
     ' is load:' .. (api.nvim_buf_is_loaded(bufnr) and 1 or 0) ..
     ' buflisted:' .. (api.nvim_buf_get_option(bufnr, 'buflisted') and 1 or 0) ..
