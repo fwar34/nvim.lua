@@ -84,13 +84,13 @@ local function map_find_q_quit()
   })
 end
 
-local function quit_code_runner()
-  api.nvim_create_autocmd('TermOpen', {
+local function map_quit_code_runner()
+  api.nvim_create_autocmd('WinEnter', {
     pattern = '*',
-    callback = function()
-      if api.nvim_buf_get_name(0) == 'crunner_test' then
-        print('xxxxxxxxxxxxxxx')
-        vim.keymap.set('n', 'q', '<CMD>q<CR>', { noremap = true, silent = true })
+    callback = function(arg)
+      -- vim.pretty_print(arg)
+      if string.match(arg.file, 'crunner_') and not api.nvim_buf_get_option(arg.buf, 'buflisted') then
+        vim.keymap.set('n', 'q', ':q<CR>', { noremap = true, silent = true, buffer = true })
       end
     end
   })
@@ -115,13 +115,15 @@ local function highlight_yank()
 end
 
 local function skip_nvimtree()
-  local includes = { 'qf', 'fugitive', 'help', }
+  local includes = { 'qf', 'fugitive', 'help', 'noice' }
+
   api.nvim_create_autocmd('WinEnter', {
     pattern = '*',
     callback = function(arg)
       local last_win_buf = vim.g.last_win_buf
-      if api.nvim_buf_get_option(arg.buf, 'filetype') == 'NvimTree' then
-        if last_win_buf and vim.tbl_contains(includes, last_win_buf.filetype) then
+      if api.nvim_buf_get_option(arg.buf, 'filetype') == 'NvimTree' and last_win_buf then
+        if vim.tbl_contains(includes, last_win_buf.filetype) or
+          (last_win_buf.file and string.match(last_win_buf.file, 'crunner_') and last_win_buf.filetype == '') then
           local winnrs = api.nvim_list_wins()
           for _, winnr in ipairs(winnrs) do
             local bufnr = api.nvim_win_get_buf(winnr)
@@ -130,9 +132,8 @@ local function skip_nvimtree()
             end
           end
         end
-      else
-        vim.g.last_win_buf = nil
       end
+      vim.g.last_win_buf = nil
     end
   })
 
@@ -141,6 +142,7 @@ local function skip_nvimtree()
     callback = function(arg)
       vim.g.last_win_buf = {
         bufnr = arg.buf,
+        file = arg.file,
         filetype = vim.bo.filetype,
       }
     end
@@ -157,7 +159,7 @@ function autocmd.setup()
   map_fugitiv_q_2_quit()
   highlight_yank()
   -- golang_autocmd()
-  quit_code_runner()
+  map_quit_code_runner()
   skip_nvimtree()
 end
 
