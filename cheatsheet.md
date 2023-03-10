@@ -31,7 +31,7 @@ lua vim.api.nvim_call_function('ExecuteFile', {})
 |clear|取消所有 :map 绑定的 {lhs}，慎用|:mapclear| 
 
 > 1. 修改 SPC fn
-> 2. 从别的窗口退出的时候判断是 nvim-tree，并且不只一个窗口的时候跳到别的窗口
+> 2. 从别的窗口退出的时候判断是 nvim-tree，并且不只一个窗口的时候跳到别的窗口 -- DONE
 > 3. 测试 noice cmdheight 改变
 > 4. cmp 补全失效重启
 > 5. 给 sessionmgr 创建选择 picker
@@ -39,3 +39,4 @@ lua vim.api.nvim_call_function('ExecuteFile', {})
 > 7. neovide 禁用 noice 只使用 notify
 > 8. SPC ss 判断当前激活才去保存
 > 9. 找到函数参数提示的插件，取消参数的文档提示，只保留 lsp 的提示
+> 10. code_runner 设置 q 退出
