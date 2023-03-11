@@ -17,4 +17,14 @@ function M.find_root_dir()
   end
 end
 
+-- 使用 finddir
+function M.find_root_dir2()
+  local names = { '.svn', '.git', '.root', '.bzr', '_darcs', 'build.xml', 'pom.xml' }
+  for _, name in ipairs(names) do
+    if vim.fn.finddir(name, '.;') then
+      return vim.fn.fnamemodify(name, ':h')
+    end
+  end
+end
+
 return M

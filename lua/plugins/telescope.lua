@@ -48,12 +48,56 @@ return {
           return true
         end
       end
+
+      -- https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#pickers
+      local telescopeConfig = require("telescope.config")
+      -- Clone the default Telescope configuration
+      local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
+
+      -- I want to search in hidden/dot files.
+      table.insert(vimgrep_arguments, "--hidden")
+      -- I don't want to search in the `.git` directory.
+      table.insert(vimgrep_arguments, "--glob")
+      table.insert(vimgrep_arguments, "!**/.git/*")
+      table.insert(vimgrep_arguments, "--glob")
+      table.insert(vimgrep_arguments, "!**/debian/*")
+      table.insert(vimgrep_arguments, "--glob")
+      table.insert(vimgrep_arguments, "!**/.svn/*")
+      table.insert(vimgrep_arguments, "--iglob")
+      table.insert(vimgrep_arguments, "!**/makefile")
+      table.insert(vimgrep_arguments, "--iglob")
+      table.insert(vimgrep_arguments, "!**/*.log")
+      table.insert(vimgrep_arguments, "--iglob")
+      table.insert(vimgrep_arguments, "!**/tags")
+      table.insert(vimgrep_arguments, "--glob")
+      table.insert(vimgrep_arguments, "!**/INSTALL")
+      table.insert(vimgrep_arguments, "--iglob")
+      table.insert(vimgrep_arguments, "!**/*.lo")
+      table.insert(vimgrep_arguments, "--iglob")
+      table.insert(vimgrep_arguments, "!**/*.makefile")
+      table.insert(vimgrep_arguments, "--iglob")
+      table.insert(vimgrep_arguments, "!**/*.tag")
+      table.insert(vimgrep_arguments, "--glob")
+      table.insert(vimgrep_arguments, "!**/doxygen-doc/*")
+      table.insert(vimgrep_arguments, "--glob")
+      table.insert(vimgrep_arguments, "!**/*.vcxproj")
+      table.insert(vimgrep_arguments, "--glob")
+      table.insert(vimgrep_arguments, "!**/*.vcxproj.filters")
+      table.insert(vimgrep_arguments, "--iglob")
+      table.insert(vimgrep_arguments, "!**/makefile.am")
+      table.insert(vimgrep_arguments, "--iglob")
+      table.insert(vimgrep_arguments, "!**/makefile.in")
+      table.insert(vimgrep_arguments, "--iglob")
+      table.insert(vimgrep_arguments, "!**/libtool")
+
       -- You dont need to set any of these options. These are the default ones. Only
       -- the loading is important
       require('telescope').setup {
         defaults = {
           -- Default configuration for telescope goes here:
           -- config_key = value,
+          -- `hidden = true` is not supported in text grep commands.
+          vimgrep_arguments = vimgrep_arguments,
           mappings = {
             i = {
               -- map actions.which_key to <C-h> (default: <C-/>)
@@ -73,17 +117,18 @@ return {
           -- layout_config = { height = 0.95 },
           color_devicons = use_devicons(),
         },
-        vimgrep_arguments = {
-          "rg",
-          "--color=never",
-          "--no-heading",
-          "--with-filename",
-          "--line-number",
-          "--column",
-          "--smart-case",
-          "--hidden",
-        },
-        file_ignore_patterns = {},
+        -- vimgrep_arguments = {
+        --   "rg",
+        --   "--color=never",
+        --   "--no-heading",
+        --   "--with-filename",
+        --   "--line-number",
+        --   "--column",
+        --   "--smart-case",
+        --   "--trim",
+        --   -- "--hidden",
+        -- },
+        -- file_ignore_patterns = {},
         -- pickers = {
         --   find_files = {
         --     -- find_command = { "fd", "--type=file", "--hidden", "--smart-case" },

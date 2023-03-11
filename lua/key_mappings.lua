@@ -64,22 +64,20 @@ end
 local function rg_options()
   -- return { "--glob !tags", "--glob !nvim/snippets/**", }
   return {
-    -- "--encoding auto",
-    "--iglob", "!tags",
-    "--iglob", "!*.lo",
-    "--iglob", "!*.makefile",
-    "--iglob", "!*.html",
-    "--iglob", "!*.svn/*",
-    "--glob", "!*.git/*",
-    "--iglob", "!*.tag",
-    "--iglob", "!*.tags",
-    "--glob", "!**/doxygen-doc/**",
-    "--glob", "!*.vcxproj",
-    "--glob", "!*.vcxproj.filters",
-    "--iglob", "!makefile",
-    "--iglob", "!makefile.am",
-    "--iglob", "!makefile.in",
-    "--glob", "!**/debian/**",
+    -- "--iglob", "!**/tags",
+    -- "--iglob", "!**/*.lo",
+    -- "--iglob", "!**/*.makefile",
+    -- "--iglob", "!**/*.html",
+    -- "--iglob", "!**/.svn/*",
+    -- "--glob", "!**/.git/*",
+    -- "--iglob", "!**/*.tag",
+    -- "--glob", "!**/doxygen-doc/*",
+    -- "--glob", "!**/*.vcxproj",
+    -- "--glob", "!**/*.vcxproj.filters",
+    -- "--iglob", "!**/makefile",
+    -- "--iglob", "!**/makefile.am",
+    -- "--iglob", "!**/makefile.in",
+    -- "--glob", "!**/debian/*",
   }
 end
 
