@@ -329,7 +329,9 @@ function key_mappings:start()
     },
     ['n|<Leader>fa'] = {
       function()
-        require('telescope').extensions.live_grep_args.live_grep_args({
+        require('telescope').extensions.live_grep_args.live_grep_args(
+        require('telescope.themes').get_ivy({}),
+        {
           additional_args = rg_options,
           cwd = require('find_root_dir').find_root_dir()
         })
