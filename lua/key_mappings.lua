@@ -64,6 +64,7 @@ end
 local function rg_options()
   -- return { "--glob !tags", "--glob !nvim/snippets/**", }
   return {
+    -- "--encoding auto",
     "--iglob", "!tags",
     "--iglob", "!*.lo",
     "--iglob", "!*.makefile",
@@ -72,13 +73,13 @@ local function rg_options()
     "--glob", "!*.git/*",
     "--iglob", "!*.tag",
     "--iglob", "!*.tags",
-    "--glob", "!*doxygen-doc/*",
+    "--glob", "!**/doxygen-doc/**",
     "--glob", "!*.vcxproj",
     "--glob", "!*.vcxproj.filters",
     "--iglob", "!makefile",
     "--iglob", "!makefile.am",
     "--iglob", "!makefile.in",
-    "--glob", "!debian/*",
+    "--glob", "!**/debian/**",
   }
 end
 
@@ -126,7 +127,7 @@ function key_mappings:start()
     ['n|<Leader>xx'] = '<CMD>nohl<CR><CMD>Hi //<CR><CMD>Hi :clear<CR>',
     ['n|<Leader><TAB>'] = '<C-w><C-w>',
     -- ['n|<Leader>do'] = { '<CMD>on<CR>', desc = 'delete other windows' },
-    ['n|<Leader>do'] = { function() require('futil').delete_other_window({'NvimTree'}, {'qf'}) end, desc = 'delete other windows' },
+    ['n|<Leader>do'] = { function() require('futil').delete_other_window({ 'NvimTree' }, { 'qf' }) end, desc = 'delete other windows' },
     ['n|<Leader>dm'] = '<CMD>delmarks!<CR>',
     ['n|<Leader>kb'] = { function() api.nvim_buf_delete(0, {}) end, desc = 'delete buffer' },
     ['n|<Space><Space>'] = function() vim.api.nvim_input(':') end,
@@ -321,13 +322,17 @@ function key_mappings:start()
     ['n|<Leader>sh'] = '<CMD>Telescope search_history<CR>',
     ['n|<Leader>fr'] = {
       function()
-        require('telescope.builtin').live_grep({ additional_args = rg_options })
+        require('telescope.builtin').live_grep({ additional_args = rg_options,
+          cwd = require('find_root_dir').find_root_dir() })
       end,
       desc = 'telescope live_grep'
     },
     ['n|<Leader>fa'] = {
       function()
-        require('telescope').extensions.live_grep_args.live_grep_args({ additional_args = rg_options })
+        require('telescope').extensions.live_grep_args.live_grep_args({
+          additional_args = rg_options,
+          cwd = require('find_root_dir').find_root_dir()
+        })
       end,
       desc = 'telescope live_grep with options'
     },
@@ -359,11 +364,23 @@ function key_mappings:start()
     ['n|<Leader>fh'] = { function() require('telescope.builtin').find_files({ cwd = '~' }) end,
       desc = 'find_files in home directory' },
     ['n|<Leader>fw'] = {
-      function() require('telescope.builtin').grep_string({ additional_args = rg_options }) end,
+      function()
+        require('telescope.builtin').grep_string({
+        -- require('telescope').extensions.live_grep_args.live_grep_args({
+          additional_args = rg_options,
+          cwd = require("find_root_dir").find_root_dir()
+        })
+      end,
       desc = 'find word under cursor'
     },
     ['n|<Leader>fs'] = {
-      function() require('telescope.builtin').grep_string({ search = search_word2() }) end,
+      function()
+        require('telescope.builtin').grep_string({
+        -- require('telescope').extensions.live_grep_args.live_grep_args({
+          search = search_word2(),
+          cwd = require('find_root_dir').find_root_dir()
+        })
+      end,
       desc = 'find string from cursor to word end'
     },
     -- ['n|<Leader>fp'] = "<CMD>lua require'telescope'.extensions.project.project{}<CR>",

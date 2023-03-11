@@ -226,4 +226,11 @@ local function dump_win_bufs()
 end
 api.nvim_create_user_command('DumpWins', dump_win_bufs, {})
 
+local function dump_parents_dir()
+  for dir in vim.fs.parents(vim.api.nvim_buf_get_name(0)) do
+    print(dir)
+  end
+end
+api.nvim_create_user_command('DumpParents', dump_parents_dir, {})
+
 return futil
