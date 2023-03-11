@@ -84,20 +84,20 @@ return {
           "--hidden",
         },
         file_ignore_patterns = {},
-        pickers = {
-          find_files = {
-            -- find_command = { "fd", "--type=file", "--hidden", "--smart-case" },
-            theme = 'ivy',
-          },
-          live_grep = {
-            --@usage don't include the filename in the search results
-            -- only_sort_text = true,
-            theme = 'ivy',
-          },
-          grep_string = {
-            theme = 'ivy'
-          }
-        },
+        -- pickers = {
+        --   find_files = {
+        --     -- find_command = { "fd", "--type=file", "--hidden", "--smart-case" },
+        --     theme = 'ivy',
+        --   },
+        --   live_grep = {
+        --     --@usage don't include the filename in the search results
+        --     -- only_sort_text = true,
+        --     theme = 'ivy',
+        --   },
+        --   grep_string = {
+        --     theme = 'ivy'
+        --   }
+        -- },
         extensions = {
           -- fzf = {
           --     fuzzy = true,                    -- false will only do exact matching
