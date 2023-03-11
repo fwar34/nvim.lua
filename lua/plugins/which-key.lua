@@ -18,12 +18,21 @@ return {
       wk.register({
         ['<leader>lz'] = { '<CMD>Lazy<CR>', 'Lazy' },
         ['<leader>tz'] = { '<CMD>Telescope lazy<CR>', 'Telescope lazy' },
-        ['<leader>tm'] = { function()
-          vim.g.cwd = vim.fn.getcwd()
-          cmd('ToggleTerm')
-        end, 'ToggleTerm' },
+        ['<leader>tm'] = {
+          function()
+            if string.len(vim.api.nvim_buf_get_name(0)) ~= 0 then
+              vim.g.cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
+            else
+              vim.g.cwd = vim.fn.cwd()
+            end
+
+            cmd('ToggleTerm')
+          end, 'ToggleTerm' },
         ['<leader>t'] = { m = { '<CMD>ToggleTerm<CR>', 'ToggleTerm', mode = 't' } },
-        ['<C-j>'] = { function() vim.api.nvim_input('cd ' .. vim.g.cwd .. '<CR>') end,
+        ['<C-j>'] = {
+          function()
+            vim.api.nvim_input('cd ' .. vim.g.cwd .. '<CR>')
+          end,
           'jump to directory of buffer', mode = 't' },
         ['<leader>rc'] = { '<CMD>RunCode<CR>', 'code_runner.nvim' },
         ['<leader>mt'] = { function()
