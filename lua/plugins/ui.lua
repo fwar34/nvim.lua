@@ -9,6 +9,7 @@ return {
   },
   {
     'folke/noice.nvim',
+    priority = 900,
     enabled = not vim.g.neovide,
     -- enabled = false,
     dependencies = {
@@ -39,7 +40,7 @@ return {
       views = {
         cmdline_popup = {
           position = {
-            row = 15,
+            row = 11,
             col = "50%",
           },
           size = {
@@ -50,7 +51,7 @@ return {
         popupmenu = {
           relative = "editor",
           position = {
-            row = 18,
+            row = 14,
             col = "50%",
           },
           size = {
