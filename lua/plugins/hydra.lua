@@ -7,6 +7,13 @@ return {
       Hydra({
         name = 'Side scroll',
         mode = 'n',
+        config = {
+          {
+            hint = {
+              type = 'window'
+            }
+          }
+        },
         body = 'z',
         heads = {
           { 'h', '5zh' },
@@ -115,6 +122,9 @@ return {
       local buffer_hydra = Hydra({
         name = 'Barbar',
         config = {
+          hint = {
+            type = 'window',
+          },
           on_key = function()
             -- Preserve animation
             vim.wait(200, function() cmd 'redraw' end, 30, false)
@@ -153,6 +163,7 @@ return {
           color = 'amaranth',
           invoke_on_body = true,
           hint = {
+            type = 'window',
             border = 'rounded',
             position = 'bottom'
           },
@@ -160,13 +171,17 @@ return {
         mode = { 'n', 'x' },
         body = '<leader>so',
         heads = {
-          { 't',     function() cmd('Hi+') end,      { desc = 'HiSet' } },
-          { 'e',     function() cmd('Hi-') end,      { desc = 'HiErase' } },
-          { 'n',     function() cmd('Hi>') end,      { desc = 'Next' } },
-          { 'p',     function() cmd('Hi<') end,      { desc = 'Previous' } },
-          { ']',     function() cmd('Hi}') end,      { desc = 'Next' } },
-          { '[',     function() cmd('Hi{') end,      { desc = 'Previous' } },
-          { 's',     function() cmd('Hi save') end,  { desc = 'Save', exit = true } },
+          { 't', function() cmd('Hi+') end, { desc = 'HiSet' } },
+          { 'e', function() cmd('Hi-') end, { desc = 'HiErase' } },
+          { 'n', function() cmd('Hi>') end, { desc = 'Next' } },
+          { 'p', function() cmd('Hi<') end, { desc = 'Previous' } },
+          { ']', function() cmd('Hi}') end, { desc = 'Next' } },
+          { '[', function() cmd('Hi{') end, { desc = 'Previous' } },
+          { 's', function()
+            if vim.w.HiJump then
+              cmd('Hi save')
+            end
+          end, { desc = 'Save', exit = true } },
           { 'l',     function() cmd('Hi load') end,  { desc = 'Load', exit = true } },
           { 'c',     function() cmd('Hi clear') end, { desc = 'Clear all', exit = true } },
           { 'q',     nil,                            { exit = true, desc = false } },

@@ -53,8 +53,12 @@ return {
           end
         end, 'markdown preview toggle' },
         ['<leader>s'] = {
-          s = { '<CMD>Hi save save.hl<CR>', 'Hi save save.hl' },
-          l = { '<CMD>Hi load save.hl<CR>', 'Hi load save.hl' },
+          s = { function ()
+            if vim.w.HiJump then
+              vim.cmd('Hi save')
+            end
+          end, 'Hi save' },
+          l = { '<CMD>Hi load<CR>', 'Hi load' },
         },
         ['<F10>'] = {
           function()
