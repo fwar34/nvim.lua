@@ -182,6 +182,7 @@ DefData(BreakoutRoomUserInfo);
     GROUP_ITEM(OP, vector<BreakoutRoomUserInfo>, userInfos);
 DefData(BreakoutRoomInfo);
 
+// 发送给 cdts
 #define DATA_CONTENT_AUDIO_BREAKOUT_ROOM_STATE_TO_CDTS(OP)              \
     GROUP_ITEM(OP, ConfID, confID);                                     \
     /* 打开：1，关闭：0 */                                              \

@@ -79,6 +79,8 @@ return {
       table.insert(vimgrep_arguments, "!*.makefile")
       table.insert(vimgrep_arguments, "--iglob")
       table.insert(vimgrep_arguments, "!*.tag")
+      table.insert(vimgrep_arguments, "--iglob")
+      table.insert(vimgrep_arguments, "!*.tags")
       table.insert(vimgrep_arguments, "--glob")
       table.insert(vimgrep_arguments, "!**/doxygen-doc/*")
       table.insert(vimgrep_arguments, "--glob")

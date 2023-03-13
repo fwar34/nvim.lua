@@ -44,3 +44,4 @@ lua vim.api.nvim_call_function('ExecuteFile', {})
 > 10. code_runner 设置 q 退出
 > 11. 改进 ;fw ;fa 才项目根目录开始搜索
 > 12. repeat 命令
+> 13. 修改 noice 位置到下面

@@ -113,7 +113,8 @@ local find_files_args = {
   "--iglob", "!*.sln",
   "--iglob", "!*.vcproj",
   "--iglob", "!*.tags",
-  "--iglob", "!debian/tmp/",
+  "--iglob", "!**/doxygen-doc/*",
+  "--iglob", "!**/debian/*",
 }
 
 function key_mappings:start()
