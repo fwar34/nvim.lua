@@ -11,9 +11,9 @@ return {
   },
   -- Lsp
   { 'neovim/nvim-lspconfig' },
-  {
-    'lukas-reineke/cmp-rg'
-  },
+  -- {
+  --   'lukas-reineke/cmp-rg'
+  -- },
   {
     'quangnguyen30192/cmp-nvim-tags',
     -- if you want the sources is available for some file types
@@ -178,11 +178,11 @@ return {
             { name = 'buffer' },
             { name = 'tags' },
             { name = 'orgmode' },
-            {
-              name = "rg",
-              -- Try it when you feel cmp performance is poor
-              -- keyword_length = 3
-            },
+            -- {
+            --   name = "rg",
+            --   -- Try it when you feel cmp performance is poor
+            --   -- keyword_length = 3
+            -- },
           }
         )
       })
