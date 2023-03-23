@@ -119,7 +119,7 @@ local find_files_args = {
 
 function key_mappings:start()
   self.normal = {
-    ['n|<Leader>ww'] = '<CMD>w<CR>',
+    ['n|<Leader>zz'] = '<CMD>w<CR>',
     ['n|<Leader>fd'] = '<CMD>echo expand("%:p")<CR>',
     ['n|<Leader>a'] = { '^', desc = 'first no blank column' },
     ['n|<Leader>e'] = { '$', desc = 'end of line' },
@@ -208,7 +208,7 @@ function key_mappings:start()
     ['i|<Leader>g'] = '<C-c>',
     ['i|<Leader>O'] = '<C-o>O',
     ['i|<Leader>o'] = '<C-o>o',
-    ['i|<Leader>ww'] = '<Esc><CMD>w<CR>a',
+    ['i|<Leader>zz'] = '<Esc><CMD>w<CR>a',
     -- ['i|<C-b>'] = '<Left>',
     -- ['i|<C-f>'] = '<Right>',
     ['i|<C-b>'] = function() move_cursor('left') end,
