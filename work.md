@@ -264,8 +264,6 @@ DefData(UserAudioSubscribeInfoMixer);
 DefAudioCommand(AUDIO_BREAKOUT_SUBSCRIBE_BREAKOUT_ROOMS_TO_MIXER)
 ```
 
-+ audioserver 还少一组获取分组音频信息的信令
-
 ## cdts
 
 + 切换
@@ -273,18 +271,16 @@ cdts 切换的时候需要从 redis 加载用户分组列表（或者从 audiose
 
 ## 注意
 
-+ 用户的分组信息和用户的音频订阅信息需要分开存储
-+ 用户的分组信息 bms 来存储，用户的音频订阅信息 audioserver 来存储
++ 用户的分组信息和用户的音频订阅信息需要分开存储 DONE
++ 用户的分组信息 bms 来存储，用户的音频订阅信息 audioserver 来存储 DONE
 + 用户的分组信息需要独立存储而且不能删除（因为主持人再次开启分组的时候需要编辑老的列表）
 + 800 用户需要跟随主持人进去的分组，需要客户端使用 `AUDIO_USER_SUBSCRIBE_IN_BREAKOUT_ROOM` 来控制
 + 老的 mixer join 使用新的接口发给 mixer，信令中只有一个分组，分组中包含了所有的需要混音的用户
 + 关闭分组的时候需要重新通知给 mixer 当前的分组信息
 + 用户的 audioState 和 用户在每个分组的 privilege 共同决定了用户在此分组的传输权限
-+ 静音接口的 mode 添加两个模式：组内全体静音和解除静音，此两种模式下 groupID 赋值 roomID
++ 静音接口的 mode 添加两个模式：组内全体静音和解除静音，此两种模式下 groupID 赋值 roomID, 0x4000取消组静音 0xC000静音组
 + 用户解除静音或者打开音频的时候判断当前分组上行人数，达到限制的话就静音，否则打开
 + 用户非静音加入一个分组的话客户端去判断目标分组当前上行人数，达到限制的话就静音，否则继续非静音
-
-+ 后入会的用户获取的分组信息中返回的状态如果是等待关闭的情况下客户端就不能再加入分组
 
 ## 问题
 
