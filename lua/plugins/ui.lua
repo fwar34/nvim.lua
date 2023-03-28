@@ -10,8 +10,8 @@ return {
   {
     'folke/noice.nvim',
     priority = 900,
-    enabled = not vim.g.neovide,
-    -- enabled = false,
+    -- enabled = not vim.g.neovide,
+    enabled = false,  -- 好像导致大文件补全卡顿，先停用，再观察
     dependencies = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       'MunifTanjim/nui.nvim',
