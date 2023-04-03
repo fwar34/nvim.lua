@@ -25,6 +25,8 @@ if exists(':GuiFont')
         Guifont! Iosevka\ Curly\ Slab:h18
     elseif hostname() == "ubuntu-awesome"
         Guifont! JetBrainsMono\ Nerd\ Font:h16
+    elseif hostname() == "DESKTOP-VJNEKGA"
+        Guifont! Iosevka\ Curly\ Slab:h28
     elseif hostname() == "archlinux-dell"
         if $XDG_SESSION_TYPE == 'x11'
             Guifont! Sarasa\ Mono\ SC\ Nerd:h14
