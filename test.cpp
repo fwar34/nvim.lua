@@ -669,6 +669,32 @@ void test_join()
     cout << "join: " << reply->str << endl;
 }
 
+void test_json_cpp()
+{
+    string json = "{\
+        \"name\": \"Xiaoming\",\
+        \"age\": 20,\
+        \"extend\" : {\
+            \"members\": [{\"type\": 3}, {\"type\": 4}],\
+            \"date\": \"2023\",\
+        },\
+    }";
+
+    Json::Reader reader;
+    Json::Value root;
+    reader.parse(json, root);
+    cout << root.type() << endl;
+    cout << root["extend"].type() << endl;
+    cout << root["extend"].empty() << endl;
+    cout << root["extend"]["members"].size() << endl;
+    cout << root["extend"]["members"][0] << endl;
+    cout << root["extend"] << endl;
+    ostringstream oss;
+    oss << root["extend"];
+    string str = oss.str();
+    cout << str << endl;
+}
+
 int main()
 {
     g_ctx = GetConnection("127.0.0.1", 6379);
@@ -689,6 +715,9 @@ int main()
 
     getchar();
     test_join_json();
+
+    std::cout << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n";
+    test_json_cpp();
 
     return 0;
 }
