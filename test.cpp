@@ -693,6 +693,9 @@ void test_json_cpp()
     oss << root["extend"];
     string str = oss.str();
     cout << str << endl;
+    for (auto& e : root.getMemberNames()) {
+        cout << e << endl;
+    }
 }
 
 int main()
