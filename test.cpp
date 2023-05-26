@@ -696,6 +696,10 @@ void test_json_cpp()
     for (auto& e : root.getMemberNames()) {
         cout << e << endl;
     }
+    cout << "yyyyyyyyyyyyyyyyyyyyyy" << endl;
+    Json::StreamWriterBuilder builder;
+    string extend = Json::writeString(builder, root["extend"]);
+    cout << extend;
 }
 
 int main()

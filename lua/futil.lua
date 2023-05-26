@@ -133,6 +133,7 @@ function futil.dump_all_buffers()
     total_len = total_len + 1
   end
   vim.notify(string.format('total buffers len(%u) listed buffers len(%u)', total_len, listed_len))
+  vim.notify(string.format('current buffer(%s)', api.nvim_buf_get_name(api.nvim_get_current_buf())))
 end
 
 function futil.is_filetype_buffer_listed(filetype)
