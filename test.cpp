@@ -699,7 +699,12 @@ void test_json_cpp()
     cout << "yyyyyyyyyyyyyyyyyyyyyy" << endl;
     Json::StreamWriterBuilder builder;
     string extend = Json::writeString(builder, root["extend"]);
-    cout << extend;
+    cout << extend << endl;
+    Json::Value test;
+    test["a"]["b"] = root["extend"];
+    Json::FastWriter writer;
+    string test_extend = writer.write(test);
+    cout << test_extend << endl;
 }
 
 int main()
