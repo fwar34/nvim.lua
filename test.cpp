@@ -705,7 +705,51 @@ void test_json_cpp()
     Json::FastWriter writer;
     string test_extend = writer.write(test);
     cout << test_extend << endl;
+    test["v"] = "3";
+    cout << std::stoul(test["v"].asString()) << endl;
+    test["vv"] = stoi(test["v"].asString());
+    cout << std::stoul(test["vv"].asString()) << endl;
 }
+
+void test_write()
+{
+    Json::Value root;
+    Json::Value root2;
+    Json::FastWriter writer;
+    Json::Value person;
+    person["name"] = "hello world1";
+    person["age"] = 100;
+    root.append(person);
+    root2["user_list"].append(person);
+    person["name"] = "hello world2";
+    person["age"] = 200;
+    root.append(person);
+    root2["user_list"].append(person);
+    string data= writer.write(root);
+    cout<<data<<endl;
+    cout<<root.toStyledString()<<endl;
+
+    string data2= writer.write(root2);
+    cout<<data2<<endl;
+    cout<<root2.toStyledString()<<endl;
+
+    string json = "{\
+        \"name\": \"Xiaoming\",\
+        \"age\": 20,\
+        \"online\": true,\
+        \"extend\" : {\
+            \"members\": [{\"type\": 3}, {\"type\": 4}],\
+            \"date\": \"2023\",\
+        },\
+    }";
+
+    Json::Reader reader;
+    Json::Value root3;
+    reader.parse(json, root3);
+    bool online = root3["online"].asBool();
+    cout << "online: " << online << endl;
+    cout << root3["online"].empty() << endl;
+} 
 
 int main()
 {
@@ -730,6 +774,8 @@ int main()
 
     std::cout << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n";
     test_json_cpp();
+
+    test_write();
 
     return 0;
 }
