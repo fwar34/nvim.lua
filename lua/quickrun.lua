@@ -1,5 +1,6 @@
 local M = {}
 local cmd = vim.cmd
+local global = require('global')
 
 local function find_go_mod()
   local output = vim.fn.execute('!ls')
@@ -22,7 +23,11 @@ function M.run()
       end
     end,
     cpp = function()
-      cmd [[AsyncRun g++ -std=c++11 -lpthread % && ./a.out]]
+      if global.is_windows then
+        cmd [[AsyncRun g++ -std=c++11 -lpthread % && ./a.exe]]
+      else
+        cmd [[AsyncRun g++ -std=c++11 -lpthread % && ./a.out]]
+      end
     end,
     lua = function()
       cmd [[AsyncRun lua %]]
