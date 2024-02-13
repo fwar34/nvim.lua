@@ -1,4 +1,4 @@
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 require 'lspconfig'.cssmodules_ls.setup {
     capabilities = capabilities,
     on_attach = require 'lsp.common'.custom_lsp_attach,
