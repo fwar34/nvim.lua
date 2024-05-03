@@ -6,6 +6,7 @@ vim.cmd [[packadd packer.nvim]]
 -- Only if your version of Neovim doesn't have https://github.com/neovim/neovim/pull/12632 merged
 -- vim._update_package_paths()
 
+local global = require('global')
 return require('packer').startup(function()
     -- Packer can manage itself as an optional plugin
     use { 'wbthomason/packer.nvim', opt = true, }
@@ -135,7 +136,8 @@ return require('packer').startup(function()
         require('nvim-treesitter.configs').setup {
             ensure_installed = {
                 'bash', 'c', 'cpp', 'lua', 'css', 'html', 'javascript', 'json', 'julia', 'go',
-                'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure'
+                -- 'ocaml', 'ocaml_interface', 'python', 'rust', 'toml', 'typescript', 'clojure'
+                'python', 'rust', 'toml', 'typescript', 'clojure'
             },     -- one of "all", "language", or a list of languages
             highlight = {
                 enable = true,              -- false will disable the whole extension
@@ -410,8 +412,8 @@ return require('packer').startup(function()
     -- pip3 install --user pynvim
     use {'Shougo/defx.nvim', run = ':UpdateRemotePlugins'}
     use {
-        'kyazdani42/nvim-tree.lua',
-        tag = 'nightly', -- optional, updated every week. (see issue #1193)
+        'nvim-tree/nvim-tree.lua',
+        -- tag = 'nightly', -- optional, updated every week. (see issue #1193)
         config = function()
             -- require("nvim-tree").setup()
             require("nvim-tree").setup({
@@ -574,17 +576,20 @@ return require('packer').startup(function()
         end
     }
 
-    use {'junegunn/fzf', run = './install --all', lock = true}
-    use {
-        -- 需要使用最新版的 bat 来预览，可以直接在 release 页面下载
-        'junegunn/fzf.vim', event = 'VimEnter *',
-        config = function()
-            vim.g.fzf_preview_window = { 'up:50%', 'ctrl-/' }
-        end,
-        -- requires = {
-        --     {'junegunn/fzf', run = './install --all', lock = true},
-        -- }
-    }
+    if not global.is_windows then
+        use {'junegunn/fzf', run = './install --all', lock = true}
+        use {
+            -- 需要使用最新版的 bat 来预览，可以直接在 release 页面下载
+            'junegunn/fzf.vim', event = 'VimEnter *',
+            config = function()
+                vim.g.fzf_preview_window = { 'up:50%', 'ctrl-/' }
+            end,
+            -- requires = {
+                --     {'junegunn/fzf', run = './install --all', lock = true},
+                -- }
+            }
+    end
+
 
     -- Profiling
     use {'dstein64/vim-startuptime', cmd = 'StartupTime'}
@@ -1129,11 +1134,13 @@ return require('packer').startup(function()
 
     use {'solarnz/thrift.vim'}
 
-    use { 
-        'ibhagwan/fzf-lua',
-        -- optional for icon support
-        -- requires = { 'kyazdani42/nvim-web-devicons'  }
-    }
+    if not global.is_windows then
+        use { 
+            'ibhagwan/fzf-lua',
+            -- optional for icon support
+            -- requires = { 'kyazdani42/nvim-web-devicons'  }
+        }
+    end
 
     -- A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing.
     use {
