@@ -576,7 +576,7 @@ return require('packer').startup(function()
         end
     }
 
-    if not global.is_windows then
+    -- if not global.is_windows then
         use {'junegunn/fzf', run = './install --all', lock = true}
         use {
             -- 需要使用最新版的 bat 来预览，可以直接在 release 页面下载
@@ -588,7 +588,7 @@ return require('packer').startup(function()
                 --     {'junegunn/fzf', run = './install --all', lock = true},
                 -- }
             }
-    end
+    -- end
 
 
     -- Profiling
@@ -955,6 +955,7 @@ return require('packer').startup(function()
             -- },
             {
                 'nvim-telescope/telescope-fzf-native.nvim', run = 'make',
+                run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
                 config = function ()
                     -- To get fzf loaded and working with telescope, you need to call
                     -- load_extension, somewhere after setup function:
@@ -1134,13 +1135,13 @@ return require('packer').startup(function()
 
     use {'solarnz/thrift.vim'}
 
-    if not global.is_windows then
+    -- if not global.is_windows then
         use { 
             'ibhagwan/fzf-lua',
             -- optional for icon support
             -- requires = { 'kyazdani42/nvim-web-devicons'  }
         }
-    end
+    -- end
 
     -- A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing.
     use {
