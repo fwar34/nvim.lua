@@ -173,6 +173,13 @@ function key_mappings:start()
         -- ['n|[]'] = {'k$][%?}<CR>'},
         -- ['n|<Leader>cs'] = '<CMD>lua require("mylib").
         ['n|<Leader>se'] = '<CMD>e ~/.config/nvim/lua/plugins.lua<CR>',
+        ['n|<Leader>se'] = function()
+            if require('global').is_windows then
+                vim.api.nvim_input(':e ~/AppData/Local/nvim/lua/plugins.lua<CR>')
+            else
+                vim.api.nvim_input(':e ~/.config/nvim/lua/plugins.lua<CR>')
+            end
+        end
     }
 
     self.visual = {
