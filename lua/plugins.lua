@@ -418,16 +418,16 @@ return require('packer').startup(function()
             -- require("nvim-tree").setup()
             require("nvim-tree").setup({
                 sort_by = "case_sensitive",
-                view = {
-                    adaptive_size = true,
-                    mappings = {
-                        list = {
-                            { key = "u", action = "dir_up" },
-                            { key = "h", action = "dir_up" },
-                            { key = "l", action = "cd" },
-                        },
-                    },
-                },
+                -- view = {
+                --     adaptive_size = true,
+                --     mappings = {
+                --         list = {
+                --             { key = "u", action = "dir_up" },
+                --             { key = "h", action = "dir_up" },
+                --             { key = "l", action = "cd" },
+                --         },
+                --     },
+                -- },
                 renderer = {
                     group_empty = true,
                 },
@@ -1090,7 +1090,7 @@ return require('packer').startup(function()
     use {
         -- tabline plugin
         'romgrk/barbar.nvim',
-        requires = {'kyazdani42/nvim-web-devicons'}
+        requires = {'nvim-tree/nvim-web-devicons'}
     }
 
     use {
