@@ -7,7 +7,7 @@ opt.autochdir = true
 vim.opt.mouse = 'a'
 opt.splitright = true
 -- 相对行号
-opt.relativenumber = true
+-- opt.relativenumber = true
 opt.cursorline = true
 -- vim 自身命令行模式智能补全
 opt.wildmenu = true
